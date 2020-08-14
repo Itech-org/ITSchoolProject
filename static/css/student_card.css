@@ -1,0 +1,87 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-Black; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+   }
+@font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+   }
+   
+@font-face {
+    font-family: Montserrat-light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-light.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+   }   
+
+@font-face {
+    font-family: Montserrat-ExtraLight; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-ExtraLight.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.main__student-card-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 100px;
+    flex-wrap: wrap;
+    margin-left: 100px;
+}
+
+.main__student-card-container{
+    display: flex;
+    justify-content: center;
+}
+
+.main__student-card-info-input{
+    width: 290px;
+    height: 40px;
+    background-color: #eef3fa;
+    border: none;
+    box-shadow: 5px 5px 5px 1px rgba(88, 121, 204, .2);
+}
+
+.main__student-card-text{
+    font-family: Montserrat-Regular;
+    font-size: 16px;
+    color: #0D2475;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.main__student-card-box-img{
+    width: 3px;
+    height: 100%;
+}
+
+.main__student-card-button{
+    width: 130px;
+    height: 35px;
+    background-color: #0c216b;
+    border: none;
+    color: white;
+    border-radius: 5%;
+}

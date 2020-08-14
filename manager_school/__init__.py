@@ -1,0 +1,1 @@
+default_app_config = 'manager_school.apps.ManagerSchoolConfig'

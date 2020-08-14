@@ -1,0 +1,11 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+{% for material in materials %}
+<p>{{ material.title }}</p>
+<p>{{ material.description }}</p>
+<p><a href="{{ material.url }}">Скачать</a></p>
+{% endfor %}
+{% endblock %}

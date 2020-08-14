@@ -1,0 +1,43 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+   }
+
+.main__student-process{
+    display: flex;
+    justify-content: space-evenly;
+    width: auto;
+}
+
+.main__student-process-box{
+    background-color: #F1F4FC;
+    width: 280px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.main__student-process-img{
+    width: 182px;
+    height: 182px;
+    margin: 0 auto;
+}
+
+.main__student-process-text{
+    text-align: center;
+    font-family: Montserrat-Regular;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.main__student-process-link{
+    text-decoration: none;
+}
+

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Расписание</title>
+</head>
+<body>
+    <ul>
+        {% for class in class %}
+            <li><a href="{% url 'student:class_view' class_id=class.id %}">{{ class.date }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

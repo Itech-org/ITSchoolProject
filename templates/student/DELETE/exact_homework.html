@@ -1,0 +1,12 @@
+{% extends "student/base_student.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+{% for cls in cls %}
+<p>{{ cls.theme }} | {{ cls.date }}</p>
+{% endfor %}
+{% for hw in homework %}
+<p>{{ hw.title }} | {{ hw.user.first_name }}</p>
+{% endfor %}
+{% endblock %}

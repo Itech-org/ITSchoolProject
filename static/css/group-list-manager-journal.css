@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  @font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Aclonica-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  .thead__wrapper{
+    display: flex;
+    width: 85%;
+    margin-right: 55px;
+    overflow-x: scroll;
+  }
+
+  .thead__wrapper-main{
+    display: flex;
+    margin-left: 50px;
+    margin-top: 80px;
+  }
+  
+table {
+border: 1px solid #CED6F2;
+max-width: 1684px;
+border-collapse: collapse;
+/* margin: 70px 40px 40px 70px; */
+text-align: center;
+} 
+
+th {
+    border: 1px solid #CED6F2;
+}
+
+td {
+    border: 1px solid #CED6F2;
+    padding: 10px 20px;
+    font-family: Montserrat-Regular;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+    color: #283965;
+    background: #F5F7FD;
+    
+
+}
+.thead__td-color{
+    font-family: Montserrat-Bold;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+
+}
+.thead__td-color_light{
+    background: linear-gradient(180deg, #A0B2F1 0%, #0F2162 100%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.thead__td-color_dark{
+    background: linear-gradient(180deg, #6683E6 0%, #0F2162 100%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.td__subtitle{
+    font-size: 22px;
+    background: linear-gradient(180deg, #D2DAF5 0%, #C3C9DF 100%);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.td__subtitle span{
+    font-family: Montserrat-Bold;
+}
+.td__color_dark{
+    height: 70px;
+    background: #F1F4FF;
+}
+
+.link__color-light{
+    color: white;
+}
+
+.link__color-light:hover{
+    color: white;
+    outline: none;
+    text-decoration: none;
+}
+
+.rating{
+    font-size: 30px;
+}

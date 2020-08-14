@@ -1,0 +1,76 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block title %}
+<p class="main-header__page-information">Регистрация пользователя</p>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}">
+<link rel="stylesheet" href="{% static 'css/student_card.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        <div class="main__student-card-info">
+            <div class="main__student-card-container">
+                <div class="main__student-card-info-left-box">
+                    {{ form.non_field_errors }}
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                    <p class="main__student-card-text">
+                        Фамилия
+                    </p>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                    <p class="main__student-card-text">
+                        Имя
+                    </p>
+                    {{ form.surname }}
+                    {{ form.surname.errors }}
+                    <p class="main__student-card-text">
+                        Отчество
+                    </p>
+                </div>
+                <img src="{% static 'images/Rectangle 34.svg' %}" alt="" class="main__student-card-box-img">
+                <div class="main__student-card-info-right-box">
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                    <p class="main__student-card-text">
+                        Логин
+                    </p>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                    <p class="main__student-card-text">
+                        Эл. адрес
+                    </p>
+                    {{ form.phone }}
+                    {{ form.phone.errors }}
+                    <p class="main__student-card-text">
+                        Телефон
+                    </p>
+                </div>
+            </div>
+                {{ form.group_user }}
+                {{ form.group_user.errors }}
+                <p class="main__student-card-text">
+                  Полномочия пользователя
+                </p>
+            <button class="main__student-card-button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main-header-manager.js' %}"></script>
+{% endblock %}
+
+

@@ -1,0 +1,125 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load tags%}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/group-list-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/students-home-work-manger.css' %}"/>
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Группы</p>
+<form class="main-header__form-change-course" action="{% url 'manager_school:add_group' %}" method="get">
+    <div class="add-group__container">
+        <div>
+            <button type="submit" class="students-home-work__but-filter">Добавить группу</button>
+        </div>
+    </div>
+</form>
+<form method="get" class="main-header__form-change-course">
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-change-speciality">
+            <p class="main-header__button-change-speciality m-0">Курс...</p>
+            <div class="main-header__list-speciality no-active">
+                <input type="text" name="course" hidden class="main-header__change-course"/>
+                <p class="main-header__wrapp-for-speciality-link m-0" data-value="">
+                    Все
+                </p>
+                {% for course in courses %}
+                <p class="main-header__wrapp-for-speciality-link m-0" data-value="{{ course.id }}">
+                    {{ course.title }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
+            <p class=" main-header__button-change-status m-0">Преподаватель...</p>
+            <div class="main-header__list-speciality main-header__list-status no-active">
+                <input type="text" name="teacher" hidden class="main-header__change-status"/>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="">
+                    Все
+                </p>
+                {% for teacher in teachers %}
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="{{ teacher.id }}">
+                    {{ teacher.last_name }} {{ teacher.first_name }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
+            <p class=" main-header__button-change-status m-0">Куратор...</p>
+            <div class="main-header__list-manager no-active">
+                <input type="text" hidden class="main-header__change-status"/>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="complite">
+                    Статус 1
+                </p>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="not verified">
+                    Статус 2
+                </p>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="wrong">
+                    Статус 3
+                </p>
+            </div>
+        </div>
+        <div>
+            <button class="students-home-work__but-filter">Фильтровать</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="thead__wrapper">
+        <table>
+            <thead>
+            <tr>
+                <td class="thead__td-color thead__td-color_light">ФИО</td>
+                <td class="thead__td-color thead__td-color_dark">Телефон</td>
+                <td class="thead__td-color thead__td-color_light">Менеджер</td>
+                <td class="thead__td-color thead__td-color_dark">Успеваемость</td>
+                <td class="thead__td-color thead__td-color_light">Куратор</td>
+                <td class="thead__td-color thead__td-color_dark">Преподаватель</td>
+            </tr>
+            </thead>
+            {% for group in groups.qs %}
+            <tr>
+                <td class="td__subtitle" colspan="6"><a
+                        href="{% url 'manager_school:get_group_detail' slug=group.slug %}">{{ group.course.title }}
+                    <span>{{ group.title }}</span></a></td>
+            </tr>
+            {% for student in group.students.all %}
+            <tr>
+                <td>{{ student }}</td>
+                <td class="td__color_dark">{{ student.phone }}</td>
+                <td class="td__color_dark">
+                    {% if student.management %}{% with student.management.manager as manager %}{% if manager %}
+                    {{ manager }}
+                    {% endif %}{% endwith %}{% endif %}
+                </td>
+                <td>{% get_performance student group.id %}%</td>
+                <td>{% if forloop.first %}{{ group.manager.last_name }}
+                    {{ group.manager.first_name }}{% endif %}
+                </td>
+                <td class="td__color_dark">{% if forloop.first %}{{ group.teacher.last_name }}
+                    {{ group.teacher.first_name }}{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main-header-manager.js' %}"></script>
+{% endblock %}
+
+

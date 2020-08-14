@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+Литература
+{% endblock %}
+{% block content %}
+<form class="form-inline my-2 my-lg-0" method="get" action=".">
+  <input class="form-control mr-sm-2" type="search" placeholder="Найти..." aria-label="Search" name='search'>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
+{% for l in literature %}
+<div class="bg-light p-4 mt-4">
+<a href="{% url 'teacher:text_detail' slug_l=l.slug %}">
+    <p>
+        {{l.title}}
+    </p>
+</a>
+</div>
+{% endfor %}
+<div class="col-md-2 mt-4">
+    <a href="{% url 'teacher:materials' %}"><img src="/static/img/back.png" alt="Назад" width="70px" height="70px"></a>
+</div>
+{% endblock %}

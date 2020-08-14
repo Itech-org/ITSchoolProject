@@ -1,0 +1,26 @@
+{% extends "base_login.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block title %}
+Вход
+{%endblock%}
+
+{% block content %}
+
+{% if user.is_authenticated%}
+<p>Вы уже вылонили вход</p>
+<a href="{% url 'student:main_page_student' %}">Главная</a>
+<li><a href="{%url 'student:logout'%}">выход</a></li>
+
+{%else%}
+<form method="post">
+    {% csrf_token %}
+      {{ form|crispy }}
+      <input type="hidden" name="next" value="{{next}}">
+      <input type="submit" value="войти">
+
+</form>
+{%endif%}
+{% endblock %}

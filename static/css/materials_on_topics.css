@@ -1,0 +1,85 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+   }
+
+   @font-face {
+    font-family: Montserrat-Thin; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Thin.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Black; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+   }
+.main__material-topic{
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.main__material-topic-text{
+    font-family: Montserrat-Regular;
+    font-size: 20px;
+    color: #12417b;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.main__material-topic-link{
+    font-family: Montserrat-SemiBold;
+    font-size: 20px;
+    text-decoration: none;
+    color: #12417b;
+    margin-left: 20px;
+}
+
+.main__material-topic-link:hover{
+    cursor: pointer;
+}
+
+.main__material-topic-text_margin_weight{
+    font-family: Montserrat-Light;
+    font-size: 18px;
+    color: #12417b;
+    margin-left: 100px;
+}
+
+.main__material-topik-text_width{
+    width: 200px;
+}
+
+.main-header__wrapp-for-speciality-link {
+  width: 100%;
+  padding-left: 20px;
+  width: 100%;
+  color: #12437d;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.main-header__wrapp-for-speciality-link:hover {
+  background-color: #b1d7fa;
+  cursor: pointer;
+}

@@ -1,0 +1,57 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% block title %}
+<title>Учебный процесс</title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/studying_proccess.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/studing-process.css' %}">
+{% endblock %}
+{% block header %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Учебный процесс</p>
+</div>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="main__student-process">
+        <a href="{% url 'student:homework' %}" class="main__student-process-link">
+        <div class="main__student-process-box">
+            <img src="{% static 'img/home_work.svg' %}" alt="домашнее задание" class="main__student-process-img"/>
+            <p class="main__student-process-text">
+                    Домашнее задание
+            </p>
+        </div>
+        </a>
+        <a href="{% url 'student:materials_view' %}" class="main__student-process-link">
+        <div class="main__student-process-box">
+            <img src="{% static 'img/educational_materials.svg' %}" alt="Учебные материалы" class="main__student-process-img"/>
+            <p class="main__student-process-text">
+                    Учебные материалы
+            </p>
+        </div>
+        </a>
+        {% for x in request.user.groupmodel_set.all|slice:":1" %}
+        <a href="{% url 'student:group_view' group_id=x.id  %}" class="main__student-process-link">
+        {% endfor %}
+        <div class="main__student-process-box">
+            <img src="{% static 'img/group1.svg' %}" alt="Группа" class="main__student-process-img"/>
+            <p class="main__student-process-text">
+                    Группа
+            </p>
+        </div>
+        </a>
+        <a href="{% url 'student:teacher' %}" class="main__student-process-link">
+        <div class="main__student-process-box">
+            <img src="{% static 'img/teacher.svg' %}" alt="Преподаватели" class="main__student-process-img"/>
+            <p class="main__student-process-text">
+                    Преподаватели
+            </p>
+        </div>
+        </a>
+    </div>
+</main>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/studying_proccess.js' %}"></script>
+{% endblock %}

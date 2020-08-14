@@ -1,0 +1,11 @@
+{% extends "student/base_student.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+    <p><img src="{{ teacher.img_user.url }}"></p>
+    <p>{{ teacher.first_name }}</p>
+    <p>{{ teacher.last_name }}</p>
+    <p>{{ teacher.surname }}</p>
+    <p>{{ teacher.phone }}</p>
+{% endblock %}

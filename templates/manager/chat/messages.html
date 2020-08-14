@@ -1,0 +1,53 @@
+{% extends 'manager/chat/chats.html' %}
+
+{% load static %}
+{% load tags %}
+
+
+{% block messages %}
+<p class="main__chat-open-text m-0">
+    {% get_companion user chat as companion %}{{ companion.last_name }} {{ companion.first_name }}
+</p>
+<div id="messages__container" class="main__chat-message-seen-area">
+    {% for message in chat.message_set.all %}
+    <div class="main__chat-one-message {% if not message.is_readed %}unread{% endif %}">
+        <div class="main__chat-img-wrapper">
+            {% if message.author.img_user %}
+            <img src="{{ message.author.img_user.url }}" alt="" class="main__chat-img"/>
+            {% else %}
+            <img src="{% static 'images/no-photo.png' %}" alt="" class="main__chat-img"/>
+            {% endif %}
+        </div>
+        <div class="main__chat-text-wrapper">
+            <div class="main__chat-main-name">
+                {{ message.author.first_name }}
+            </div>
+            <div class="main__chat-date">
+                {{ message.pub_date|date:'H:i d.m.Y' }}
+            </div>
+            <div class="main__chat-message">
+                {{ message.message|safe }}
+                {% if message.document %}
+                <a href="{{ message.document.url }}" download class="main__chat-link">
+                    {% string_split message.document.url %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<form method="post" enctype="multipart/form-data" class="form-send-message">
+    {% csrf_token %}
+    <div class="main__chat-message-button">
+            {{ form.media }}
+            {{ form.message }}
+        <div class="main__chat-message-input">
+            {{ form.document }}
+        </div>
+        <button class="main__chat-message-input-button">
+            Отправить
+        </button>
+    </div>
+</form>
+{% endblock %}

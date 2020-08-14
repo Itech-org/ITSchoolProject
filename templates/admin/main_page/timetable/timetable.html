@@ -1,0 +1,20 @@
+{% block content %}
+<h2>Расписание занятий</h2>
+    <table>
+        <tr>
+            <th>Дата</th>
+            <th>Група</th>
+            <th>Препод</th>
+            <th>Аудитория</th>
+        </tr>
+
+        <tr>{% for t in timetab %}
+                <td>{{ t.date }}</td>
+                <td><a href="{% url 'admin_school:revise_timetable' pk=t.pk %}">{{ t.groups }}</a></td>
+                <td>{{ t.groups.teacher }}</td>
+                <td>{{ t.classroom }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

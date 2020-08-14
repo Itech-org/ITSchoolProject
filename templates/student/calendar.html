@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% for i in classes %}
+<p>
+    <a href="#">{{i}}</a>
+</p>
+{% endfor %}
+
+{% endblock %}

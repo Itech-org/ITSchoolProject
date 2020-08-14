@@ -1,0 +1,96 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block style %}
+ <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+ <link rel="stylesheet" href="{% static 'css/educational_calendar.css' %}">
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Календарь</p>
+<div class="main-header__change-speciality">
+    <div class="main-header__box-for-change-speciality">
+        <p class="main-header__button-change-speciality">Выбрать группу</p>
+        <div class="main-header__list-speciality no-active">
+            <form action="" method="get" class="main-header__form-change-course">
+                <label>
+                    <input type="text" name="group" hidden class="main-header__change-course"/>
+                </label>
+                <p class="main-header__wrapp-for-speciality-link mb-0" data-value="">
+                    Все
+                </p>
+                {% for group in groups %}
+                <p class="main-header__wrapp-for-speciality-link mb-0" data-value="{{ group.id }}">
+                    {{ group.title }}
+                </p>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="main-calendar">
+    <div class="calendar">
+        <div class="calendar__wrapp mt-5">
+            <div class="calendar__switch">
+                <p class="calendar__wrapp-button-arrow-left mb-0">
+                    <img src="{% static 'images/left_arrow.svg' %}" alt="left_arrow" class="button-arrow-left"/>
+                </p>
+                <p class="calendar__name-date">Август, 2020</p>
+                <p class="calendar__wrapp-button-arrow-right mb-0">
+                    <img src="{% static 'images/arrow_right.svg' %}" alt="left_arrow" class="button-arrow-right"/>
+                </p>
+            </div>
+            <div class="calendar__days-of-week">
+                <p class="calendar__name-day">Пн</p>
+                <p class="calendar__name-day">Вт</p>
+                <p class="calendar__name-day">Ср</p>
+                <p class="calendar__name-day">Чт</p>
+                <p class="calendar__name-day">Пт</p>
+                <p class="calendar__name-day">Сб</p>
+                <p class="calendar__name-day">Вс</p>
+            </div>
+            <div class="calendar__day-number">
+                <div data-day="1" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="2" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="3" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="4" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="5" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="6" data-date="" class="calendar__day calendar__day_output">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="0" data-date="" class="calendar__day calendar__day_output">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/calendar.js' %}"></script>
+<script src="{% static 'js/educational_calendar.js' %}"></script>
+{% endblock %}

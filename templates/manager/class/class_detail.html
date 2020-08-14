@@ -1,0 +1,87 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block title %}
+<p class="main-header__page-information">Занятие {{ class.date }}</p>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="p-3">
+<div class="card">
+    <div class="card-header">
+        <div>Тема: {{ class.theme }}</div>
+        <div>Дата: {{ class.date }}</div>
+        <div>{{ class.date }}</div>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-light collapsed" type="button" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne">
+                        Журнал посещений
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <table class="table table-hover w-75">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Студент</th>
+                                <th scope="col">Присутствие</th>
+                                <th scope="col">Оценка</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for attendance in attendances %}
+                            <tr style="border: 0px solid transparent;">
+                                <td>{{ attendance.students.last_name }} {{ attendance.students.first_name }} {{ attendance.students.surname }}</td>
+                                <td><img width="20" height="20" src="{% if attendance.attendance %}{% static 'images/checked.png' %}{% else %}{% static 'images/unchecked.png' %}{% endif %}" alt=""></td>
+                                <td>{% if attendance.rating %}{{ attendance.rating }}{% endif %}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-light collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Учебные материалы
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="alert alert-dark">Текстовые материалы</div>
+                    {% for material in class.material_text.all %}
+                    <div class="mb-2">
+                        {{ forloop.counter }}.
+                        <a download  href="{{ material.file.url }}">{{ material.title }}</a>
+                        {{ material.description }}
+                    </div>
+                    {% endfor %}
+                    <div class="alert alert-dark">Видео материалы</div>
+                    {% for material in class.material_video.all %}
+                    <div class="mb-2">
+                        {{ forloop.counter }}.
+                        <a download class="mb-2" href="{{ material.file.url }}">{{ material.title }}</a>
+                        {{ material.description }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div></main>
+{% endblock %}

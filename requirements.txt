@@ -1,0 +1,28 @@
+<<<<<<< HEAD
+asgiref==3.2.10
+bootstrap4==0.1.0
+Django==3.0.8
+django-crispy-forms==1.9.2
+pytz==2020.1
+sqlparse==0.3.1
+<<<<<<< HEAD
+Pillow==7.2.0
+=======
+asgiref==3.2.10
+beautifulsoup4==4.9.1
+bootstrap4==0.1.0
+Django==3.0.8
+django-bootstrap4==2.2.0
+django-crispy-forms==1.9.2
+django-filter==2.3.0
+djangorestframework==3.11.0
+importlib-metadata==1.7.0
+Pillow==7.2.0
+pytz==2020.1
+soupsieve==2.0.1
+sqlparse==0.3.1
+zipp==3.1.0
+>>>>>>> mydevelop
+=======
+Pillow==7.2.0
+>>>>>>> ab006603aad4addbafe1bc2542aad7cdfe783a1b

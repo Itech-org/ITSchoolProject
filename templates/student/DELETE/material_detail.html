@@ -1,0 +1,21 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+{% for class in class %}
+<p>{{ class.theme }}</p>
+<p>{{ class.date }}</p>
+{% endfor %}
+<h3>Материалы</h3>
+<h4>Видео-материалы</h4>
+{% for video in v_material %}
+<p>{{ video.title }}</p>
+<p><a href="{{ video.url }}">Видео</a></p>
+{% endfor %}
+<h4>Текстовые материалы</h4>
+{% for material in materials %}
+<p>{{ material.title }}</p>
+<p>{{ material.url }}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load tags %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/teachers.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/teachers-main.css' %}"/>
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Преподаватели</p>
+{% endblock %}
+
+{% block content %}
+<main class="teachers">
+    <div class="teachers__main-container">
+        <div class="teachers__list-teachers">
+            <p class="teachers__name-list">Список преподавателей</p>
+            {% for teacher in teachers %}
+            <div class="teachers__unit-teacher">
+                {% if teacher.img_user %}
+                <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя"
+                     class="teachers__foto-teacher"/>
+                {% else %}
+                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя"
+                     class="teachers__foto-teacher"/>
+                {% endif %}
+                <div class="teachers__teacher-info">
+                    <p class="teacher__teacher-specialty">
+                        {% get_teacher_courses teacher as teacher_courses %}
+                        {% if teacher_courses %}
+                        {% if teacher_courses.count == 1 %}
+                        Курс
+                        <span class="main__teacher-card-text-bold">
+                            “{{ teacher_courses.0.title }}”
+                        </span>
+                        {% else %}
+                        Курсы
+                        {% for course in teacher_courses %}
+                        <span class="main__teacher-card-text-bold">
+                            {% if forloop.last %}
+                                “{{ course.title }}”
+                            {% else %}
+                                “{{ course.title }}”,
+                            {% endif %}
+                        </span>
+                        {% endfor %}
+                        {% endif %}
+                        {% endif %}
+                    </p>
+                    <p class="teacher__teacher-name">{{ teacher.last_name }} {{ teacher.first_name }}
+                        {{ teacher.surname }}</p>
+                    <p class="teacher__teacher-tel no-active">{{ teacher.phone }}</p>
+                    <p class="teacher__teacher-link no-active">
+                        <a class="teacher__teacher-url"
+                            href="{% url 'manager_school:get_teacher_card' teacher_id=teacher.id %}" hidden></a>
+                    </p>
+                    <p class="teacher__teacher-email no-active">{{ teacher.email }}</p>
+                    <p class="teacher__teacher-viber-telegramm no-active">{{ teacher.phone }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="teacher__profiles">
+            <div class="teacher__profile-teacher">
+                <img src="" style="object-fit: cover;" alt="фото преподавателя" class="teacher__big-foto-teacher"/>
+                <p class="teacher__profile-name"></p>
+                <p class="teacher__profile-specialty"></p>
+                <p class="teacher__profile-tel"></p>
+                <div class="teacher__profile-email-box">
+                    <p class="teacher__email">E-mail:</p>
+                    <p class="teacher__name-email"></p>
+                </div>
+                <div class="teacher__profile-telegram-viber-box">
+                    <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
+                    <p class="teacher__profile-telegram-number"></p>
+                </div>
+                <p class="teacher__box-for-teacher-link"><a href="#" class="teacher_teacher-card-link">Перейти на
+                    профиль преподавателя</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/teachers.js' %}"></script>
+<script src="{% static 'js/main-header.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ class.theme }}</title>
+</head>
+<body>
+<p>------------------Поля занятия-----------------</p>
+<p>{{ class.theme }}</p>
+<p>{{ class.date }}</p>
+<p>-------------------Материалы-------------------</p>
+{% for material in class.materialtext_set.all %}
+<p>{{ material.title }}</p>
+<p>{{ material.description }}</p>
+<p>{{ material.url }}</p>
+{% endfor %}
+<p>-------------------Видеоматериалы-------------------</p>
+{% for material in class.materialvideo_set.all %}
+<p>{{ material.title }}</p>
+<p>{{ material.description }}</p>
+<p>{{ material.url }}</p>
+{% endfor %}
+<p>----------------Домашнее задание---------------</p>
+{% for homework in class.homeworkteacher.all %}
+<p>{{ homework.title }}</p>
+<p>{{ homework.url }}</p>
+<p>{{ homework.description }}</p>
+<p>{{ homework.file }}</p>
+{% endfor %}
+{% if class.homework.all %}
+<p>-----------Выполненное дз-----------</p>
+{% for homework in class.homework.all %}
+<p>Попытка</p>
+<p>{{ homework.title }}</p>
+<p>{{ homework.url }}</p>
+<p>{{ homework.description }}</p>
+<p>{{ homework.file }}</p>
+<p>Конец попытки</p>
+{% endfor %}
+{% endif %}
+<p>--------------Прикрепить файл домашнего задания--------------</p>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+        Заголовок: <input type="text" name="title">
+    </p>
+    <p>
+        Описание: <input type="text" name="description">
+    </p>
+    <p>
+        Ссылка на дз: <input type="url" name="url">
+    </p>
+    <p>
+        Файл дз: <input type="file" name="file">
+    </p>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

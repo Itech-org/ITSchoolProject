@@ -1,0 +1,41 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+{% block title %}
+<p class="main-header__page-information">Расписание</p>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="p-3">
+<form class="form-inline mb-2 justify-content-center" method="get">
+    <label class="mr-2" for="inlineFormCustomSelectPref">Группа</label>
+    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="group">
+        <option value="">Все</option>
+        {% for group in groups %}
+        {% if selected_group == group.id %}
+        <option selected value="{{ group.id }}">{{ group.title }}</option>
+        {% else %}
+        <option value="{{ group.id }}">{{ group.title }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary my-1">Искать</button>
+</form>
+
+<div class="d-flex flex-wrap justify-content-center">
+    {% for class in classes %}
+    <a href="{% url 'manager_school:get_class_detail' slug=class.slug %}" class="hover-effect1 alert {% if class.date|date:'Ymd' > date_now|date:'Ymd' %}alert-info{% else %}alert-warning{% endif %} mr-3" role="alert">
+        <h4 class="alert-heading">{{ class.date }}</h4>
+        <p>{{ class.theme }}</p>
+        <hr>
+        <p class="mb-0">Преподаватель: {{ class.groups.teacher }}</p>
+        <p class="mb-0">Группа: {{ class.groups.title }}</p>
+        <p class="mb-0">Аудитория: {{ class.classroom.all.0 }}</p>
+    </a>
+    {% endfor %}
+</div></div></main>
+{% endblock %}

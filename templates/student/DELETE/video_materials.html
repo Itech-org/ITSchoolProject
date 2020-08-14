@@ -1,0 +1,9 @@
+{% extends "student/base_student.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+{% for video in video %}
+<p>{{ video.title }}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load tags %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/group-list-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/students-home-work-manger.css' %}"/>
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Лиды</p>
+<form class="main-header__form-change-course" action="{% url 'manager_school:add_lead' %}" method="get">
+    <div class="add-group__container">
+        <div>
+            <button type="submit" class="students-home-work__but-filter">Оформить заявку</button>
+        </div>
+    </div>
+</form>
+<form method="get" class="main-header__form-change-course">
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-change-speciality">
+            <p class="main-header__button-change-speciality m-0">Курс...</p>
+            <div class="main-header__list-speciality no-active">
+                <input type="text" name="course" hidden class="main-header__change-course"/>
+                <p class="main-header__wrapp-for-speciality-link m-0" data-value="">
+                    Все
+                </p>
+                {% for course in courses %}
+                <p class="main-header__wrapp-for-speciality-link m-0" data-value="{{ course.id }}">
+                    {{ course.title }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
+            <p class=" main-header__button-change-status m-0">Преподаватель...</p>
+            <div class="main-header__list-speciality main-header__list-status no-active">
+                <input type="text" name="teacher" hidden class="main-header__change-status"/>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="">
+                    Все
+                </p>
+                {% for teacher in teachers %}
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="{{ teacher.id }}">
+                    {{ teacher.last_name }} {{ teacher.first_name }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
+            <p class=" main-header__button-change-status m-0">Куратор...</p>
+            <div class="main-header__list-manager no-active">
+                <input type="text" hidden class="main-header__change-status"/>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="complite">
+                    Статус 1
+                </p>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="not verified">
+                    Статус 2
+                </p>
+                <p class="main-header__wrapp-for-status-link m-0" data-value-status="wrong">
+                    Статус 3
+                </p>
+            </div>
+        </div>
+        <div>
+            <button class="students-home-work__but-filter">Фильтровать</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="thead__wrapper-groups">
+        <table>
+            <thead>
+            <tr>
+                <td class="thead__td-color thead__td-color_light">Статус (Итог)</td>
+                <td class="thead__td-color thead__td-color_dark">ID</td>
+                <td class="thead__td-color thead__td-color_light">Дата входа</td>
+                <td class="thead__td-color thead__td-color_dark">Фамилия</td>
+                <td class="thead__td-color thead__td-color_light">Имя</td>
+                <td class="thead__td-color thead__td-color_dark">Отчество</td>
+                <td class="thead__td-color thead__td-color_light">Курс</td>
+                <td class="thead__td-color thead__td-color_dark">Специалист</td>
+                <td class="thead__td-color thead__td-color_light">Просмотр</td>
+                <td class="thead__td-color thead__td-color_dark">Договор</td>
+            </tr>
+            </thead>
+            {% for lead in leads.qs %}
+            <tr>
+                <td class="td__color_dark">{% if lead.status == '' %}<a class="btn btn-danger"
+                                                                        href="{% url 'manager_school:confirm_lead' lead_id=lead.id %}">Обработать</a>
+                    {% else %}{{ lead.status }}{% endif %}
+                </td>
+                <td class="td__color_dark">{{ lead.id }}</td>
+                <td class="td__color_dark">{{ lead.enter_date }}</td>
+                <td class="td__color_dark">{{ lead.last_name }}</td>
+                <td class="td__color_dark">{{ lead.first_name }}</td>
+                <td class="td__color_dark">{{ lead.patronymic }}</td>
+                <td class="td__color_dark">{% if lead.course %}{{ lead.course }}{% endif %}</td>
+                <td class="td__color_dark">{% if lead.specialist %}{{ lead.specialist }}{% endif %}</td>
+                <td class="td__color_dark">{% if lead.status != '' %}<a class="btn btn-light"
+                                                                        href="{% url 'manager_school:lead_history' lead_id=lead.id %}">Просмотреть
+                    историю</a>{% else %}{% endif %}
+                </td>
+                <td class="td__color_dark">{% if lead.contract %}
+                    <a class="btn btn-success"
+                       href="{% url 'manager_school:get_contract_detail' contract_id=lead.contract.id %}">Просмотреть</a>
+                    {% elif lead.status == 'Ready' %}
+                    <a class="btn btn-warning" href="{% url 'manager_school:get_choice' lead_id=lead.id %}">Создать</a>
+                    {% else %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main-header-manager.js' %}"></script>
+{% endblock %}

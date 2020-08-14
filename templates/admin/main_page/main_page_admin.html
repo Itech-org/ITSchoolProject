@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}Admin{% endblock %}</title>
+</head>
+<body>
+
+    <ul>
+        <li><a href="{% url 'admin_school:group_list_view' %}">Список групп</a></li>
+        <li><a href="{% url 'admin_school:timetable' %}">Расписание</a></li>
+        <li><a href="{% url 'admin_school:teacher_tab' %}">Преподаватели</a></li>
+        <li><a href="#">Чат</a></li>
+        <li><a href="#">Новости Школы</a></li>
+        <li><a href="#">Обработка запроса</a></li>
+        <li><a href="{%url 'admin_school:logout_admin'%}">выход</a></li>
+    </ul>
+{% block content %}
+{% endblock %}
+</body>
+</html>

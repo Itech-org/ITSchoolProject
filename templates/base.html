@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Личный кабинет</title>
+</head>
+
+<body>
+
+    <div class="col-md-12 row">
+        <div class="col-md-3">
+            <a href="{% url 'teacher:index' %}"><img src="{% static 'img/logo.png' %}" alt="logo"></a>
+        </div>
+        <div class="col-md-7">
+            {% block title %}
+
+            {% endblock %}
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'teacher:account'  %}">{{request.user.last_name}} {{request.user.first_name}}</p>
+        </div>
+    </div>
+
+    <div class="container p-4 row">
+    <div class="col-md-4">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'teacher:calendar' %}">Учебный календарь</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Учебный процесс</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'teacher:homework' %}">ДЗ Студентов</a>
+                    <a class="dropdown-item" href="{% url 'teacher:group_detail' %}">Мои группы</a>
+                    <a class="dropdown-item" href="#">Учебные материалы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Чат</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Связаться с администратором</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Услуги</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Новости школы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'teacher:logout' %}">Выход</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-md-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+
+</html>
+

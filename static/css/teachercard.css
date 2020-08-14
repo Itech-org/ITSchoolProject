@@ -1,0 +1,78 @@
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main__teacher-card {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  background-color: #f1f4fc;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.main__teacher-card-text {
+  font-family: Montserrat-Regular;
+  font-size: 22px;
+  color: #114a8e;
+  margin-top: 45px;
+}
+
+.main__teacher-card-text.main__teacher-card-text_margin {
+  margin-bottom: 15px;
+}
+
+.main__teacher-card-text-bold {
+  font-family: Montserrat-Bold;
+  font-size: 24px;
+  color: #114a8e;
+  border-bottom: 1px solid #b9caf6;
+}
+
+.main__teacher-card-text_size_bold {
+  font-family: Montserrat-Bold;
+  font-size: 18px;
+  color: #114a8e;
+}
+
+.main__teacher-card-img {
+  width: 250px;
+  height: 300px;
+}
+
+.main__teacher-card-link {
+  font-family: Montserrat-Bold;
+  font-size: 16px;
+  margin-top: 52px;
+  display: block;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  width: 300px;
+  height: 40px;
+  background-color: #617cd8;
+}
+.main__teacher-card-box-img {
+  text-align: end;
+  display: flex;
+  flex-direction: column;
+}
+

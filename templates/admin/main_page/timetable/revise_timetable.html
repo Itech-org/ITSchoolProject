@@ -1,0 +1,9 @@
+{% block content %}
+<h2> Изменение в расписании занятий</h2>
+        <form method="POST" class="ClassMode-lForm">{% csrf_token %}
+        <p>Дата: {{ form.date }}</p>
+        <p>Группа: {{ rev_timetable.groups }}</p>
+        <p>Преподаватель группы: {{ rev_timetable.groups.teacher }}</p>
+        <p>Кабинет: {{ form.classroom }}</p>
+        <p ><button>Изменить</button>
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% block title %}
+    <title>Document</title>
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/main-header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/education-literature.css' %}">
+{% endblock %}
+{% block header %}
+      <div class="main-header__page-information-change-specialty-literature">
+        <p class="main-header__page-information">Учебные материалы</p>
+        <p class="main-header__page-information-literature">Учебная литература</p>
+<!--        <div class="main-header__change-speciality">-->
+<!--          <div class="main-header__box-for-change-speciality">-->
+<!--            &lt;!&ndash; <p class="main-header__button-change-speciality">Выбрать курс...</p> &ndash;&gt;-->
+<!--            <div class="main-header__list-speciality no-active">-->
+<!--              <p class="main-header__wrapp-for-speciality-link">-->
+<!--                <a href="#" class="main-header__speciality-link">Frontend-разработчик</a>-->
+<!--              </p>-->
+<!--              <p class="main-header__wrapp-for-speciality-link">-->
+<!--                <a href="#" class="main-header__speciality-link">Backend-разработчик</a>-->
+<!--              </p>-->
+<!--              <p class="main-header__wrapp-for-speciality-link">-->
+<!--                <a href="#" class="main-header__speciality-link">Тестировщик</a>-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="main-header__box-for-info">-->
+<!--            <p class="main-header__speciality-info-name">Тестировщик</p>-->
+<!--            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+<!--      <div class="main-header__box">-->
+<!--        <p class="main-header_box-for-notification">-->
+<!--          <img src="../img/Group.svg" alt="уведомления" class="main-header__img-notifications" />-->
+<!--          <span class="main-header__col-notification">2</span>-->
+<!--        </p>-->
+<!--        <p class="main-header__name">Алина</p>-->
+<!--        <img src="../img/Eul_Ehp2xyU.png" alt="фото студента" class="main-header__img-foto" />-->
+<!--        <img src="../img/Polygon.svg" alt="развернуть" class="main-header__open" />-->
+<!--      </div>-->
+<!--      <div class="main-header__personal-area no-active">-->
+<!--        <div class="main-header__personal-area-options">-->
+<!--          <p class="main-header__personal-area-options-block">-->
+<!--            <a href="#" class="main-header__personal-area-link">Редактировать страницу</a>-->
+<!--            <img src="../img/Ellipse.svg" alt="point" />-->
+<!--          </p>-->
+<!--          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />-->
+<!--        </div>-->
+
+<!--        <div class="main-header__personal-area-options">-->
+<!--          <p class="main-header__personal-area-options-block">-->
+<!--            <a href="#" class="main-header__personal-area-link"><span class="main-header__personal-area-col">2</span> Сообщения</a>-->
+<!--            <img src="../img/Ellipse.svg" alt="point" />-->
+<!--          </p>-->
+<!--          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />-->
+<!--        </div>-->
+
+<!--        <div class="main-header__personal-area-options main-header__personal-area-options_go-out">-->
+<!--          <p class="main-header__personal-area-options-block">-->
+<!--            <a href="#" class="main-header__personal-area-link">Выйти</a>-->
+<!--            <img src="../img/Ellipse.svg" alt="point" />-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </header>-->
+<!--    <nav class="main-menu">-->
+<!--      <div class="main-menu__logo">-->
+<!--        <a href="#">-->
+<!--          <div class="main-header__box-for-logo">-->
+<!--            <img src="../img/logo.svg" alt="logo" class="main-menu__logo-img" />-->
+<!--            <img src="../img/hide.svg" alt="зыкрыть меню" class="main-menu__hide-img no-active" />-->
+<!--          </div>-->
+<!--        </a>-->
+<!--        <div class="main-menu__show">-->
+<!--          <img src="../img/show.svg" alt="открыть меню" class="main-menu__show-img" />-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="main-menu__box-for-item">-->
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Учебный календарь</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item main-menu__item_subiteam">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon19.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Учебный процесс</p>-->
+<!--          </a>-->
+<!--          <div class="main-menu__box-for-subitem no-active">-->
+<!--            <div class="main-menu__subitem">-->
+<!--              <a href="#" class="main-menu__subitem-link">Домашнее задание</a>-->
+<!--            </div>-->
+<!--            <div class="main-menu__subitem">-->
+<!--              <a href="#" class="main-menu__subitem-link">Группа</a>-->
+<!--            </div>-->
+<!--            <div class="main-menu__subitem">-->
+<!--              <a href="#" class="main-menu__subitem-link">Учебные материалы</a>-->
+<!--            </div>-->
+<!--            <div class="main-menu__subitem">-->
+<!--              <a href="#" class="main-menu__subitem-link">Преподаватели</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item main-menu__item_position">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon18.svg" alt="чат" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Чат</p>-->
+<!--            <span class="main-menu__item-col">2</span>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon2.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Преподаватель</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon16.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Связаться с администратором</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon15.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Услуги</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon4.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Новости школы</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon13.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Планировщик</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item main-menu__item-margin">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon12.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Изменить личные данные</p>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="main-menu__item">-->
+<!--          <a href="#" class="main-menu__item-box">-->
+<!--            <img src="../img/icon11.svg" alt="календарь" class="main-menu__item-img" />-->
+<!--            <p class="main-menu__item-descriotion no-active">Выйти</p>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </nav>-->
+{% endblock %}
+{% block content %}
+    <main>
+      <div class="filtr">
+        <div class="filtr__container">
+            <div class="filtr__search">
+                <form class="filtr__search"> 
+                  <input type="text" class="filtr__search-input" id="text-to-find" value="" placeholder="Фильтр по тексту">
+                  <input type="button" class="filtr__search-button" onclick="javascript: FindOnPage('text-to-find'); return false;" value=""/>
+                </form>
+            </div>
+        </div> 
+      </div>
+      <div class="materials">
+        <div class="material__container">
+          {% for material in materials %}
+          <div class="material__container-literature">
+            <div class="material__container-download">
+              <div class="material__container-img">
+                <img width="107px", height="138px" src="{{ material.img.url }}" alt="картинка учебника">
+              </div>
+              <div class="material__container-link">
+                <a href="{{ material.url }}" download>Скачать</a>
+              </div>
+            </div>
+            <div class="material__container-description">
+              <div class="material__description-title">{{ material.title }}</div>
+              <div class="material__description-text">
+                {{ material.description }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+<!--          <div class="material__container-literature">-->
+<!--            <div class="material__container-download">-->
+<!--              <div class="material__container-img">-->
+<!--                <img src="{% static 'img/Rectangle 26.svg' %}" alt="картинка учебника">-->
+<!--              </div>-->
+<!--              <div class="material__container-link">-->
+<!--                <a href="#" download>Скачать</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="material__container-description">-->
+<!--              <div class="material__description-title">Герой нашего времени</div>-->
+<!--              <div class="material__description-text">-->
+<!--                Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--          <div class="material__container-literature">-->
+<!--            <div class="material__container-download">-->
+<!--              <div class="material__container-img">-->
+<!--                <img src="{% static 'img/Rectangle 26.svg' %}" alt="картинка учебника">-->
+<!--              </div>-->
+<!--              <div class="material__container-link">-->
+<!--                <a href="#" download>Скачать</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="material__container-description">-->
+<!--              <div class="material__description-title">Герой нашего времени</div>-->
+<!--              <div class="material__description-text">-->
+<!--                Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--          <div class="material__container-literature">-->
+<!--            <div class="material__container-download">-->
+<!--              <div class="material__container-img">-->
+<!--                <img src="{% static 'img/Rectangle 26.svg' %}" alt="картинка учебника">-->
+<!--              </div>-->
+<!--              <div class="material__container-link">-->
+<!--                <a href="#" download>Скачать</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="material__container-description">-->
+<!--              <div class="material__description-title">Герой нашего времени</div>-->
+<!--              <div class="material__description-text">-->
+<!--                Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--          <div class="material__container-literature">-->
+<!--            <div class="material__container-download">-->
+<!--              <div class="material__container-img">-->
+<!--                <img src="{% static 'img/Rectangle 26.svg' %}" alt="картинка учебника">-->
+<!--              </div>-->
+<!--              <div class="material__container-link">-->
+<!--                <a href="#" download>Скачать</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="material__container-description">-->
+<!--              <div class="material__description-title">Герой нашего времени</div>-->
+<!--              <div class="material__description-text">-->
+<!--                Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--          <div class="material__container-literature">-->
+<!--            <div class="material__container-download">-->
+<!--              <div class="material__container-img">-->
+<!--                <img src="{% static 'img/Rectangle 26.svg' %}" alt="картинка учебника">-->
+<!--              </div>-->
+<!--              <div class="material__container-link">-->
+<!--                <a href="#" download>Скачать</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="material__container-description">-->
+<!--              <div class="material__description-title">Герой нашего времени</div>-->
+<!--              <div class="material__description-text">-->
+<!--                Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.-->
+<!--              </div>-->
+<!--          </div>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/education-literature.js' %}"></script>
+{% endblock %}

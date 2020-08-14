@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+Главная
+{% endblock %}
+{% block content %}
+<div class="row justify-content-around">
+    <div class="col-md-3">
+        <a href="{% url 'teacher:calendar' %}">Учебный календарь</a>
+    </div>
+    <div class="col-md-3">
+        <a href="{% url 'teacher:study_procces' %}">Учебный процесс</a>
+    </div>
+    <div class="col-md-3">
+        <a href="#">Чат</a>
+    </div>
+</div>
+{% for i in classes %}
+    {{i.theme}}
+{% endfor %}
+{% endblock %}

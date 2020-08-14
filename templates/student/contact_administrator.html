@@ -1,0 +1,36 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% block title %}
+<title>Contact administrator</title>
+{% endblock %}
+{% block style %}
+<!--<link rel="stylesheet" href="{% static 'css/contact_administrator.css' %}"/>-->
+<link rel="stylesheet" href="{% static 'css/connection-admin.css' %}"/>
+{% endblock %}
+{% block content %}
+<main>
+    <form action="#">
+        <div class="main-connection">
+            <p class="main-connection__text">
+                Связаться с администратором
+            </p>
+            <div class="main-connection__box">
+                <div class="main-connection__box-border">
+                    <input type="textarea" value="" name="textarea" required placeholder="Введите текс"
+                           class="main-connection__textarea"/>
+                </div>
+            </div>
+            <div class="main-connection__box-for-input">
+                <button class="main-connection__button-for-file">
+                    Прикрепить файл
+                    <input type="file" value="#" name="" class="main-connection__file" multiple/>
+                </button>
+                <input type="submit" value="Отправить" name="" class="main-connection__submit"/>
+            </div>
+        </div>
+    </form>
+</main>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/contact_administrator.js' %}"></script>
+{% endblock %}

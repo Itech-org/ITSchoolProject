@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Black; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+
+.teachers__main-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 100px;
+}
+
+.teachers__foto-teacher {
+  width: 70px;
+  height: 70px;
+}
+
+.teachers__unit-teacher {
+  display: flex;
+  height: 70px;
+  margin-top: 30px;
+}
+
+.teachers__teacher-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.teachers__list-teachers {
+  width: 370px;
+  text-align: center;
+}
+
+.teachers__name-list {
+  font-family: Montserrat-Bold;
+  color: #114a8e;
+  font-size: 18px;
+}
+
+.teacher__teacher-specialty {
+  color: #044fa8;
+  font-family: Montserrat-Black;
+  font-size: 18px;
+}
+
+.teacher__teacher-name {
+  color: #044fa8;
+  font-family: Montserrat-Medium;
+  font-size: 16px;
+}
+
+/* профиль */
+
+.teacher__big-foto-teacher {
+  width: 250px;
+  height: 270px;
+  margin: auto;
+}
+
+.teacher__profile-name {
+  text-align: center;
+  font-family: Montserrat-Medium;
+  color: #114a8e;
+  margin-top: 10px;
+}
+
+.teacher__profile-specialty {
+  text-align: center;
+  color: #044fa8;
+  font-family: Montserrat-Black;
+  margin-top: 10px;
+}
+
+.teacher__profile-tel {
+  color: #044fa8;
+  font-family: Montserrat-Bold;
+  margin-top: 10px;
+  width: 100%;
+  text-align: start;
+}
+
+.teacher__profile-email-box {
+  display: flex;
+  color: #114a8e;
+  margin-top: 10px;
+}
+
+.teacher__email {
+  font-family: Montserrat-Light;
+}
+
+.teacher__name-email {
+  margin-left: 5px;
+  font-family: Montserrat-Bold;
+}
+
+.teacher__profile-telegram-viber-box {
+  display: flex;
+  color: #114a8e;
+  margin-top: 10px;
+}
+
+.teacher__profile-telegram-name {
+  font-family: Montserrat-Light;
+}
+
+.teacher__profile-telegram-number {
+  margin-left: 5px;
+  font-family: Montserrat-Bold;
+}
+
+.teacher__profile-link-send-message-box {
+  width: 230px;
+  height: 30px;
+  margin: auto;
+  background-color: #617cd8;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat-Bold;
+  margin-top: 40px;
+}
+
+.teacher__profiles {
+  padding: 20px 20px;
+  background-color: #f1f5fe;
+  width: 350px;
+}
+
+.teacher__profile-teacher {
+  text-align: center;
+}
+
+.teachers__unit-teacher:hover {
+  cursor: pointer;
+}
+
+
+.teacher_teacher-card-link {
+  font-family: Montserrat-Medium;
+  font-size: 14px;
+  color: #114a8e;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.teacher__box-for-teacher-link{
+  margin-top: 20px;
+>>>>>>> 93baf9b9d9a731416ca06e8f2e9ac400fb61ac46
+}

@@ -1,0 +1,77 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load tags %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/teacher_card.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/teachercard.css' %}"/>
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Преподаватель {{ teacher.first_name|title }}</p>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="main__teacher-card">
+        <div class="main__teacher-card-box">
+            <p class="main__teacher-card-text">
+                {{ teacher.first_name }} {{ teacher.surname }}
+            </p>
+            <p class="main__teacher-card-text-bold">
+                {{ teacher.last_name }}
+            </p>
+            <p class="main__teacher-card-text">
+                {% get_teacher_courses teacher as courses %}
+                {% if courses %}
+                {% if courses.count == 1 %}
+                Курс
+                <span class="main__teacher-card-text-bold">
+                    “{{ courses.0.title }}”
+                </span>
+                {% else %}
+                Курсы
+                    {% for course in courses %}
+                    <span class="main__teacher-card-text-bold">
+                        {% if forloop.last %}
+                            “{{ course.title }}”
+                        {% else %}
+                            “{{ course.title }}”,
+                        {% endif %}
+                    </span>
+                    {% endfor %}
+                {% endif %}
+                {% endif %}
+            </p>
+            <p class="main__teacher-card-text main__teacher-card-text_margin">
+                Возможные способы связи:
+            </p>
+            <p class="main__teacher-card-text_size_bold">
+                Email: <a href="mailto: {{ teacher.email }}">{{ teacher.email }}</a>
+            </p>
+            <p class="main__teacher-card-text_size_bold">
+                Telegram: <a href="tg://msg?text=<?php echo urlencode( '<Здравствуйте>' ); ?>&to=<{{ teacher.phone }}>">{{ teacher.phone }}</a>
+            </p>
+            <a href="{% url 'manager_school:create_dialog' user_id=teacher.id %}" class="main__teacher-card-link">
+                Отправить сообщение
+            </a>
+        </div>
+        <div class="main__teacher-card-box-img">
+            {% if teacher.img_user %}
+            <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
+            {% else %}
+            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main-header.js' %}"></script>
+{% endblock %}

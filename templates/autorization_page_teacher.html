@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница авторизации</title>
+</head>
+<body>
+<h2>Вход</h2>
+{% if user.is_authenticated%}
+<p>Вы уже вылонили вход</p>
+<a href="{% url 'teacher:main_page_teacher' %}">Главная</a>
+<li><a href="{%url 'teacher:logout_teacher'%}">выход</a></li>
+
+{%else%}
+
+<form method="post">
+    {% csrf_token %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{{next}}">
+      <input type="submit" value="войти">
+
+</form>
+{%endif%}
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+Карточка студента
+{% endblock %}
+
+{% block content %}
+<div class="col-md-2 mx-auto">
+    <img src="{{student.img_user.url}}" alt="" width="100px" height="100px">
+</div>
+<div class="col-md-10 mx-auto mt-4">
+    <ul class="list-group">
+        <li class="list-group-item">Имя: {{student.first_name}}</li>
+        <li class="list-group-item">Фамилия: {{student.last_name}}</li>
+        <li class="list-group-item">Отчество: {{student.surname}}</li>
+        <li class="list-group-item">E-Mail: {{student.email}}</li>
+        <li class="list-group-item">Телефон: {{student.phone}}</li>
+    </ul>
+</div>
+<div class="row justify-content-center pt-4 mt-4">
+    <div class="col-md-3">
+        <p>
+            Посещаемость: %
+        </p>
+    </div>
+    <div class="col-md-3">
+        <p>
+            Успеваемость: %
+        </p>
+    </div>
+</div>
+{% endblock %}

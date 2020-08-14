@@ -1,0 +1,35 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Список групп{% endblock %}
+{% block content %}
+<table>
+    <tr>
+        <td>ФИО</td>
+        <td>Телефон</td>
+        <td>Куратор</td>
+        <td>Менеджер</td>
+        <td>Успеваемость</td>
+        <td>Преподователь</td>
+    </tr>
+    {% for group in groups %}
+
+                <tr>
+                    <td align="center">номер группы:{{ group.title }}</td>
+                </tr>
+                <tr>
+                {% for student in group.students.all %}
+                    <tr>
+                    <td><a href="{% url 'admin_school:student_card' id=student.id %}">{{ student.username}}</a></td>
+                    <td>{{ student.phone }}</td>
+                    <td>Успеваемость</td>
+                    <td>Менеджер</td>
+                    </tr>
+                {% endfor %}
+                <td>Куратор</td>
+                <td>{{ group.teacher }}</td>
+
+                </tr>
+
+    {% endfor %}
+
+</table>
+{% endblock %}

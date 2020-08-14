@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h3>{{class.theme}}</h3><br>
+    </div>
+    <div class="col-md-4">
+        <p class="text-right">
+            Курс: {{course.title}}<br>
+            Группа: {{group.title}}<br>
+            Дата и время:
+            {{class.date}}<br>
+        </p>
+    </div>
+</div>
+
+<form action="{% url 'teacher:class_detail' class.id %}" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-primary">
+                    <tr class="text-center">
+                        <th>Занятие</th>
+                        <th>Студент</th>
+                        <th>Оценка</th>
+                        <th>Посещение</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td class="text-center">
+                            {{ form_at.classes}}<br>
+                        </td>
+                        <td class="text-center">
+                            {{ form_at.students}}<br>
+                        </td>
+
+
+<div class="col-md-12 bg-light mt-4 pt-4">
+    <h3>Создание домашнего задания</h3>
+        {{form_hw|crispy}}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" name="" value="Создать">
+</div>
+</form>
+
+{% endblock %}

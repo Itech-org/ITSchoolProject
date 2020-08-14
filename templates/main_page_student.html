@@ -1,0 +1,10 @@
+{% extends "student/base_student.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% block content %}
+    <p><a href="{% url 'student:calendar' %}">Учебный календарь</a></p>
+    <p><a href="{% url 'student:process' %}">Учебный процесс</a></p>
+    <p><a href="#">Чат</a></p>
+    <p><a href="{% url 'student:teacher' %}">Преподаватель</a></p>
+{% endblock %}
