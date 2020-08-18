@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'placeholder': 'Логин *'},))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Пароль *'}),)
+    remember_me = forms.BooleanField(required=False, label='Запомнить меня?')
 
 
 class RegistrationForm(forms.ModelForm):

@@ -1,19 +1,15 @@
-import datetime
+from django.contrib.auth import authenticate, login
 
-from django.contrib.auth import logout, authenticate, login
-
-from django.contrib.auth.views import LoginView
 from django.db.models import Count
 from django.http import HttpResponseRedirect, QueryDict
 
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .filters import StudyRequestFilter, GroupFilter
 from .forms import *
 from django.shortcuts import render
-from .models import *
 
 from .serializers import ClassModelSerializer
 
@@ -24,12 +20,15 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')
         user = authenticate(username=username, password=password)
         if user:
             if not user.is_active:
                 return redirect("manager_school:login")
             else:
                 login(request, user)
+                if remember_me == 'off':
+                    request.session.set_expiry(0)
                 return redirect('manager_school:main_page')
         else:
             return redirect("manager_school:login")
@@ -100,7 +99,7 @@ def create_group_classes(request, slug):
             for day in range(count_days.days + 1):
                 dt = course.start_date + datetime.timedelta(day)
                 if dt.weekday() in days_list:
-                    class_ = ClassModel.objects.create(
+                    ClassModel.objects.create(
                         position=position,
                         theme=f'Тема-{position}',
                         groups=group,
@@ -400,7 +399,8 @@ def get_chat_with_user(request, chat_id):
                 'user_profile': request.user,
                 'chat': chat,
                 'chats': chats,
-                'form': MessageForm()})
+                'form': MessageForm()}
+        )
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
