@@ -27,7 +27,7 @@ def login_user(request):
                 return redirect("manager_school:login")
             else:
                 login(request, user)
-                if remember_me == 'off':
+                if not remember_me:
                     request.session.set_expiry(0)
                 return redirect('manager_school:main_page')
         else:
@@ -438,18 +438,11 @@ def api_classes_list(request):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_manager_profile(request):
-    leads = get_manager_leads(request.user)
-    successful_leads = get_manager_successful_leads(request.user)
-
-    contracts = get_manager_contracts(request.user)
-    successful_contracts = get_manager_successful_contracts(request.user)
+    data = get_manager_data_per_period(request.user)
 
     context = {
-        'leads': leads,
-        'successful_leads': successful_leads,
-        'successful_leads_percent': get_manager_successful_percent(successful_leads.count(), leads.count()),
-        'contracts': contracts,
-        'successful_contracts': successful_contracts,
-        'successful_contracts_percent': get_manager_successful_percent(successful_contracts.count(), contracts.count())
+        'successful_leads_percent': get_manager_successful_percent(request.user, model='StudyRequest'),
+        'successful_contracts_percent': get_manager_successful_percent(request.user, model='Contract'),
+        'data': data,
     }
     return render(request, 'manager/profile/profile.html', context)
