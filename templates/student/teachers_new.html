@@ -19,7 +19,11 @@
           <p class="teachers__name-list">Список преподавателей</p>
           {% for group in groups %}
           <div class="teachers__unit-teacher">
-            <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
+            {% if group.teacher.img_user %}
+              <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
+            {% else %}
+              <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="teachers__foto-teacher"/>
+            {% endif %}
             <div class="teachers__teacher-info">
               <p class="teacher__teacher-specialty">{{ group.course.title }}</p>
               <p class="teacher__teacher-name">{{ group.teacher.first_name }} {{ group.teacher.last_name }} {{ group.teacher.surname }}</p>

@@ -18,8 +18,11 @@
             <div class="main__personal-student-card-info">
                 <div class="main__personal-student-card-box">
                     <div class="main__personal-student-card-foto">
-                        <img src="{{ student.img_user.url }}" alt="личное фото"
-                             class="main__personal-student-card-img"/>
+                        {% if student.img_user %}
+                            <img src="{{ student.img_user.url }}" alt="личное фото" class="main__personal-student-card-img"/>
+                        {% else %}
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="личное фото" class="main__personal-student-card-img"/>
+                        {% endif %}
                     </div>
                     <div class="main__personal-student-card-data">
                         <p class="main__personal-student-card-data-text">

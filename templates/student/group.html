@@ -37,7 +37,11 @@
             {% for student in students %}
             <div class="group__student-box">
                 <p class="group__box-for-foto-student">
-                    <img src="{{ student.img_user.url }}" alt="фото студента" class="group__student-foto"/>
+                    {% if student.img_user %}
+                        <img src="{{ student.img_user.url }}" alt="фото студента" class="group__student-foto"/>
+                    {% else %}
+                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="group__student-foto"/>
+                    {% endif %}
                     <span class="group__check-online"></span>
                 </p>
                 <a href="{% url 'student:group_profile' user_id=student.id %}">
@@ -124,7 +128,11 @@
         </div>
         <div class="group__box-for-teacher">
             <p class="group__teacher">Преподаватель</p>
-            <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="group__teacher-foto">
+            {% if group.teacher.img_user %}
+                <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="group__teacher-foto">
+            {% else %}
+                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="group__teacher-foto"/>
+            {% endif %}
             <p class="group__first-name-and-patronymic">{{ group.teacher.first_name }} {{ group.teacher.surname }}</p>
             <p class="group__last-name">{{ group.teacher.last_name}}</p>
         </div>

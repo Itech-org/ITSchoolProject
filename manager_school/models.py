@@ -148,7 +148,7 @@ class ClassModel(models.Model):  # Занятие
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['date']
+        ordering = ['groups', 'date']
         verbose_name = 'Занятие'
         verbose_name_plural = 'Занятия'
 

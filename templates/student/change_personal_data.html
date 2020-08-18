@@ -45,8 +45,11 @@
                             </div>
                         </div>
                         <div class="change-personal-data__box-for-user-foto">
-                            <img src="{{ request.user.img_user.url }}" alt="фото студента"
-                                 class="change-personal-data__user-foto"/>
+                            {% if request.user.img_user %}
+                                <img src="{{ request.user.img_user.url }}" alt="фото студента" class="change-personal-data__user-foto"/>
+                            {% else %}
+                                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="change-personal-data__user-foto"/>
+                            {% endif %}
                             <p class="change-personal-data__box-for-change-foto-link">
                                 <input type="file" name="img_user">
                             </p>

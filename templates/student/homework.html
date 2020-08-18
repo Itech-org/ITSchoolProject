@@ -10,29 +10,29 @@
 {% block header %}
 <div class="main-header__page-information-change-specialty">
     <p class="main-header__page-information">Домашнее задание</p>
-    <!-- <div class="main-header__change-speciality">
-      <div class="main-header__box-for-change-speciality">
-        <p class="main-header__button-change-speciality">Выбрать курс...</p>
-        <div class="main-header__list-speciality no-active">
-          <form action="" method="get" class="main-header__form-change-course">
-            <input type="text" name="course" hidden class="main-header__change-course" />
-            <p class="main-header__wrapp-for-speciality-link" data-value="1">
-              Frontend-разработчик
-            </p>
-            <p class="main-header__wrapp-for-speciality-link" data-value="2">
-              Backend-разработчик
-            </p>
-            <p class="main-header__wrapp-for-speciality-link" data-value="3">
-              Тестировщик
-            </p>
-          </form>
-        </div>
-      </div>
-      <div class="main-header__box-for-info">
-        <p class="main-header__speciality-info-name">Frontend</p>
-        <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
-      </div>
-    </div> -->
+<!--    <div class="main-header__change-speciality">-->
+<!--      <div class="main-header__box-for-change-speciality">-->
+<!--        <p class="main-header__button-change-speciality">Выбрать курс...</p>-->
+<!--        <div class="main-header__list-speciality no-active">-->
+<!--          <form action="" method="get" class="main-header__form-change-course">-->
+<!--            <input type="text" name="course" hidden class="main-header__change-course" />-->
+<!--            <p class="main-header__wrapp-for-speciality-link" data-value="1">-->
+<!--              Frontend-разработчик-->
+<!--            </p>-->
+<!--            <p class="main-header__wrapp-for-speciality-link" data-value="2">-->
+<!--              Backend-разработчик-->
+<!--            </p>-->
+<!--            <p class="main-header__wrapp-for-speciality-link" data-value="3">-->
+<!--              Тестировщик-->
+<!--            </p>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="main-header__box-for-info">-->
+<!--        <p class="main-header__speciality-info-name">Frontend</p>-->
+<!--        <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>-->
+<!--      </div>-->
+<!--    </div>-->
 </div>
 {% endblock %}
 <!--      <div class="main-header__box">-->
@@ -188,7 +188,11 @@
                     {% endfor %}
                 </div>
                 <div class="block-student">
-                    <img src="{{ class.groups.teacher.img_user.url }}" alt="фото студента" class="block-student__foto"/>
+                    {% if class.groups.teacher.img_user %}
+                        <img src="{{ class.groups.teacher.img_user.url }}" alt="фото студента" class="block-student__foto"/>
+                    {% else %}
+                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="block-student__foto"/>
+                    {% endif %}
                     <p>{{ class.groups.teacher.first_name }} {{ class.groups.teacher.surname }} {{ class.groups.teacher.last_name }}</p>
                 </div>
             </div>

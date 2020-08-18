@@ -21,8 +21,13 @@
             <span class="main-header__col-notification"></span>
         </p>
         <a href="{% url 'student:account' %}"><p class="main-header__name">{{ request.user.first_name }}</p></a>
-        <a href="{% url 'student:account' %}"><img src="{{ request.user.img_user.url }}" alt="фото студента"
-                                                   class="main-header__img-foto"/></a>
+        <a href="{% url 'student:account' %}">
+            {% if request.user.img_user %}
+                <img src="{{ request.user.img_user.url }}" alt="фото студента" class="main-header__img-foto"/>
+            {% else %}
+                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="main-header__img-foto"/>
+            {% endif %}
+        </a>
         <img src="{% static 'img/Polygon.svg' %}" alt="развернуть" class="main-header__open"/>
     </div>
     <div class="main-header__personal-area no-active">

@@ -173,7 +173,11 @@
         <div class="main__another-student-card-info">
             <div class="main__another-student-card-box">
                 <div class="main__another-student-card-foto">
-                    <img src="{{ student.img_user.url }}" alt="личное фото" class="main__another-student-card-img">
+                    {% if student.img_user %}
+                        <img src="{{ student.img_user.url }}" alt="личное фото" class="main__another-student-card-img">
+                    {% else %}
+                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="личное фото" class="main__another-student-card-img"/>
+                    {% endif %}
                     <p class="main__personal-another-student-message">
                         <a href="#" class="main__personal-another-student-link">
                             Отправить сообщение

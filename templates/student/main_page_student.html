@@ -190,7 +190,11 @@
         {% for teacher in teachers %}
         <div class="main__teacher-course">
             <a href="#" class="main__teacher-navigation">
-                <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="main__teacher-img"/>
+                {% if teacher.img_user %}
+                    <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="main__teacher-img"/>
+                {% else %}
+                    <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-img"/>
+                {% endif %}
                 <p class="main__teacher-navigation-link">
                     {{ teacher.first_name }} {{ teacher.last_name }}
                 </p>
