@@ -9,6 +9,7 @@ urlpatterns = [
     path("login/", login_user, name="login"),
     path('registration_user/<int:lead_id>/', register_user, name='registration_page'),
     path('profile/', get_manager_profile, name='get_manager_profile'),
+    path('profile/change-user-info/', change_user_info, name='change_user_info'),
     path('', main_page_view, name='main_page'),
     path('groups/', get_groups, name='get_groups'),
     path('group/create/', add_group, name='add_group'),

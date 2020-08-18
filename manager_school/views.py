@@ -446,3 +446,23 @@ def get_manager_profile(request):
         'data': data,
     }
     return render(request, 'manager/profile/profile.html', context)
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def change_user_info(request):
+    if request.method == "POST":
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        print(request.FILES)
+        img_user = request.FILES.get('img_user', '')
+        print(img_user)
+        user = request.user
+        if phone:
+            user.phone = phone
+        if email:
+            user.email = email
+        if img_user:
+            user.img_user = img_user
+        user.save()
+        return redirect('manager_school:get_manager_profile')
+    return render(request, 'manager/profile/change_personal_data.html')
