@@ -29,7 +29,7 @@ urlpatterns = [
     path('revise_timetable/<int:pk>/', revise_timetable, name='revise_timetable'),
     path('card_student/<id>/', student_card, name='student_card'),
     path('group_list/', group_list_view, name='group_list_view' ),
-    path("logout_admin/",Logout_View.as_view(),name='logout_admin'),
+    path("logout_admin/", Logout_View.as_view(),name='logout_admin'),
     path("autorization_page_admin/",Login_View.as_view(),name="autorization_page_admin"),
     path('', main_page_view, name='main_page_admin'),
 

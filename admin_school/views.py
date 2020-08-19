@@ -17,7 +17,7 @@ class Login_View(LoginView):
     template_name = 'admin/main_page/autorization_page_admin.html'
 
 
-class Logout_View(LoginRequiredMixin, LogoutView):
+class Logout_View(LogoutView):
     template_name = "admin/logout_admin.html"
 
 
