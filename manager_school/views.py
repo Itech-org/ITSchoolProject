@@ -466,3 +466,4 @@ def change_user_info(request):
         user.save()
         return redirect('manager_school:get_manager_profile')
     return render(request, 'manager/profile/change_personal_data.html')
+
