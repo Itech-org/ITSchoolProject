@@ -59,7 +59,7 @@
     margin-top: 100px;
     margin-left: 40px;
     margin-right: 40px;
-    overflow: scroll;
+    /*overflow: scroll;*/
   }
 
 table {
@@ -76,11 +76,11 @@ th {
 
 td {
     border: 1px solid #CED6F2;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-family: Montserrat-Regular;
     font-style: normal;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 12px;
     line-height: 21px;
     color: #283965;
     background: #F5F7FD;

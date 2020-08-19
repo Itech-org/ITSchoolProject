@@ -6,6 +6,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/services_page.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
 {% endblock %}
 
 {% block title %}
@@ -13,84 +14,188 @@
 {% endblock %}
 
 {% block content %}
-<main>
-    <div class="p-3">
-        <div class="d-flex flex-column">
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Номер договора</div>
-                <div class="p-1 text-secondary">{{ contract.number }}</div>
-            </div>
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Дата заключения</div>
-                <div class="p-1 text-secondary">{{ contract.date }}</div>
-            </div>
-            <div class="d-flex">
+<!--<main>-->
+<!--    <div class="p-3">-->
+<!--        <div class="d-flex flex-column">-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Номер договора</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.number }}</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Дата заключения</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.date }}</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
 
-                <div class="p-1 text-secondary">Курс</div>
-                <div class="p-1 text-secondary">{{ contract.course }}</div>
-            </div>
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Группа</div>
-                <div class="p-1 text-secondary">{{ contract.group }}</div>
-            </div>
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Аккунт</div>
-                <div class="p-1 text-secondary">{{ contract.account }}</div>
-            </div>
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Цена</div>
-                <div class="p-1 text-secondary">{{ contract.price }}BYN</div>
-            </div>
-            <div class="d-flex">
-                <div class="p-1 text-secondary">Подписан</div>
-                <div class="p-1 text-secondary">{% if contract.is_subscribed %}Да{% else %}Нет{% endif %}</div>
-            </div>
-            {% if not contract.is_subscribed %}
-            <form action="." method="post">
-                {% csrf_token %}
-                <div class="form-group form-check">
-                    <input type="checkbox" name="is_subscribed" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label text-secondary" for="exampleCheck1">Контракт подписан?</label>
+<!--                <div class="p-1 text-secondary">Курс</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.course }}</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Группа</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.group }}</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Аккунт</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.account }}</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Цена</div>-->
+<!--                <div class="p-1 text-secondary">{{ contract.price }}BYN</div>-->
+<!--            </div>-->
+<!--            <div class="d-flex">-->
+<!--                <div class="p-1 text-secondary">Подписан</div>-->
+<!--                <div class="p-1 text-secondary">{% if contract.is_subscribed %}Да{% else %}Нет{% endif %}</div>-->
+<!--            </div>-->
+<!--            {% if not contract.is_subscribed %}-->
+<!--            <form action="." method="post">-->
+<!--                {% csrf_token %}-->
+<!--                <div class="form-group form-check">-->
+<!--                    <input type="checkbox" name="is_subscribed" class="form-check-input" id="exampleCheck1">-->
+<!--                    <label class="form-check-label text-secondary" for="exampleCheck1">Контракт подписан?</label>-->
+<!--                </div>-->
+<!--                <button class="btn btn-primary">Подтвердить</button>-->
+<!--            </form>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--        <hr>-->
+<!--        {% if contract.payment.by_stages %}-->
+<!--        <div class="alert alert-dark">Этапы оплаты | {{ contract.payment.paymentstage_set.count }}</div>-->
+<!--        {% else %}-->
+<!--        <div class="alert alert-dark">Оплата</div>-->
+<!--        {% endif %}-->
+<!--        <hr>-->
+<!--        <div class="d-flex flex-wrap">-->
+<!--            {% for stage in contract.payment.paymentstage_set.all %}-->
+<!--            {% if stage.is_confirmed %}-->
+<!--            <div class="card mr-3 mb-3 bg-success">-->
+<!--                {% else %}-->
+<!--                <div class="card mr-3 mb-3 bg-warning">-->
+<!--                    {% endif %}-->
+<!--                    <div class="card-header">-->
+<!--                        {% if stage.picture %}-->
+<!--                        <a download href="{{ stage.picture.url }}" class="text-light">Чек</a>-->
+<!--                        {% else %}-->
+<!--                        <div class="text-light">Нет чека</div>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="alert alert-light p-1 mr-2">{{ stage.price }}</div>-->
+<!--                        <div class="alert alert-light p-1 mr-2">{{ stage.date }}</div>-->
+<!--                        {% if not stage.is_confirmed %}-->
+<!--                        <form action="{% url 'manager_school:confirm_payment_stage' payment_stage_id=stage.id  %}"-->
+<!--                              method="post">-->
+<!--                            {% csrf_token %}-->
+<!--                            <button class="btn btn-secondary">Подтвердить</button>-->
+<!--                        </form>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+<main>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <h3>Договор</h3>
+            <form action="#">
+                <div class="form-content">
+                    <div class="input-wrapper">
+                        <p>ФИО:</p>
+                        <p>{{ contract.account }}</p>
+                        <!--                        <input type="text" placeholder="Ф.И.О."/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Номер договора:</p>
+                        <p>№{{ contract.number }}</p>
+                        <!--                        <input type="text" name="" placeholder="Номер договора" value="№143"/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Дата заключения:</p>
+                        <p>{{ contract.date }}</p>
+                        <!--                        <input type="date" name=""/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Период обучения:</p>
+                        <p>{{ contract.course.start_date|date:'d.m.Y' }} -
+                            {{ contract.course.finish_date|date:'d.m.Y' }}
+                        </p>
+                        <!--                        <input type="text" placeholder="15.10.2020 - 04.12.2020" value="15.10.2020 - 04.12.2020"/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Курс:</p>
+                        <p>{{ contract.course }}</p>
+                        <!--                        <select name="Курс" id="">-->
+                        <!--                            <option value="Frontend">Frontend</option>-->
+                        <!--                            <option value="Backend">Backend</option>-->
+                        <!--                            <option value="QA-Engeneer">QA-Engeneer</option>-->
+                        <!--                            <option value="Java">Java</option>-->
+                        <!--                        </select>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Группа:</p>
+                        <p>{{ contract.group }}</p>
+                        <!--                        <input type="text" placeholder="Группа" value="Группа 2"/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Телефон:</p>
+                        <p>{{ contract.account.phone }}</p>
+                        <!--                        <input type="tel" name="" placeholder="Телефон" value="+375 (44) 556 40 28"/>-->
+                    </div>
+                    <div class="input-wrapper coast">
+                        <p>Электронный адрес:</p>
+                        <p>{{ contract.account.email }}</p>
+                        <!--                        <input type="email" name="" placeholder="Email" value="yana_mashkova_2016@mail.ru"/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Стоимость обучения:</p>
+                        <p>{{ contract.price }} б.р.</p>
+                        <!--                        <input type="text" name="" placeholder="Цена" value="1050 б.р."/>-->
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Скидка:</p>
+                        <p>Доделать!!!!!</p>
+                        <!--                        <input type="text" name="" placeholder="Скидка" value="5%"/>-->
+                    </div>
+                    <div class="input-wrapper coast">
+                        <p style="width: 25%">Этап</p>
+                        <div style="width: 55%; display: flex">
+                            <p class="stage-p">Цена</p>
+                            <p class="stage-p">Дата</p>
+                            <p class="stage-p">Статус</p>
+                        </div>
+                    </div>
+                    {% for stage in contract.payment.paymentstage_set.all %}
+                    <div class="input-wrapper">
+                        <p style="width: 25%">{{ forloop.counter }} оплата (
+                            {% if stage.picture %}
+                            <a download href="{{ stage.picture.url }}">
+                                Чек
+                            </a>
+                            {% else %}
+                            Нет чека
+                            {% endif %}
+                            )
+                        </p>
+                        <div style="width: 55%; display: flex">
+                            <form action=""></form>
+                            <p class="stage-p">{{ stage.price }} б.р.</p>
+                            <p class="stage-p">{{ stage.date|date:'d.m.Y' }}</p>
+                            {% if not stage.is_confirmed %}
+                            <form action="{% url 'manager_school:confirm_payment_stage' payment_stage_id=stage.id  %}"
+                                  method="post">
+                                {% csrf_token %}
+                                <button class="submit">Подтвердить</button>
+                            </form>
+                            {% else %}
+                            Подтверждено
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <button class="btn btn-primary">Подтвердить</button>
             </form>
-            {% endif %}
-        </div>
-        <hr>
-        {% if contract.payment.by_stages %}
-        <div class="alert alert-dark">Этапы оплаты | {{ contract.payment.paymentstage_set.count }}</div>
-        {% else %}
-        <div class="alert alert-dark">Оплата</div>
-        {% endif %}
-        <hr>
-        <div class="d-flex flex-wrap">
-            {% for stage in contract.payment.paymentstage_set.all %}
-            {% if stage.is_confirmed %}
-            <div class="card mr-3 mb-3 bg-success">
-                {% else %}
-                <div class="card mr-3 mb-3 bg-warning">
-                    {% endif %}
-                    <div class="card-header">
-                        {% if stage.picture %}
-                        <a download href="{{ stage.picture.url }}" class="text-light">Чек</a>
-                        {% else %}
-                        <div class="text-light">Нет чека</div>
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-light p-1 mr-2">{{ stage.price }}</div>
-                        <div class="alert alert-light p-1 mr-2">{{ stage.date }}</div>
-                        {% if not stage.is_confirmed %}
-                        <form action="{% url 'manager_school:confirm_payment_stage' payment_stage_id=stage.id  %}"
-                              method="post">
-                            {% csrf_token %}
-                            <button class="btn btn-secondary">Подтвердить</button>
-                        </form>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
         </div>
     </div>
 </main>

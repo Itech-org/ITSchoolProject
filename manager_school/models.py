@@ -5,13 +5,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
+from .utilities import slugify
 from time import time
 # Create your models here.
 
 
 def gen_slug(s):
-    new_slug = slugify(s, allow_unicode=True)
+    new_slug = slugify(s)
     return new_slug + '-' + str(int(time()))
 
 
@@ -283,6 +283,7 @@ class News(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
+    picture = models.ImageField(upload_to='images/news/', null=True, blank=True)
 
     def __str__(self):
         return f" {self.title}"

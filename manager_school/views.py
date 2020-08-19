@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 from django.db.models import Count
 from django.http import HttpResponseRedirect, QueryDict
@@ -17,26 +18,30 @@ from .utilities import *
 
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        remember_me = request.POST.get('remember_me')
-        user = authenticate(username=username, password=password)
-        if user:
-            if not user.is_active:
-                return redirect("manager_school:login")
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("manager_school:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('manager_school:main_page')
             else:
-                login(request, user)
-                if not remember_me:
-                    request.session.set_expiry(0)
-                return redirect('manager_school:main_page')
+                return redirect("manager_school:login")
         else:
-            return redirect("manager_school:login")
+            form = LoginForm()
+            return render(request, 'manager/other/login.html', {'form': form})
     else:
-        form = LoginForm()
-        return render(request, 'manager/other/login.html', {'form': form})
+        return redirect('manager_school:main_page')
 
 
+@login_required
 def logout_request(request):
     logout(request)
     return redirect("manager_school:login")
@@ -52,20 +57,21 @@ def main_page_view(request):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_groups(request):
-    query_dict = QueryDict('', mutable=True)
-    query_dict.update(request.GET)
-    if 'manager' not in query_dict:
-        query_dict['manager'] = f"{request.user.id}"
-
-    groups = GroupFilter(data=query_dict, queryset=GroupModel.objects.all())
-    managers = AdvUser.objects.filter(groups__name='Manager')
-    teachers = AdvUser.objects.filter(groups__name='Teacher')
-    courses = CourseUser.objects.all()
+    course_id = request.GET.get('course')
+    all_courses = CourseUser.objects.all()
+    if course_id:
+        courses = CourseUser.objects.filter(id=int(course_id))
+        if courses.exists():
+            selected_course = courses[0]
+        else:
+            selected_course = None
+    else:
+        courses = CourseUser.objects.all()
+        selected_course = None
     return render(request, "manager/group/group-list.html", {
-        "groups": groups,
-        "managers": managers,
-        "teachers": teachers,
-        "courses": courses
+        "courses": courses,
+        'selected_course': selected_course,
+        'all_courses': all_courses,
     })
 
 
@@ -467,3 +473,12 @@ def change_user_info(request):
         return redirect('manager_school:get_manager_profile')
     return render(request, 'manager/profile/change_personal_data.html')
 
+
+# ---------------------news-----------------------------
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def get_news_list(request):
+    return render(request, 'manager/other/news_list.html', {
+        'news': News.objects.all()
+    })

@@ -80,7 +80,7 @@ a {
 .main-header__change-speciality {
   display: flex;
   align-items: center;
-  width: 570px;
+  /*width: 300px;*/
   justify-content: space-around;
   height: 100%;
 }
@@ -127,6 +127,7 @@ a {
 .main-header__box-for-change-speciality {
   position: relative;
   height: 30px;
+  margin-right: 5px;
 }
 
 .main-header__list-speciality {

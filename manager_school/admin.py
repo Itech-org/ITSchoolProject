@@ -71,7 +71,7 @@ class AdminViewMaterialsVideo(admin.ModelAdmin):
 
 @admin.register(News)
 class AdminNews(admin.ModelAdmin):
-    list_display = ('title', 'description', 'created' )
+    list_display = ('title', 'created' )
     prepopulated_fields = {'slug': ('title',)}
 
 class RequestConversationInline(admin.StackedInline):
