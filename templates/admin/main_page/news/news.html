@@ -1,0 +1,26 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Новости школы{% endblock %}
+{% block content %}
+    <div>
+    <a href="{% url 'admin_school:add_news' %}">Добавить новость</a>
+    </div>
+    {% for rubrick in rubricks %}
+        <a href="{% url 'admin_school:rubrick' rubrick.pk %}">{{ rubrick }}</a>
+    {% endfor %}
+    {% for new in news %}
+        <div>
+            <div>
+                <a href="{% url 'admin_school:new_view' new.pk %}"> {{ new.title }}</a>
+            </div>
+            <div>
+                {{ new.description|safe }}
+            </div>
+            <div>
+                {{ new.created }}
+            </div>
+{#            <div><a href="{% url "admin:manager_school_news_change" new.pk %}">редактировать новость</a></div>#}
+{#            <div><a href="{% url 'admin:manager_school_news_delete' new.pk %}">Удалить новость</a></div>#}
+
+        </div>
+    {% endfor %}
+{% endblock %}

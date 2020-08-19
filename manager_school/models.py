@@ -266,11 +266,23 @@ class MaterialVideo(models.Model): #Материалы
         verbose_name_plural = 'Видеоматериалы'
 
 
+class RubruckNews(models.Model):
+    title = models.CharField("Рубрика", max_length=30, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Рубрика'
+        verbose_name_plural = 'Рубрики'
+
+
 class News(models.Model):
     title = models.CharField('Заголовок', max_length=150, blank=True)
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
+    rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self):
         return f" {self.title}"
@@ -325,7 +337,6 @@ class RequestConversation(models.Model):
         ordering = ['-date', 'status']
         verbose_name = 'Разговор'
         verbose_name_plural = 'Разговоры'
-
 
 
 class Contract(models.Model):

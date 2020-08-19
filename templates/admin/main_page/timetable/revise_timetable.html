@@ -1,3 +1,5 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Изменить расписание{% endblock %}
 {% block content %}
 <h2> Изменение в расписании занятий</h2>
         <form method="POST" class="ClassMode-lForm">{% csrf_token %}
@@ -6,4 +8,5 @@
         <p>Преподаватель группы: {{ rev_timetable.groups.teacher }}</p>
         <p>Кабинет: {{ form.classroom }}</p>
         <p ><button>Изменить</button>
+        </form>
 {% endblock %}
