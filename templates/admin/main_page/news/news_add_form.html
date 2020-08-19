@@ -1,0 +1,18 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Новости школы{% endblock %}
+{% block content %}
+    <h1>Создание новостного блока</h1>
+    <form action="" method="post">
+     {% csrf_token %}
+    <p>Заголовок :{{ form.title }}</p>
+    <p>Содержание статьи: {{ form.description }}</p>
+    <p>Рубрика:{{ form.rubrick }}</p>
+    <button>Добавить новость</button>
+    </form>
+
+{% endblock %}
+{% load static %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}

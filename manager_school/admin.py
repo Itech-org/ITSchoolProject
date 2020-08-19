@@ -125,5 +125,6 @@ admin.site.register(Notification)
 admin.site.register(Chat)
 admin.site.register(Message)
 admin.site.register(UserManagement)
+admin.site.register(RubruckNews)
 
 

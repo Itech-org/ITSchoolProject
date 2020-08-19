@@ -12,11 +12,13 @@
         <li><a href="{% url 'admin_school:timetable' %}">Расписание</a></li>
         <li><a href="{% url 'admin_school:teacher_tab' %}">Преподаватели</a></li>
         <li><a href="#">Чат</a></li>
-        <li><a href="#">Новости Школы</a></li>
-        <li><a href="#">Обработка запроса</a></li>
+        <li><a href="{% url 'admin_school:news' %}">Новости Школы</a></li>
         <li><a href="{%url 'admin_school:logout_admin'%}">выход</a></li>
     </ul>
 {% block content %}
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}
 </body>
 </html>
