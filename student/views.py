@@ -11,6 +11,7 @@ from manager_school.models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ClassModelSerializer
+from .utilities import *
 import datetime
 
 
@@ -47,9 +48,9 @@ def Change_user_info(request):
         user = request.user
         if phone:
             user.phone = phone
-        elif email:
+        if email:
             user.email = email
-        elif img_user:
+        if img_user:
             user.img_user = img_user
         user.save()
         return redirect('student:account')
@@ -347,6 +348,33 @@ def services(request):
     return render(request, 'student/services_page.html')
 
 
+@user_passes_test_custom(check_group_and_activation, login_url='/login')
+def payment(request):
+    groups, current_group = group_filter(request)
+    user_payment = get_user_payment(request, current_group)
+    payment_stages = get_payment_stages(request, current_group)
+    if user_payment.by_stages == True:
+        percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
+        context = {
+            'group': current_group, 'groups': groups,
+            'payment_stages': payment_stages, 'payment': user_payment,
+            'percentage': percentage, 'paid_amount': paid_amount,
+            'stages_amount': stages_amount
+        }
+    else:
+        context = {
+            'group': current_group, 'groups': groups,
+            'payment_stages': payment_stages, 'payment': user_payment
+        }
+    picture = request.FILES.get('picture', '')
+    if picture:
+        save_picture(request, payment_stages, picture)
+        payment_stages = get_payment_stages(request, current_group)
+        context.update({'payment_stages':payment_stages})
+        if user_payment.by_stages == True:
+            alert = get_alert(request, payment_stages)
+            context.update({'alert':alert})
+    return render(request, 'student/payment_stages.html', context)
 # ---- ЧАТ ----
 
 
@@ -377,14 +405,7 @@ def get_chat_with_user(request, chat_id):
         except Chat.DoesNotExist:
             chat = None
 
-        return render(
-            request,
-            'student/chat/messages.html',{
-                'user_profile': request.user,
-                'chat': chat,
-                'chats': chats,
-                'form': MessageForm()}
-        )
+        return render(request,'student/chat/messages.html',{'user_profile': request.user,'chat': chat,'chats': chats,'form': MessageForm()})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')

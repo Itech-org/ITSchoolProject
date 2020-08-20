@@ -33,7 +33,6 @@
     <div class="group__container">
         <div class="group__list-students">
             <p class="group__name-list">Список учеников</p>
-
             {% for student in students %}
             <div class="group__student-box">
                 <p class="group__box-for-foto-student">
@@ -44,7 +43,11 @@
                     {% endif %}
                     <span class="group__check-online"></span>
                 </p>
+                {% if student.id == request.user.id %}
+                <a href="{% url 'student:account' %}">
+                {% else %}
                 <a href="{% url 'student:group_profile' user_id=student.id %}">
+                {% endif %}
                 <p class="group__student-last-name ">{{ student.last_name }}</p>
                 <p class="group__student-first-name">{{ student.first_name }}</p>
                 <p class="group__student-patronymic">{{ student.surname }}</p>
@@ -54,7 +57,6 @@
                 </a>
             </div>
             {% endfor %}
-
             <!--          <div class="group__student-box">-->
             <!--            <p class="group__box-for-foto-student">-->
             <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
@@ -123,8 +125,6 @@
             <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
             <!--            </a>-->
             <!--          </div>       -->
-
-
         </div>
         <div class="group__box-for-teacher">
             <p class="group__teacher">Преподаватель</p>

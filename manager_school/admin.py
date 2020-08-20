@@ -51,7 +51,7 @@ class AdminViewClassroom(admin.ModelAdmin):
 @admin.register(HomeworkModel)
 class AdminViewHomeworkModel(admin.ModelAdmin):
     list_display = ('title', )
-    prepopulated_fields = {'slug': ('title',)}
+    # prepopulated_fields = {'slug': ('title',)}
 
 @admin.register(HomeworkTeacherModel)
 class AdminViewHomeworkTeacherModel(admin.ModelAdmin):
