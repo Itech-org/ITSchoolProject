@@ -1,144 +1,147 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% block title %}
-<title>Группа</title>
+    <title>Группа</title>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/group.css' %}"/>
-<link rel="stylesheet" href="{% static 'css/main-group.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/group.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main-group.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main-header.css' %}"/>
 {% endblock %}
 {% block header %}
-<div class="main-header__page-information-change-specialty">
-    <p class="main-header__page-information">Группа</p>
-    <div class="main-header__change-speciality">
-        <div class="main-header__box-for-change-speciality">
-            <p class="main-header__button-change-speciality">Выбрать курс...</p>
-            <div class="main-header__list-speciality no-active">
-                {% for group in groups %}
-                <p class="main-header__wrapp-for-speciality-link">
-                    <a href="{% url 'student:group_view' group_id=group.id %}" class="main-header__speciality-link">{{ group.course.title }}</a>
-                </p>
-                {% endfor %}
+    <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Группа</p>
+        <div class="main-header__change-speciality">
+            <div class="main-header__box-for-change-speciality">
+                <p class="main-header__button-change-speciality">{{ group.title }}</p>
+                <div class="main-header__list-speciality no-active">
+                    <form action="" method="get" class="main-header__form-change-course">
+                        <input type="text" name="group" hidden class="main-header__change-course"/>
+                        {% for group in groups %}
+                            <p class="main-header__wrapp-for-speciality-link mb-0" data-value="{{ group.id }}">
+                                {{ group.title }}
+                            </p>
+                        {% endfor %}
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="main-header__box-for-info">
-            <p class="main-header__speciality-info-name">{{ group.title }}</p>
-            <p class="main-header__speciality-info-group"></p>
-        </div>
     </div>
-</div>
 {% endblock %}
 {% block content %}
-<main class="group">
-    <div class="group__container">
-        <div class="group__list-students">
-            <p class="group__name-list">Список учеников</p>
+    <main class="group">
+        <div class="group__container">
+            <div class="group__list-students">
+                <p class="group__name-list">Список учеников</p>
+                {% for student in students %}
+                    <div class="group__student-box">
+                        <p class="group__box-for-foto-student">
+                            {% if student.img_user %}
+                                <img src="{{ student.img_user.url }}" alt="фото студента" class="group__student-foto"/>
+                            {% else %}
+                                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;"
+                                     alt="фото студента" class="group__student-foto"/>
+                            {% endif %}
+                            <span class="group__check-online"></span>
+                        </p>
+                        {% if student.id == request.user.id %}
+                            <a href="{% url 'student:account' %}">
+                        {% else %}
+                            <a href="{% url 'student:group_profile' user_id=student.id %}">
+                        {% endif %}
+                        <p class="group__student-last-name ">{{ student.last_name }}</p>
+                        <p class="group__student-first-name">{{ student.first_name }}</p>
+                        <p class="group__student-patronymic">{{ student.surname }}</p>
+                        </a>
+                        <a href="{% url 'student:create_dialog' user_id=student.id %}" class="group__sent-message-link">
+                            <p class="group__box-for-link">Отправить сообщение</p>
+                        </a>
+                    </div>
+                {% endfor %}
+                <!--          <div class="group__student-box">-->
+                <!--            <p class="group__box-for-foto-student">-->
+                <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
+                <!--              <span class="group__check-online"></span>-->
+                <!--            </p>-->
+                <!--            <p class="group__student-last-name">Фамилия</p>-->
+                <!--            <p class="group__student-first-name">Имя</p>-->
+                <!--            <p class="group__student-patronymic">Отчество</p>-->
+                <!--            <a href="#" class="group__sent-message-link">-->
+                <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
+                <!--            </a>-->
+                <!--          </div>-->
 
-            {% for student in students %}
-            <div class="group__student-box">
-                <p class="group__box-for-foto-student">
-                    {% if student.img_user %}
-                        <img src="{{ student.img_user.url }}" alt="фото студента" class="group__student-foto"/>
-                    {% else %}
-                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="group__student-foto"/>
-                    {% endif %}
-                    <span class="group__check-online"></span>
-                </p>
-                <a href="{% url 'student:group_profile' user_id=student.id %}">
-                <p class="group__student-last-name ">{{ student.last_name }}</p>
-                <p class="group__student-first-name">{{ student.first_name }}</p>
-                <p class="group__student-patronymic">{{ student.surname }}</p>
-                </a>
-                <a href="#" class="group__sent-message-link">
-                    <p class="group__box-for-link">Отправить сообщение</p>
-                </a>
+
+                <!--          <div class="group__student-box">-->
+                <!--            <p class="group__box-for-foto-student">-->
+                <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
+                <!--              <span class="group__check-online"></span>-->
+                <!--            </p>-->
+                <!--            <p class="group__student-last-name">Фамилия</p>-->
+                <!--            <p class="group__student-first-name">Имя</p>-->
+                <!--            <p class="group__student-patronymic">Отчество</p>-->
+                <!--            <a href="#" class="group__sent-message-link">-->
+                <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
+                <!--            </a>-->
+                <!--          </div>-->
+
+
+                <!--          <div class="group__student-box">-->
+                <!--            <p class="group__box-for-foto-student">-->
+                <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
+                <!--              <span class="group__check-online"></span>-->
+                <!--            </p>-->
+                <!--            <p class="group__student-last-name">Фамилия</p>-->
+                <!--            <p class="group__student-first-name">Имя</p>-->
+                <!--            <p class="group__student-patronymic">Отчество</p>-->
+                <!--            <a href="#" class="group__sent-message-link">-->
+                <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
+                <!--            </a>-->
+                <!--          </div>-->
+
+
+                <!--          <div class="group__student-box">-->
+                <!--            <p class="group__box-for-foto-student">-->
+                <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
+                <!--              <span class="group__check-online"></span>-->
+                <!--            </p>-->
+                <!--            <p class="group__student-last-name">Фамилия</p>-->
+                <!--            <p class="group__student-first-name">Имя</p>-->
+                <!--            <p class="group__student-patronymic">Отчество</p>-->
+                <!--            <a href="#" class="group__sent-message-link">-->
+                <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
+                <!--            </a>-->
+                <!--          </div>-->
+
+
+                <!--          <div class="group__student-box">-->
+                <!--            <p class="group__box-for-foto-student">-->
+                <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
+                <!--              <span class="group__check-online"></span>-->
+                <!--            </p>-->
+                <!--            <p class="group__student-last-name">Фамилия</p>-->
+                <!--            <p class="group__student-first-name">Имя</p>-->
+                <!--            <p class="group__student-patronymic">Отчество</p>-->
+                <!--            <a href="#" class="group__sent-message-link">-->
+                <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
+                <!--            </a>-->
+                <!--          </div>       -->
             </div>
-            {% endfor %}
-
-            <!--          <div class="group__student-box">-->
-            <!--            <p class="group__box-for-foto-student">-->
-            <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
-            <!--              <span class="group__check-online"></span>-->
-            <!--            </p>-->
-            <!--            <p class="group__student-last-name">Фамилия</p>-->
-            <!--            <p class="group__student-first-name">Имя</p>-->
-            <!--            <p class="group__student-patronymic">Отчество</p>-->
-            <!--            <a href="#" class="group__sent-message-link">-->
-            <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
-            <!--            </a>-->
-            <!--          </div>-->
-
-
-            <!--          <div class="group__student-box">-->
-            <!--            <p class="group__box-for-foto-student">-->
-            <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
-            <!--              <span class="group__check-online"></span>-->
-            <!--            </p>-->
-            <!--            <p class="group__student-last-name">Фамилия</p>-->
-            <!--            <p class="group__student-first-name">Имя</p>-->
-            <!--            <p class="group__student-patronymic">Отчество</p>-->
-            <!--            <a href="#" class="group__sent-message-link">-->
-            <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
-            <!--            </a>-->
-            <!--          </div>-->
-
-
-            <!--          <div class="group__student-box">-->
-            <!--            <p class="group__box-for-foto-student">-->
-            <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
-            <!--              <span class="group__check-online"></span>-->
-            <!--            </p>-->
-            <!--            <p class="group__student-last-name">Фамилия</p>-->
-            <!--            <p class="group__student-first-name">Имя</p>-->
-            <!--            <p class="group__student-patronymic">Отчество</p>-->
-            <!--            <a href="#" class="group__sent-message-link">-->
-            <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
-            <!--            </a>-->
-            <!--          </div>-->
-
-
-            <!--          <div class="group__student-box">-->
-            <!--            <p class="group__box-for-foto-student">-->
-            <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
-            <!--              <span class="group__check-online"></span>-->
-            <!--            </p>-->
-            <!--            <p class="group__student-last-name">Фамилия</p>-->
-            <!--            <p class="group__student-first-name">Имя</p>-->
-            <!--            <p class="group__student-patronymic">Отчество</p>-->
-            <!--            <a href="#" class="group__sent-message-link">-->
-            <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
-            <!--            </a>-->
-            <!--          </div>-->
-
-
-            <!--          <div class="group__student-box">-->
-            <!--            <p class="group__box-for-foto-student">-->
-            <!--              <img src="{% static 'img/foto_student.jpg' %}" alt="фото студента" class="group__student-foto" />-->
-            <!--              <span class="group__check-online"></span>-->
-            <!--            </p>-->
-            <!--            <p class="group__student-last-name">Фамилия</p>-->
-            <!--            <p class="group__student-first-name">Имя</p>-->
-            <!--            <p class="group__student-patronymic">Отчество</p>-->
-            <!--            <a href="#" class="group__sent-message-link">-->
-            <!--              <p class="group__box-for-link">Отправить сообщение</p>-->
-            <!--            </a>-->
-            <!--          </div>       -->
-
-
+            <div class="group__box-for-teacher">
+                <p class="group__teacher">Преподаватель</p>
+                {% if group.teacher.img_user %}
+                    <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="group__teacher-foto">
+                {% else %}
+                    <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя"
+                         class="group__teacher-foto"/>
+                {% endif %}
+                <p class="group__first-name-and-patronymic">{{ group.teacher.first_name }} {{ group.teacher.surname }}</p>
+                <p class="group__last-name">{{ group.teacher.last_name }}</p>
+            </div>
         </div>
-        <div class="group__box-for-teacher">
-            <p class="group__teacher">Преподаватель</p>
-            {% if group.teacher.img_user %}
-                <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="group__teacher-foto">
-            {% else %}
-                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="group__teacher-foto"/>
-            {% endif %}
-            <p class="group__first-name-and-patronymic">{{ group.teacher.first_name }} {{ group.teacher.surname }}</p>
-            <p class="group__last-name">{{ group.teacher.last_name}}</p>
-        </div>
-    </div>
-</main>
+    </main>
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/group.js' %}"></script>
+    <script src="{% static 'js/main-header.js' %}"></script>
+    <script src="{% static 'js/group.js' %}"></script>
 {% endblock %}

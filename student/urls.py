@@ -5,8 +5,8 @@ from .views import *
 app_name = 'student'
 
 urlpatterns = [
-    path("logout/",Logout_View.as_view(),name='logout'),
-    path("login/",Login_View.as_view(),name="login"),
+    path("logout/",logout_request,name='logout'),
+    path("login/",login_user,name="login"),
     path('change_data/', Change_user_info, name='change_data'),
     path('', main_page_view, name='main_page_view'),
     path('account/', account, name="account"),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('contact_admin/', contact_admin, name="contact_admin"),
     path('itnews/', itnews, name="itnews"),
     path('services/', services, name="services"),
+    path('payment_stages/', payment, name="payment"),
     path('chats/', get_chats, name='chats'),
     path('chat/create/<int:user_id>/', start_chat_with_user, name='create_dialog'),
     path('chat/<int:chat_id>', get_chat_with_user, name='messages'),

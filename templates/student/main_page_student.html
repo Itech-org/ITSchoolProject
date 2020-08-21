@@ -172,7 +172,7 @@
                 </p>
             </div>
         </a>
-        <a href="#" class="main__student-tool-link">
+        <a href="{% url 'student:chats' %}" class="main__student-tool-link">
             <div class="main__student-tool-box">
                 <div class="main__student-tool-box-img">
                     <img src="{% static 'img/chat.svg' %}" alt="чат" class="main__student-tool-img"/>
@@ -189,7 +189,7 @@
         </p>
         {% for teacher in teachers %}
         <div class="main__teacher-course">
-            <a href="#" class="main__teacher-navigation">
+            <a href="{% url 'student:teacher_profile' teacher_id=teacher.id %}" class="main__teacher-navigation">
                 {% if teacher.img_user %}
                     <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="main__teacher-img"/>
                 {% else %}

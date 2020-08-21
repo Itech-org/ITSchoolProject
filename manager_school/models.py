@@ -24,13 +24,23 @@ class AdvUser(AbstractUser): # Студенты
         if self.groups.filter(name="Student").exists():
             academic_performance = 0
             if group_id == '':
-                attendances = self.attendances.filter(attendance=True)
+                attendances = self.attendances.all()
+                attendances_true = self.attendances.filter(attendance=True)
+                homework = self.homework_st.filter(status='Проверено')
             else:
-                attendances = self.attendances.filter(attendance=True, classes__groups__id=group_id)
-            if attendances:
-                for attendance in attendances:
+                attendances = self.attendances.filter(classes__groups__id=group_id)
+                attendances_true = self.attendances.filter(attendance=True, classes__groups__id=group_id)
+                homework = self.homework_st.filter(status='Проверено', class_field__groups__id=group_id)
+            if attendances_true:
+                for attendance in attendances_true:
                     academic_performance += attendance.rating
-                return int(academic_performance / len(attendances)) * 10
+            if homework:
+                for hw in homework:
+                    academic_performance += hw.rating
+            try:
+                return int(academic_performance / (len(attendances)+len(homework))) * 10
+            except ZeroDivisionError:
+                return 0
         return 0
 
     def get_attendance(self, group_id=''):
@@ -204,8 +214,8 @@ class HomeworkModel(models.Model):  # Дз Студента
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', blank=True, null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
-    slug = models.SlugField(max_length=100, db_index=True, default=None)
-    status = models.CharField(max_length=300, choices = CHOICES, default='nv')
+    # slug = models.SlugField(max_length=100, db_index=True, default=None)
+    status = models.CharField(max_length=300, choices = CHOICES, default='Не проверено')
     rating = models.PositiveIntegerField('Оценка', default=0)
 
     def __str__(self):
@@ -222,6 +232,7 @@ class HomeworkTeacherModel(models.Model): # Дз Препода
     description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homeworkteacher')
+    attempts = models.IntegerField(verbose_name='Количество попыток', default=3)
     slug = models.SlugField(max_length=100, db_index=True, default=None)
 
     def __str__(self):
