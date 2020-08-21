@@ -4,12 +4,11 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.views import LoginView, LogoutView
 
 from django.db.models import Q
-from django.shortcuts import render
-
+from .serializers import ClassModelSerializer
 from django.urls import reverse_lazy
-
+import datetime
 from manager_school.utilities import user_passes_test_custom
-from django.shortcuts import get_object_or_404, get_list_or_404, render
+from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 from django.http import HttpRequest, HttpResponse
 from manager_school.models import *
 from django.contrib import messages
@@ -18,6 +17,9 @@ import calendar
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -58,88 +60,79 @@ def index(request):
     return render(request, 'teacher/index.html')
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def calendar(request): #календарь
-    cl=[]
-    groups = GroupModel.objects.filter(teacher__id=request.user.id)
-    for i in groups:
-        classes = ClassModel.objects.filter(groups_id=i.id)
-        cl+=classes
-    context={'classes':cl}
-    print(context)
-    return render(request, 'teacher/calendar.html', context)
+@user_passes_test_custom(check_group_and_activation, login_url='teacher/login/')
+def calendar(request):
+    classes = {}
+    group = request.GET.get('group', '')
+    if group:
+        classes = ClassModel.objects.filter(groups=group)
+    else:
+        {'classes':''}
+    date_now = datetime.datetime.now()
+    print(classes)
+    return render(request, 'teacher/calendar.html', {'classes':classes, 'date_now':date_now})
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/teacher/login/')
+def class_detail(request, class_id):
+    class_data = get_object_or_404(ClassModel, id=class_id)
+    attendances = Attendance.objects.filter(classes__id=class_id)
+    return render(request, "teacher/calendar-go-to-day.html", {
+        "class": class_data,
+        "attendances": attendances,
+    })
+
+@api_view(['GET']) #api_calendar
+def api_classes_list(request):
+    group = request.GET.get('group', '')
+    if group == '':
+        classes = ClassModel.objects.all()
+    else:
+        try:
+            selected_group = int(group)
+            classes = ClassModel.objects.filter(groups__id=selected_group)
+        except TypeError:
+            classes = ClassModel.objects.all()
+    data = ClassModelSerializer(classes, many=True)
+    return Response(data.data)
 
 
 def profile(request): #страница профиля учителя
-    return render(request, 'teacher/profile.html')
-
-
-
-def account(request): #профиль
-    if request.method == 'POST':
-        user_form = UserEditForm(instance=request.user, data=request.POST, files=request.FILES)
-        if user_form.is_valid():
-            user_form.save()
-            messages.success(request, 'Ваши данные успешно изменены')
-    else:
-        user_form = UserEditForm(instance=request.user)
-    return render(request, 'teacher/account.html', {'user_form': user_form})
-
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def group_detail(request):
     groups = GroupModel.objects.filter(teacher__id=request.user.id)
-    return render(request, "teacher/group_detail.html", {'groups':groups})
+    classes = 0
+    for g in groups:
+        classes += int(g.course.amount)
+    return render(request, 'teacher/card_personal_teacher.html', {'classes':classes})
+
+
+
+def profile_edit(request): #редактирование профиля
+    if request.method == "POST":
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        img_user = request.FILES.get('img_user', '')
+        user = request.user
+        if phone:
+            user.phone = phone
+        elif email:
+            user.email = email
+        elif img_user:
+            user.img_user = img_user
+        user.save()
+        return redirect('teacher:profile')
+    # if request.method == 'POST':
+    #     user_form = UserEditForm(instance=request.user, data=request.POST)
+    #     if user_form.is_valid():
+    #         user_form.save()
+    #         messages.success(request, 'Ваши данные успешно изменены')
+    # else:
+    #     user_form = UserEditForm(instance=request.user)
+    return render(request, 'teacher/change_personal_data.html')
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='login/')
 def study_procces(request):
-    return render(request, 'teacher/study_procces.html')
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def my_courses(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id = my_id)
-    courses = group.course.all()
-    context = {'courses':courses}
-    return render(request, "student/my_courses.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def exact_course(request, course_id):
-    course = get_object_or_404(CourseModel, id = course_id)
-    context = {'course':course}
-    return render(request, "student/exact_course.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def homework_view(request):
-    context = {'homework':homework}
-    return render(request, "teacher/homework.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login')
-def shedule_view(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id = my_id)
-    group_id = group.id
-    shedule = get_object_or_404(SheduleModel, group__id = group_id)
-    shedule_id = shedule.id
-    cls = get_list_or_404(ClassModel, timetable__id = shedule_id)
-    context = {'shedule':shedule, 'class':cls}
-    return render(request, "student/shedule.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login')
-def class_view(request, class_id):
-    cls = get_object_or_404(ClassModel, id = class_id)
-    material = get_object_or_404(MaterialModel, class_field__id = class_id)
-    homework = get_object_or_404(HomeworkModel, class_field__id = class_id)
-    context = {'class': cls, 'material':material, 'homework':homework}
-    return render(request, "student/class.html", context)
-
+    return render(request, 'teacher/studying_proccess.html')
 
 
 class MyPasswordChange(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
@@ -157,20 +150,18 @@ class MyPasswordResetConfirm(PasswordResetConfirmView):
     success_url = reverse_lazy('teacher:password_reset_complete')
 
 
+@user_passes_test_custom(check_group_and_activation, login_url='teacher/login/')
 def group_detail(request): #вкладка группы
-    context={'students': ''}
-    filter_gr=request.GET.get('choise','')
+    students=[]
+    filter_gr=request.GET.get('group','')
     if filter_gr:
         students = AdvUser.objects.filter(groupmodel=filter_gr)
-        context.update({'students': students})
-        print(context)
+        print(students)
     else:
-        context
-    return render(request, "teacher/group_detail.html", context)
-
-
-def study_procces(request): #учебный процесс
-    return render(request, 'teacher/study_procces.html')
+        groups = GroupModel.objects.filter(teacher__id=request.user.id)
+        for g in groups:
+            students += AdvUser.objects.filter(groupmodel=g.id)
+    return render(request, "teacher/group.html", {'students':students})
 
 
 def student_detail(request, student_id): #детализация ученика
@@ -179,7 +170,7 @@ def student_detail(request, student_id): #детализация ученика
 
 
 def materials(request): #материалы
-    return render(request, 'teacher/materials.html')
+    return render(request, 'teacher/studying_materials.html')
 
 
 def text_mat(request): #список книг
@@ -188,7 +179,7 @@ def text_mat(request): #список книг
         literature = MaterialText.objects.filter(title__icontains=search_q)
     else:
         literature = MaterialText.objects.all()
-    return render(request, 'teacher/text_mat.html', {'literature':literature})
+    return render(request, 'teacher/education-literature.html', {'literature':literature})
 
 
 def text_detail(request, slug_l): #страница книги
@@ -202,55 +193,39 @@ def video_mat(request): #список видео
         videos = MaterialVideo.objects.filter(Q(title__icontains=search_q) | Q(description__icontains=search_q))
     else:
         videos = MaterialVideo.objects.all()
-    return render(request, 'teacher/video_mat.html', {'videos':videos})
+    return render(request, 'teacher/video-material.html', {'videos':videos})
 
 
 def video_detail(request, slug_v): #станица видео
     video = MaterialVideo.objects.filter(slug=slug_v)
     return render(request, 'teacher/video_detail.html', {'video':video})
 
-
-# def class_detail(request, class_id): #страница занятия
-#     cls = get_object_or_404(ClassModel, id=class_id)
-#     group = get_object_or_404(GroupModel, classes=class_id)
-#     course = get_object_or_404(CourseUser, groups=group.id)
-#     students = AdvUser.objects.filter(groupmodel=group.id)
-#     if request.method == 'POST':
-#         # form_at = AttendanceEdit(request.POST)
-#         form_hw = HwTeacherEdit(request.POST)
-#         if form_at.is_valid() and form_hw.is_valid():
-#             form_at.save()
-#             form_hw.save()
-#             return render(request, 'teacher/success.html')
-#     else:
-#         form_at = AttendanceEdit()
-#         form_hw = HwTeacherEdit()
-#     context = {'group':group, 'class':cls, 'course':course, 'form_at':form_at, 'form_hw':form_hw, 'students':students}
-#     print(context)
-#     return render(request, 'teacher/class_detail.html', context)
-
-
 def homework(request): #дз студентов
     homework=[]
-    context = {'homework': ''}
-    filter_gr = request.GET.get('choise', '')
+    students = []
+    filter_gr=request.GET.get('group','')
     if filter_gr:
         students = AdvUser.objects.filter(groupmodel=filter_gr)
         for st in students:
             homework += st.homework_st.all()
-        context['homework'] = homework
-        print(context)
     else:
-        context
-    return render(request, 'teacher/homework.html', context)
+        groups = GroupModel.objects.filter(teacher__id=request.user.id)
+        for g in groups:
+            students += AdvUser.objects.filter(groupmodel=g.id)
+        print(students)
+        for st in students:
+            homework += st.homework_st.all()
+    return render(request, 'teacher/students-homework.html', {'homework':homework})
 
 
 def homework_detail(request, hw_id): #страница дз студента
-    return render(request, 'teacher/homework_detail.html')
+    hw = get_object_or_404(HomeworkModel, id=hw_id)
+    student = hw.user
+    return render(request, 'teacher/choosing-dz.html', {'student':student, 'homework':hw})
 
 
 def materials_on_theme(request): #материалы по темам
-    return render(request, 'teacher/materials_on_theme.html')
+    return render(request, 'teacher/materials_on_topics.html')
 
 
 def material_detail(request): #страница материала
@@ -258,7 +233,7 @@ def material_detail(request): #страница материала
 
 
 def video_courses(request): #видеозанития
-    return render(request, 'teacher/video_courses.html')
+    return render(request, 'teacher/video-material.html')
 
 
 def vd_crs_detail(request): #страница видеозанятия
@@ -270,9 +245,19 @@ def chat(request): #чат
 
 
 def teachers(request): #преподаватели
-    return render(request, 'teacher/teachers.html')
+    teachers = AdvUser.objects.filter(groups__name='Teacher')
+    return render(request, 'teacher/teachers.html', {'teachers':teachers})
 
 
 def news(request): #новости
-    return render(request, 'teacher/news.html')
+    news = News.objects.all()
+    return render(request, 'teacher/itnews.html', {'news':news})
 
+
+def post_detail(request, post_id):
+    post = get_object_or_404(News, id=post_id)
+    return render(request, 'teacher/container_news.html', {'post':post})
+
+
+def message_for_admin(request):
+    return render(request, 'teacher/contact_administrator.html')

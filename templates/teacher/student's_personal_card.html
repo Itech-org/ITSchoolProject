@@ -1,0 +1,73 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/student's_personal_card.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/personal_student_card.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Личный кабинет</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main__personal-student-card">
+        <div class="main__personal-student-card-info">
+            <div class="main__personal-student-card-box">
+                <div class="main__personal-student-card-foto">
+                    <img src="../img/foto_student.jpg" alt="личное фото" class="main__personal-student-card-img" />
+                </div>
+                <div class="main__personal-student-card-data">
+                    <p class="main__personal-student-card-data-text">
+                        Василий
+                    </p>
+                    <p class="main__personal-student-card-data-text">
+                        Васильевич
+                    </p>
+                    <p class="main__personal-student-card-data-text main__personal-student-card-data-text_weigth">
+                        Пупкин
+                    </p>
+                    <p class="main__personal-student-card-data-text_size">
+                        <span class="main__personal-student-card_weight">
+                            E-mail
+                        </span>
+                        vasya_pupkin@mail.ru
+                    </p>
+                    <p class="main__personal-student-card-data-text_size">
+                        <span class="main__personal-student-card_weight">
+                            Тел.:
+                        </span>
+                        +37529 123 45 67
+                    </p>
+                    <a href="#" class="main__personal-student-card-data-link">
+                        Изменить личные данные
+                    </a>
+                </div>
+            </div>
+            <div class="main__personal-student-card-perfomance">
+                <div class="main__personal-student-card-perfomance-visit">
+                    <p class="main__personal-student-card-perfomance-text">
+                        Посещение
+                    </p>
+                    <div class="circle">
+                        30%
+                    </div>
+                    <p class="main__personal-student-card-perfomance-text"></p>
+                </div>
+                <div class="main__personal-student-card-perfomance-academic">
+                    <p class="main__personal-student-card-perfomance-text">
+                        Успеваемость
+                    </p>
+                    <div class="circle">
+                        50%
+                    </div>
+                    <p class="main__personal-student-card-perfomance-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+<script src="{% static 'teacher/js/personal_student_card.js'%}"></script>
+{% endblock %}

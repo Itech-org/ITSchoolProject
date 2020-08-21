@@ -5,12 +5,10 @@ from manager_school.models import AdvUser, Attendance, HomeworkTeacherModel
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = AdvUser
-        fields = ('username', 'first_name', 'last_name', 'surname', 'email', 'phone', 'img_user',)
+        fields = ('email', 'phone',)
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'surname': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
+            'phone': forms.TextInput(attrs={'class': 'change-personal-data__change-data',}),
+            'email': forms.TextInput(attrs={'class': 'change-personal-data__change-data',}),
             }
 
 class AttendanceEdit(forms.ModelForm):
@@ -36,4 +34,3 @@ class HwTeacherEdit(forms.ModelForm):
             'file': forms.FileInput(),
             'url': forms.URLInput(),
         }
-

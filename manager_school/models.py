@@ -281,6 +281,7 @@ class News(models.Model):
     title = models.CharField('Заголовок', max_length=150, blank=True)
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    img = models.ImageField('Изображение', upload_to='news/', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
 

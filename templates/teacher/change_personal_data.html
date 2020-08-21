@@ -1,0 +1,67 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/change-personal-data.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Личный кабинет</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="change-personal-data">
+    <div class="change-personal-data__container">
+        <div class="change-personal-data__pod-container">
+            <p class="change-personal-data__name">Изменить личные данные</p>
+            <div class="change-personal-data__box-for-change">
+                <div class="change-personal-data__user-name-and-foto">
+                    <div class="change-personal-data__user-name">
+                        <div class="change-personal-data__box-for-user-data">
+                            <p class="change-personal-data__user-data-name">Фамилия</p>
+                            <p class="change-personal-data__user-data">{{request.user.last_name}}</p>
+                        </div>
+                        <div class="change-personal-data__box-for-user-data">
+                            <p class="change-personal-data__user-data-name">Имя</p>
+                            <p class="change-personal-data__user-data">{{request.user.first_name}}</p>
+                        </div>
+                        <div class="change-personal-data__box-for-user-data">
+                            <p class="change-personal-data__user-data-name">Отчество</p>
+                            <p class="change-personal-data__user-data">{{request.user.surname}}</p>
+                        </div>
+                    </div>
+                    <div class="change-personal-data__box-for-user-foto">
+                        {% if request.user.img_user %}
+                        <img src="{{request.user.img_user.url}}" alt="фото студента" class="change-personal-data__user-foto">
+                        {% else %}
+                        <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="change-personal-data__user-foto">
+                        {% endif %}
+                        <p class="change-personal-data__box-for-change-foto-link">
+                            <input type="file" name="" value="">
+                        </p>
+                    </div>
+                </div>
+                <div class="change-personal-data__user-contacts">
+                    <div class="change-personal-data__user-contacts">
+                        <div class="change-personal-data_box-for-change">
+                            <div class="change-personal-data__box-for-user-data change-personal-data__box-for-user-data_width">
+                                <p class="change-personal-data__user-data-name">Телефон</p>
+                                <input type="phone" class="change-personal-data__change-data" value="{{request.user.phone}}" name="phone">
+                            </div>
+                            <div class="change-personal-data__box-for-user-data change-personal-data__box-for-user-data_width">
+                                <p class="change-personal-data__user-data-name">Почта</p>
+                                <input type="email" class="change-personal-data__change-data" value="{{request.user.email}}" name="email">
+                            </div>
+                        </div>
+                        <div class="change-personal-data__box-for-save-changes">
+                            <button type="submit" class="change-personal-data__but-save">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+{% endblock %}

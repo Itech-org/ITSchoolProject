@@ -1,0 +1,139 @@
+/* Блок с номером занятия, темой и датой */
+
+.selected-lesson__lesson-container {
+  width: 100%;
+  height: 233px;
+  display: flex;
+  align-items: center;
+}
+
+.lesson-container__info-container {
+  width: 239px;
+  height: 92px;
+  margin-left: 265px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.lesson-container__lesson-number {
+  font-family: Montserrat-Regular;
+  font-size: 18px;
+  color: #124178;
+}
+
+.lesson-container__topic-title {
+  font-family: Montserrat-SemiBold;
+  font-size: 23px;
+  color: #124178;
+}
+
+.lesson-container__lesson-date {
+  font-family: Montserrat-Light;
+  font-size: 14px;
+  color: #124178;
+}
+
+/*Блок видео*/
+
+.selected-lesson__video-line {
+  width: 100%;
+  height: 36px;
+  background: linear-gradient(180deg, #c8d3f5 0%, #b4bddc 100%);
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+}
+
+.selected-lesson__line-title {
+  font-family: Montserrat-SemiBold;
+  font-size: 15px;
+  color: #124178;
+  margin-left: 265px;
+}
+
+.selected-lesson__video-container {
+  width: 840px;
+  height: 153px;
+  /* margin-left: 335px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.selected-lesson__video-title-container {
+  width: 840px;
+  height: 31px;
+  /* margin-left: 335px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.video-title-container__video-title-box {
+  width: 166px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.video-title-container__video-title {
+  font-family: Montserrat-Regular;
+  font-size: 14px;
+  color: #0f3a6d;
+}
+
+/*Блок документы*/
+
+.selected-lesson__document-line {
+  width: 100%;
+  height: 36px;
+  margin-top: 120px;
+  background: linear-gradient(180deg, #c8d3f5 0%, #b4bddc 100%);
+  display: flex;
+  align-items: center;
+}
+
+.selected-lesson__document-container {
+  width: 903px;
+  height: 184px;
+  /* margin-left: 354px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.selected-lesson__document-title-container {
+  width: 941px;
+  height: 31px;
+  /* margin-left: 335px; */
+  /* margin-bottom: 155px; - не уверен, что нужен от отступ */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.document-title-container__document-title-box {
+  width: 155px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.document-title-container__video-title {
+  font-family: Montserrat-Regular;
+  font-size: 14px;
+  color: #0f3a6d;
+}
+
+.selected-lesson__box-for-all-lessons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}

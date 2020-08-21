@@ -1,0 +1,57 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/studying_materials.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Учебные материалы</p>
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-info">
+            <p class="main-header__speciality-info-name">Тестировщик</p>
+            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main__educational-materials">
+        <div class="main__educational-materials-box">
+            <img src="{% static 'teacher/img/note 1.png'%}" alt="материалы по темам" class="main__educational-materials-img" />
+            <p class="main__educational-materials-text">
+                <a href="{% url 'teacher:materials_on_theme' %}" class="main__educational-materials-link">
+                    Материалы по темам
+                </a>
+            </p>
+        </div>
+        <div class="main__educational-materials-box">
+            <img src="{% static 'teacher/img/laptop (1) 1.png'%}" alt="учебная литература" class="main__educational-materials-img" />
+            <p class="main__educational-materials-text">
+                <a href="{% url 'teacher:text_mat' %}" class="main__educational-materials-link">
+                    Учебная литература
+                </a>
+            </p>
+        </div>
+        <div class="main__educational-materials-box">
+            <img src="{% static 'teacher/img/desktop 1.png'%}" alt="видеоматериалы" class="main__educational-materials-img" />
+            <p class="main__educational-materials-text">
+                <a href="{% url 'teacher:video_mat' %}" class="main__educational-materials-link">
+                    Видеоматериалы
+                </a>
+            </p>
+        </div>
+        <div class="main__educational-materials-box">
+            <img src="{% static 'teacher/img/user (1) 1.png'%}" alt="домашнее задание" class="main__educational-materials-img" />
+            <p class="main__educational-materials-text">
+                <a href="{% url 'teacher:video_courses' %}" class="main__educational-materials-link">
+                    Видео занятий
+                </a>
+            </p>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+{% endblock %}

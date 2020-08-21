@@ -1,0 +1,204 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+   }
+
+   @font-face {
+    font-family: Montserrat-Thin; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Thin.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Black; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+   @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+   } 
+
+body{
+    background-color: #3A6192;
+}  
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}   
+
+.main__personal-teacher-card{
+    width: 100%;
+    height: 580px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+}
+
+.main__personal-teacher-card-info{
+    width: 673px;
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #E8F5FF, #F1F3FA);
+    box-shadow: inset -3px -3px 10px 5px #AEBCEC;
+    border-radius: 10px;
+}
+
+.main__personal-teacher-card-box{
+    width: 100%;
+    height: 340px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main__personal-teacher-card-img{
+    width: 250px;
+    height: 265px;
+    margin-top: 15px;
+}
+
+.main__personal-teacher-card-data-text{
+    font-family: Montserrat-Regular;
+    font-size: 24px;
+    color: #071959;
+}
+
+.main__personal-teacher-card-data-text_weigth{
+    font-family: Montserrat-SemiBold;
+    margin-bottom: 50px;
+    font-size: 27px;
+}
+
+.main__personal-teacher-card-data-text_size{
+    font-family: Montserrat-Light;
+    font-size: 16px;
+    color: #071959;
+}
+
+.main__personal-teacher-card_weight{
+    font-family: Montserrat-Thin;
+}
+
+.main__personal-teacher-card-perfomance-text{
+    font-family: Montserrat-Regular;
+    font-size: 15px;
+    color: #0056B0;
+    margin-bottom: 10px;
+}
+
+.circle {
+    display: block;
+    float: left;
+}
+
+.main__personal-teacher-card-perfomance-visit{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__personal-teacher-card-perfomance-academic{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.main__personal-teacher-card-payment{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 377px;
+    background: linear-gradient(180deg, #90CBF7, #EAEFFF);
+    box-shadow: inset -1px -1px 5px 1px #AEBCEC;
+}
+
+.main__personal-teacher-card-payment-text{
+    font-family: Montserrat-Black;
+    font-size: 21px;
+    color: #0C335C;
+    margin-bottom: 40px;
+}
+
+.main__personal-teacher-card-payment-text-status{
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.main__personal-teacher-card-payment-text_border{
+    font-family: Montserrat-SemiBold;
+    font-size: 15px;
+    width: 121px;
+    height: 30px;
+    background-color: #4160CA;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+.main__personal-teacher-card-payment-link{
+    font-family: Montserrat-SemiBold;
+    font-size: 15px;
+    text-decoration: none;
+    color: #0C335C;
+}
+
+.main__personal-teacher-card-payment-status{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.main__personal-teacher-card-perfomance{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 240px;
+    align-items: flex-start;
+    margin-left: 50px;
+}
+
+.main__personal-teacher-card-text{
+    font-family: Montserrat-Regular;
+    font-size: 16px;
+    color: #0056B0;
+    margin-top: 10px;
+}
+
+.main__personal-teacher-card-text_weight{
+    font-family: Montserrat-SemiBold;
+    font-size: 18px;
+    color: #024081;
+    margin-left: 10px;
+}
+
+.main__personal-teacher-card-text-rate{
+    font-family: Montserrat-SemiBold;
+    font-size: 18px;
+    color: #024081;
+    margin-top: 35px;
+}

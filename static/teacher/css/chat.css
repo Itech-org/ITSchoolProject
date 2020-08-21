@@ -1,0 +1,236 @@
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Black; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLight; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-ExtraLight.ttf); /* Путь к файлу со шрифтом */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main__chat {
+  width: 1100px;
+
+  height: 600px;
+  display: flex;
+  justify-content: space-between;
+
+  margin: auto;
+  margin-top: 80px;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main__chat-box-name {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #d4e6fc;
+}
+
+.main__chat-box-open {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  height: 100%;
+}
+
+.main__chat-box {
+  width: 100%;
+  height: 50px;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main__chat-name-text {
+  font-family: Montserrat-Bold;
+  font-size: 25px;
+  color: #114abe;
+  text-align: center;
+  line-height: 50px;
+}
+
+.main__chat-with-who-name {
+  width: 100%;
+  height: 48px;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 1px 1px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  line-height: 48px;
+}
+
+.main__chat-with-who-link {
+  text-decoration: none;
+  color: #114abe;
+  font-size: 20px;
+  font-family: Montserrat-Medium;
+}
+
+.main__chat-open {
+  width: 100%;
+  height: 50px;
+  background-color: #c0c8e4;
+  box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.1), 5px 5px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main__chat-open-text {
+  font-family: Montserrat-light;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  color: #114abe;
+}
+
+.main__chat-message-seen-area {
+  width: 100%;
+  height: 370px;
+  overflow-x: hidden;
+}
+
+.main__chat-message-textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.main__chat-textarea {
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 241, 255, 0.5);
+  border: none;
+  font-family: Montserrat-light;
+  color: black;
+  font-size: 14px;
+  line-height: 10px;
+  resize: none;
+  padding: 10px;
+}
+
+.main__chat-textarea:focus {
+  outline: none;
+}
+
+.main__chat-message-button {
+  width: 100%;
+  height: 80px;
+  background: #d4e6fc;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main__chat-message-input {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Montserrat-SemiBold;
+  font-size: 14px;
+  background-color: #7b8bdd;
+  color: #041932;
+}
+
+.main__chat-message-input-file {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.main__chat-message-input-button {
+  width: 150px;
+  height: 40px;
+  font-family: Montserrat-SemiBold;
+  font-size: 14px;
+  background-color: #7b8bdd;
+  color: #041932;
+  border: none;
+}
+
+.main__chat-one-message {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+.main__chat-img-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.main__chat-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.main__chat-text-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  flex-wrap: wrap;
+}
+
+.main__chat-message {
+  width: 700px;
+  font-family: Montserrat-Light;
+  font-size: 14px;
+  color: black;
+}
+
+.main__chat-main-name {
+  font-family: Montserrat-Bold;
+  font-size: 14px;
+  color: #062447;
+}
+
+.main__chat-date {
+  font-family: Montserrat-Medium;
+  font-size: 14px;
+  color: #062447;
+}
+
+.main__chat-link {
+  text-decoration: underline;
+}
+
+textarea::placeholder {
+  font-family: Montserrat-ExtraLight;
+  opacity: 0.2;
+  padding: 20px;
+  color: #7b8bdd;
+  font-size: 16px;
+}

@@ -1,0 +1,348 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/chat.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">ЧАТ</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main-chat">
+        <div class="main__chat">
+            <div class="main__chat-box-name">
+                <div class="main__chat-box">
+                    <p class="main__chat-name-text">
+                        Название чата
+                    </p>
+                </div>
+                <p class="main__chat-with-who-name">
+                    <a href="#" class="main__chat-with-who-link">
+                        Группа 2
+                    </a>
+                </p>
+                <p class="main__chat-with-who-name">
+                    <a href="#" class="main__chat-with-who-link">
+                        Иван Иванович
+                    </a>
+                </p>
+            </div>
+            <div class="main__chat-box-open">
+                <div class="main__chat-open">
+                    <p class="main__chat-open-text">
+                        Открытый чат
+                    </p>
+                    <div class="main__chat-message-seen-area">
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    Сообщение какое-нибудь
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main__chat-one-message">
+                            <div class="main__chat-img-wrapper">
+                                <img src="{% static 'teacher/img/foto_student.jpg'%}" alt="" class="main__chat-img" />
+                            </div>
+                            <div class="main__chat-text-wrapper">
+                                <div class="main__chat-main-name">
+                                    Димка
+                                </div>
+                                <div class="main__chat-date">
+                                    09.08.2020
+                                </div>
+                                <div class="main__chat-message">
+                                    <a href="{% static 'teacher/img/foto_student.jpg'%}" download class="main__chat-link">
+                                        Файл
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="#">
+                        <div class="main__chat-message-textarea">
+                            <textarea name="Чат" id="" cols="30" rows="10" placeholder="Введите текст" class="main__chat-textarea"></textarea>
+                        </div>
+                        <div class="main__chat-message-button">
+                            <div class="main__chat-message-input">
+                                Добавить файл
+                                <input type="file" class="main__chat-message-input-file" />
+                            </div>
+                            <button class="main__chat-message-input-button">
+                                Отправить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+
+{% endblock %}
