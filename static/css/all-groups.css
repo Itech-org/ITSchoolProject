@@ -61,13 +61,14 @@ button:hover {
   src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
 }
 
-.slider {
+.slider__box {
   position: relative;
   overflow: hidden;
   width: 1024px;
   margin: auto;
   height: 150px;
 }
+
 
 .slider__wrapper {
   display: flex;
@@ -145,12 +146,16 @@ button:hover {
   background-color: #b7c2e7;
   height: 100%;
 }
-/* 
+
 .slider__item-content-box {
-  width: 80%;
-  height: 100%;
-  background-color: aqua;
-} */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #2e5e96;
+  font-weight: bold;
+}
 
 .slider__group-name {
   font-family: Montserrat-Medium;

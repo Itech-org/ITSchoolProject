@@ -58,15 +58,21 @@
             <h2 class="all-groups__course-name">
                 {{ course.title }}
             </h2>
-            <div class="slider">
+            <div class="slider__box slider{% if not forloop.first %}{{forloop.counter0}}{% endif %}">
                 <div class="slider__wrapper">
                     {% for group in course.groups.all %}
                     <div class="slider__item">
-                        <div class="slider__item-content-box">
-                            <a href="{% url 'manager_school:get_group_detail' slug=group.slug %}">
-                                <p class="slider__group-name">{{ group.title }}</p>
-                            </a>
-                        </div>
+                        <a class="slider__item-content-box"
+                            href="{% url 'manager_school:get_group_detail' slug=group.slug %}">
+                            {% if forloop.counter|divisibleby:"2" %}
+                            <img height="100" width="100" src="{% static 'images/group_picture.png' %}"
+                                 alt="фото группы" style="margin-bottom: 5px">
+                            {% else %}
+                            <img height="100" width="100" src="{% static 'images/group_picture2.png' %}"
+                                 alt="фото группы" style="margin-bottom: 5px">
+                            {% endif %}
+                            {{ group.title }}
+                        </a>
                     </div>
                     {% endfor %}
                 </div>
@@ -83,6 +89,7 @@
 
 {% block scripts %}
 <script src="{% static 'js/main-header-manager.js' %}"></script>
+<script src="{% static 'js/all-groups.js' %}"></script>
 {% endblock %}
 
 

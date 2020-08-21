@@ -8,19 +8,67 @@
 <p class="main-header__page-information">Создание лида</p>
 {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/services_page.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
+{% endblock %}
+
 {% block content %}
 <main>
-    <div class="p-3">
-<form method="post" action="{% url 'manager_school:add_lead' %}">
-    {% csrf_token %}
-    <div class="d-flex flex-column">
-        {% for field in lead_form %}
-        <div class="d-flex">
-            {{ field }}
-            <div class="p-1 text-secondary">{{ field.label }}</div>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <h3>Лид</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-content">
+                    <div class="input-wrapper">
+                        <p>Фамилия:</p>
+                        {{ lead_form.last_name }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Имя:</p>
+                        {{ lead_form.first_name }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Отчество:</p>
+                        {{ lead_form.patronymic }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Дата входа:</p>
+                        {{ lead_form.enter_date }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Способ связи:</p>
+                        {{ lead_form.communication_type }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Телефон:</p>
+                        {{ lead_form.tel_number }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>E-mail:</p>
+                        {{ lead_form.email }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Источник:</p>
+                        {{ lead_form.source }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Курс:</p>
+                        {{ lead_form.course }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Специалист:</p>
+                        {{ lead_form.specialist }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Статус:</p>
+                        {{ lead_form.status }}
+                    </div>
+                    <input class="submit" style="margin-top: 20px" type="submit" value="Отправить"/>
+                </div>
+            </form>
         </div>
-        {% endfor %}
     </div>
-    <button class="btn btn-primary mb-3" type="submit">Сохранить</button>
-</form></div></main>
+</main>
 {% endblock %}

@@ -57,11 +57,11 @@ class RequestConversationForm(forms.ModelForm):
         ('Denial', 'Denial'),
     )
     date = forms.DateTimeField(required=False, label='Дата',
-                               widget=forms.SelectDateWidget(attrs={"class": "form-control w-25 mb-2 mr-2"}))
+                               widget=forms.DateTimeInput(attrs={"type": "date"}))
     theses_of_conversation = forms.CharField(required=False, label='Тезисы разговора',
-                                             widget=forms.Textarea(attrs={"class": "form-control mb-2 mr-2"}))
+                                             widget=forms.Textarea(attrs={}))
     status = forms.ChoiceField(label='Статус разговора', choices=CHOICES,
-                               widget=forms.Select(attrs={"class": "form-control w-100 mb-2 mr-2"}))
+                               widget=forms.Select(attrs={}))
 
     class Meta:
         model = RequestConversation
@@ -75,25 +75,24 @@ class StudyRequestForm(forms.ModelForm):
         ('Denial', 'Denial'),
     )
 
-    enter_date = forms.DateTimeField(label='Дата',
-                                     widget=forms.SelectDateWidget(attrs={"class": "form-control w-25 mr-2 mb-2"}))
-    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
-    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+    enter_date = forms.DateTimeField(label='Дата', widget=forms.DateTimeInput(attrs={"type": "date"}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={}))
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={}))
     patronymic = forms.CharField(label='Отчество',
-                                 widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+                                 widget=forms.TextInput(attrs={}))
     communication_type = forms.CharField(label='Способ связи',
-                                         widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+                                         widget=forms.TextInput(attrs={}))
     tel_number = forms.CharField(label='Телефон',
-                                         widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+                                         widget=forms.TextInput(attrs={}))
     email = forms.EmailField(label='E-mail',
-                                 widget=forms.EmailInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
-    source = forms.CharField(label='Источник', widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+                                 widget=forms.EmailInput(attrs={}))
+    source = forms.CharField(label='Источник', widget=forms.TextInput(attrs={}))
     course = forms.ModelChoiceField(label='Курс', queryset=CourseUser.objects.all(),
-                                    widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                    widget=forms.Select(attrs={}))
     status = forms.ChoiceField(label='Статус разговора', choices=STATUS_CHOICES,
-                               widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                               widget=forms.Select(attrs={}))
     specialist = forms.ModelChoiceField(label='Менеджер', queryset=AdvUser.objects.filter(groups__name='Manager'),
-                                        widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                        widget=forms.Select(attrs={}))
 
     class Meta:
         model = StudyRequest
@@ -102,16 +101,16 @@ class StudyRequestForm(forms.ModelForm):
 
 
 class ContractForm(forms.ModelForm):
-    number = forms.CharField(label='Номер', widget=forms.TextInput(attrs={"class": "form-control w-25 mr-2 mb-2"}))
-    date = forms.DateField(label='Дата заключения',
-                           widget=forms.SelectDateWidget(attrs={"class": "form-control w-25 mr-2 mb-2"}))
-    course = forms.ModelChoiceField(label='Курс', queryset=CourseUser.objects.all(),
-                                    widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
-    group = forms.ModelChoiceField(label='Группа', queryset=GroupModel.objects.all(),
-                                   widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+    number = forms.CharField(label='Номер', widget=forms.TextInput(attrs={"placeholder": "Номер договора"}))
+    date = forms.DateField(label='Дата заключения', initial='Выберите дату',
+                           widget=forms.TextInput(attrs={"type": "date"}))
+    course = forms.ModelChoiceField(label='Курс', queryset=CourseUser.objects.all(), initial='Выберите курс',
+                                    widget=forms.Select())
+    group = forms.ModelChoiceField(label='Группа', queryset=GroupModel.objects.all(), initial='Выберите группу',
+                                   widget=forms.Select())
     account = forms.ModelChoiceField(label='Аккаунт', queryset=AdvUser.objects.filter(groups__name='Student'),
-                                     widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
-    price = forms.CharField(label='Цена', widget=forms.TextInput(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                     initial='Выберите аккаунт', widget=forms.Select())
+    price = forms.CharField(label='Цена', widget=forms.TextInput(attrs={'placeholder': 'Цена'}))
 
     lead = forms.IntegerField(widget=forms.HiddenInput(), label='')
 
@@ -121,9 +120,9 @@ class ContractForm(forms.ModelForm):
 
 
 class PaymentStageForm(forms.ModelForm):
-    price = forms.CharField(label='Цена', widget=forms.TextInput(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+    price = forms.CharField(label='Цена', widget=forms.TextInput(attrs={'placeholder': 'Цена платежа'}))
     date = forms.DateField(label='Дата этапа оплаты',
-                           widget=forms.SelectDateWidget(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                           widget=forms.DateTimeInput(attrs={'type': 'date'}))
     class Meta:
         model = PaymentStage
         fields = ('picture', 'price', 'date', 'payment', 'is_confirmed')
@@ -131,13 +130,13 @@ class PaymentStageForm(forms.ModelForm):
 
 class GroupModelForm(forms.ModelForm):
 
-    title = forms.CharField(label='Название группы', widget=forms.TextInput(attrs={"class": "form-control w-50 mr-2 mb-2"}))
+    title = forms.CharField(label='Название группы', widget=forms.TextInput(attrs={}))
     course = forms.ModelChoiceField(label='Курс', queryset=CourseUser.objects.all(),
-                                    widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                    widget=forms.Select(attrs={}))
     manager = forms.ModelChoiceField(label='Куратор', queryset=AdvUser.objects.filter(groups__name='Manager'),
-                                        widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                        widget=forms.Select(attrs={}))
     teacher = forms.ModelChoiceField(label='Преподаватель', queryset=AdvUser.objects.filter(groups__name='Teacher'),
-                                     widget=forms.Select(attrs={"class": "form-control w-25 mr-2 mb-2"}))
+                                     widget=forms.Select(attrs={}))
     class Meta:
         model = GroupModel
         fields = ('manager', 'teacher', 'course', 'title')

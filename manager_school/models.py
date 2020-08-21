@@ -44,8 +44,6 @@ class AdvUser(AbstractUser): # Студенты
                 classes = ClassModel.objects.filter(
                     groups__students__id=self.id, groups__id=group_id, date__gt=current_day)
             try:
-                for at in attendances.filter(attendance=True):
-                    print(at.classes.theme)
                 attendance = len(attendances.filter(attendance=True)) / len(classes) * 100
             except ZeroDivisionError:
                 attendance = 0

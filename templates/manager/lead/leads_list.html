@@ -96,7 +96,7 @@
                     <a class="btn btn-success"
                        href="{% url 'manager_school:get_contract_detail' contract_id=lead.contract.id %}">Просмотреть</a>
                     {% elif lead.status == 'Ready' %}
-                    <a class="btn btn-warning" href="{% url 'manager_school:get_choice' lead_id=lead.id %}">Создать</a>
+                    <a class="btn btn-warning" href="{% url 'manager_school:registration_page' lead_id=lead.id %}">Создать</a>
                     {% else %}
                     {% endif %}
                 </td>

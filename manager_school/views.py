@@ -13,6 +13,7 @@ from .forms import *
 from django.shortcuts import render
 
 from .serializers import ClassModelSerializer
+from .services import get_manager_successful_percent, get_manager_data_per_period
 
 from .utilities import *
 
@@ -239,7 +240,10 @@ def add_lead(request):
             lead = lead_form.save()
             return redirect('manager_school:lead_history', lead_id=lead.id)
     else:
-        lead_form = StudyRequestForm(initial={"specialist": request.user, 'enter_date': datetime.datetime.now()})
+        lead_form = StudyRequestForm(initial={
+            "specialist": request.user,
+            'enter_date': datetime.datetime.now().strftime("%d.%m.%Y")
+        })
     return render(request, "manager/lead/create_lead.html", {
         "lead_form": lead_form,
     })
@@ -249,14 +253,17 @@ def add_lead(request):
 def lead_history(request, lead_id):
     lead = get_object_or_404(StudyRequest, id=lead_id)
     conversations = lead.requestconversation_set.all()
-    conversation_form = RequestConversationForm(initial={'request': lead})
+    conversation_form = RequestConversationForm(initial={'request': lead,
+                                                         'date': datetime.datetime.now().strftime("%Y-%m-%d")})
     if request.method == "POST":
         lead_form = StudyRequestForm(request.POST, instance=lead)
         if lead_form.is_valid():
             lead_form.save()
             return redirect('manager_school:lead_history', lead_id=lead_id)
     else:
-        lead_form = StudyRequestForm(instance=lead)
+        lead_form = StudyRequestForm(instance=lead, initial={
+            'enter_date': lead.enter_date.strftime("%Y-%m-%d")
+        })
     return render(request, "manager/lead/lead_history.html", {
         "lead": lead,
         "lead_form": lead_form,
@@ -334,17 +341,28 @@ def create_contract_page(request, lead_id):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def add_payment_stage(request, contract_id, payment_id):
+    payment = get_object_or_404(UserPayment, id=payment_id)
+    add_new_stage = True
+    if not payment.by_stages:
+        if payment.paymentstage_set.count() == 1:
+            add_new_stage = False
     if request.method == "POST":
         payment_stage_form = PaymentStageForm(request.POST, request.FILES)
-        if payment_stage_form.is_valid():
-            payment_stage_form.save()
+        if add_new_stage:
+            if payment_stage_form.is_valid():
+                payment_stage_form.save()
     else:
-        payment = get_object_or_404(UserPayment, id=payment_id)
         payment_stage_form = PaymentStageForm(initial={'payment': payment})
+    if not payment.by_stages:
+        if payment.paymentstage_set.count() == 1:
+            add_new_stage = False
     payment_stages = PaymentStage.objects.filter(payment__id=payment_id)
-    return render(request, 'manager/contract/payment_stage_create.html', {"payment_stage_form": payment_stage_form,
-                                                                     "payment_stages": payment_stages,
-                                                                     "contract_id": contract_id})
+    return render(request, 'manager/contract/payment_stage_create.html', {
+        "payment_stage_form": payment_stage_form,
+        "payment_stages": payment_stages,
+        "contract_id": contract_id,
+        'add_new_stage': add_new_stage,
+    })
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
