@@ -108,6 +108,11 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 Ожидайте подтверждения оплаты предыдущего этапа.
             </div>
+        {% elif alert == 'Success' %}
+            <div class="success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Чек успешно отправлен. Ожидайте подтверждения менеджером.
+            </div>
         {% endif %}
     </main>
 {% endblock %}

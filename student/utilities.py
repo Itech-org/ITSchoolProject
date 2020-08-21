@@ -75,7 +75,7 @@ def get_alert(request, payment_stages):
             alert = 'Success'
     else:
         if stage.id == first_unpaid_stage.id:
-            alert = 'Already paid'
+            alert = 'Success'
         else:
             alert = 'No check'
     return alert

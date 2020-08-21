@@ -35,7 +35,7 @@
             <p>Телефон: {{ teacher.phone }}</p>
             <p>Электронный ящик: {{ teacher.email }}</p>
           </div>
-          <a href="#" class="main__teacher-card-link">
+          <a href="{% url 'student:create_dialog' user_id=teacher.id %}" class="main__teacher-card-link">
             Отправить сообщение
           </a>
         </div>
@@ -50,5 +50,6 @@
     </main>
 {% endblock %}
 {% block script %}
+    <script src="{% static 'js/main-header.js' %}"></script>
     <script src="{% static 'js/teacher_card.js' %}"></script>
 {% endblock %}

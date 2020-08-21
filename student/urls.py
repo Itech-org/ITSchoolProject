@@ -5,8 +5,8 @@ from .views import *
 app_name = 'student'
 
 urlpatterns = [
-    path("logout/",Logout_View.as_view(),name='logout'),
-    path("login/",Login_View.as_view(),name="login"),
+    path("logout/",logout_request,name='logout'),
+    path("login/",login_user,name="login"),
     path('change_data/', Change_user_info, name='change_data'),
     path('', main_page_view, name='main_page_view'),
     path('account/', account, name="account"),

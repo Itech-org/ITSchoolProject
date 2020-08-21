@@ -299,15 +299,19 @@ circle:nth-child(2n) {
     color: white;
     margin: 15px;
     margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
 }
 
 .success {
     width: 90%;
     padding: 20px;
     background-color: rgba(7,206,5,0.94);
-    color: black;
+    color: white;
     margin: 15px;
     margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
 }
 
 /* The close button */

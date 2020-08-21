@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -12,6 +12,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ClassModelSerializer
 from .utilities import *
+from .forms import *
 import datetime
 
 
@@ -31,8 +32,37 @@ def check_group_and_activation(request):
         return False
 
 
-class Login_View(LoginView):
-    template_name = 'student/login.html'
+def login_user(request):
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("student:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('student:main_page_view')
+            else:
+                return redirect("student:login")
+        else:
+            form = LoginForm()
+            return render(request, 'student/authorization_page.html', {'form': form})
+    else:
+        return redirect('student:main_page_view')
+
+
+def logout_request(request):
+    logout(request)
+    return redirect("student:login")
+
+
+# class Login_View(LoginView):
+#     template_name = 'student/login.html'
 
 
 class Logout_View(LoginRequiredMixin, LogoutView):
@@ -100,11 +130,11 @@ def homework_view(request):
     groups = request.user.groupmodel_set.all()
     if group == '':
         current_group = groups[0]
-        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=datetime.date.today())
     else:
         group_id = int(group)
         current_group = get_object_or_404(GroupModel, id=group_id)
-        classes = current_group.classes.filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = current_group.classes.filter(date__lte=datetime.date.today())
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
@@ -238,11 +268,11 @@ def material_themes(request):
     groups = request.user.groupmodel_set.all()
     if group == '':
         current_group = groups[0]
-        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=datetime.date.today())
     else:
         group_id = int(group)
         current_group = get_object_or_404(GroupModel, id=group_id)
-        classes = current_group.classes.filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = current_group.classes.filter(date__lte=datetime.date.today())
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]

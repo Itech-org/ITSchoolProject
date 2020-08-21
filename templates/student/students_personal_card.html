@@ -46,7 +46,7 @@
                 </span>
                             {{ student.phone }}
                         </p>
-                        <a href="#" class="main__personal-student-card-data-link">
+                        <a href="{% url 'student:change_data' %}" class="main__personal-student-card-data-link">
                             Изменить личные данные
                         </a>
                     </div>
@@ -57,7 +57,7 @@
                             Посещение
                         </p>
                         <div class="circle">
-                            30%
+                            {{ student.get_attendance }}
                         </div>
                         <p class="main__personal-student-card-perfomance-text"></p>
                     </div>
@@ -66,7 +66,7 @@
                             Успеваемость
                         </p>
                         <div class="circle">
-                            50%
+                            {{ student.get_academic_performance }}
                         </div>
                         <p class="main__personal-student-card-perfomance-text"></p>
                     </div>
