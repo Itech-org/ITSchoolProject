@@ -1,0 +1,312 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+.content__wrapper {
+  display: flex;
+  justify-content: space-around;
+  font-family: Montserrat-Regular;
+  color: #114a8e;
+  width: 1200px;
+  margin: auto;
+  /* margin-left:70px ; */
+  margin-top: 100px;
+}
+.content__info-block {
+  width: 250px;
+}
+.content__info-block-text1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+}
+.content__info-block-text2 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  margin-top: 5%;
+}
+.content__info-block-text3 {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 18px;
+  color: #358f16;
+  margin-top: 15%;
+}
+.content__info-block-text4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 21px;
+}
+.content__info-block-text4 span {
+  font-family: Montserrat-Bold;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 24px;
+}
+.content__student-photo {
+  text-align: center;
+  width: 280px;
+}
+.content__student-photo p {
+  text-align: center;
+  color: #073164;
+}
+.content__tutor-reply {
+  display: flex;
+  flex-direction: column;
+}
+.content__tutor-replay-student-work {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 435px;
+  height: 123px;
+  padding-left: 5%;
+  padding-top: 2%;
+  background: linear-gradient(156.21deg, #d6e0ee 30.46%, #b2c3dd 77.49%);
+}
+.content__tutor-replay-student-work-file {
+  width: 125px;
+  height: 25px;
+  background: #9da7dd;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #041932;
+  margin-top: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat-SemiBold;
+}
+
+.content__tutor-replay-student-work-file :hover {
+  cursor: pointer;
+}
+
+.content__tutor-reply-answer {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  padding: 20px;
+  margin-top: 10%;
+  background: linear-gradient(140.41deg, #ebf1f9 30.46%, #ddebff 77.49%);
+}
+
+.content__tutor-reply-answer-form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.content__tutor-reply-answer-form textarea {
+  width: 100%;
+  /* margin-top: 5%; */
+  /* margin-left: 5%; */
+  height: 208.63px;
+  background: #fefefe;
+  box-shadow: inset 0px 1px 2px rgba(28, 60, 89, 0.25);
+}
+.content__tutor-reply-answer-form-input {
+  width: 125px;
+  height: 25px;
+  background: #9da7dd;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #041932;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content__tutor-reply-answer-input-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  /* margin-left: 5%; */
+}
+.content__tutor-reply-answer-status-wrapper {
+  height: 30px;
+  width: 200px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+}
+.content__tutor-reply-answer-status {
+  margin-top: 30px;
+  margin-bottom: 10%;
+}
+
+.content__tutor-reply-answer-status option {
+  width: 33px;
+  background: linear-gradient(180deg, #9fb7f4 0%, #dae1f2 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+
+.content_select-status {
+  background: linear-gradient(180deg, #9fb7f4 0%, #dae1f2 100%);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  border: none;
+  font-family: Montserrat-SemiBold;
+  outline: none;
+  appearance: none;
+  color: #002756;
+  text-align: center;
+  text-align-last: center;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.content_select-status option {
+  background-color: #dae1f2;
+  border: none;
+
+  font-size: 14px;
+}
+
+.content__textarea-comment {
+  outline: none;
+  border: none;
+  padding: 20px;
+  font-family: Montserrat-Light;
+  color: #114a8e;
+  font-size: 16px;
+}
+
+.content__box-for-input-file {
+  position: relative;
+  width: 120px;
+  height: 25px;
+  border: 1px solid black;
+  font-family: Montserrat-SemiBold;
+  color: #041932;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9da7dd;
+  border: none;
+  border-radius: 3px;
+}
+
+.content__input-add-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.content__tutor-replay-student-work_small {
+  /* height: 120px; */
+  margin-top: 20px;
+  height: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.content__tutor-replay-student-work-text_small {
+  font-size: 14px;
+  font-family: Montserrat-SemiBold;
+}
+
+.content__tutor-replay-student-work-file_small {
+  margin: auto;
+  margin-top: 20px;
+}
+
+.content__box-for-replay-student-work {
+  height: 422px;
+  overflow: auto;
+  overflow-x: hidden;
+  /* border: 1px solid black; */
+}
+
+.content__comment-replay-student-work {
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.content__col-attempt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content__col-attempt:hover {
+  cursor: pointer;
+}
+
+.content__arrow-img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

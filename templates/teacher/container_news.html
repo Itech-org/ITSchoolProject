@@ -1,0 +1,46 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/container_news.css'%}">
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Новости</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main__open-news">
+        <div class="main__open-news-container">
+            <h1>
+                {{post.title}}
+            </h1>
+            {% if post.img %}
+            <img src="{{ post.img.url}}" alt="" class="main__open-news-img">
+            {% endif %}
+            <p class="main__open-news-text">
+                {{post.description}}
+            </p>
+            <div id="share">
+                <div class="like">Понравилось? Поделитесь с друзьями!</div>
+                <div class="social" data-url="<?php echo 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>" data-title="Стильные кнопки поделится в соц сетях без использования сторонних сервисов">
+
+                    <a class="push facebook" data-id="fb"><i class="fa fa-facebook"></i> Facebook</a>
+                    <a class="push vkontakte" data-id="vk"><i class="fa fa-vk"></i> Вконтакте</a>
+                    <a class="push ok" data-id="ok"><i class="fa fa-odnoklassniki"></i> OK</a>
+                    <a class="push twitter" data-id="tw"><i class="fa fa-twitter"></i> Twitter</a>
+                    <a class="push google" data-id="gp"><i class="fa fa-google-plus"></i> Google+</a>
+                    <a class="push pinterest" data-id="pin"><i class="fa fa-pinterest"></i> Pinterest </a>
+                    <a class="push viber" data-id="viber"><i class="fa fa-phone"></i> Viber </a>
+                </div>
+            </div>
+            <p class="main__open-news-text main__open-news-text_size">
+                {{post.created}}
+            </p>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js'%}"></script>
+{% endblock %}

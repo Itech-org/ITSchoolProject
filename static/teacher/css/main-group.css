@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.group__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 1200px;
+  margin-top: 100px;
+}
+
+.group__student-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.group__student-foto {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.group__box-for-foto-student {
+  position: relative;
+}
+
+.group__check-online {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #62e115;
+  bottom: 6px;
+  right: 10px;
+  position: absolute;
+  display: none;
+}
+
+.group__list-students {
+  width: 600px;
+}
+
+.group__name-list {
+  text-align: center;
+  font-family: Montserrat-SemiBold;
+  color: #102355;
+}
+
+.group__student-last-name {
+  font-family: Montserrat-Bold;
+  color: #102355;
+}
+
+.group__student-first-name {
+  font-family: Montserrat-Medium;
+  color: #102355;
+}
+
+.group__student-patronymic {
+  font-family: Montserrat-Medium;
+  color: #102355;
+}
+
+.group__box-for-link {
+  background-color: #93a1c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 200px;
+  color: #141d66;
+  font-family: Montserrat-Medium;
+  font-size: 13px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 25%);
+  margin-left: 60px;
+}
+
+.group__teacher-foto {
+  width: 170px;
+  height: 190px;
+  margin-top: 10px;
+}
+
+.group__teacher {
+  text-align: center;
+  font-family: Montserrat-Bold;
+  color: #203f8d;
+}
+
+.group__first-name-and-patronymic {
+  text-align: center;
+  font-family: Montserrat-Medium;
+  color: #102355;
+  margin-top: 10px;
+}
+
+.group__last-name {
+  text-align: center;
+  font-family: Montserrat-Bold;
+  color: #102355;
+  margin-top: 10px;
+}
+
+.group__list-students {
+  background-color: #f2f4fb;
+  padding: 20px;
+  box-shadow: 0px -5px 5px 0px #93A1C6;
+}
+
+

@@ -1,0 +1,83 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/card_personal_teacher.css' %}">
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css' %}">
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Профиль</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main__personal-teacher-card">
+        <div class="main__personal-teacher-card-info">
+            <div class="main__personal-teacher-card-box">
+                <div class="main__personal-teacher-card-foto">
+                    {% if request.user.img_user %}
+                    <img src="{{request.user.img_user.url}}" alt="фото студента" class="main__personal-teacher-card-img">
+                    {% else %}
+                    <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="main__personal-teacher-card-img">
+                    {% endif %}
+                </div>
+                <div class="main__personal-teacher-card-data">
+                    <p class="main__personal-teacher-card-data-text">
+                        {{request.user.first_name}}
+                    </p>
+                    <p class="main__personal-teacher-card-data-text">
+                        {{request.user.last_name}}
+                    </p>
+                    <p class="main__personal-teacher-card-data-text main__personal-teacher-card-data-text_weigth">
+                        {{request.user.surname}}
+                    </p>
+                    <p class="main__personal-teacher-card-data-text_size">
+                        <span class="main__personal-teacher-card_weight">
+                            E-mail
+                        </span>
+                        {{request.user.email}}
+                    </p>
+                    <p class="main__personal-teacher-card-data-text_size">
+                        <span class="main__personal-teacher-card_weight">
+                            Тел.:
+                        </span>
+                        {{request.user.phone}}
+                    </p>
+                </div>
+            </div>
+            <div class="main__personal-teacher-card-perfomance">
+                <p class="main__personal-teacher-card-text">
+                    Курс:
+                    <span class="main__personal-teacher-card-text_weight">
+                        {% for g in groups %}
+                        {{g.course.title}}
+                        {% endfor %}
+                    </span>
+                </p>
+                <p class="main__personal-teacher-card-text">
+                    Количество занятий:
+                    <span class="main__personal-teacher-card-text_weight">
+                        {{classes}}
+                    </span>
+                </p>
+                <p class="main__personal-teacher-card-text">
+                    Количество часов:
+                    <span class="main__personal-teacher-card-text_weight">
+                        {{clock}}
+                    </span>
+                </p>
+                <p class="main__personal-teacher-card-text">
+                    Количество групп:
+                    <span class="main__personal-teacher-card-text_weight">
+                        {{groups.count}}
+                    </span>
+                </p>
+                <p class="main__personal-teacher-card-text-rate">
+                    Ваша ставка составляет 50$
+                </p>
+            </div>
+        </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+{% endblock %}

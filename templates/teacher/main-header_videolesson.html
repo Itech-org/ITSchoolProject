@@ -1,0 +1,48 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/video_lesson.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Учебные материалы</p>
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-info">
+            <p class="main-header__speciality-info-name">Тестировщик</p>
+            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main-header__videolessonbox">
+        <div class="main-header__videolesson">
+            <a href="#" class="main-header__videolesson-name">
+                <p class="main-header__videolesson-name_p1">Занятие 1</p>
+                <p class="main-header__videolesson-name_p2">"Название темы"</p>
+                <p class="main-header__videolesson-name_p3">10 августа 2020</p>
+            </a>
+
+            <div class="main-header__videolesson-video">
+                <video src="#" controls width="700" height="400">
+                    <source src="video.mp4" type="video/mp4" />
+                    <!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
+                    <source src="video.webm" type="video/webm" />
+                    <!-- WebM/VP8 для Firefox4, Opera, и Chrome -->
+                    <source src="video.ogv" type="video/ogg" />
+                    <!-- Ogg/Vorbis для старых версий браузеров Firefox и Opera -->
+                    <object data="video.swf" type="application/x-shockwave-flash">
+                        <!-- видеоконтент для устаревших браузеров, в которых нет поддержки элемента video -->
+                        <param name="movie" value="video.swf" />
+                    </object>
+                </video>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+
+{% endblock %}

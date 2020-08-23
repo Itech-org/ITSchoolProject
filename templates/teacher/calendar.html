@@ -1,21 +1,125 @@
-{% extends "base.html" %}
+{% extends 'teacher/index.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-{% load bootstrap4 %}
 
-{% block title %}
-Календарь
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/calendar.css' %}">
+<link rel="stylesheet" href="{% static 'teacher/css/educational_calendar.css' %}">
+{% endblock %}
+
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Календарь</p>
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-change-speciality">
+            <p class="main-header__button-change-speciality">Выбрать группу</p>
+            <div class="main-header__list-speciality no-active">
+                <form action="" method="get" class="main-header__form-change-course">
+                    <label>
+                        <input type="text" name="group" hidden class="main-header__change-course"/>
+                    </label>
+                    <p class="main-header__wrapp-for-speciality-link mb-0" data-value="">
+                        Все
+                    </p>
+                    {% for group in groups %}
+                    <p class="main-header__wrapp-for-speciality-link mb-0" data-value="{{ group.id }}">
+                        {{ group.title }}
+                    </p>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
+<main class="main-calendar">
+    <div class="main-calendar__container-next-lesson">
+        {% for class in classes|slice:":1" %}
+        <div class="main-calendar__next-lesson">
+            <p class="main-calendar__number-of-lesson">Курс: {{class.groups.course.title}} <br>
+                                                        Группа: {{ class.groups.title }}
+            </p>
+            <div class="main-calendar__lesson-name">
+                <p class="main-calendar__lesson-first-name">{{ class.theme }}</p>
+                <p class="main-calendar__lesson-last-name">{{ class.description }}</p>
+            </div>
+            <div class="main-calendar__teacher-box">
+                <!-- <img src="../img/foto_prepoda.png" alt="teacher" class="main-calendar__teacher-foto" /> -->
+                <p class="main-calendar__teacher">Преподаватель</p>
+                <p class="main-calendar__teacher-name">{{ class.groups.teacher.first_name }} {{ class.groups.teacher.last_name }}</p>
+<!--                <p class="main-calendar__teacher-speciality">{{ group.course.title }}</p>-->
+            </div>
+            <div class="main-calendar__name-homework-container">
+                <p class="main-calendar__name-homework">Домашнее задание</p>
+                {% for homework in class.homeworkteacher.all %}
+                <p class="main-calendar__homework-description">{{ homework.title }}</p>
+                {% endfor %}
+            </div>
+            <p class="main-calendar__time">{{class.start_time}}-<br/>{{class.end_time}}</p>
+        </div>
+        {% endfor %}
+    </div>
 
+    <div class="calendar">
+        <div class="calendar__wrapp">
+            <div class="calendar__switch">
+                <p class="calendar__wrapp-button-arrow-left">
+                    <img src="{% static 'img/left_arrow.svg' %}" alt="left_arrow" class="button-arrow-left"/>
+                </p>
+                <p class="calendar__name-date">Август, 2020</p>
+                <p class="calendar__wrapp-button-arrow-right">
+                    <img src="{% static 'img/arrow_right.svg' %}" alt="left_arrow" class="button-arrow-right"/>
+                </p>
+            </div>
+            <div class="calendar__days-of-week">
+                <p class="calendar__name-day">Пн</p>
+                <p class="calendar__name-day">Вт</p>
+                <p class="calendar__name-day">Ср</p>
+                <p class="calendar__name-day">Чт</p>
+                <p class="calendar__name-day">Пт</p>
+                <p class="calendar__name-day">Сб</p>
+                <p class="calendar__name-day">Вс</p>
+            </div>
+            <div class="calendar__day-number">
+                <div data-day="1" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container">
+                    </div>
+                </div>
+                <div data-day="2" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="3" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container">
+                    </div>
+                </div>
+                <div data-day="4" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container">
+                    </div>
+                </div>
+                <div data-day="5" data-date="" class="calendar__day">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container">
+                    </div>
+                </div>
+                <div data-day="6" data-date="" class="calendar__day calendar__day_output">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+                <div data-day="0" data-date="" class="calendar__day calendar__day_output">
+                    <p class="calendar__day_number"></p>
+                    <div class="calendar__day-task-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-{% for j in classes %}
-    <p>
-        <a href="{% url 'teacher:class_detail' j.id %}">{{j.theme}}</a><br />
-        {{j.date|date:"N, j, Y" }}
-    </p>
-
-{% endfor %}
+<script src="{% static 'teacher/js/calendar.js' %}"></script>
+<script src="{% static 'teacher/js/educational_calendar.js' %}"></script>
 
 {% endblock %}

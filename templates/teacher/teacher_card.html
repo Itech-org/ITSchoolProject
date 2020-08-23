@@ -1,0 +1,51 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/teacher_card.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/teachercard.css' %}">
+{% endblock %}
+{% block nav %}
+      <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Страница преподавателя</p>
+      </div>
+{% endblock %}
+{% block content %}
+      <main>
+      <div class="main__teacher-card">
+        <div class="main__teacher-card-box">
+          <p class="main__teacher-card-text">
+            {{ teacher.first_name }} {{ teacher.surname }}
+          </p>
+          <p class="main__teacher-card-text-bold">
+            {{ teacher.last_name}}
+          </p>
+          <p class="main__teacher-card-text">
+            Курс
+            <span class="main__teacher-card-text-bold">
+              {{ group.course.title }}
+            </span>
+          </p>
+          <p class="main__teacher-card-text main__teacher-card-text_margin">
+            Возможные способы связи:
+          </p>
+          <div class="main__teacher-card-text_size_bold">
+            <p>Телефон: {{ teacher.phone }}</p>
+            <p>Электронный ящик: {{ teacher.email }}</p>
+          </div>
+          <a href="{% url 'teacher:messages' teacher.id %}" class="main__teacher-card-link">
+            Отправить сообщение
+          </a>
+        </div>
+        <div class="main__teacher-card-box-img">
+            {% if teacher.img_user %}
+            <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
+            {% else %}
+            <img src="{% static 'images/no-avatar.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
+            {% endif %}
+        </div>
+      </div>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/teacher_card.js' %}"></script>
+{% endblock %}

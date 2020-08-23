@@ -1,0 +1,38 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/contact_administrator.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/connection-admin.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Связь с администратором</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="main-connection">
+            <p class="main-connection__text">
+                Связаться с администратором
+            </p>
+            <div class="main-connection__box">
+                <div class="main-connection__box-border">
+                    <input type="textarea" value="" name="message" required placeholder="Введите текст" class="main-connection__textarea"/>
+                </div>
+            </div>
+            <div class="main-connection__box-for-input">
+                <button class="main-connection__button-for-file">
+                    Прикрепить файл
+                    <input type="file" value="" name="document" class="main-connection__file" multiple/>
+                </button>
+                <input type="submit" value="Отправить" name="" class="main-connection__submit"/>
+            </div>
+        </div>
+    </form>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+<script src="{% static 'js/contact_administrator.js'%}"></script>
+{% endblock %}

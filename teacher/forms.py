@@ -1,16 +1,21 @@
 from django import forms
-from manager_school.models import AdvUser, Attendance, HomeworkTeacherModel
+from django.contrib.auth.forms import AuthenticationForm
+from manager_school.models import AdvUser, Attendance, HomeworkTeacherModel, Message
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class':"main__open-student-input" ,'placeholder': 'Логин *'},))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class':"main__open-student-input" ,'placeholder': 'Пароль *'}),)
+
 
 
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = AdvUser
-        fields = ('username', 'first_name', 'last_name', 'surname', 'email', 'phone', 'img_user',)
+        fields = ('email', 'phone',)
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
-            'surname': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'True'}),
+            'phone': forms.TextInput(attrs={'class': 'change-personal-data__change-data',}),
+            'email': forms.TextInput(attrs={'class': 'change-personal-data__change-data',}),
             }
 
 class AttendanceEdit(forms.ModelForm):
@@ -37,3 +42,13 @@ class HwTeacherEdit(forms.ModelForm):
             'url': forms.URLInput(),
         }
 
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message', 'document']
+        labels = {'message': ""}
+        widgets = {
+            'message': forms.Textarea(attrs={'class': 'main__chat-textarea', 'cols': '30', 'rows': '10', 'placeholder': 'Введите текст'}),
+            'document': forms.FileInput(attrs={'class': 'main__chat-message-input-file'})
+        }

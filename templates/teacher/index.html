@@ -1,20 +1,211 @@
-{% extends "base.html" %}
-{% block title %}
-Главная
-{% endblock %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'teacher/css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'teacher/css/main-page.css' %}" />
+    {% endblock %}
+</head>
+
+<body>
+    <header class="main-header">
+        {% block nav %}
+        {% endblock %}
+        <div class="main-header__box">
+            <p class="main-header_box-for-notification">
+                <img src="{% static 'teacher/img/Group.svg'%}" alt="уведомления" class="main-header__img-notifications" />
+                <span class="main-header__col-notification">
+                    {% if unreaded_dialogs_counter != 0 %}
+                    {{ unreaded_dialogs_counter }}
+                    {% endif %}
+                </span>
+            </p>
+            <p class="main-header__name">
+                {% if request.user.first_name %}
+                {{request.user.first_name}}
+                {% else %}
+                Здравствуйте
+                {% endif %}
+            </p>
+            {% if request.user.img_user %}
+            <img src="{{request.user.img_user.url}}" alt="фото студента" class="main-header__img-foto">
+            {% else %}
+            <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="main-header__img-foto">
+            {% endif %}
+            <img src="{% static 'teacher/img/Polygon.svg'%}" alt="развернуть" class="main-header__open" />
+        </div>
+        <div class="main-header__personal-area no-active">
+            <div class="main-header__personal-area-options">
+                <p class="main-header__personal-area-options-block">
+                    <a href="{% url 'teacher:profile' %}" class="main-header__personal-area-link">Профиль</a>
+                    <img src="{% static 'teacher/img/Ellipse.svg'%}" alt="point" />
+                </p>
+                <img src="{% static 'teacher/img/Rectangle.svg'%}" alt="подчеркивание" class="main-header__border-bottom" />
+            </div>
+
+            <div class="main-header__personal-area-options">
+                <p class="main-header__personal-area-options-block">
+                    <a href="{% url 'teacher:chats' %}" class="main-header__personal-area-link">
+                        <span class="main-header__personal-area-col">
+                        {% if unreaded_dialogs_counter != 0 %}
+                        {{ unreaded_dialogs_counter }}
+                        {% endif %}
+                        </span> Сообщения</a>
+                    <img src="{% static 'teacher/img/Ellipse.svg'%}" alt="point" />
+                </p>
+                <img src="{% static 'teacher/img/Rectangle.svg'%}" alt="подчеркивание" class="main-header__border-bottom" />
+            </div>
+
+            <div class="main-header__personal-area-options main-header__personal-area-options_go-out">
+                <p class="main-header__personal-area-options-block">
+                    <a href="{% url 'teacher:logout' %}" class="main-header__personal-area-link">Выйти</a>
+                    <img src="{% static 'teacher/img/Ellipse.svg'%}" alt="point" />
+                </p>
+            </div>
+        </div>
+    </header>
+    <nav class="main-menu">
+        <div class="main-menu__logo">
+            <div class="main-header__box-for-logo">
+                <a href="{% url 'teacher:index' %}">
+                    <img src="{% static 'teacher/img/logo.svg'%}" alt="logo" class="main-menu__logo-img" />
+                </a>
+                <img src="{% static 'teacher/img/hide.svg'%}" alt="зыкрыть меню" class="main-menu__hide-img no-active" />
+            </div>
+            <div class="main-menu__show">
+                <img src="{% static 'teacher/img/show.svg'%}" alt="открыть меню" class="main-menu__show-img" />
+            </div>
+        </div>
+
+        <div class="main-menu__box-for-item">
+            <div class="main-menu__item">
+                <a href="{% url 'teacher:calendar' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item main-menu__item_subiteam">
+                <a href="{% url 'teacher:study_procces' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon19.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Учебный процесс</p>
+                </a>
+                <div class="main-menu__box-for-subitem no-active">
+                    <div class="main-menu__subitem">
+                        <a href="{% url 'teacher:homework' %}" class="main-menu__subitem-link">Домашнее задание</a>
+                    </div>
+                    <div class="main-menu__subitem">
+                        <a href="{% url 'teacher:group_detail' %}" class="main-menu__subitem-link">Группа</a>
+                    </div>
+                    <div class="main-menu__subitem">
+                        <a href="{% url 'teacher:materials' %}" class="main-menu__subitem-link">Учебные материалы</a>
+                    </div>
+                    <div class="main-menu__subitem">
+                        <a href="{% url 'teacher:teachers' %}" class="main-menu__subitem-link">Преподаватели</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-menu__item main-menu__item_position">
+                <a href="{% url 'teacher:chats' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon18.svg'%}" alt="чат" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Чат</p>
+                    <span class="main-menu__item-col">
+                        {% if unreaded_dialogs_counter != 0 %}
+                        {{ unreaded_dialogs_counter }}
+                        {% endif %}
+                    </span>
+                </a>
+            </div>
+
+            <div class="main-menu__item">
+                <a href="{% url 'teacher:message_for_admin' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon16.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Связаться с администратором</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item">
+                <a href="#" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon15.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Услуги</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item">
+                <a href="{% url 'teacher:news' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon4.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Новости школы</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item">
+                <a href="#" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon13.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Планировщик</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item main-menu__item-margin">
+                <a href="{% url 'teacher:profile_edit' %}" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon12.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Изменить личные данные</p>
+                </a>
+            </div>
+
+            <div class="main-menu__item">
+                <a href="#" class="main-menu__item-box">
+                    <img src="{% static 'teacher/img/icon11.svg'%}" alt="календарь" class="main-menu__item-img" />
+                    <p class="main-menu__item-descriotion no-active">Выйти</p>
+                </a>
+            </div>
+        </div>
+    </nav>
+
 {% block content %}
-<div class="row justify-content-around">
-    <div class="col-md-3">
-        <a href="{% url 'teacher:calendar' %}">Учебный календарь</a>
-    </div>
-    <div class="col-md-3">
-        <a href="{% url 'teacher:study_procces' %}">Учебный процесс</a>
-    </div>
-    <div class="col-md-3">
-        <a href="#">Чат</a>
-    </div>
-</div>
-{% for i in classes %}
-    {{i.theme}}
-{% endfor %}
+    <main class="main">
+        <div class="main__student-tool">
+            <div class="main__student-tool-box">
+                <div class="main__student-tool-box-img">
+                    <img src="{% static 'teacher/img/calendar.svg'%}" alt="календарь ученика" class="main__student-tool-img" />
+                </div>
+                <p class="main__student-tool-text-link">
+                    <a href="{% url 'teacher:calendar' %}" class="main__student-tool-link">
+                        Учебный календарь
+                    </a>
+                </p>
+            </div>
+            <div class="main__student-toll-box">
+                <div class="main__student-tool-box-img">
+                    <img src="{% static 'teacher/img/process2.jpg'%}" alt="учебный процесс" class="main__student-tool-img" />
+                </div>
+                <p class="main__student-tool-text-link">
+                    <a href="{% url 'teacher:study_procces' %}" class="main__student-tool-link">
+                        Учебный процесс
+                    </a>
+                </p>
+            </div>
+            <div class="main__student-tool-box">
+                <div class="main__student-tool-box-img">
+                    <img src="{% static 'teacher/img/chat.svg'%}" alt="чат" class="main__student-tool-img" />
+                </div>
+                <p class="main__student-tool-text-link">
+                    <a href="{% url 'teacher:chats' %}" class="main__student-tool-link">
+                        ЧАТ
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script src="{% static 'teacher/js/main-header.js' %}"></script>
 {% endblock %}
+
+
+</body>
+
+</html>
