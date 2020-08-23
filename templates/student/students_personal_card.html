@@ -1,27 +1,29 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% block title %}
-<title>Document</title>
+    <title>Document</title>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/personal_student_card.css' %}"/>
-<link rel="stylesheet" href="{% static 'css/students_personal_card.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/personal_student_card.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/students_personal_card.css' %}"/>
 {% endblock %}
 {% block header %}
-<div class="main-header__page-information-change-specialty">
-    <p class="main-header__page-information">Личный кабинет</p>
-</div>
-  {% endblock %}
-  {% block content %}
+    <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Личный кабинет</p>
+    </div>
+{% endblock %}
+{% block content %}
     <main>
         <div class="main__personal-student-card">
             <div class="main__personal-student-card-info">
                 <div class="main__personal-student-card-box">
                     <div class="main__personal-student-card-foto">
                         {% if student.img_user %}
-                            <img src="{{ student.img_user.url }}" alt="личное фото" class="main__personal-student-card-img"/>
+                            <img src="{{ student.img_user.url }}" alt="личное фото"
+                                 class="main__personal-student-card-img"/>
                         {% else %}
-                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="личное фото" class="main__personal-student-card-img"/>
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="личное фото"
+                                 class="main__personal-student-card-img"/>
                         {% endif %}
                     </div>
                     <div class="main__personal-student-card-data">
@@ -76,19 +78,24 @@
                 <p class="main__personal-student-card-payment-text">
                     Оплата обучения
                 </p>
-                <form action="#">
-                    <div class="main__personal-box-for-input-file">
+                <div class="main__personal-box-for-input-file">
+                    <a href="{% url 'student:payment' %}">
                         Загрузить фото чека
-                        <input type="file" multiple class="main__personal-button-input-file"/>
-                    </div>
-                </form>
+                    </a>
+                </div>
                 <p class="main__personal-student-card-payment-text-status">
                     Статус оплаты
                 </p>
                 <div class="main__personal-student-card-payment-status">
-                    <p class="main__personal-student-card-payment-text main__personal-student-card-payment-text_border">
-                        Выплачено
-                    </p>
+                    {% if unpaid > 0 %}
+                        <p class="main__personal-student-card-payment-text main__personal-student-card-payment-text_border">
+                            Не выплачено
+                        </p>
+                    {% else %}
+                        <p class="main__personal-student-card-payment-text main__personal-student-card-payment-text_border">
+                            Выплачено
+                        </p>
+                    {% endif %}
                     <a href="{% url 'student:payment' %}" class="main__personal-student-card-payment-link">
                         По графику
                     </a>
@@ -96,8 +103,8 @@
             </div>
         </div>
     </main>
-    {% endblock %}
-    {% block script %}
+{% endblock %}
+{% block script %}
     <script src="{% static 'js/personal_student_card.js' %}"></script>
     <script src="{% static 'js/students_personal_card.js' %}"></script>
-    {% endblock %}
+{% endblock %}

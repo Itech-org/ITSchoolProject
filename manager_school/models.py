@@ -289,6 +289,7 @@ class RubruckNews(models.Model):
 
 
 class News(models.Model):
+    img = models.ImageField('Изображение', upload_to='images/itnews', blank=True)
     title = models.CharField('Заголовок', max_length=150, blank=True)
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
