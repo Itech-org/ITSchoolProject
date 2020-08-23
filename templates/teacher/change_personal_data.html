@@ -16,33 +16,34 @@
         <div class="change-personal-data__pod-container">
             <p class="change-personal-data__name">Изменить личные данные</p>
             <div class="change-personal-data__box-for-change">
-                <div class="change-personal-data__user-name-and-foto">
-                    <div class="change-personal-data__user-name">
-                        <div class="change-personal-data__box-for-user-data">
-                            <p class="change-personal-data__user-data-name">Фамилия</p>
-                            <p class="change-personal-data__user-data">{{request.user.last_name}}</p>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="change-personal-data__user-name-and-foto">
+                        <div class="change-personal-data__user-name">
+                            <div class="change-personal-data__box-for-user-data">
+                                <p class="change-personal-data__user-data-name">Фамилия</p>
+                                <p class="change-personal-data__user-data">{{ request.user.last_name }}</p>
+                            </div>
+                            <div class="change-personal-data__box-for-user-data">
+                                <p class="change-personal-data__user-data-name">Имя</p>
+                                <p class="change-personal-data__user-data">{{ request.user.first_name }}</p>
+                            </div>
+                            <div class="change-personal-data__box-for-user-data">
+                                <p class="change-personal-data__user-data-name">Отчество</p>
+                                <p class="change-personal-data__user-data">{{ request.user.surname }}</p>
+                            </div>
                         </div>
-                        <div class="change-personal-data__box-for-user-data">
-                            <p class="change-personal-data__user-data-name">Имя</p>
-                            <p class="change-personal-data__user-data">{{request.user.first_name}}</p>
-                        </div>
-                        <div class="change-personal-data__box-for-user-data">
-                            <p class="change-personal-data__user-data-name">Отчество</p>
-                            <p class="change-personal-data__user-data">{{request.user.surname}}</p>
+                        <div class="change-personal-data__box-for-user-foto">
+                            {% if request.user.img_user %}
+                                <img src="{{ request.user.img_user.url }}" alt="фото студента" class="change-personal-data__user-foto"/>
+                            {% else %}
+                                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="change-personal-data__user-foto"/>
+                            {% endif %}
+                            <p class="change-personal-data__box-for-change-foto-link">
+                                <input type="file" name="img_user">
+                            </p>
                         </div>
                     </div>
-                    <div class="change-personal-data__box-for-user-foto">
-                        {% if request.user.img_user %}
-                        <img src="{{request.user.img_user.url}}" alt="фото студента" class="change-personal-data__user-foto">
-                        {% else %}
-                        <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="change-personal-data__user-foto">
-                        {% endif %}
-                        <p class="change-personal-data__box-for-change-foto-link">
-                            <input type="file" name="" value="">
-                        </p>
-                    </div>
-                </div>
-                <div class="change-personal-data__user-contacts">
                     <div class="change-personal-data__user-contacts">
                         <div class="change-personal-data_box-for-change">
                             <div class="change-personal-data__box-for-user-data change-personal-data__box-for-user-data_width">
@@ -58,10 +59,11 @@
                             <button type="submit" class="change-personal-data__but-save">Сохранить</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</main>
 </main>
 <script src="{% static 'teacher/js/main-header.js' %}"></script>
 {% endblock %}

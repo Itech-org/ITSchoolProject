@@ -1,5 +1,12 @@
 from django import forms
-from manager_school.models import AdvUser, Attendance, HomeworkTeacherModel
+from django.contrib.auth.forms import AuthenticationForm
+from manager_school.models import AdvUser, Attendance, HomeworkTeacherModel, Message
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class':"main__open-student-input" ,'placeholder': 'Логин *'},))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class':"main__open-student-input" ,'placeholder': 'Пароль *'}),)
+
 
 
 class UserEditForm(forms.ModelForm):
@@ -33,4 +40,15 @@ class HwTeacherEdit(forms.ModelForm):
             'class_field': forms.Select(),
             'file': forms.FileInput(),
             'url': forms.URLInput(),
+        }
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message', 'document']
+        labels = {'message': ""}
+        widgets = {
+            'message': forms.Textarea(attrs={'class': 'main__chat-textarea', 'cols': '30', 'rows': '10', 'placeholder': 'Введите текст'}),
+            'document': forms.FileInput(attrs={'class': 'main__chat-message-input-file'})
         }

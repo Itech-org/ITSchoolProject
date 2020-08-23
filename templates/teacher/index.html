@@ -19,7 +19,11 @@
         <div class="main-header__box">
             <p class="main-header_box-for-notification">
                 <img src="{% static 'teacher/img/Group.svg'%}" alt="уведомления" class="main-header__img-notifications" />
-                <span class="main-header__col-notification">2</span>
+                <span class="main-header__col-notification">
+                    {% if unreaded_dialogs_counter != 0 %}
+                    {{ unreaded_dialogs_counter }}
+                    {% endif %}
+                </span>
             </p>
             <p class="main-header__name">
                 {% if request.user.first_name %}
@@ -46,7 +50,12 @@
 
             <div class="main-header__personal-area-options">
                 <p class="main-header__personal-area-options-block">
-                    <a href="#" class="main-header__personal-area-link"><span class="main-header__personal-area-col">2</span> Сообщения</a>
+                    <a href="{% url 'teacher:chats' %}" class="main-header__personal-area-link">
+                        <span class="main-header__personal-area-col">
+                        {% if unreaded_dialogs_counter != 0 %}
+                        {{ unreaded_dialogs_counter }}
+                        {% endif %}
+                        </span> Сообщения</a>
                     <img src="{% static 'teacher/img/Ellipse.svg'%}" alt="point" />
                 </p>
                 <img src="{% static 'teacher/img/Rectangle.svg'%}" alt="подчеркивание" class="main-header__border-bottom" />
@@ -103,10 +112,14 @@
             </div>
 
             <div class="main-menu__item main-menu__item_position">
-                <a href="{% url 'teacher:chat' %}" class="main-menu__item-box">
+                <a href="{% url 'teacher:chats' %}" class="main-menu__item-box">
                     <img src="{% static 'teacher/img/icon18.svg'%}" alt="чат" class="main-menu__item-img" />
                     <p class="main-menu__item-descriotion no-active">Чат</p>
-                    <span class="main-menu__item-col">2</span>
+                    <span class="main-menu__item-col">
+                        {% if unreaded_dialogs_counter != 0 %}
+                        {{ unreaded_dialogs_counter }}
+                        {% endif %}
+                    </span>
                 </a>
             </div>
 
@@ -182,7 +195,7 @@
                     <img src="{% static 'teacher/img/chat.svg'%}" alt="чат" class="main__student-tool-img" />
                 </div>
                 <p class="main__student-tool-text-link">
-                    <a href="{% url 'teacher:chat' %}" class="main__student-tool-link">
+                    <a href="{% url 'teacher:chats' %}" class="main__student-tool-link">
                         ЧАТ
                     </a>
                 </p>

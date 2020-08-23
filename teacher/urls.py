@@ -6,10 +6,9 @@ app_name = 'teacher'
 
 urlpatterns = [
     path('', index, name='index'),
-    path("login/",Login_View.as_view(),name="login"),
-    path("logout/",Logout_View.as_view(),name='logout'),
+    path("login/", login_user, name="login"),
+    path("logout/", Logout_View.as_view(),name='logout'),
     path('profile_edit/', profile_edit, name="profile_edit"),
-
     path('profile/', profile, name="profile"),
     path('calendar/', calendar, name='calendar'),
     path('study_proccess/', study_procces, name='study_procces'),
@@ -18,7 +17,7 @@ urlpatterns = [
     path('group/', group_detail, name="group_detail"),
     path('materials/', materials, name='materials'),
     path('literature/', text_mat, name='text_mat'),
-    path('literature/<slug:slug_l>/', text_detail, name='text_detail'),
+    path('literature/<int:l_id>/', text_detail, name='text_detail'),
     path('video/', video_mat, name='video_mat'),
     path('video/<slug:slug_v>/', video_detail, name='video_detail'),
     path('homework/', homework, name="homework"),
@@ -27,8 +26,8 @@ urlpatterns = [
     path('material_detail/', material_detail, name="material_detail"),
     path('video_courses/', video_courses, name="video_courses"),
     path('video_courses/<int:cs_id>/', vd_crs_detail, name="vd_crs_detail"),
-    path('chat/', chat, name="chat"),
     path('teachers/', teachers, name="teachers"),
+    path('teachers/<int:t_id>/', teacher_card, name='teacher_card'),
     path('news/', news, name="news"),
     path('news/<int:post_id>/', post_detail, name='post_detail'),
     path('message-for-admin/', message_for_admin, name='message_for_admin'),
@@ -38,4 +37,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', MyPasswordResetConfirm.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('api/v1/classes-list/', api_classes_list),
+    path('chats/', get_chats, name='chats'),
+    path('chat/create/<int:user_id>/', start_chat_with_user, name='create_dialog'),
+    path('chat/<int:chat_id>', get_chat_with_user, name='messages'),
 ]

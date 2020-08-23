@@ -74,7 +74,7 @@
             <div class="students-home-work__student">
                 {% if h.user.img_user %}
                 <img src="{{h.user.img_user.url}}" alt="фото студента"
-                {% if h.status == "Проверено" %}
+                {% if h.status == 'Проверено' %}
                 class="students-home-work__foto-student students-home-work__foto-explanation_green">
                 {% endif %}
                 {% if h.status == 'Не проверено' %}
@@ -85,7 +85,7 @@
                 {% endif %}
                 {% else %}
                 <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента"
-                {% if h.status == "Проверено" %}
+                {% if h.status == 'Проверено' %}
                 class="students-home-work__foto-student students-home-work__foto-explanation_green">
                 {% endif %}
                 {% if h.status == 'Не проверено' %}

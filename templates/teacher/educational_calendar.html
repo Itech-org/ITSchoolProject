@@ -35,7 +35,7 @@
     <div class="main-calendar__container-next-lesson">
         {% for class in classes|slice:":1" %}
         <div class="main-calendar__next-lesson">
-            <p class="main-calendar__number-of-lesson">Занятие №{{ class.position }}</p>
+            <p class="main-calendar__number-of-lesson">Курс: {{ class.groups.course.title }}</p>
             <div class="main-calendar__lesson-name">
                 <p class="main-calendar__lesson-first-name">{{ class.theme }}</p>
                 <p class="main-calendar__lesson-last-name">{{ class.description }}</p>

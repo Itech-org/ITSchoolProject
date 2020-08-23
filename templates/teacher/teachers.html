@@ -26,7 +26,7 @@
                 <div class="teachers__teacher-info">
                     <p class="teacher__teacher-specialty">
                         {% for i in t.groups_teacher.all %}
-                        {{i.title}} 
+                        {{i.title}}
                         {% endfor %}
                     </p>
                     <p class="teacher__teacher-name">{{t.last_name}} {{t.first_name}} {{t.surname}}</p>
@@ -53,7 +53,7 @@
                     <p class="teacher__profile-telegram-number"></p>
                 </div>
                 <p class="teacher__box-for-teacher-link"><a href="#" class="teacher_teacher-card-link">Перейти на профиль преподавателя</a></p>
-                <a href="#" class="teacher__profile-link-send-message">
+                <a href="" class="teacher__profile-link-send-message">
                     <p class="teacher__profile-link-send-message-box">
                         Отправить сообщение
                     </p>

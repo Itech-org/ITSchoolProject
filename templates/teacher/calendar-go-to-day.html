@@ -33,9 +33,9 @@
                         <p class="select__change select__change-theme">Выбрать другую тему...</p>
                         <div class="select__option-container no-active">
                             <input type="text" hidden class="select_input" name="theme" />
-                            <p data-value="present" class="select__option select__option-theme">Тема 1</p>
-                            <p data-value="absent" class="select__option select__option-theme">Тема 2</p>
-                            <p data-value="seriousReason" class="select__option select__option-theme">Тема 3</p>
+                            {% for cl in class.groups.classes.all %}
+                            <p data-value="{{cl.id}}" class="select__option select__option-theme">{{cl.theme}}</p>
+                            {% endfor %}
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@
                     <!-- названия чек-боксов -->
 
                     <div class="check-boxes-container__headline-container">
-                        <p class="check-box-icon__but-close-container"><img src="../img/hotpn.png" alt="закрыть" class="check-box-icon__but-close" /></p>
+                        <p class="check-box-icon__but-close-container"><img src="{% static 'teacher/img/hotpn.png'%}" alt="закрыть" class="check-box-icon__but-close" /></p>
                         <div class="check-box-icon__head">
                             <p class="headline-container__headline">Литература</p>
                             <p class="headline-container__headline">Видеоматериалы</p>
@@ -103,142 +103,27 @@
                     <!-- чек-бокс - литературы -->
 
                     <div class="check-boxes-container__literature-check-box check-box-style">
+                        {% for l in literature %}
                         <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="1" />
+                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="{{l.id}}" />
                             <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
+                            <p>{{l.title}}</p>
+                            <!-- <p>Тема такая-то</p> -->
                         </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="2" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="3" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="4" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="5" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
+                        {% endfor %}
                     </div>
 
                     <!-- чек-бокс - видео -->
 
                     <div class="check-boxes-container__video-check-box check-box-style">
+                        {% for v in video %}
                         <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="1" />
+                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="{{v.id}}" />
                             <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
+                            <p>{{v.title}}</p>
+                            <!-- <p>Тема такая-то</p> -->
                         </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="2" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="3" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="4" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="5" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="5" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
-
-                        <label class="check-box__check-box-item">
-                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
-                            <span class="check-box-icon__new_icon"></span>
-                            <p>Книга такая-то</p>
-                            <p>Тема такая-то</p>
-                        </label>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -267,10 +152,14 @@
                         {% for st in class.groups.students.all %}
                         <div class="group-list-container__student">
                             <div class="group-list-container__box-for-name-and-foto">
-                                <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                                {% if st.img_user %}
+                                <img src="{{st.img_user.url}}" alt="фото студента" class="list-of-group__student-avatar">
+                                {% else %}
+                                <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="list-of-group__student-avatar">
+                                {% endif %}
                                 <div class="box-for-name">
                                     <p class="name-box__last-name">{{st.last_name}}</p>
-                                    <p class="name-box__student-name">Игорь Александрович</p>
+                                    <p class="name-box__student-name">{{st.first_name}} {{st.surname}}</p>
                                 </div>
                             </div>
                             <div class="select">

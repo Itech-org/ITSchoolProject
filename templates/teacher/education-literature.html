@@ -8,26 +8,6 @@
 <div class="main-header__page-information-change-specialty-literature">
     <p class="main-header__page-information">Учебные материалы</p>
     <p class="main-header__page-information-literature">Учебная литература</p>
-    <div class="main-header__change-speciality">
-        <div class="main-header__box-for-change-speciality">
-            <!-- <p class="main-header__button-change-speciality">Выбрать курс...</p> -->
-            <div class="main-header__list-speciality no-active">
-                <p class="main-header__wrapp-for-speciality-link">
-                    <a href="#" class="main-header__speciality-link">Frontend-разработчик</a>
-                </p>
-                <p class="main-header__wrapp-for-speciality-link">
-                    <a href="#" class="main-header__speciality-link">Backend-разработчик</a>
-                </p>
-                <p class="main-header__wrapp-for-speciality-link">
-                    <a href="#" class="main-header__speciality-link">Тестировщик</a>
-                </p>
-            </div>
-        </div>
-        <div class="main-header__box-for-info">
-            <p class="main-header__speciality-info-name">Тестировщик</p>
-            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
-        </div>
-    </div>
 </div>
 {% endblock %}
 
@@ -37,7 +17,7 @@
         <div class="filtr__container">
             <div class="filtr__search">
                 <form class="filtr__search">
-                    <input type="text" class="filtr__search-input" id="text-to-find" value="" placeholder="Фильтр по текст" />
+                    <input type="text" class="filtr__search-input" name='search' id="text-to-find" value="" placeholder="Фильтр по текст" />
                     <input type="button" class="filtr__search-button" onclick="javascript: FindOnPage('text-to-find'); return false;" value="" />
                 </form>
             </div>
@@ -45,102 +25,28 @@
     </div>
     <div class="materials">
         <div class="material__container">
+
+            {% for l in literature %}
             <div class="material__container-literature">
                 <div class="material__container-download">
                     <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
+                        {% if l.img %}
+                        <img src="{{ l.img.url }}" alt="картинка учебника" width="100px" />
+                        {% else %}
+                        <img src="{% static 'img/Rectangle 26.svg'%}" alt="картинка учебника" />
+                        {% endif %}
                     </div>
                     <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
+                        <a href="{{l.file.url}}" download>Скачать</a>
                     </div>
                 </div>
                 <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
+                    <a href="{% url 'teacher:text_detail' l.id %}">
+                    <div class="material__description-title">{{l.title}}</div>
+                    </a>
                 </div>
             </div>
-            <div class="material__container-literature">
-                <div class="material__container-download">
-                    <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
-                    </div>
-                    <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
-                    </div>
-                </div>
-                <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
-                </div>
-            </div>
-            <div class="material__container-literature">
-                <div class="material__container-download">
-                    <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
-                    </div>
-                    <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
-                    </div>
-                </div>
-                <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
-                </div>
-            </div>
-            <div class="material__container-literature">
-                <div class="material__container-download">
-                    <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
-                    </div>
-                    <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
-                    </div>
-                </div>
-                <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
-                </div>
-            </div>
-            <div class="material__container-literature">
-                <div class="material__container-download">
-                    <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
-                    </div>
-                    <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
-                    </div>
-                </div>
-                <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
-                </div>
-            </div>
-            <div class="material__container-literature">
-                <div class="material__container-download">
-                    <div class="material__container-img">
-                        <img src="../img/Rectangle 26.svg" alt="картинка учебника" />
-                    </div>
-                    <div class="material__container-link">
-                        <a href="#" download>Скачать</a>
-                    </div>
-                </div>
-                <div class="material__container-description">
-                    <div class="material__description-title">Герой нашего времени</div>
-                    <div class="material__description-text">
-                        Первый лирико-психологический роман в русской литературе. В нём описываются события из жизни на Кавказе молодого офицера с пылким нравом Григория Александровича Печорина.
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </main>

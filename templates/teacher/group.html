@@ -49,18 +49,18 @@
                 <p class="group__student-last-name">{{st.first_name}}</p>
                 <p class="group__student-first-name">{{st.last_name}}</p>
                 <p class="group__student-patronymic">{{st.surname}}</p>
-                <a href="#" class="group__sent-message-link">
+                <a href="{% url 'teacher:messages' st.id %}" class="group__sent-message-link">
                     <p class="group__box-for-link">Отправить сообщение</p>
                 </a>
             </div>
             {% endfor %}
         </div>
-        <!-- <div class="group__box-for-teacher">
+        <div class="group__box-for-teacher">
             <p class="group__teacher">Преподаватель</p>
             <img src="../img/fototeacher.png" alt="фото преподавателя" class="group__teacher-foto" />
             <p class="group__first-name-and-patronymic">Василий Васильевич</p>
             <p class="group__last-name">Пупкин</p>
-        </div> -->
+        </div>
     </div>
 </main>
 <script src="{% static 'teacher/js/main-header.js' %}"></script>

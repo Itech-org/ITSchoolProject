@@ -14,8 +14,8 @@
 <main>
     <div class="content__wrapper">
         <div class="content__info-block">
-            <p class="content__info-block-text1">Тема урока: {{student.homework_st.class_field.theme}}</p>
-            <p class="content__info-block-text2">08.08.2020</p>
+            <p class="content__info-block-text1">Тема урока: {{homework.class_field.theme}}</p>
+            <p class="content__info-block-text2">{{homework.class_field.date}}</p>
             <p class="content__info-block-text3">Выполнено</p>
             <div class="content__col-attempt">
                 <p class="content__info-block-text4">Количество попыток: <span>2</span></p>
@@ -55,30 +55,38 @@
         </div>
         <div class="content__tutor-reply">
             <div class="content__tutor-replay-student-work">
-                <p class="content__tutor-replay-student-work-text">Я прислал ДЗ, которое не сделал</p>
-                <a href="#" class="content__tutor-replay-student-work-file">Открыть файл</a>
+                <p class="content__tutor-replay-student-work-text">{{homework.description}}</p>
+                <a href="{{homework.file.url}}" class="content__tutor-replay-student-work-file" download>Файл к ДЗ</a>
             </div>
-            <form action="">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="content__tutor-reply-answer">
                     <div class="content__tutor-reply-answer-form">
-                        <textarea class="content__textarea-comment" name="tutor_text" placeholder="Введите текст..."></textarea>
+                        <textarea class="content__textarea-comment" name="autor_text" placeholder="Введите текст...">{{homework.comment_teacher}}</textarea>
+                        {% if homework.comment_file %}
+                        <a href="{{homework.comment_file.url}}" download>Файл к комментарию</a>
+                        {% else %}
+                        <input type="file" name="comment_file" multiple/>
+                        {% endif %}
                         <div class="content__tutor-reply-answer-input-wrapper">
                             <div class="content__box-for-input-file">
-                                Добавить файл
-                                <input type="file" name="Добавить файл" id="" class="content__input-add-file" multiple />
+                                <input type="file" name="comment_file" multiple/>
                             </div>
                             <input class="content__tutor-reply-answer-form-input" type="submit" value="Отправить" />
                         </div>
                     </div>
                     <div class="content__tutor-reply-answer-status-wrapper">
                         <select class="content_select-status" name="status">
-                            <option hidden>Статус</option>
-                            <option value="complite">Правильно</option>
-                            <option value="wrong">Не правильно</option>
-                            <option value="not verified">Не проверено</option>
+                            <option hidden>{{homework.status}}</option>
+
+                            <option value='g'>Проверено</option>
+                            <option value='n'>Не сдано</option>
+                            <option value="nv">Не проверено</option>
                         </select>
 
                         <select class="content_select-status" name="rating">
+                            <option hidden>{{homework.rating}}</option>
+                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

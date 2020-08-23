@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.literature__wrapper {
+  margin-top: 100px;
+}
+
+.literature__container {
+  display: flex;
+  width: 1200px;
+  margin: auto;
+  align-items: flex-start;
+}
+
+.literature__image {
+  width: 200px;
+  height: 250px;
+  margin-bottom: 10px;
+}
+
+.literature__description-container {
+  width: 100%;
+  margin-left: 50px;
+}
+
+.literature__description {
+  margin-top: 20px;
+}
+
+.literature__image-box {
+  text-align: center;
+}
+
+.literature__download-link {
+  font-family: Montserrat-SemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  color: #0d2475;
+}
+
+.literature__name {
+  font-family: Montserrat-Bold;
+  font-size: 20px;
+  color: #114a8e;
+}
+
+.literature__description {
+  font-family: Montserrat-Regular;
+  color: #114a8e;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: Montserrat-Medium;
+}

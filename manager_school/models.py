@@ -205,8 +205,10 @@ class HomeworkModel(models.Model):  # Дз Студента
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
-    status = models.CharField(max_length=300, choices = CHOICES, default='nv')
-    rating = models.PositiveIntegerField('Оценка', default=0)
+    status = models.CharField(max_length=300, choices = CHOICES, default='n')
+    rating = models.PositiveIntegerField('Оценка', blank=True)
+    comment_teacher = models.TextField('Комментарий учителя', blank=True)
+    comment_file = models.FileField('Файл к комментарию', upload_to='file/comment_file/', blank=True)
 
     def __str__(self):
         return f" {self.title}"
@@ -235,10 +237,10 @@ class HomeworkTeacherModel(models.Model): # Дз Препода
 class MaterialText(models.Model): #Материалы
     title = models.CharField(max_length=250, verbose_name='Заголовок', blank=True)
     img = models.ImageField(default='images/materials/Rectangle.svg', upload_to='images/materials/',
-                            verbose_name='Изображение')
+                            verbose_name='Изображение', blank=True)
     description = models.TextField('Описание материала', blank=True)
-    url = models.URLField(max_length=100, verbose_name='Ссылка на материалы',  null=True, default=None)
-    class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, null=True, default=None)
+    url = models.URLField(max_length=100, verbose_name='Ссылка на материалы',  blank=True, default=None)
+    class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, null=True, default=None, blank=True)
     file = models.FileField(upload_to='file/text_materials/', verbose_name='Файл', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None)
 
@@ -253,8 +255,8 @@ class MaterialText(models.Model): #Материалы
 class MaterialVideo(models.Model): #Материалы
     title = models.CharField(max_length=250, verbose_name='Заголовок', blank=True)
     description = models.TextField('Описание материала', blank=True)
-    url = models.URLField(max_length=100, verbose_name='Ссылка на материалы', null=True, default=None)
-    class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, null=True, default=None)
+    url = models.URLField(max_length=100, verbose_name='Ссылка на материалы', null=True, default=None, blank=True)
+    class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, null=True, default=None, blank=True)
     file = models.FileField(upload_to='file/video_materials/', verbose_name='Файл', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None)
 

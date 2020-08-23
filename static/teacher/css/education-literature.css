@@ -3,46 +3,46 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   a {
     text-decoration: none;
   }
-  
+
   @font-face {
     font-family: Montserrat-Medium; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Aclonica-Regular; /* Гарнитура шрифта */
     src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-Regular; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-Bold; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-Light; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
   }
-  
+
   @font-face {
     font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
     src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
@@ -80,7 +80,7 @@
     background-size: cover;
     border: none;
   }
-  
+
 
 
   /* materials */
@@ -104,14 +104,14 @@
   .material__container-download{
       display: flex;
       flex-direction: column;
-      align-items: center;      
+      align-items: center;
   }
-  
+
   .material__container-link{
       color: #042348;
       font-family: Montserrat-SemiBold;
       font-size: 13px;
-     
+
   }
   .material__container-link a{
     margin: 10px 0px;
@@ -120,7 +120,7 @@
       display: flex;
       flex-direction: column;
       align-content: space-between;
-      
+
 
   }
   .material__description-title{
@@ -131,19 +131,21 @@
       margin: 0px 0px 15px 0px;
 
   }
+
   .material__description-text{
       max-width: 270px;
       font-family: Montserrat-Light;
       font-size: 13px;
-      
-
+      white-space: inherit; /* Запрещаем перенос строк */
+      overflow: hidden; /* Обрезаем все, что не помещается в область */
+      text-overflow: ellipsis; /* Добавляем многоточие */
   }
 
   main {
     margin-left: 70px;
     margin-top: 50px;
     transition: 0.2s;
-   
+
   }
 
   .main-menu{
@@ -165,4 +167,3 @@
   .main-header__page-information-literature{
     padding-right: 50px;
   }
-  
