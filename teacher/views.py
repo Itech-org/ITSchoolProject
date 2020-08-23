@@ -6,6 +6,7 @@ from django.db.models import Q
 from .serializers import ClassModelSerializer
 from django.urls import reverse_lazy
 import datetime
+from django.utils.text import slugify
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 from django.http import HttpRequest, HttpResponse
@@ -56,6 +57,9 @@ def index(request):
     return render(request, 'teacher/index.html')
 
 
+# ------------------------------- КАЛЕНДАРЬ -----------------------------------
+
+
 @user_passes_test_custom(check_group_and_activation, login_url='teacher/login/')
 def calendar(request):
     classes = []
@@ -70,19 +74,6 @@ def calendar(request):
     print(classes)
     return render(request, 'teacher/calendar.html', {'classes':classes, 'date_now':date_now})
 
-
-@user_passes_test_custom(check_group_and_activation, login_url='/teacher/login/')
-def class_detail(request, class_id):
-    class_data = get_object_or_404(ClassModel, id=class_id)
-    attendances = Attendance.objects.filter(classes__id=class_id)
-    literature = MaterialText.objects.all()
-    video = MaterialVideo.objects.all()
-    return render(request, "teacher/calendar-go-to-day.html", {
-        "class": class_data,
-        "attendances": attendances,
-        'literature':literature,
-        'video':video
-    })
 
 @api_view(['GET']) #api_calendar
 def api_classes_list(request):
@@ -104,101 +95,50 @@ def api_classes_list(request):
     return Response(data.data)
 
 
-def profile(request): #страница профиля учителя
-    groups = GroupModel.objects.filter(teacher__id=request.user.id)
-    classes = 0
-    for g in groups:
-        classes += int(g.course.amount)
-    return render(request, 'teacher/card_personal_teacher.html', {'classes':classes})
+# -------------------------------- ЗАНЯТИЕ -------------------------------------
 
 
-
-def profile_edit(request): #редактирование профиля
-    if request.method == "POST":
-        phone = request.POST.get('phone', '')
-        email = request.POST.get('email', '')
-        img_user = request.FILES['img_user']
-        user = request.user
-        if phone:
-            user.phone = phone
-        if email:
-            user.email = email
-        if img_user:
-            user.img_user = img_user
-        user.save()
-        return redirect('teacher:profile')
-    return render(request, 'teacher/change_personal_data.html')
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='login/')
-def study_procces(request):
-    return render(request, 'teacher/studying_proccess.html')
-
-
-class MyPasswordChange(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
-    """ Смена пароля """
-    template_name = 'teacher/password_change.html'
-    success_url = reverse_lazy('teacher:password')
-    success_message = 'Ваш пароль успешно изменён'
-
-
-class MyPasswordReset(PasswordResetView):
-    success_url = reverse_lazy('teacher:password_reset_done')
-
-
-class MyPasswordResetConfirm(PasswordResetConfirmView):
-    success_url = reverse_lazy('teacher:password_reset_complete')
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='teacher/login/')
-def group_detail(request): #вкладка группы
-    students=[]
-    filter_gr=request.GET.get('group','')
-    if filter_gr:
-        students = AdvUser.objects.filter(groupmodel=filter_gr)
-        print(students)
-    else:
-        groups = GroupModel.objects.filter(teacher__id=request.user.id)
-        for g in groups:
-            students += AdvUser.objects.filter(groupmodel=g.id)
-    return render(request, "teacher/group.html", {'students':students})
+@user_passes_test_custom(check_group_and_activation, login_url='/teacher/login/')
+def class_detail(request, class_id):
+    class_data = get_object_or_404(ClassModel, id=class_id)
+    attendances = Attendance.objects.filter(classes__id=class_id)
+    literature = MaterialText.objects.all()
+    video = MaterialVideo.objects.all()
+    if request.method == 'POST':
+        #тема занятия
+        theme = request.POST.get('theme', '')
+        if theme:
+            class_data.theme = theme
+            class_data.save()
+        #дз препода
+        if request.POST.get('file', ''):
+            file_t = request.POST['file']
+        else:
+            file_t = None
+        hw_t = HomeworkTeacherModel.objects.create(class_field=class_data,
+            title=request.POST.get('title', ''),
+            description = request.POST.get('description', ''),
+            url = request.POST.get('url', ''),
+            file=file_t,
+            slug=slugify(request.POST.get('title', ''))
+            )
+        hw_t.save()
+        #посещение
+        for st in class_data.groups.students.all():
+            status = request.POST.get('status-{}'.format(st.id), '')
+            rating = request.POST.get('rating-{}'.format(st.id), '')
+            att = Attendance.objects.create(students=st, classes=class_data, rating=int(rating), attendance=status)
+            att.save()
+        return redirect('teacher:calendar')
+    return render(request, "teacher/calendar-go-to-day.html", {
+        "class": class_data,
+        "attendances": attendances,
+        'literature':literature,
+        'video':video})
 
 
-def student_detail(request, student_id): #детализация ученика
-    student = get_object_or_404(AdvUser, id=student_id)
-    return render(request, 'teacher/student_detail.html', {'student':student})
+# ----------------------------- ДЗ СТУДЕНТОВ -----------------------------------
 
-
-def materials(request): #материалы
-    return render(request, 'teacher/studying_materials.html')
-
-
-def text_mat(request): #список книг
-    search_q = request.GET.get('search', '')
-    if search_q:
-        literature = MaterialText.objects.filter(title__icontains=search_q)
-    else:
-        literature = MaterialText.objects.all()
-    return render(request, 'teacher/education-literature.html', {'literature':literature})
-
-
-def text_detail(request, l_id): #страница книги
-    literature = get_object_or_404(MaterialText, id=l_id)
-    return render(request, 'teacher/literature_literature.html', {'literature':literature})
-
-
-def video_mat(request): #список видео
-    search_q = request.GET.get('search','')
-    if search_q:
-        videos = MaterialVideo.objects.filter(Q(title__icontains=search_q) | Q(description__icontains=search_q))
-    else:
-        videos = MaterialVideo.objects.all()
-    return render(request, 'teacher/video-material.html', {'videos':videos})
-
-
-def video_detail(request, slug_v): #станица видео
-    video = MaterialVideo.objects.filter(slug=slug_v)
-    return render(request, 'teacher/video_detail.html', {'video':video})
 
 def homework(request): #дз студентов
     homework=[]
@@ -243,12 +183,133 @@ def homework_detail(request, hw_id): #страница дз студента
     return render(request, 'teacher/choosing-dz.html', {'student':student, 'homework':hw})
 
 
+# -------------------------------- ПРОФИЛЬ-----------------------------------
+
+
+def profile(request): #страница профиля учителя
+    groups = GroupModel.objects.filter(teacher__id=request.user.id)
+    classes = 0
+    for g in groups:
+        classes += int(g.course.amount)
+    return render(request, 'teacher/card_personal_teacher.html', {'classes':classes})
+
+
+
+def profile_edit(request): #редактирование профиля
+    if request.method == "POST":
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        img_user = request.FILES['img_user']
+        user = request.user
+        if phone:
+            user.phone = phone
+        if email:
+            user.email = email
+        if img_user:
+            user.img_user = img_user
+        user.save()
+        return redirect('teacher:profile')
+    return render(request, 'teacher/change_personal_data.html')
+
+
+class MyPasswordChange(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
+    """ Смена пароля """
+    template_name = 'teacher/password_change.html'
+    success_url = reverse_lazy('teacher:password')
+    success_message = 'Ваш пароль успешно изменён'
+
+
+class MyPasswordReset(PasswordResetView):
+    success_url = reverse_lazy('teacher:password_reset_done')
+
+
+class MyPasswordResetConfirm(PasswordResetConfirmView):
+    success_url = reverse_lazy('teacher:password_reset_complete')
+
+
+# ---------------------------- УЧЕБНЫЙ ПРОЦЕСС ---------------------------------
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='login/')
+def study_procces(request):
+    return render(request, 'teacher/studying_proccess.html')
+
+
+# --------------------------------- ГРУППЫ ------------------------------------
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='teacher/login/')
+def group_detail(request): #вкладка группы
+    students=[]
+    filter_gr=request.GET.get('group','')
+    if filter_gr:
+        students = AdvUser.objects.filter(groupmodel=filter_gr)
+        print(students)
+    else:
+        groups = GroupModel.objects.filter(teacher__id=request.user.id)
+        for g in groups:
+            students += AdvUser.objects.filter(groupmodel=g.id)
+    return render(request, "teacher/group.html", {'students':students})
+
+
+def student_detail(request, student_id): #детализация ученика
+    student = get_object_or_404(AdvUser, id=student_id)
+    return render(request, 'teacher/student_detail.html', {'student':student})
+
+
+# ------------------------------ МАТЕРИАЛЫ ---------------------------------
+
+
+def materials(request): #материалы
+    return render(request, 'teacher/studying_materials.html')
+
+
+# ------------------------------ ЛИТЕРАТУРА -----------------------------------
+
+
+def text_mat(request): #список книг
+    search_q = request.GET.get('search', '')
+    if search_q:
+        literature = MaterialText.objects.filter(title__icontains=search_q)
+    else:
+        literature = MaterialText.objects.all()
+    return render(request, 'teacher/education-literature.html', {'literature':literature})
+
+
+def text_detail(request, l_id): #страница книги
+    literature = get_object_or_404(MaterialText, id=l_id)
+    return render(request, 'teacher/literature_literature.html', {'literature':literature})
+
+
+# ---------------------------- ВИДЕОМАТЕРИАЛЫ ----------------------------------
+
+
+def video_mat(request): #список видео
+    search_q = request.GET.get('search','')
+    if search_q:
+        videos = MaterialVideo.objects.filter(Q(title__icontains=search_q) | Q(description__icontains=search_q))
+    else:
+        videos = MaterialVideo.objects.all()
+    return render(request, 'teacher/video-material.html', {'videos':videos})
+
+
+def video_detail(request, slug_v): #станица видео
+    video = MaterialVideo.objects.filter(slug=slug_v)
+    return render(request, 'teacher/video_detail.html', {'video':video})
+
+
+# ---------------------------- МАТ ПО ТЕМАМ -----------------------------------
+
+
 def materials_on_theme(request): #материалы по темам
     return render(request, 'teacher/materials_on_topics.html')
 
 
 def material_detail(request): #страница материала
     return render(request, 'teacher/material_detail.html')
+
+
+# ---------------------------- ВИДЕО ЗАНЯТИЙ ----------------------------------
 
 
 def video_courses(request): #видеозанития
@@ -259,8 +320,8 @@ def vd_crs_detail(request): #страница видеозанятия
     return render(request, 'teacher/vd_crs_detail.html')
 
 
-def chat(request): #чат
-    return render(request, 'teacher/chat.html')
+
+# ----------------------------- ПРЕПОДАВТЕЛИ ----------------------------------
 
 
 def teachers(request): #преподаватели
@@ -273,6 +334,9 @@ def teacher_card(request, t_id):
     return render(request, 'teacher/teacher_card.html', {'teacher':teacher})
 
 
+# --------------------------------- НОВОСТИ ------------------------------------
+
+
 def news(request): #новости
     news = News.objects.all()
     return render(request, 'teacher/itnews.html', {'news':news})
@@ -283,11 +347,32 @@ def post_detail(request, post_id):
     return render(request, 'teacher/container_news.html', {'post':post})
 
 
+# ---------------------- СООБЩЕНИЕ ДЛЯ АДМИНИСТРАТОРА --------------------------
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='teacher/login')
 def message_for_admin(request):
+    if request.method == "POST":
+        print(request.POST)
+        admin = AdvUser.objects.filter(groups__name="Admin").order_by('-last_login')[0]
+        chats = Chat.objects.filter(members__in=[request.user.id, admin.id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
+        if chats.count() == 0:
+            chat = Chat.objects.create()
+            chat.members.add(request.user)
+            chat.members.add(admin.id)
+        else:
+            chat = chats.first()
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.chat_id = chat.id
+            message.author = request.user
+            message.save()
+        return redirect(reverse('teacher:messages', kwargs={'chat_id': chat.id}))
     return render(request, 'teacher/contact_administrator.html')
 
 
-# ---- ЧАТ ----
+# ----------------------------------- ЧАТ -------------------------------------
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='teacher/login')

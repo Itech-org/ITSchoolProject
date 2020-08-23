@@ -15,9 +15,9 @@
 
 {% block content %}
 <main class="calendar-go-to-day">
-    <form action="">
+    <form action="" method="post">
         <!-- общий флекс-контейнер -->
-
+        {% csrf_token %}
         <div class="calendar-go-to-day__calendar-for-all-box">
             <!-- контейнер для контента слева -->
 
@@ -34,7 +34,7 @@
                         <div class="select__option-container no-active">
                             <input type="text" hidden class="select_input" name="theme" />
                             {% for cl in class.groups.classes.all %}
-                            <p data-value="{{cl.id}}" class="select__option select__option-theme">{{cl.theme}}</p>
+                            <p data-value="{{cl.theme}}" class="select__option select__option-theme">{{cl.theme}}</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -51,10 +51,12 @@
                         <p class="homework-headline-box__headline">Домашнее задание</p>
                     </div>
                     <div class="homework-box__comment-and-add-file-area">
-                        <textarea class="homework-box__comment-area" placeholder="Комментарий к домашнему заданию..."></textarea>
+                        <input class="homework-box__comment-text" type="text" name="title" value="" placeholder="Заголовок">
+                        <textarea name='description' class="homework-box__comment-area" placeholder="Описание"></textarea>
+                        <input class="homework-box__comment-text" type="url" name="url" value="" placeholder="Ссылка">
                         <div class="main__personal-box-for-input-file">
                             Добавить файл
-                            <input type="file" multiple class="main__personal-button-input-file" />
+                            <input type="file" name='file' multiple class="main__personal-button-input-file" />
                         </div>
                     </div>
                 </div>
@@ -165,17 +167,17 @@
                             <div class="select">
                                 <p class="select__change">Выбрать статус</p>
                                 <div class="select__option-container no-active">
-                                    <input type="text" hidden class="select_input" name="status" />
-                                    <p data-value="present" class="select__option">Присутствует</p>
-                                    <p data-value="absent" class="select__option">Отсутствует</p>
-                                    <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                                    <input type="text" hidden data-value=False class="select_input" name="status-{{st.id}}" />
+                                    <p data-value=True class="select__option">Присутствует</p>
+                                    <p data-value=False class="select__option">Отсутствует</p>
+                                    <!-- <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p> -->
                                 </div>
                             </div>
 
                             <div class="select selectRaiting">
                                 <p class="select__change">Оценка</p>
                                 <div class="select__option-container no-active">
-                                    <input type="text" hidden class="select_input" name="rating" />
+                                    <input type="text" hidden class="select_input" name="rating-{{st.id}}" value="0" />
                                     <p data-value="1" class="select__option">1</p>
                                     <p data-value="2" class="select__option">2</p>
                                     <p data-value="3" class="select__option">3</p>

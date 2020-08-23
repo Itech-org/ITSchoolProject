@@ -193,6 +193,20 @@ button:hover {
   color: #243676;
 }
 
+.homework-box__comment-text {
+  width: 90%;
+  height: 20px;
+  display: block;
+  resize: none;
+  outline: none;
+  border: none;
+  padding: 8px 10px;
+  margin: 8px 10px;
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  color: #243676;
+}
+
 .homework-box__comment-area:focus::-webkit-input-placeholder {
   color: transparent;
 }

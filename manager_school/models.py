@@ -145,7 +145,7 @@ class ClassModel(models.Model):  # Занятие
     end_time = models.TimeField(null=True, verbose_name='Время окончания занятия')
     theme = models.CharField(max_length=250, verbose_name='Тема', blank=True)
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
-    slug = models.SlugField(max_length=100, db_index=True, default=None)
+    slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
 
 
@@ -214,7 +214,7 @@ class HomeworkModel(models.Model):  # Дз Студента
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', blank=True, null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
-    slug = models.SlugField(max_length=100, db_index=True, default=None)
+    slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     status = models.CharField(max_length=300, choices = CHOICES, default='Не проверено')
     rating = models.PositiveIntegerField('Оценка', blank=True)
     comment_teacher = models.TextField('Комментарий учителя', blank=True)
@@ -229,10 +229,10 @@ class HomeworkModel(models.Model):  # Дз Студента
 
 
 class HomeworkTeacherModel(models.Model): # Дз Препода
-    title = models.CharField(max_length=150, db_index=True, verbose_name='Название', blank=True)
+    title = models.CharField(max_length=150, db_index=True, verbose_name='Название')
     file = models.FileField(upload_to='file/teacher/', verbose_name='Файл с ДЗ', blank=True)
     description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
-    url = models.URLField(max_length=100, verbose_name='Ссылка дз', null=True, default=None)
+    url = models.URLField(max_length=100, verbose_name='Ссылка дз', null=True, blank=True)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homeworkteacher')
     attempts = models.IntegerField(verbose_name='Количество попыток', default=3)
     slug = models.SlugField(max_length=100, db_index=True, default=None)

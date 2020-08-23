@@ -21,6 +21,11 @@ class Migration(migrations.Migration):
             name='comment_teacher',
             field=models.TextField(blank=True, verbose_name='Комментарий учителя'),
         ),
+        migrations.AddField(
+            model_name='homeworkmodel',
+            name='slug',
+            field=models.SlugField(max_length=100, db_index=True, default=None, blank=True)
+        ),
         migrations.AlterField(
             model_name='homeworkmodel',
             name='status',

@@ -12,26 +12,27 @@
 
 {% block content %}
 <main>
-    <form action="#">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="main-connection">
             <p class="main-connection__text">
                 Связаться с администратором
             </p>
             <div class="main-connection__box">
                 <div class="main-connection__box-border">
-                    <input type="textarea" value="" name="textarea" required placeholder="Введите текс" class="main-connection__textarea" />
+                    <input type="textarea" value="" name="message" required placeholder="Введите текст" class="main-connection__textarea"/>
                 </div>
             </div>
             <div class="main-connection__box-for-input">
                 <button class="main-connection__button-for-file">
                     Прикрепить файл
-                    <input type="file" value="#" name="" class="main-connection__file" multiple />
+                    <input type="file" value="" name="document" class="main-connection__file" multiple/>
                 </button>
-                <input type="submit" value="Отправить" name="" class="main-connection__submit" />
+                <input type="submit" value="Отправить" name="" class="main-connection__submit"/>
             </div>
         </div>
     </form>
 </main>
 <script src="{% static 'teacher/js/main-header.js' %}"></script>
-<script src="{% static 'teacher/js/contact_administrator.js'%}"></script>
+<script src="{% static 'js/contact_administrator.js'%}"></script>
 {% endblock %}
