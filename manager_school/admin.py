@@ -13,7 +13,7 @@ class AdminViewAdvUser(admin.ModelAdmin):
 
 @admin.register(CourseUser)
 class AdminViewCourseUser(admin.ModelAdmin):
-    list_display = ('title', 'price', 'start_date', 'finish_date',)
+    list_display = ('title', 'price', 'start_date', 'finish_date', 'is_online')
     prepopulated_fields = {'slug': ('title',)}
 
 class ClassInline(admin.StackedInline):

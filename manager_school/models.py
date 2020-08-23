@@ -76,6 +76,7 @@ class CourseUser(models.Model):  # Курс
     img = models.ImageField(upload_to='images/courses/', verbose_name='Логотип курса')
     amount = models.CharField(max_length=50, db_index=True, verbose_name='Количество занятий')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
+    is_online = models.BooleanField(default=False, verbose_name="Онлайн?")
 
     def __str__(self):
         return f"{self.title}"
@@ -135,6 +136,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
+    room_link = models.URLField(null=True, default='#', verbose_name="Ссылка на комнату занятия")
 
 
     def __str__(self):

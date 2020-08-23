@@ -2,17 +2,19 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Count
-from django.http import HttpResponseRedirect, QueryDict
+from django.http import HttpResponseRedirect, QueryDict, JsonResponse
 
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
-from .filters import StudyRequestFilter, GroupFilter
+from .filters import StudyRequestFilter
 from .forms import *
 from django.shortcuts import render
 
-from .serializers import ClassModelSerializer
+from .serializers import ClassModelSerializer, StudyRequestSerializer
 from .services import get_manager_successful_percent, get_manager_data_per_period
 
 from .utilities import *
@@ -206,18 +208,40 @@ def get_classes(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_class_detail(request, class_id):
     class_data = get_object_or_404(ClassModel, id=class_id)
+    course = class_data.groups.course
     attendances = Attendance.objects.filter(classes__id=class_id)
     return render(request, "manager/class/class_detail.html", {
         "class": class_data,
+        "course": course,
         "attendances": attendances,
     })
 
 
 # ---------------------leads-----------------------------
 
+@csrf_exempt
+def api_leads_list(request):
+    """
+    List all code leads, or create a new lead.
+    """
+    if request.method == 'GET':
+        snippets = StudyRequest.objects.all()
+        serializer = StudyRequestSerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = StudyRequestSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_leads(request):
-    leads = StudyRequestFilter(request.POST, queryset=StudyRequest.objects.all())
+    print(request.POST)
+    leads = StudyRequestFilter(request.GET, queryset=StudyRequest.objects.all())
     return render(request, "manager/lead/leads_list.html", {
         "leads": leads,
     })
