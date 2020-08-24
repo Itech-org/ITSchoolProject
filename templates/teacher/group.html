@@ -13,7 +13,7 @@
             <div class="main-header__list-speciality no-active">
                 <form action="" method="get" class="main-header__form-change-course">
                     <label>
-                        <input type="text" name="group" hidden class="main-header__change-course"/>
+                        <input type="text" name="group" hidden class="main-header__change-course" />
                     </label>
                     <p class="main-header__wrapp-for-speciality-link mb-0" data-value="">
                         Все
@@ -46,9 +46,11 @@
                     {% endif %}
                     <span class="group__check-online"></span>
                 </p>
-                <p class="group__student-last-name">{{st.first_name}}</p>
-                <p class="group__student-first-name">{{st.last_name}}</p>
-                <p class="group__student-patronymic">{{st.surname}}</p>
+                <a href="{% url 'teacher:student_detail' st.id %}">
+                    <p class="group__student-last-name">{{st.first_name}}</p>
+                    <p class="group__student-first-name">{{st.last_name}}</p>
+                    <p class="group__student-patronymic">{{st.surname}}</p>
+                </a>
                 <a href="{% url 'teacher:messages' st.id %}" class="group__sent-message-link">
                     <p class="group__box-for-link">Отправить сообщение</p>
                 </a>

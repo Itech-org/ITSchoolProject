@@ -196,17 +196,17 @@ def profile(request): #страница профиля учителя
 
 
 def profile_edit(request): #редактирование профиля
+    user = request.user
     if request.method == "POST":
+        user.img_user = request.user.img_user
         phone = request.POST.get('phone', '')
         email = request.POST.get('email', '')
-        img_user = request.FILES['img_user']
-        user = request.user
+        if request.POST.get('img_user', ''):
+            img_user = request.FILES['img_user']
         if phone:
             user.phone = phone
         if email:
             user.email = email
-        if img_user:
-            user.img_user = img_user
         user.save()
         return redirect('teacher:profile')
     return render(request, 'teacher/change_personal_data.html')
@@ -254,7 +254,8 @@ def group_detail(request): #вкладка группы
 
 def student_detail(request, student_id): #детализация ученика
     student = get_object_or_404(AdvUser, id=student_id)
-    return render(request, 'teacher/student_detail.html', {'student':student})
+    attendance = Attendance.objects.filter(students__id=student.id)
+    return render(request, 'teacher/students_personal_card.html', {'student': student, 'attendance': attendance})
 
 
 # ------------------------------ МАТЕРИАЛЫ ---------------------------------
