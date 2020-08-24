@@ -1,11 +1,13 @@
-{% extends "admin/main_page/main_page_admin.html"%}
-{% block title %} Карточка студента{% endblock %}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %} Карточка студента {% endblock %}
+{%block header%} Карточка студента {% endblock %}
 {% block content %}
-
+<div class="thead__wrapper">
     <p>Фамилия : {{ info.last_name }}</p>
     <p>Имя : {{ info.first_name }}</p>
     <p>Отчество : {{ info.surname }}</p>
     <p>Телефон : {{ info.phone }}</p>
     <p>Электронный адрес : {{ info.email }}</p>
-
+</div>
 {% endblock %}

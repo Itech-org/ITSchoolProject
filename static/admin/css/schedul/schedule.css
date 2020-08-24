@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.no-active {
+  display: none;
+}
+
+.schedule_box {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: #f5f7fd;
+}
+
+.schedule_col__first {
+  width: 220px;
+}
+
+.schedule_col__second {
+  width: 840px;
+}
+
+td {
+  border: 1px solid #ced6f2;
+}
+
+.schedule_date {
+  height: 34px;
+  font-family: Montserrat-Bold;
+  font-size: 14px;
+  color: #ffffff;
+  background: linear-gradient(#6683e5, #0f2162);
+}
+
+.schedule_occupations {
+  height: 34px;
+  font-family: Montserrat-Bold;
+  font-size: 14px;
+  color: #ffffff;
+  background: linear-gradient(#6683e5, #0f2162);
+}
+
+.schedule_date__date {
+  font-family: Montserrat-Bold;
+  font-size: 18px;
+  color: #122567;
+  text-align: center;
+}
+
+.schedule_date__time {
+  font-family: Montserrat-Bold;
+  font-size: 18px;
+  color: #122567;
+  text-align: center;
+}
+
+.schedule_date__day {
+  font-family: Montserrat-Medium;
+  font-size: 13px;
+  color: #122567;
+  text-align: center;
+}
+
+.schedule_occupations__group {
+  font-family: Montserrat-Medium;
+  font-size: 14px;
+  color: #122567;
+  margin-left: 22px;
+}

@@ -147,7 +147,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
-
+    message = models.TextField(verbose_name='Сообщение', blank=True)
 
     def __str__(self):
         return self.theme
@@ -457,3 +457,21 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class Costs(models.Model): # Расходы
+    date = models.DateTimeField(null=True, verbose_name='Дата')
+    breakdown = models.TextField('Поломки', blank=True)
+    chancery = models.TextField('Канцелярия', blank=True)
+    grocery = models.TextField('Бакалея(Чай/кофе/печенье)', blank=True)
+    house_chemicals = models.TextField('Бытовая химия', blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='Было потрачено')
+
+    def __str__(self):
+        return f" {self.date, self.chancery}"
+
+    class Meta:
+        verbose_name = 'Расход'
+        verbose_name_plural = 'Расходы'
+        ordering = ['-date']
+
