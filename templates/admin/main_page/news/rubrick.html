@@ -1,5 +1,7 @@
-{% extends "admin/main_page/main_page_admin.html"%}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
 {% block title %}{{ news_rubrick.title }}{% endblock %}
+{%block header%}Рубрики{%endblock %}
 {% block content %}
         {% for news in current_news %}
         <h2><a href="{% url 'admin_school:new_view' news.pk %}">{{ news.title|safe}}</a></h2>

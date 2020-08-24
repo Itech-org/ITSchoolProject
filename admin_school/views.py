@@ -5,13 +5,15 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
-from admin_school.forms import ClassModelForm, NewsForm
+from admin_school.forms import ClassModelForm, NewsForm, CostsForm
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404
-from manager_school.models import GroupModel, AdvUser, ClassModel, News, RubruckNews
+from manager_school.models import GroupModel, AdvUser, ClassModel, News, RubruckNews, Costs
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
-
+from django.shortcuts import redirect
+from .signals import receiver_function
+from .filters import CostsFilter
 
 class Login_View(LoginView):
     template_name = 'admin/main_page/autorization_page_admin.html'
@@ -34,7 +36,7 @@ def check_group_and_activation(request):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
 def main_page_view(request):
-    return render(request, template_name='admin/main_page/main_page_admin.html')
+    return render(request, template_name='admin/main_page.html')
 
 
 # Список групп
@@ -43,7 +45,7 @@ def main_page_view(request):
 def group_list_view(request):
     groups = get_list_or_404(GroupModel)
     context = {'groups': groups}
-    return render(request, 'admin/main_page/group_list/number_group.html', context)
+    return render(request, 'admin/group_list.html', context)
 
 
 # Карточка студента
@@ -53,19 +55,19 @@ def student_card(request, id):
     user_id = id
     card = get_object_or_404(AdvUser, id=user_id)
     context = {'info': card}
-    return render(request, 'admin/main_page/group_list/card_student.html', context)
+    return render(request, 'admin/card_student.html', context)
 
 
 def timetable(request):
     timetab = ClassModel.objects.all()
     context = {"timetab": timetab}
-    return render(request, "admin/main_page/timetable/timetable.html", context)
+    return render(request, "admin/timetable.html", context)
 
 
 def teachers_view(request):
     teachers = AdvUser.objects.filter(groups__name='Teacher')
     context = {"teachers": teachers}
-    return render(request, 'admin/main_page/teacher/teacher_tab.html', context)
+    return render(request, 'admin/teacher_tab.html', context)
 
 
 def revise_timetable(request, pk):
@@ -79,11 +81,32 @@ def revise_timetable(request, pk):
                 return HttpResponseRedirect("../../timetable")
         else:
             form = ClassModelForm(instance=rev_timetable)
-        return render(request, "admin/main_page/timetable/revise_timetable.html",
+        return render(request, "admin/revise_timetable.html",
                       {"rev_timetable": rev_timetable, 'form': form})
 
     except ClassModel.DoesNotExist:
         return HttpResponseNotFound("<h2>not found</h2>")
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
+def costs(request): #Форма для заполнения Расходов
+    if request.method == "POST":
+        cost = CostsForm(request.POST)
+        if cost.is_valid():
+            form = cost.save(commit=False)
+            form.save()
+            return HttpResponseRedirect("./../costs")
+    else:
+        cost = CostsForm()
+    return render(request, "admin/costs.html", {'cost': cost})
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
+def costs_admin(request): #Отображение расходов в admin_school
+    cost_a = Costs.objects.all()
+    f = CostsFilter(request.GET, queryset=Costs.objects.all())
+    context = {"cost_a": cost_a, 'filter': f}
+    return render(request, "admin/costs_admin.html", context)
 
 
 def news_view(request):
