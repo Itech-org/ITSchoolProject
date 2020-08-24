@@ -13,11 +13,15 @@ from .views import NewsAdd
 from .views import change_new
 from .views import new_view
 from .views import delete_new
+from .views import costs
+from .views import costs_admin
 
 app_name = 'admin_school'
 
 
 urlpatterns = [
+    path('costs/', costs, name='costs'),
+    path('costs_admin/', costs_admin, name='costs_admin'),
     path('del_new/<int:pk>', delete_new, name='del_new'),
     path('new/<int:pk>', new_view, name='new_view'),
     path('change_new/<int:pk>', change_new, name='change_new'),

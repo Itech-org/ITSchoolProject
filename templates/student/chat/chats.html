@@ -37,7 +37,11 @@
                 {% get_companion user chat as companion %}
                 <p class="main__chat-with-who-name m-0 d-flex justify-content-between pl-2 pr-2">
                     <a href="{% url 'student:messages' chat_id=chat.id %}" class="main__chat-with-who-link">
-                        {{ companion.first_name }}
+                        {% if companion %}
+                        {{ companion.last_name }} {{ companion.first_name }}
+                        {% else %}
+                        Saved Messages
+                        {% endif %}
                     </a>
                     {% if companion == last_message.author %}
                     {% if not last_message.is_readed %}

@@ -5,13 +5,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
+from .utilities import slugify
 from time import time
 # Create your models here.
 
 
 def gen_slug(s):
-    new_slug = slugify(s, allow_unicode=True)
+    new_slug = slugify(s)
     return new_slug + '-' + str(int(time()))
 
 
@@ -54,8 +54,6 @@ class AdvUser(AbstractUser): # Студенты
                 classes = ClassModel.objects.filter(
                     groups__students__id=self.id, groups__id=group_id, date__gt=current_day)
             try:
-                for at in attendances.filter(attendance=True):
-                    print(at.classes.theme)
                 attendance = len(attendances.filter(attendance=True)) / len(classes) * 100
             except ZeroDivisionError:
                 attendance = 0
@@ -88,6 +86,7 @@ class CourseUser(models.Model):  # Курс
     img = models.ImageField(upload_to='images/courses/', verbose_name='Логотип курса')
     amount = models.CharField(max_length=50, db_index=True, verbose_name='Количество занятий')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
+    is_online = models.BooleanField(default=False, verbose_name="Онлайн?")
 
     def __str__(self):
         return f"{self.title}"
@@ -147,6 +146,8 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
+    room_link = models.URLField(null=True, verbose_name="Ссылка на комнату занятия")
+    message = models.TextField(verbose_name='Сообщение', blank=True)
 
 
     def __str__(self):
@@ -214,7 +215,6 @@ class HomeworkModel(models.Model):  # Дз Студента
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', blank=True, null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
-    slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     status = models.CharField(max_length=300, choices = CHOICES, default='Не проверено')
     rating = models.PositiveIntegerField('Оценка', blank=True)
     comment_teacher = models.TextField('Комментарий учителя', blank=True)
@@ -298,6 +298,7 @@ class News(models.Model):
     img = models.ImageField('Изображение', upload_to='news/', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
+    picture = models.ImageField(upload_to='images/news/', null=True, blank=True)
 
     def __str__(self):
         return f" {self.title}"
@@ -457,3 +458,21 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class Costs(models.Model): # Расходы
+    date = models.DateTimeField(null=True, verbose_name='Дата')
+    breakdown = models.TextField('Поломки', blank=True)
+    chancery = models.TextField('Канцелярия', blank=True)
+    grocery = models.TextField('Бакалея(Чай/кофе/печенье)', blank=True)
+    house_chemicals = models.TextField('Бытовая химия', blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='Было потрачено')
+
+    def __str__(self):
+        return f" {self.date, self.chancery}"
+
+    class Meta:
+        verbose_name = 'Расход'
+        verbose_name_plural = 'Расходы'
+        ordering = ['-date']
+

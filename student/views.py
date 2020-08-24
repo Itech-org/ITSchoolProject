@@ -485,16 +485,3 @@ def start_chat_with_user(request, user_id):
     else:
         chat = chats.first()
     return redirect(reverse('student:messages', kwargs={'chat_id': chat.id}))
-
-
-# @user_passes_test_custom(check_group_and_activation, login_url='/login')
-# def contact_admin(request):
-#     chats = Chat.objects.filter(members__in=[request.user.id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
-#     admin = AdvUser.objects.filter(groups__name="Admin").order_by('-last_login')[0]
-#     if chats.count() == 0:
-#         chat = Chat.objects.create()
-#         chat.members.add(request.user)
-#         chat.members.add(admin.id)
-#     else:
-#         chat = chats.first()
-#     return redirect(reverse('student:messages', kwargs={'chat_id': chat.id}))

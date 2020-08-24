@@ -9,6 +9,7 @@ urlpatterns = [
     path("login/", login_user, name="login"),
     path('registration_user/<int:lead_id>/', register_user, name='registration_page'),
     path('profile/', get_manager_profile, name='get_manager_profile'),
+    path('profile/change-user-info/', change_user_info, name='change_user_info'),
     path('', main_page_view, name='main_page'),
     path('groups/', get_groups, name='get_groups'),
     path('group/create/', add_group, name='add_group'),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('lead-create/', add_lead, name='add_lead'),
     path('lead/<int:lead_id>/history/', lead_history, name='lead_history'),
     path('lead/<int:lead_id>/add/conversation/', add_req_conversation, name='add_req_conversation'),
+    path('lead/<int:lead_id>/confirm/', confirm_lead, name='confirm_lead'),
     path('contracts/', get_contracts, name='get_contracts'),
     path('contracts/create/choice/<int:lead_id>/', get_choice, name='get_choice'),
     path('contracts/create/<int:lead_id>/', create_contract_page, name='create_contract_page'),
@@ -33,5 +35,7 @@ urlpatterns = [
     path('chats/', get_chats, name='chats'),
     path('chat/create/<int:user_id>/', start_chat_with_user, name='create_dialog'),
     path('chat/<int:chat_id>', get_chat_with_user, name='messages'),
-    path('api/v1/classes-list/', api_classes_list)
+    path('news/', get_news_list, name='get_news_list'),
+    path('api/v1/classes-list/', api_classes_list),
+    path('api/v1/leads-list/', api_leads_list)
 ]

@@ -5,7 +5,8 @@
 {% load bootstrap4 %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/services_page.css' %}" />
+<link rel="stylesheet" href="{% static 'css/services_page.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/contracts.css' %}"/>
 {% endblock %}
 
 {% block title %}
@@ -14,33 +15,35 @@
 
 {% block content %}
 <main>
-    <div class="p-3">
-<div class="d-flex" style="width: 100%; overflow-x:scroll;">
-    <table class="table table-hover w-100">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">№</th>
-            <th scope="col">Дата заключения</th>
-            <th scope="col">Курс</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Оплата</th>
-            <th scope="col">Подписан</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for contract in contracts %}
-        <tr style="border: 0px solid transparent;">
-            <td>{{ contract.number }}</td>
-            <td>{{ contract.date }}</td>
-            <td>{{ contract.course.title }}</td>
-            <td>{{ contract.price }}</td>
-            <td>{% if contract.payment.by_stages %}По этапам{% else %}Целиком{% endif %}</td>
-            <td>{% if contract.is_subscribed %}Да{% else %}Нет{% endif %}</td>
-            <td><a href="{% url 'manager_school:get_contract_detail' contract_id=contract.id %}">Подробнее</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div></div></main>
+    <div class="thead__wrapper">
+        <table>
+            <tbody>
+            <tr>
+                <td class="thead__td-color thead__td-color_light">Номер договора</td>
+                <td class="thead__td-color thead__td-color_dark">Дата договора</td>
+                <td class="thead__td-color thead__td-color_light">ФИО</td>
+                <td class="thead__td-color thead__td-color_dark">Курс</td>
+                <td class="thead__td-color thead__td-color_light">Группа</td>
+                <td class="thead__td-color thead__td-color_dark">Телефон</td>
+                <td class="thead__td-color thead__td-color_light">Стоимость курса</td>
+                <td class="thead__td-color thead__td-color_dark">Подробнее</td>
+            </tr>
+            {% for contract in contracts %}
+            <tr>
+                <td>{{ contract.number }}</td>
+                <td class="td__color_dark">{{ contract.date }}</td>
+                <td>{{ contract.account }}</td>
+                <td class="td__color_dark">{{ contract.course }}</td>
+                <td>{{ contract.group }}</td>
+                <td class="td__color_dark">{{ contract.account.phone }}</td>
+                <td>{{ contract.price }} б.р.</td>
+                <td class="td__color_dark">
+                    <a href="{% url 'manager_school:get_contract_detail' contract_id=contract.id %}">Просмотр</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
 {% endblock %}

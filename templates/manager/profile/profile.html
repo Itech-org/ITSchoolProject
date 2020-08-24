@@ -52,6 +52,11 @@
                 </span>
                         {{ request.user.phone }}
                     </p>
+                    <a href="{% url 'manager_school:change_user_info' %}"
+                       class="main__personal-student-card-data-text_size"
+                       style="font-weight: bold; text-decoration: none; outline: none">
+                        Изменить личные данные
+                    </a>
                 </div>
             </div>
             <div class="main__personal-student-card-perfomance">
@@ -77,9 +82,9 @@
         </div>
         <div class="main__personal-student-card-payment">
             <p class="main__personal-student-card-payment-text">
-                Оплата обучения
+                Статистика
             </p>
-            <div>
+            <div class="main__personal-manager-card-statistic">
                 <table>
                     <thead>
                     <tr>
@@ -90,34 +95,15 @@
                         <td class="thead__td-color thead__td-color_dark">Успешные</td>
                     </tr>
                     </thead>
+                    {% for period in data %}
                     <tr>
-                        <td class="td__color_dark">За год</td>
-                        <td class="td__color_dark">{{ leads.count }}</td>
-                        <td class="td__color_dark">{{ successful_leads.count }}</td>
-                        <td class="td__color_dark">{{ contracts.count }}</td>
-                        <td class="td__color_dark">{{ successful_contracts.count }}</td>
+                        <td class="td__color_dark">{{ period.period }}</td>
+                        <td class="td__color_dark">{{ period.leads.count }}</td>
+                        <td class="td__color_dark">{{ period.successful_leads.count }}</td>
+                        <td class="td__color_dark">{{ period.contracts.count }}</td>
+                        <td class="td__color_dark">{{ period.successful_contracts.count }}</td>
                     </tr>
-                    <tr>
-                        <td class="td__color_dark">За месяц</td>
-                        <td class="td__color_dark">{{ leads.count }}</td>
-                        <td class="td__color_dark">{{ successful_leads.count }}</td>
-                        <td class="td__color_dark">{{ contracts.count }}</td>
-                        <td class="td__color_dark">{{ successful_contracts.count }}</td>
-                    </tr>
-                    <tr>
-                        <td class="td__color_dark">За неделю</td>
-                        <td class="td__color_dark">{{ leads.count }}</td>
-                        <td class="td__color_dark">{{ successful_leads.count }}</td>
-                        <td class="td__color_dark">{{ contracts.count }}</td>
-                        <td class="td__color_dark">{{ successful_contracts.count }}</td>
-                    </tr>
-                    <tr>
-                        <td class="td__color_dark">Сегодня</td>
-                        <td class="td__color_dark">{{ leads.count }}</td>
-                        <td class="td__color_dark">{{ successful_leads.count }}</td>
-                        <td class="td__color_dark">{{ contracts.count }}</td>
-                        <td class="td__color_dark">{{ successful_contracts.count }}</td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
             <p class="main__personal-student-card-payment-text-status">

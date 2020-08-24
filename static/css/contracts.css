@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.thead__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+table {
+  border: 1px solid #ced6f2;
+  border-collapse: collapse;
+  /* margin: 70px 40px 40px 200px; */
+  text-align: center;
+  table-layout: fixed;
+  width: 1200px;
+}
+
+a {
+  font-family: Montserrat-Regular;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #283965;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+th {
+  border: 1px solid #ced6f2;
+}
+
+td {
+  border: 1px solid #ced6f2;
+  padding: 10px;
+  font-family: Montserrat-Regular;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+ 
+  /* line-height: 21px; */
+  color: #283965;
+  background: #f5f7fd;
+}
+.thead__td-color {
+  font-family: Montserrat-Bold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}
+.thead__td-color_light {
+  background: linear-gradient(180deg, #a0b2f1 0%, #0f2162 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.thead__td-color_dark {
+  background: linear-gradient(180deg, #6683e6 0%, #0f2162 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+/* .td__subtitle{
+    font-size: 22px;
+    background: linear-gradient(180deg, #D2DAF5 0%, #C3C9DF 100%);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+} */
+/* .td__subtitle span{
+    font-family: Montserrat-Bold;
+} */
+.td__color_dark {
+  background: #f1f4ff;
+}
+
+/* переопределила стили из main-header, чтобы разместить блоки в ряд */
+.main-header__box-for-change-speciality {
+  display: flex;
+}
+.main-header__button-change-speciality {
+  margin-left: 10px;
+}

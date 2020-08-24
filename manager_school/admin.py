@@ -13,8 +13,9 @@ class AdminViewAdvUser(admin.ModelAdmin):
 
 @admin.register(CourseUser)
 class AdminViewCourseUser(admin.ModelAdmin):
-    list_display = ('title', 'price', 'start_date', 'finish_date',)
+    list_display = ('title', 'price', 'start_date', 'finish_date', 'is_online')
     prepopulated_fields = {'slug': ('title',)}
+
 
 class ClassInline(admin.StackedInline):
     model = ClassModel
@@ -71,7 +72,7 @@ class AdminViewMaterialsVideo(admin.ModelAdmin):
 
 @admin.register(News)
 class AdminNews(admin.ModelAdmin):
-    list_display = ('title', 'description', 'created' )
+    list_display = ('title', 'created' )
     prepopulated_fields = {'slug': ('title',)}
 
 class RequestConversationInline(admin.StackedInline):
@@ -121,7 +122,18 @@ class PaymentStageAdmin(admin.ModelAdmin):
     list_display = ("__str__", 'price', 'date')
 
 
-admin.site.register(Notification)
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('message',)
+
+@admin.register(Costs)
+class AdminCosts(admin.ModelAdmin):
+
+    date_hierarchy = 'date'
+    list_display = ('date', 'breakdown', 'chancery', 'grocery', 'house_chemicals','total')
+    list_filter = ['date', 'total']
+
+
 admin.site.register(Chat)
 admin.site.register(Message)
 admin.site.register(UserManagement)

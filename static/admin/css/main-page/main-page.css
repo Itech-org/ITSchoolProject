@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  @font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Aclonica-Regular; /* Гарнитура шрифта */
+    src: url(../../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  .no-active {
+    display: none;
+  }
+
+  .main-page {
+		display: flex;
+		justify-content: center;
+		margin-top: 126px;
+  }
+
+  .main-page__box {
+    display: flex;
+    width: 1200px;
+    height: 300px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-page__box_list-of-groups {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 263px;
+    height: 276px;
+    background-color: #F4F4F4;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .main-page__box_schedule {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 263px;
+    height: 276px;
+    background-color: #F4F4F4;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	}
+
+	.main-page__box_teachers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 263px;
+    height: 276px;
+    background-color: #F4F4F4;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	}
+
+	.main-page__box_expenses {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 263px;
+    height: 276px;
+    background-color: #F4F4F4;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	}
+
+	.main-page__box_name {
+		font-family: Montserrat-Bold;
+		font-size: 15px;
+		color: #283965;
+	}

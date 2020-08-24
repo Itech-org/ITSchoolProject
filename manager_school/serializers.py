@@ -1,4 +1,4 @@
-from .models import ClassModel
+from .models import ClassModel, StudyRequest
 from rest_framework import serializers
 
 
@@ -11,3 +11,9 @@ class ClassModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ClassModel
         fields = ['id', 'date', 'theme', 'position']
+
+
+class StudyRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudyRequest
+        fields = ['id', 'first_name', 'enter_date', 'email', 'tel_number', 'course']

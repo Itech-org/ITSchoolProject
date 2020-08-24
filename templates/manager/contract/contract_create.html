@@ -1,33 +1,61 @@
 {% extends 'manager/base_manager.html' %}
 
 {% load static %}
-{% load crispy_forms_tags %}
-{% load bootstrap4 %}
 
 {% block title %}
-<p class="main-header__page-information">Создание контракта</p>
+<p class="main-header__page-information">Создание договора</p>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="p-3">
-<form method="post">
-    {% csrf_token %}
-    <div class="d-flex flex-column">
-        {% for field in contract_form %}
-        <div class="d-flex">
-            {{ field }}
-            {{ field.errors }}
-            <div class="p-1 text-secondary">{{ field.label }}</div>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <h3>Договор</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-content">
+                    <div class="input-wrapper">
+                        <p>ФИО:</p>
+                        {{ contract_form.account }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Номер договора:</p>
+                        {{ contract_form.number }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Дата заключения:</p>
+                        {{ contract_form.date }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Курс:</p>
+                        {{ contract_form.course }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Группа:</p>
+                        {{ contract_form.group }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Стоимость обучения:</p>
+                        {{ contract_form.price }}
+                        {{ contract_form.lead }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Скидка:</p>
+                        <input type="text" name="" placeholder="Скидка"/>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>По этапам?</p>
+                        <input type="checkbox"/>
+                    </div>
+                    <input class="submit" style="margin-top: 20px" type="submit" value="Отправить"/>
+                </div>
+            </form>
         </div>
-        {% endfor %}
     </div>
-    <hr>
-    <div class="form-group form-check">
-        <input type="checkbox" name="by_stages" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Разбить на этапы?</label>
-    </div>
-    <hr>
-    <button class="btn btn-primary mb-3" type="submit">Сохранить</button>
-</form></div></main>
+</main>
 {% endblock %}

@@ -1,43 +1,50 @@
-import datetime
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth import logout, authenticate, login
-
-from django.contrib.auth.views import LoginView
 from django.db.models import Count
-from django.http import HttpResponseRedirect, QueryDict
+from django.http import HttpResponseRedirect, QueryDict, JsonResponse
 
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
-from .filters import StudyRequestFilter, GroupFilter
+from .filters import StudyRequestFilter
 from .forms import *
 from django.shortcuts import render
-from .models import *
 
-from .serializers import ClassModelSerializer
+from .serializers import ClassModelSerializer, StudyRequestSerializer
+from .services import get_manager_successful_percent, get_manager_data_per_period
 
 from .utilities import *
 
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            if not user.is_active:
-                return redirect("manager_school:login")
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("manager_school:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('manager_school:main_page')
             else:
-                login(request, user)
-                return redirect('manager_school:main_page')
+                return redirect("manager_school:login")
         else:
-            return redirect("manager_school:login")
+            form = LoginForm()
+            return render(request, 'manager/other/login.html', {'form': form})
     else:
-        form = LoginForm()
-        return render(request, 'manager/other/login.html', {'form': form})
+        return redirect('manager_school:main_page')
 
 
+@login_required
 def logout_request(request):
     logout(request)
     return redirect("manager_school:login")
@@ -53,20 +60,21 @@ def main_page_view(request):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_groups(request):
-    query_dict = QueryDict('', mutable=True)
-    query_dict.update(request.GET)
-    if 'manager' not in query_dict:
-        query_dict['manager'] = f"{request.user.id}"
-
-    groups = GroupFilter(data=query_dict, queryset=GroupModel.objects.all())
-    managers = AdvUser.objects.filter(groups__name='Manager')
-    teachers = AdvUser.objects.filter(groups__name='Teacher')
-    courses = CourseUser.objects.all()
+    course_id = request.GET.get('course')
+    all_courses = CourseUser.objects.all()
+    if course_id:
+        courses = CourseUser.objects.filter(id=int(course_id))
+        if courses.exists():
+            selected_course = courses[0]
+        else:
+            selected_course = None
+    else:
+        courses = CourseUser.objects.all()
+        selected_course = None
     return render(request, "manager/group/group-list.html", {
-        "groups": groups,
-        "managers": managers,
-        "teachers": teachers,
-        "courses": courses
+        "courses": courses,
+        'selected_course': selected_course,
+        'all_courses': all_courses,
     })
 
 
@@ -100,7 +108,7 @@ def create_group_classes(request, slug):
             for day in range(count_days.days + 1):
                 dt = course.start_date + datetime.timedelta(day)
                 if dt.weekday() in days_list:
-                    class_ = ClassModel.objects.create(
+                    ClassModel.objects.create(
                         position=position,
                         theme=f'Тема-{position}',
                         groups=group,
@@ -200,18 +208,40 @@ def get_classes(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_class_detail(request, class_id):
     class_data = get_object_or_404(ClassModel, id=class_id)
+    course = class_data.groups.course
     attendances = Attendance.objects.filter(classes__id=class_id)
     return render(request, "manager/class/class_detail.html", {
         "class": class_data,
+        "course": course,
         "attendances": attendances,
     })
 
 
 # ---------------------leads-----------------------------
 
+@csrf_exempt
+def api_leads_list(request):
+    """
+    List all code leads, or create a new lead.
+    """
+    if request.method == 'GET':
+        snippets = StudyRequest.objects.all()
+        serializer = StudyRequestSerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = StudyRequestSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_leads(request):
-    leads = StudyRequestFilter(request.POST, queryset=StudyRequest.objects.all())
+    print(request.POST)
+    leads = StudyRequestFilter(request.GET, queryset=StudyRequest.objects.all())
     return render(request, "manager/lead/leads_list.html", {
         "leads": leads,
     })
@@ -234,7 +264,10 @@ def add_lead(request):
             lead = lead_form.save()
             return redirect('manager_school:lead_history', lead_id=lead.id)
     else:
-        lead_form = StudyRequestForm(initial={"specialist": request.user, 'enter_date': datetime.datetime.now()})
+        lead_form = StudyRequestForm(initial={
+            "specialist": request.user,
+            'enter_date': datetime.datetime.now().strftime("%d.%m.%Y")
+        })
     return render(request, "manager/lead/create_lead.html", {
         "lead_form": lead_form,
     })
@@ -244,14 +277,17 @@ def add_lead(request):
 def lead_history(request, lead_id):
     lead = get_object_or_404(StudyRequest, id=lead_id)
     conversations = lead.requestconversation_set.all()
-    conversation_form = RequestConversationForm(initial={'request': lead})
+    conversation_form = RequestConversationForm(initial={'request': lead,
+                                                         'date': datetime.datetime.now().strftime("%Y-%m-%d")})
     if request.method == "POST":
         lead_form = StudyRequestForm(request.POST, instance=lead)
         if lead_form.is_valid():
             lead_form.save()
             return redirect('manager_school:lead_history', lead_id=lead_id)
     else:
-        lead_form = StudyRequestForm(instance=lead)
+        lead_form = StudyRequestForm(instance=lead, initial={
+            'enter_date': lead.enter_date.strftime("%Y-%m-%d")
+        })
     return render(request, "manager/lead/lead_history.html", {
         "lead": lead,
         "lead_form": lead_form,
@@ -329,17 +365,28 @@ def create_contract_page(request, lead_id):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def add_payment_stage(request, contract_id, payment_id):
+    payment = get_object_or_404(UserPayment, id=payment_id)
+    add_new_stage = True
+    if not payment.by_stages:
+        if payment.paymentstage_set.count() == 1:
+            add_new_stage = False
     if request.method == "POST":
         payment_stage_form = PaymentStageForm(request.POST, request.FILES)
-        if payment_stage_form.is_valid():
-            payment_stage_form.save()
+        if add_new_stage:
+            if payment_stage_form.is_valid():
+                payment_stage_form.save()
     else:
-        payment = get_object_or_404(UserPayment, id=payment_id)
         payment_stage_form = PaymentStageForm(initial={'payment': payment})
+    if not payment.by_stages:
+        if payment.paymentstage_set.count() == 1:
+            add_new_stage = False
     payment_stages = PaymentStage.objects.filter(payment__id=payment_id)
-    return render(request, 'manager/contract/payment_stage_create.html', {"payment_stage_form": payment_stage_form,
-                                                                     "payment_stages": payment_stages,
-                                                                     "contract_id": contract_id})
+    return render(request, 'manager/contract/payment_stage_create.html', {
+        "payment_stage_form": payment_stage_form,
+        "payment_stages": payment_stages,
+        "contract_id": contract_id,
+        'add_new_stage': add_new_stage,
+    })
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -400,7 +447,8 @@ def get_chat_with_user(request, chat_id):
                 'user_profile': request.user,
                 'chat': chat,
                 'chats': chats,
-                'form': MessageForm()})
+                'form': MessageForm()}
+        )
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -438,18 +486,41 @@ def api_classes_list(request):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_manager_profile(request):
-    leads = get_manager_leads(request.user)
-    successful_leads = get_manager_successful_leads(request.user)
-
-    contracts = get_manager_contracts(request.user)
-    successful_contracts = get_manager_successful_contracts(request.user)
+    data = get_manager_data_per_period(request.user)
 
     context = {
-        'leads': leads,
-        'successful_leads': successful_leads,
-        'successful_leads_percent': get_manager_successful_percent(successful_leads.count(), leads.count()),
-        'contracts': contracts,
-        'successful_contracts': successful_contracts,
-        'successful_contracts_percent': get_manager_successful_percent(successful_contracts.count(), contracts.count())
+        'successful_leads_percent': get_manager_successful_percent(request.user, model='StudyRequest'),
+        'successful_contracts_percent': get_manager_successful_percent(request.user, model='Contract'),
+        'data': data,
     }
     return render(request, 'manager/profile/profile.html', context)
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def change_user_info(request):
+    if request.method == "POST":
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        print(request.FILES)
+        img_user = request.FILES.get('img_user', '')
+        print(img_user)
+        user = request.user
+        if phone:
+            user.phone = phone
+        if email:
+            user.email = email
+        if img_user:
+            user.img_user = img_user
+        user.save()
+        return redirect('manager_school:get_manager_profile')
+    return render(request, 'manager/profile/change_personal_data.html')
+
+
+# ---------------------news-----------------------------
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def get_news_list(request):
+    return render(request, 'manager/other/news_list.html', {
+        'news': News.objects.all()
+    })

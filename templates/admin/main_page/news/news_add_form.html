@@ -1,6 +1,9 @@
-{% extends "admin/main_page/main_page_admin.html"%}
-{% block title %} Новости школы{% endblock %}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %}Создать новость{% endblock %}
+{%block header%}Создать новость{%endblock %}
 {% block content %}
+<div class="main__schedule">
     <h1>Создание новостного блока</h1>
     <form action="" method="post">
      {% csrf_token %}
@@ -9,7 +12,7 @@
     <p>Рубрика:{{ form.rubrick }}</p>
     <button>Добавить новость</button>
     </form>
-
+</div>
 {% endblock %}
 {% load static %}
 {% block scripts %}

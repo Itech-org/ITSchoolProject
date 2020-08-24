@@ -1,0 +1,42 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %}Изменения в расписании{% endblock %}
+{%block header%}Изменения в расписании{% endblock %}
+{% block content %}
+<!--<h2> Изменение в расписании занятий</h2>-->
+<!--        <form method="POST" class="ClassMode-lForm">{% csrf_token %}-->
+<!--        <p>Дата: {{ form.date }}</p>-->
+<!--        <p>Группа: {{ rev_timetable.groups }}</p>-->
+<!--        <p>Преподаватель группы: {{ rev_timetable.groups.teacher }}</p>-->
+<!--        <p>Кабинет: {{ form.classroom }}</p>-->
+<!--        <p ><button>Изменить</button>-->
+
+
+<main>
+<div class="main__schedule">
+<div class="main__schedule-container">
+  <img src="{% static 'images/Group_4.svg' %}" alt="" class="main__schedule-img_flex-end" />
+  <form action="" method="POST">
+    <div class="main__schedule-box">
+         <p class="main__schedule-data-text">
+            {% csrf_token %}
+            Дата:{{ form.date }}
+         </p>
+        {{ form.classroom }}
+
+      <p class="main__schedule-data-text">
+        Группа {{ rev_timetable.groups }}
+        преподаватель {{ rev_timetable.groups.teacher }}
+      </p>
+        {{ form.message }}
+      <button class="main__schedule-button">
+        Изменить
+      </button>
+    </div>
+  </form>
+  <img src="{% static 'images/Group_3.svg' %}" alt="" class="main__schedule-img_flex-start" />
+</div>
+</div>
+</main>
+
+{% endblock %}

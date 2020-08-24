@@ -463,9 +463,19 @@ main {
     transition: 0.2s;
 }
 
+.main-menu {
+  z-index: 5;
+}
+
 .header-main-active {
     margin-left: 300px;
     transition: 0.2s;
+}
+
+.main__container {
+  display: flex;
+  justify-content: center;
+  margin-top: 90px;
 }
 
 .main__it-news {
