@@ -1,0 +1,82 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %}Преподаватель{% endblock %}
+{%block header%}Преподаватели{% endblock %}
+{% block content %}
+<!--{% for teacher in teachers %}-->
+<!--    <table>-->
+<!--    <tr>-->
+<!--    <td>{{ teacher.first_name }}</td>-->
+<!--        <td>{{ teacher.last_name }}</td>-->
+<!--        <td>{{ teacher.surname }}</td>-->
+<!--        <td>{{ teacher.phone }}</td>-->
+<!--        <td>{{ teacher.email }}</td>-->
+<!--        <td>{{ teacher.img_user }}фото</td>-->
+<!--        <td>  Группы:-->
+<!--            {% for groups_teacher in teacher.groups_teacher.all %}-->
+<!--        <td>{{ groups_teacher }}</td>-->
+<!--        {% endfor %}-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </table>-->
+<!--    {% endfor %}-->
+<main class="teachers">
+      <div class="teachers__main-container">
+        <div class="teachers__list-teachers">
+          <p class="teachers__name-list">Список преподавателей</p>
+          {% for teacher in teachers %}
+          <div class="teachers__unit-teacher">
+
+            <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
+
+            <div class="teachers__teacher-info">
+              {% for groups_teacher in teacher.groups_teacher.all %}<p class="teacher__teacher-specialty"> Группа: {{ groups_teacher }}</p>{% endfor %}
+
+              <p class="teacher__teacher-name">{{ teacher.first_name }} {{ teacher.last_name }} {{ teacher.surname }}</p>
+              <p class="teacher__teacher-tel no-active">{{ teacher.phone }}</p>
+              <p class="teacher__teacher-email no-active">{{ teacher.email }}</p>
+              <p class="teacher__teacher-viber-telegramm no-active">{{ teacher.phone }}</p>
+
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+
+
+
+        <div class="teacher__profiles">
+
+          <div class="teacher__profile-teacher">
+
+            <img src="" alt="фото преподавателя" class="teacher__big-foto-teacher" />
+
+            <p class="teacher__profile-name"></p>
+            <p class="teacher__profile-specialty"></p>
+            <p class="teacher__profile-tel"></p>
+            <div class="teacher__profile-email-box">
+              <p class="teacher__email">E-mail:</p>
+              <p class="teacher__name-email"></p>
+
+            </div>
+            <div class="teacher__profile-telegram-viber-box">
+              <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
+              <p class="teacher__profile-telegram-number"></p>
+            </div>
+            <p class="teacher__box-for-teacher-link"><a href="#" class="teacher_teacher-card-link">Перейти на профиль преподавателя</a></p>
+            <a href="#" class="teacher__profile-link-send-message">
+              <p class="teacher__profile-link-send-message-box">
+                Отправить сообщение
+              </p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+
+  <script src="{% static 'admin/js/main-header-teacher.js' %}"></script>
+<script src="{% static 'admin/js/teachers_admin.js' %}"></script>
+{% endblock %}
+

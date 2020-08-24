@@ -1,0 +1,87 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/selected-lesson.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Выбранное занятие</p>
+    <div class="main-header__change-speciality">
+        <div class="main-header__box-for-info">
+            <p class="main-header__speciality-info-name">Тестировщик</p>
+            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="selected-lesson">
+    <div class="selected-lesson__box-for-all-lessons">
+        <!-- Блок с номером занятия, темой и датой -->
+
+        <div class="selected-lesson__lesson-container">
+            <div class="lesson-container__info-container">
+                <p class="lesson-container__lesson-number">Занятие <strong>1</strong></p>
+                <p class="lesson-container__topic-title">"Название темы"</p>
+                <p class="lesson-container__lesson-date">10 августа 2020</p>
+            </div>
+        </div>
+
+        <!-- Блок видео -->
+
+        <div class="selected-lesson__video-line">
+            <p class="selected-lesson__line-title">Видео</p>
+        </div>
+
+        <div class="selected-lesson__video-container">
+            <img class="video-container__video-preview" src="../img/video_box.svg" alt="video-preview" />
+            <img class="video-container__video-preview" src="../img/video_box.svg" alt="video-preview" />
+            <img class="video-container__video-preview" src="../img/video_box.svg" alt="video-preview" />
+        </div>
+
+        <div class="selected-lesson__video-title-container">
+            <div class="video-title-container__video-title-box">
+                <p class="video-title-container__video-title">Название видео</p>
+            </div>
+            <div class="video-title-container__video-title-box">
+                <p class="video-title-container__video-title">Название видео</p>
+            </div>
+            <div class="video-title-container__video-title-box">
+                <p class="video-title-container__video-title">Название видео</p>
+            </div>
+        </div>
+
+        <!-- Блок документы -->
+
+        <div class="selected-lesson__document-line">
+            <p class="selected-lesson__line-title">Документы</p>
+        </div>
+
+        <div class="selected-lesson__document-container">
+            <img class="document-container__document-preview" src="../img/document_box.svg" alt="document-preview" />
+            <img class="document-container__document-preview" src="../img/document_box.svg" alt="document-preview" />
+            <img class="document-container__document-preview" src="../img/document_box.svg" alt="document-preview" />
+            <img class="document-container__document-preview" src="../img/document_box.svg" alt="document-preview" />
+        </div>
+
+        <div class="selected-lesson__document-title-container">
+            <div class="document-title-container__document-title-box">
+                <p class="document-title-container__video-title">Название документа</p>
+            </div>
+            <div class="document-title-container__document-title-box">
+                <p class="document-title-container__video-title">Название документа</p>
+            </div>
+            <div class="document-title-container__document-title-box">
+                <p class="document-title-container__video-title">Название документа</p>
+            </div>
+            <div class="document-title-container__document-title-box">
+                <p class="document-title-container__video-title">Название документа</p>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+
+{% endblock %}

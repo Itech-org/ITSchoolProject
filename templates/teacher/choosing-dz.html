@@ -1,0 +1,109 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/choosing-dz.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Домашнее задание студентов</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="content__wrapper">
+        <div class="content__info-block">
+            <p class="content__info-block-text1">Тема урока: {{homework.class_field.theme}}</p>
+            <p class="content__info-block-text2">{{homework.class_field.date}}</p>
+            <p class="content__info-block-text3">Выполнено</p>
+            <div class="content__col-attempt">
+                <p class="content__info-block-text4">Количество попыток: <span>2</span></p>
+                <img src="{% static 'teacher/img/down_icon-icons.com_61209.svg'%}" alt="" class="content__arrow-img" />
+            </div>
+
+            <div class="content__box-for-replay-student-work no-active">
+                <div class="content__tutor-replay-student-work content__tutor-replay-student-work_small">
+                    <p class="content__tutor-replay-student-work-text content__tutor-replay-student-work-text_small">Я прислал ДЗ, которое не сделал</p>
+                    <p class="content__tutor-replay-student-work-text content__comment-replay-student-work">
+                        Я прислал ДЗ, которое не сделал Я прислал ДЗ,которое не сделал Я прислал ДЗ, которое не сделал
+                    </p>
+                    <a href="#" class="content__tutor-replay-student-work-file content__tutor-replay-student-work-file_small">Открыть файл</a>
+                </div>
+
+                <div class="content__tutor-replay-student-work content__tutor-replay-student-work_small">
+                    <p class="content__tutor-replay-student-work-text content__tutor-replay-student-work-text_small">Я прислал ДЗ, которое не сделал</p>
+                    <p class="content__tutor-replay-student-work-text content__comment-replay-student-work">
+                        Я прислал ДЗ, которое не сделал Я прислал ДЗ,которое не сделал Я прислал ДЗ, которое не сделал
+                    </p>
+                    <a href="#" class="content__tutor-replay-student-work-file content__tutor-replay-student-work-file_small">Открыть файл</a>
+                </div>
+            </div>
+        </div>
+        <div class="content__student-photo">
+            <div class="content__student-photo-wrapper">
+                {% if student.img_user %}
+                <img src="{{student.img_user.url}}" alt="фото студента">
+                {% else %}
+                <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента">
+                {% endif %}
+            </div>
+            <p>
+                {{student.last_name}} <br>
+                {{student.first_name}} {{student.surname}}
+            </p>
+        </div>
+        <div class="content__tutor-reply">
+            <div class="content__tutor-replay-student-work">
+                <p class="content__tutor-replay-student-work-text">{{homework.description}}</p>
+                <a href="{{homework.file.url}}" class="content__tutor-replay-student-work-file" download>Файл к ДЗ</a>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="content__tutor-reply-answer">
+                    <div class="content__tutor-reply-answer-form">
+                        <textarea class="content__textarea-comment" name="autor_text" placeholder="Введите текст...">{{homework.comment_teacher}}</textarea>
+                        {% if homework.comment_file %}
+                        <a href="{{homework.comment_file.url}}" download>Файл к комментарию</a>
+                        {% else %}
+                        <input type="file" name="comment_file" multiple/>
+                        {% endif %}
+                        <div class="content__tutor-reply-answer-input-wrapper">
+                            <div class="content__box-for-input-file">
+                                <input type="file" name="comment_file" multiple/>
+                            </div>
+                            <input class="content__tutor-reply-answer-form-input" type="submit" value="Отправить" />
+                        </div>
+                    </div>
+                    <div class="content__tutor-reply-answer-status-wrapper">
+                        <select class="content_select-status" name="status">
+                            <option hidden>{{homework.status}}</option>
+
+                            <option value='g'>Проверено</option>
+                            <option value='n'>Не сдано</option>
+                            <option value="nv">Не проверено</option>
+                        </select>
+
+                        <select class="content_select-status" name="rating">
+                            <option hidden>{{homework.rating}}</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+<script src="{% static 'teacher/js/choosing-dz.js'%}"></script>
+{% endblock %}

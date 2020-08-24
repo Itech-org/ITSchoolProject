@@ -16,6 +16,8 @@
     document.querySelector(".teacher__big-foto-teacher").setAttribute("src", `${img}`);
     let url = unit.querySelector(".teacher__teacher-url").getAttribute("href");
     document.querySelector(".teacher_teacher-card-link").setAttribute("href", `${url}`);
+    let message = unit.querySelector(".teacher__teacher-message").getAttribute("href");
+    document.querySelector(".teacher__profile-link-send-message").setAttribute("href", `${message}`);
   }
 
   defaultFillProfile(document.querySelector(".teachers__unit-teacher"));

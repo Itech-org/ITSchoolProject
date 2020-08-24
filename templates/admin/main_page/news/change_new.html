@@ -1,6 +1,9 @@
-{% extends "admin/main_page/main_page_admin.html"%}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
 {% block title %} Изменение новости{% endblock %}
+{%block header%} Изменение новости {% endblock %}
 {% block content %}
+<div class="thead__wrapper">
     <h1>Изменение новости</h1>
     <form action="" method="post">
     {{ form.media }}
@@ -10,6 +13,7 @@
     <p>Рубрика:{{ form.rubrick }}</p>
     <button>изменить новость</button>
     </form>
+</div>
 {% endblock %}
 {% load static %}
 {% block scripts %}

@@ -1,0 +1,122 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+<title>Карточка студента</title>
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/main-header.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/payment-stages.css' %}">
+{% endblock %}
+{% block header %}
+    <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Этапы оплаты</p>
+        <div class="main-header__change-speciality">
+            <div class="main-header__box-for-change-speciality">
+                <p class="main-header__button-change-speciality">{{ group.title }}</p>
+                <div class="main-header__list-speciality no-active">
+                    <form action="" method="get" class="main-header__form-change-course">
+                        <input type="text" name="group" hidden class="main-header__change-course"/>
+                        {% for group in groups %}
+                            <p class="main-header__wrapp-for-speciality-link mb-0" data-value="{{ group.id }}">
+                                {{ group.title }}
+                            </p>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="main__another-student-card">
+            <div class="main__another-student-card-info">
+                <div class="main__another-student-card-box">
+                    <table class="main__payment-stages_table">
+                        <tr class="main__payment-stages__row">
+                            <th class="main__payment-stages_header">Этапы</th>
+                            {% for stage in payment_stages %}
+                                <th class="main__payment-stages_header">Этап {{ forloop.counter }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr class="main__payment-stages__row">
+                            <td class="main__payment-stages__column">Дата оплаты</td>
+                            {% for stage in payment_stages %}
+                                <td class="main__payment-stages__column">{{ stage.date }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr class="main__payment-stages__row">
+                            <td class="main__payment-stages__column">Сумма</td>
+                            {% for stage in payment_stages %}
+                                <td class="main__payment-stages__column">{{ stage.price }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr class="main__payment-stages__row">
+                            <td class="main__payment-stages__column">Фото чека</td>
+                            {% for stage in payment_stages %}
+                                {% if stage.picture %}
+                                    <td class="main__payment-stages__column">
+                                        Отправлено
+                                    </td>
+                                {% else %}
+                                    <td class="main__payment-stages__column">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <label class="main__payment-stages__label">Прикрепить
+                                                <input hidden type="file" name="picture"/>
+                                            </label>
+                                            <input hidden type="number" name="id" value="{{ stage.id }}">
+                                            <hr/>
+                                            <label class="main__payment-stages__label">Отправить
+                                                <button hidden type="submit"></button>
+                                            </label>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        <tr class="main__payment-stages__row">
+                            <td class="main__payment-stages__column">Статус</td>
+                            {% for stage in payment_stages %}
+                                {% if stage.is_confirmed == True %}
+                                    <td class="main__payment-stages__column">Подтверждено</td>
+                                {% else %}
+                                    <td class="main__payment-stages__column">Не подтверждено</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {% if stages_amount %}
+                <div class="main__another-student-card-payment">
+                    <p class="main__another-student-card-payment-text">Оплачено</p>
+                    <div class="main__personal-student-card-perfomance-visit">
+                        <div class="circle">
+                            {{ percentage }}
+                        </div>
+                    </div>
+                    <p class="main__personal-student-card-perfomance-text">{{ paid_amount }} из {{ stages_amount }}</p>
+                </div>
+            {% endif %}
+        </div>
+        {% if alert == 'No check' %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Оплатите предыдущий этап.
+            </div>
+        {% elif alert == 'Wait for manager' %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Ожидайте подтверждения оплаты предыдущего этапа.
+            </div>
+        {% elif alert == 'Success' %}
+            <div class="success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Чек успешно отправлен. Ожидайте подтверждения менеджером.
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/main-header.js' %}"></script>
+    <script src="{% static 'js/card of another student.js' %}"></script>
+{% endblock %}

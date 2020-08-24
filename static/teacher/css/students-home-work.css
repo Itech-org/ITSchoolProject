@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.students-home-work__container {
+  width: 1200px;
+  margin: auto;
+  margin-top: 60px;
+}
+
+.students-home-work__box-for-explanations {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.students-home-work__unit-explanation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.students-home-work__name-explanation {
+  margin-left: 20px;
+  width: 200px;
+  font-family: Montserrat-Regular;
+  color: #114a8e;
+  font-size: 12px;
+}
+
+.students-home-work__explanations {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.students-home-work__date-change {
+  align-self: flex-end;
+  border: none;
+  font-family: Montserrat-LightItalic;
+  height: 30px;
+  color: #12437d;
+  outline: none;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.students-home-work__foto-explanation {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid black;
+}
+
+.students-home-work__foto-student {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid black;
+}
+
+.students-home-work__student {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  margin-top: 30px;
+}
+
+.students-home-work__name-student {
+  margin-left: 10px;
+  color: #114a8e;
+  font-family: Montserrat-SemiBold;
+  font-size: 14px;
+}
+
+.students-home-work__students {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.students-home-work__foto-explanation_yellow {
+  border-color: #ffe600;
+}
+
+.students-home-work__foto-explanation_red {
+  border-color: #ff0000;
+}
+
+.students-home-work__foto-explanation_green {
+  border-color: #55bd15;
+}
+
+.students-home-work__but-filter {
+  align-self: flex-end;
+  border: none;
+  font-family: Montserrat-LightItalic;
+  height: 30px;
+  color: #12437d;
+  outline: none;
+  padding: 15px;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-header__button-change-status {
+  width: 130px;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: Montserrat-LightItalic;
+  color: #12437d;
+}
+
+.main-header__button-change-status:hover {
+  cursor: pointer;
+}

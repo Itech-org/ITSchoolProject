@@ -95,9 +95,7 @@
                     <a href="{% url 'student:homework' %}" class="main-menu__subitem-link">Домашнее задание</a>
                 </div>
                 <div class="main-menu__subitem">
-                    {% for x in request.user.groupmodel_set.all|slice:":1" %}
-                    <a href="{% url 'student:group_view' group_id=x.id %}" class="main-menu__subitem-link">Группа</a>
-                    {% endfor %}
+                    <a href="{% url 'student:group_view' %}" class="main-menu__subitem-link">Группа</a>
                 </div>
                 <div class="main-menu__subitem">
                     <a href="{% url 'student:materials_view' %}" class="main-menu__subitem-link">Учебные материалы</a>

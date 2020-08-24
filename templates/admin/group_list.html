@@ -1,0 +1,40 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %} Список групп {% endblock %}
+{%block header%} Список групп {% endblock %}
+{% block content %}
+
+<main>
+      <div class="thead__wrapper">
+        <table>
+          <thead>
+            <tr>
+              <td class="thead__td-color thead__td-color_light">ФИО</td>
+              <td class="thead__td-color thead__td-color_dark">Телефон</td>
+              <td class="thead__td-color thead__td-color_light">Куратор*выбрать</td>
+              <td class="thead__td-color thead__td-color_dark">Менеджер*выбрать</td>
+              <td class="thead__td-color thead__td-color_light">Успеваемость</td>
+              <td class="thead__td-color thead__td-color_dark">Преподаватель</td>
+            </tr>
+          </thead>
+          {% for group in groups %}
+          <tr>
+            <td class="td__subtitle" colspan="6">Группа: {{ group.title }}<span></span></td>
+          </tr>
+          <tr>
+            {% for student in group.students.all %}
+            <td><a href="{% url 'admin_school:student_card' id=student.id %}">{{ student.username}}</a></td>
+            <td class="td__color_dark">{{ student.phone }}</td>
+            <td>Алина Гришаева</td>
+            <td class="td__color_dark"></td>
+            <td>87%</td>
+            <td class="td__color_dark">{{ group.teacher }}</td>
+
+          </tr>
+          {% endfor %}
+          {% endfor %}
+
+        </table>
+      </div>
+    </main>
+{% endblock %}

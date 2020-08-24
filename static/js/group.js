@@ -80,17 +80,17 @@ window.onload = function () {
 
   // открыть(скрыть) курс
 
-  if (document.querySelector(".main-header__button-change-speciality") != undefined) {
-    document.querySelector(".main-header__button-change-speciality").onclick = function () {
-      document.querySelector(".main-header__list-speciality").classList.toggle("no-active");
-    };
-
-    document.querySelector(".main-header__list-speciality").onmouseout = function () {
-      document.querySelector(".main-header__list-speciality").classList.add("no-active");
-    };
-
-    document.querySelector(".main-header__list-speciality").onmouseover = function () {
-      document.querySelector(".main-header__list-speciality").classList.remove("no-active");
-    };
-  }
+  // if (document.querySelector(".main-header__button-change-speciality") != undefined) {
+  //   document.querySelector(".main-header__button-change-speciality").onclick = function () {
+  //     document.querySelector(".main-header__list-speciality").classList.toggle("no-active");
+  //   };
+  //
+  //   document.querySelector(".main-header__list-speciality").onmouseout = function () {
+  //     document.querySelector(".main-header__list-speciality").classList.add("no-active");
+  //   };
+  //
+  //   document.querySelector(".main-header__list-speciality").onmouseover = function () {
+  //     document.querySelector(".main-header__list-speciality").classList.remove("no-active");
+  //   };
+  // }
 };

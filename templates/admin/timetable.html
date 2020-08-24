@@ -1,0 +1,87 @@
+{% extends 'admin/base_admin.html' %}
+{%block header%}Расписание{% endblock %}
+{% load static %}
+
+{% block content %}
+    <main>
+      <div class="schedule_box">
+        <div>
+          <table>
+
+            <colgroup>
+              <col class="schedule_col__first" />
+              <col class="schedule_col__second" />
+            </colgroup>
+
+            <tr>
+              <th class="schedule_date">Дата</th>
+              <th class="schedule_occupations">Занятия</th>
+            </tr>
+            {% for t in timetab %}
+            <tr>
+              <td>
+                <p class="schedule_date__date">{{ t.date }}</p>
+                <p class="schedule_date__day">Пн</p>
+
+              </td>
+              <td>
+                <a href="{% url 'admin_school:revise_timetable' pk=t.pk %}" class="schedule_occupations__group">Преподаватель {{ t.groups.teacher }}. Кабинет-{{ t.classroom }}. Группа {{ t.groups }}.</a>
+              </td>
+            </tr>
+            {% endfor %}
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p class="schedule_date__date">08.08.2020</p>-->
+<!--                <p class="schedule_date__day">Пн</p>-->
+<!--                <p class="schedule_date__time">18:45</p>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <a href="#" class="schedule_occupations__group">Группа 1. Преподаватель. Аудитория</a>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p class="schedule_date__date">08.08.2020</p>-->
+<!--                <p class="schedule_date__day">Пн</p>-->
+<!--                <p class="schedule_date__time">18:45</p>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <a href="#" class="schedule_occupations__group">Группа 1. Преподаватель. Аудитория</a>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p class="schedule_date__date">08.08.2020</p>-->
+<!--                <p class="schedule_date__day">Пн</p>-->
+<!--                <p class="schedule_date__time">18:45</p>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <a href="#" class="schedule_occupations__group">Группа 1. Преподаватель. Аудитория</a>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p class="schedule_date__date">08.08.2020</p>-->
+<!--                <p class="schedule_date__day">Пн</p>-->
+<!--                <p class="schedule_date__time">18:45</p>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <a href="#" class="schedule_occupations__group">Группа 1. Преподаватель. Аудитория</a>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p class="schedule_date__date">08.08.2020</p>-->
+<!--                <p class="schedule_date__day">Пн</p>-->
+<!--                <p class="schedule_date__time">18:45</p>-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <a href="#" class="schedule_occupations__group">Группа 1. Преподаватель. Аудитория</a>-->
+<!--              </td>-->
+<!--            </tr>-->
+          </table>
+        </div>
+      </div>
+    </main>
+{% endblock %}
+

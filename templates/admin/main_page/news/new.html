@@ -1,6 +1,9 @@
-{% extends "admin/main_page/main_page_admin.html"%}
-{% block title %}Новости{% endblock %}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %}  Новости{% endblock %}
+{%block header%} Новости {% endblock %}
 {% block content %}
+<div class="main__schedule">
 <h1>{{ new.title }}</h1>
     <div>
     <p>{{ new.description|safe }}</p>
@@ -14,5 +17,5 @@
         <input type="submit" value="удалить запись" onmouseover="this.value='удалить'" onmouseout="this.value='наведите что бы удалить запись'">
         </form>
     </div>
-
+</div>
 {% endblock %}

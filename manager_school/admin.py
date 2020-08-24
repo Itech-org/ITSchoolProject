@@ -16,6 +16,7 @@ class AdminViewCourseUser(admin.ModelAdmin):
     list_display = ('title', 'price', 'start_date', 'finish_date', 'is_online')
     prepopulated_fields = {'slug': ('title',)}
 
+
 class ClassInline(admin.StackedInline):
     model = ClassModel
     extra = 0
@@ -51,7 +52,7 @@ class AdminViewClassroom(admin.ModelAdmin):
 @admin.register(HomeworkModel)
 class AdminViewHomeworkModel(admin.ModelAdmin):
     list_display = ('title', )
-    prepopulated_fields = {'slug': ('title',)}
+    # prepopulated_fields = {'slug': ('title',)}
 
 @admin.register(HomeworkTeacherModel)
 class AdminViewHomeworkTeacherModel(admin.ModelAdmin):
@@ -121,7 +122,18 @@ class PaymentStageAdmin(admin.ModelAdmin):
     list_display = ("__str__", 'price', 'date')
 
 
-admin.site.register(Notification)
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('message',)
+
+@admin.register(Costs)
+class AdminCosts(admin.ModelAdmin):
+
+    date_hierarchy = 'date'
+    list_display = ('date', 'breakdown', 'chancery', 'grocery', 'house_chemicals','total')
+    list_filter = ['date', 'total']
+
+
 admin.site.register(Chat)
 admin.site.register(Message)
 admin.site.register(UserManagement)

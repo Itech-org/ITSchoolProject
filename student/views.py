@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -8,9 +8,12 @@ from django.urls import reverse
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404
 from manager_school.models import *
+from manager_school.forms import MessageForm
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ClassModelSerializer
+from .utilities import *
+from .forms import *
 import datetime
 
 
@@ -30,8 +33,37 @@ def check_group_and_activation(request):
         return False
 
 
-class Login_View(LoginView):
-    template_name = 'student/login.html'
+def login_user(request):
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("student:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('student:main_page_view')
+            else:
+                return redirect("student:login")
+        else:
+            form = LoginForm()
+            return render(request, 'student/authorization_page.html', {'form': form})
+    else:
+        return redirect('student:main_page_view')
+
+
+def logout_request(request):
+    logout(request)
+    return redirect("student:login")
+
+
+# class Login_View(LoginView):
+#     template_name = 'student/login.html'
 
 
 class Logout_View(LoginRequiredMixin, LogoutView):
@@ -47,9 +79,9 @@ def Change_user_info(request):
         user = request.user
         if phone:
             user.phone = phone
-        elif email:
+        if email:
             user.email = email
-        elif img_user:
+        if img_user:
             user.img_user = img_user
         user.save()
         return redirect('student:account')
@@ -73,7 +105,12 @@ def account(request):
     student = get_object_or_404(AdvUser, id=request.user.id)
     attendance = Attendance.objects.filter(students__id=request.user.id)
     homework = HomeworkModel.objects.filter(user__id=request.user.id)
-    context = {'student': student, 'attendance': attendance, 'homework': homework}
+    payments = UserPayment.objects.filter(contract__account__id=request.user.id)
+    unpaid = 0
+    for payment in payments:
+        if payment.is_paid == False:
+            unpaid += 1
+    context = {'student': student, 'attendance': attendance, 'homework': homework, 'unpaid':unpaid}
     return render(request, "student/students_personal_card.html", context)
 
 
@@ -99,11 +136,11 @@ def homework_view(request):
     groups = request.user.groupmodel_set.all()
     if group == '':
         current_group = groups[0]
-        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=datetime.date.today())
     else:
         group_id = int(group)
         current_group = get_object_or_404(GroupModel, id=group_id)
-        classes = current_group.classes.filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = current_group.classes.filter(date__lte=datetime.date.today())
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
@@ -237,11 +274,11 @@ def material_themes(request):
     groups = request.user.groupmodel_set.all()
     if group == '':
         current_group = groups[0]
-        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = ClassModel.objects.filter(groups__id=current_group.id).filter(date__lte=datetime.date.today())
     else:
         group_id = int(group)
         current_group = get_object_or_404(GroupModel, id=group_id)
-        classes = current_group.classes.filter(date__lte=(datetime.date.today() + datetime.timedelta(days=1)))
+        classes = current_group.classes.filter(date__lte=datetime.date.today())
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
@@ -313,13 +350,11 @@ def video_detail(request, class_id):
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
-def group_view(request, group_id):
-    my_id = request.user.id
-    my_groups = GroupModel.objects.filter(students__id=my_id)
-    current_group = get_object_or_404(GroupModel, id=group_id)
-    students = AdvUser.objects.filter(groupmodel__id=group_id)
-    teachers = [x.teacher for x in my_groups]
-    context = {'students': students, 'teachers': teachers, 'groups': my_groups, 'group': current_group}
+def group_view(request):
+    groups, current_group = group_filter(request)
+    students = AdvUser.objects.filter(groupmodel__id=current_group.id)
+    teachers = [x.teacher for x in groups]
+    context = {'students': students, 'teachers': teachers, 'groups': groups, 'group': current_group}
     return render(request, 'student/group.html', context)
 
 
@@ -334,12 +369,45 @@ def group_profile(request, user_id):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def contact_admin(request):
+    if request.method == "POST":
+        print(request.POST)
+        admin = AdvUser.objects.filter(groups__name="Admin").order_by('-last_login')[0]
+        chats = Chat.objects.filter(members__in=[request.user.id, admin.id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
+        if chats.count() == 0:
+            chat = Chat.objects.create()
+            chat.members.add(request.user)
+            chat.members.add(admin.id)
+        else:
+            chat = chats.first()
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.chat_id = chat.id
+            message.author = request.user
+            message.save()
+        return redirect(reverse('student:messages', kwargs={'chat_id': chat.id}))
     return render(request, 'student/contact_administrator.html')
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def itnews(request):
-    return render(request, 'student/itnews.html')
+    rubrick = request.GET.get('rubrick', '')
+    rubricks = RubruckNews.objects.all()
+    if rubrick == '':
+        news = News.objects.all()
+        current_rubrick = None
+    else:
+        rubrick_id = int(rubrick)
+        current_rubrick = RubruckNews.objects.get(id=rubrick_id)
+        news = News.objects.filter(rubrick__id=rubrick_id)
+    context = {'news':news, 'rubricks':rubricks, 'current_rubrick':current_rubrick}
+    return render(request, 'student/itnews.html', context)
+
+
+def news_detail(request, news_id):
+    news = News.objects.get(id=news_id)
+    created = f"{news.created.strftime('%d.%m.%Y')}"
+    return render(request, 'student/container_news.html', {'news':news, 'created':created})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
@@ -347,6 +415,33 @@ def services(request):
     return render(request, 'student/services_page.html')
 
 
+@user_passes_test_custom(check_group_and_activation, login_url='/login')
+def payment(request):
+    groups, current_group = group_filter(request)
+    user_payment = get_user_payment(request, current_group)
+    payment_stages = get_payment_stages(request, current_group)
+    if user_payment.by_stages == True:
+        percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
+        context = {
+            'group': current_group, 'groups': groups,
+            'payment_stages': payment_stages, 'payment': user_payment,
+            'percentage': percentage, 'paid_amount': paid_amount,
+            'stages_amount': stages_amount
+        }
+    else:
+        context = {
+            'group': current_group, 'groups': groups,
+            'payment_stages': payment_stages, 'payment': user_payment
+        }
+    picture = request.FILES.get('picture', '')
+    if picture:
+        save_picture(request, payment_stages, picture)
+        payment_stages = get_payment_stages(request, current_group)
+        context.update({'payment_stages':payment_stages})
+        if user_payment.by_stages == True:
+            alert = get_alert(request, payment_stages)
+            context.update({'alert':alert})
+    return render(request, 'student/payment_stages.html', context)
 # ---- ЧАТ ----
 
 
@@ -377,14 +472,7 @@ def get_chat_with_user(request, chat_id):
         except Chat.DoesNotExist:
             chat = None
 
-        return render(
-            request,
-            'student/chat/messages.html',{
-                'user_profile': request.user,
-                'chat': chat,
-                'chats': chats,
-                'form': MessageForm()}
-        )
+        return render(request,'student/chat/messages.html',{'user_profile': request.user,'chat': chat,'chats': chats,'form': MessageForm()})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')

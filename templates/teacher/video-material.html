@@ -1,0 +1,200 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/video-material.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty-literature">
+    <p class="main-header__page-information">Учебные материалы</p>
+    <p class="main-header__page-information-literature">Видеоматериалы</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="filtr">
+        <div class="filtr__container">
+            <div class="filtr__search">
+                <form class="filtr__search">
+                    <input type="text" class="filtr__search-input" id="text-to-find" value="" placeholder="Фильтр по тексту" />
+                    <input type="button" class="filtr__search-button" onclick="javascript: FindOnPage('text-to-find'); return false;" value="" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="materials">
+        <div class="material__container">
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+
+            <div class="material__container-video">
+                <!-- заготовка по будущее видео -->
+                <video controls class="material__container-video">
+                    <source src="#" type="video/mp4" />
+                    <source src="#" type="video/ogg" />
+                    <source src="#" type="video/webm" />
+                </video>
+                <!--  пока просто картинка -->
+                <!-- <div class="material__container-video">
+                <img src="../img/Rectangle 15.svg" alt="">
+              </div> -->
+                <div class="material__container-videotitle">Название видео</div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+
+{% endblock %}

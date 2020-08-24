@@ -1,0 +1,33 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/itnews.css'%}" />
+{% endblock %}
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Новости нашей школы</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="main__it-news">
+        {% for n in news %}
+        <div class="main__it-news-box">
+            {% if n.img %}
+            <img src="{{n.img.url}}"  alt="новость" class="main__it-news-img">
+            {% else %}
+            <img src="{% static 'teacher/img/no-post.png' %}" alt="новость" class="main__it-news-img">
+            {% endif %}
+            <p class="main__it-news-text">
+                <a href="{% url 'teacher:post_detail' n.id %}" class="main__it-news-link">
+                    {{n.title}}
+                </a>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+
+{% endblock %}

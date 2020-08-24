@@ -1,7 +1,10 @@
-{% extends "admin/main_page/main_page_admin.html"%}
-{% block title %} Новости школы{% endblock %}
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %}Нововсти{% endblock %}
+{%block header%}Новости{%endblock %}
 {% block content %}
-    <div>
+<div class="main__schedule">
+    <div class="main__schedule">
     <a href="{% url 'admin_school:add_news' %}">Добавить новость</a>
     </div>
     {% for rubrick in rubricks %}
@@ -18,9 +21,8 @@
             <div>
                 {{ new.created }}
             </div>
-{#            <div><a href="{% url "admin:manager_school_news_change" new.pk %}">редактировать новость</a></div>#}
-{#            <div><a href="{% url 'admin:manager_school_news_delete' new.pk %}">Удалить новость</a></div>#}
 
         </div>
+</div>
     {% endfor %}
 {% endblock %}
