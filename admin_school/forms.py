@@ -1,9 +1,9 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.forms import Select
-
 from manager_school.models import ClassModel
 from manager_school.models import News
+from manager_school.models import RubruckNews
 
 
 class ClassModelForm(forms.ModelForm):
@@ -19,4 +19,10 @@ class NewsForm(forms.ModelForm):
     class Meta:
         model = News
         fields = ("title", "description", "rubrick")
-        widgets = {"rubrick": Select(attrs={'size': 4})}
+
+
+class RubrickForm(forms.ModelForm):
+
+    class Meta:
+        model = RubruckNews
+        fields = ("title",)

@@ -1,0 +1,9 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Добавление рубрики{% endblock %}
+{% block content %}
+<form action="" method="post">
+    {%csrf_token%}
+<p>Название рубрики {{form.title}}</p>
+    <button>Добавить рубрику</button>
+</form>
+{% endblock %}

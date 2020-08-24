@@ -282,7 +282,7 @@ class News(models.Model):
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
-    rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
+    rubrick = models.ForeignKey(RubruckNews, on_delete=models.SET_NULL, null=True, default=None)
 
     def __str__(self):
         return f" {self.title}"

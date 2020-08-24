@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
-from admin_school.forms import ClassModelForm, NewsForm
+from admin_school.forms import ClassModelForm, NewsForm, RubrickForm
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404
 from manager_school.models import GroupModel, AdvUser, ClassModel, News, RubruckNews
@@ -57,7 +57,7 @@ def student_card(request, id):
 
 
 def timetable(request):
-    timetab = ClassModel.objects.all()
+    timetab = ClassModel.objects.order_by('date')
     context = {"timetab": timetab}
     return render(request, "admin/main_page/timetable/timetable.html", context)
 
@@ -135,3 +135,30 @@ def change_new(request, pk):
 def delete_new(request, pk):
     new = News.objects.get(pk=pk).delete()
     return HttpResponseRedirect('../news')
+
+
+class AddRubrick(CreateView):
+    model = RubruckNews
+    form_class = RubrickForm
+    template_name = 'admin/main_page/news/add_rubrick.html'
+    success_url = '/admin_school/'
+
+
+def change_rubrick(request, id):
+    change_rubricks = get_object_or_404(RubruckNews, id=id)
+    if request.method == 'POST':
+        form = RubrickForm(request.POST, instance=change_rubricks)
+        if form.is_valid():
+            form1 = form.save(commit=False)
+            form1.save()
+            return HttpResponseRedirect('../news')
+    else:
+        form = RubrickForm(instance=change_rubricks)
+    context = {'change_rubricks': change_rubricks, 'form': form}
+    return render(request, 'admin/main_page/news/change_rubrick.html', context)
+
+
+def delete_rubrick(request, id):
+    new = RubruckNews.objects.get(id=id).delete()
+    return HttpResponseRedirect('../news')
+

@@ -13,11 +13,17 @@ from .views import NewsAdd
 from .views import change_new
 from .views import new_view
 from .views import delete_new
+from .views import AddRubrick
+from .views import change_rubrick
+from .views import delete_rubrick
 
 app_name = 'admin_school'
 
 
 urlpatterns = [
+    path('del_rubrick/<int:id>', delete_rubrick, name='delete_rubrick'),
+    path('change_rubrick/<int:id>', change_rubrick, name='change_rubrick'),
+    path('add_rubrick/', AddRubrick.as_view(), name='add_rubrick'),
     path('del_new/<int:pk>', delete_new, name='del_new'),
     path('new/<int:pk>', new_view, name='new_view'),
     path('change_new/<int:pk>', change_new, name='change_new'),

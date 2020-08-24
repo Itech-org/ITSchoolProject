@@ -23,7 +23,6 @@ SECRET_KEY = 'id#0z8q&o^r^g@+_-cwe8iy$su)r4syo-^ffhz77jp0axc9cse'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -150,10 +149,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CKEDITOR_UPLOAD_PATH = 'media/'
+
+CKEDITOR_UPLOAD_PATH = '/uploads/'
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CKEDITOR_CONFIGS = {
@@ -201,6 +202,7 @@ CKEDITOR_CONFIGS = {
             'removePlugins': 'stylesheetparser',
             'extraPlugins': ','.join(
                 [
+                    'uploadimage',
                     'div',
                     'autolink',
                     'autoembed',
