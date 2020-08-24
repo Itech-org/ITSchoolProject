@@ -87,7 +87,6 @@ class CourseUser(models.Model):  # Курс
     amount = models.CharField(max_length=50, db_index=True, verbose_name='Количество занятий')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
     is_online = models.BooleanField(default=False, verbose_name="Онлайн?")
-
     def __str__(self):
         return f"{self.title}"
 
@@ -146,7 +145,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
-    room_link = models.URLField(null=True, verbose_name="Ссылка на комнату занятия")
+    room_link = models.URLField(null=True, blank=True, verbose_name="Ссылка на комнату занятия")
     message = models.TextField(verbose_name='Сообщение', blank=True)
 
 
@@ -211,7 +210,7 @@ class HomeworkModel(models.Model):  # Дз Студента
 
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название', blank=True)
     file = models.FileField(upload_to='file/student/', verbose_name='Файл с ДЗ', blank=True)
-    description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
+    description = models.TextField(max_length=512, verbose_name='Описание ДЗ', blank=True)
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', blank=True, null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
@@ -231,7 +230,7 @@ class HomeworkModel(models.Model):  # Дз Студента
 class HomeworkTeacherModel(models.Model): # Дз Препода
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название')
     file = models.FileField(upload_to='file/teacher/', verbose_name='Файл с ДЗ', blank=True)
-    description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
+    description = models.TextField(max_length=512, verbose_name='Описание ДЗ', blank=True)
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', null=True, blank=True)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homeworkteacher')
     attempts = models.IntegerField(verbose_name='Количество попыток', default=3)
@@ -295,7 +294,6 @@ class News(models.Model):
     title = models.CharField('Заголовок', max_length=150, blank=True)
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    img = models.ImageField('Изображение', upload_to='news/', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
     picture = models.ImageField(upload_to='images/news/', null=True, blank=True)

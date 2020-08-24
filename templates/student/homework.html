@@ -1,39 +1,39 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% block title %}
-<title>Document</title>
+    <title>Document</title>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/main-header.css' %}"/>
-<link rel="stylesheet" href="{% static 'css/homework.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main-header.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/homework.css' %}"/>
 {% endblock %}
 {% block header %}
-<div class="main-header__page-information-change-specialty">
-    <p class="main-header__page-information">Домашнее задание</p>
-<!--    <div class="main-header__change-speciality">-->
-<!--      <div class="main-header__box-for-change-speciality">-->
-<!--        <p class="main-header__button-change-speciality">Выбрать курс...</p>-->
-<!--        <div class="main-header__list-speciality no-active">-->
-<!--          <form action="" method="get" class="main-header__form-change-course">-->
-<!--            <input type="text" name="course" hidden class="main-header__change-course" />-->
-<!--            <p class="main-header__wrapp-for-speciality-link" data-value="1">-->
-<!--              Frontend-разработчик-->
-<!--            </p>-->
-<!--            <p class="main-header__wrapp-for-speciality-link" data-value="2">-->
-<!--              Backend-разработчик-->
-<!--            </p>-->
-<!--            <p class="main-header__wrapp-for-speciality-link" data-value="3">-->
-<!--              Тестировщик-->
-<!--            </p>-->
-<!--          </form>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="main-header__box-for-info">-->
-<!--        <p class="main-header__speciality-info-name">Frontend</p>-->
-<!--        <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>-->
-<!--      </div>-->
-<!--    </div>-->
-</div>
+    <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Домашнее задание</p>
+        <!--    <div class="main-header__change-speciality">-->
+        <!--      <div class="main-header__box-for-change-speciality">-->
+        <!--        <p class="main-header__button-change-speciality">Выбрать курс...</p>-->
+        <!--        <div class="main-header__list-speciality no-active">-->
+        <!--          <form action="" method="get" class="main-header__form-change-course">-->
+        <!--            <input type="text" name="course" hidden class="main-header__change-course" />-->
+        <!--            <p class="main-header__wrapp-for-speciality-link" data-value="1">-->
+        <!--              Frontend-разработчик-->
+        <!--            </p>-->
+        <!--            <p class="main-header__wrapp-for-speciality-link" data-value="2">-->
+        <!--              Backend-разработчик-->
+        <!--            </p>-->
+        <!--            <p class="main-header__wrapp-for-speciality-link" data-value="3">-->
+        <!--              Тестировщик-->
+        <!--            </p>-->
+        <!--          </form>-->
+        <!--        </div>-->
+        <!--      </div>-->
+        <!--      <div class="main-header__box-for-info">-->
+        <!--        <p class="main-header__speciality-info-name">Frontend</p>-->
+        <!--        <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>-->
+        <!--      </div>-->
+        <!--    </div>-->
+    </div>
 {% endblock %}
 <!--      <div class="main-header__box">-->
 <!--        <p class="main-header_box-for-notification">-->
@@ -171,154 +171,169 @@
 <!--      </div>-->
 <!--    </nav>-->
 {% block content %}
-<main>
-    <div class="content__wrapper">
-        <div class="student-info__container">
-            <div class="block-info">
-                <div class="block-info__wrapper">
-                    <div class="block-info__subtitle">Занятие {{ class.position }}</div>
-                    <div class="block-info__title">{{ class.theme }}</div>
-                    <div class="block-info__date">{{ class.date }}</div>
-                    <div class="block-info__direction">{{ class.groups.course.title }}</div>
-                    {% for homework in class.homeworkteacher.all %}
-                    <div class="block-info__home-work-title">Домашнее задание: {{ homework.title }}</div>
-                    <div class="block-info__home-work-text">
-                        {{ homework.description }}
+    <main>
+        <div class="content__wrapper">
+            <div class="student-info__container">
+                <div class="block-info">
+                    <div class="block-info__wrapper">
+                        <div class="block-info__subtitle">Занятие {{ class.position }}</div>
+                        <div class="block-info__title">{{ class.theme }}</div>
+                        <div class="block-info__date">{{ class.date }}</div>
+                        <div class="block-info__direction">{{ class.groups.course.title }}</div>
+                        {% for homework in class.homeworkteacher.all %}
+                            <div class="block-info__home-work-title">Домашнее задание: {{ homework.title }}</div>
+                            <div class="block-info__home-work-text">
+                                {{ homework.description }}
+                                <a download class="block-student-form-input-file"
+                                   href="{{ homework.file.url }}">Файл</a>
+                                {% if class.groups.course.is_online %}
+                                    {% if class.room_link %}
+                                        <a class="block-student-online-room" href="{{ class.room_link }}">Переход в
+                                            комнату онлайн-занятия</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-                <div class="block-student">
-                    {% if class.groups.teacher.img_user %}
-                        <img src="{{ class.groups.teacher.img_user.url }}" alt="фото студента" class="block-student__foto"/>
-                    {% else %}
-                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="block-student__foto"/>
-                    {% endif %}
-                    <p>{{ class.groups.teacher.first_name }} {{ class.groups.teacher.surname }} {{ class.groups.teacher.last_name }}</p>
-                </div>
-            </div>
-            {% if attempts_left > 0 %}
-                <form enctype="multipart/form-data" method="post" class="block-student-form" action="">
-                  {% csrf_token %}
-                  <div class="form-title">
-                      Домашнее заданиe
-                  </div>
-                  <div class="block-student-form-close">
-                      <textarea name="description" placeholder="Начните вводить текст..."></textarea>
-                      <div class="block-student-form-inline">
-                          <div class="block-student-form-input-file">
-                              Прикрепить файл
-                              <input type="file" name="file" multiple class="block-student-form-button-input-file"/>
-                          </div>
-                          <input class="block-student-form-input-file" type="submit" value="Отправить"/>
-                      </div>
-                  </div>
-                </form>
-            {% endif %}
-        </div>
-        <div class="home-work__wrapper">
-            {% if attempts_left != None %}
-            <div class="home-work__attempts">
-                <div class="home-work__attempts-inline">
-                    <p>Мои попытки - <span>{{ tries }}</span></p>
-                    <img id="showHide" src="{% static 'img/down_icon-icons.com_61209.svg' %}" alt="скрыть/показать"
-                         class="rotate"/>
-                </div>
-            </div>
-            {% endif %}
-            <div class="home-work__container-close">
-                <div class="home-work__container">
-                    {% for homework in homework %}
-                    <div class="home-work__attempts-box">
-                        <div class="form-title">Домашнее задание</div>
-                        <p class="home-work__attempts-box-comment">
-                            {{ homework.description }}
-                        </p>
-                        {% if homework.file %}
-                        <a download class="home-work__attempts-box-a no-active" href="{{ homework.file.url }}">Файл</a>
+                    <div class="block-student">
+                        {% if class.groups.teacher.img_user %}
+                            <img src="{{ class.groups.teacher.img_user.url }}" alt="фото студента"
+                                 class="block-student__foto"/>
+                        {% else %}
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента"
+                                 class="block-student__foto"/>
                         {% endif %}
-                        <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>
-                        <p class="home-work__attempts-box-comment">
-                            {{ homework.comment }}
-                        </p>
-                        {% if homework.file %}
-                        <a download class="home-work__attempts-box-a" href="{{ homework.file.url }}">Файл</a>
-                        {% endif %}
+                        <p>{{ class.groups.teacher.first_name }} {{ class.groups.teacher.surname }} {{ class.groups.teacher.last_name }}</p>
                     </div>
-                    {% endfor %}
-                    <!--              <div class="home-work__attempts-box">-->
-                    <!--                <div class="form-title">Домашнее задание</div>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
-                    <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
-                    <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
-                    <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
-                    <!--              </div>-->
-
-                    <!--              <div class="home-work__attempts-box">-->
-                    <!--                <div class="form-title">Домашнее задание</div>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
-                    <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
-                    <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
-                    <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
-                    <!--              </div>-->
-
-                    <!--              <div class="home-work__attempts-box">-->
-                    <!--                <div class="form-title">Домашнее задание</div>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
-                    <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
-                    <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
-                    <!--                <p class="home-work__attempts-box-comment">-->
-                    <!--                  dimos-->
-                    <!--                </p>-->
-                    <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
-                    <!--              </div>-->
                 </div>
+                {% if attempts_left > 0 %}
+                    <form enctype="multipart/form-data" method="post" class="block-student-form" action="">
+                        {% csrf_token %}
+                        <div class="form-title">
+                            Домашнее заданиe
+                        </div>
+                        <div class="block-student-form-close">
+                            <textarea name="description" placeholder="Начните вводить текст..."></textarea>
+                            <div class="block-student-form-inline">
+                                <div class="block-student-form-input-file">
+                                    Прикрепить файл
+                                    <input type="file" name="file" multiple
+                                           class="block-student-form-button-input-file"/>
+                                </div>
+                                <input class="block-student-form-input-file" type="submit" value="Отправить"/>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
             </div>
-
-            <div class="block-info__status-box">
+            <div class="home-work__wrapper">
                 {% if attempts_left != None %}
-                    <div class="home-work__box-for-content">
-                        <div class="block-info__status-box-status">Статус:</div>
-                        <div class="block-info__status-box-status-item">{{ last_homework.status }}</div>
-                    </div>
-                    <div class="home-work__box-for-content">
-                        <div class="block-info__status-box-rating">Оценка:</div>
-                        <div class="block-info__status-box-rating-item">{{ last_homework.rating }}</div>
-                    </div>
-                    <div class="home-work__box-for-content">
-                        <div class="block-info__attempts">
-                            <div class="block-info__attempt-title">Осталoсь попыток</div>
-                            <div class="block-info__attempt-count">{{ attempts_left }}</div>
+                    <div class="home-work__attempts">
+                        <div class="home-work__attempts-inline">
+                            <p>Мои попытки - <span>{{ tries }}</span></p>
+                            <img id="showHide" src="{% static 'img/down_icon-icons.com_61209.svg' %}"
+                                 alt="скрыть/показать"
+                                 class="rotate"/>
                         </div>
                     </div>
                 {% endif %}
-                <div class="home-work__box-for-content">
-                    <div class="block-info__attempts">
-                        <a class="block-info__attempt-title" href="{% url 'student:material_detail' class_id=class.id %}">Материалы по теме</a>
+                <div class="home-work__container-close">
+                    <div class="home-work__container">
+                        {% for homework in homework %}
+                            <div class="home-work__attempts-box">
+                                <div class="form-title">Домашнее задание</div>
+                                <p class="home-work__attempts-box-comment">
+                                    {{ homework.description }}
+                                </p>
+                                {% if homework.file %}
+                                    <a download class="home-work__attempts-box-a no-active"
+                                       href="{{ homework.file.url }}">Файл</a>
+                                {% endif %}
+                                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>
+                                <p class="home-work__attempts-box-comment">
+                                    {{ homework.comment }}
+                                </p>
+                                {% if homework.file %}
+                                    <a download class="home-work__attempts-box-a"
+                                       href="{{ homework.file.url }}">Файл</a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <!--              <div class="home-work__attempts-box">-->
+                        <!--                <div class="form-title">Домашнее задание</div>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
+                        <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
+                        <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
+                        <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
+                        <!--              </div>-->
+
+                        <!--              <div class="home-work__attempts-box">-->
+                        <!--                <div class="form-title">Домашнее задание</div>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
+                        <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
+                        <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
+                        <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
+                        <!--              </div>-->
+
+                        <!--              <div class="home-work__attempts-box">-->
+                        <!--                <div class="form-title">Домашнее задание</div>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas soluta nobis libero aliquid maiores distinctio unde eveniet nostrum. Nesciunt iusto necessitatibus a unde vitae-->
+                        <!--                  excepturi, magnam at voluptatibus voluptate dicta.-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a no-active" href="#">Файл</a>-->
+                        <!--                <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>-->
+                        <!--                <p class="home-work__attempts-box-comment">-->
+                        <!--                  dimos-->
+                        <!--                </p>-->
+                        <!--                <a download class="home-work__attempts-box-a" href="#">Файл</a>-->
+                        <!--              </div>-->
+                    </div>
+                </div>
+
+                <div class="block-info__status-box">
+                    {% if attempts_left != None %}
+                        <div class="home-work__box-for-content">
+                            <div class="block-info__status-box-status">Статус:</div>
+                            <div class="block-info__status-box-status-item">{{ last_homework.status }}</div>
+                        </div>
+                        <div class="home-work__box-for-content">
+                            <div class="block-info__status-box-rating">Оценка:</div>
+                            <div class="block-info__status-box-rating-item">{{ last_homework.rating }}</div>
+                        </div>
+                        <div class="home-work__box-for-content">
+                            <div class="block-info__attempts">
+                                <div class="block-info__attempt-title">Осталoсь попыток</div>
+                                <div class="block-info__attempt-count">{{ attempts_left }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="home-work__box-for-content">
+                        <div class="block-info__attempts">
+                            <a class="block-info__attempt-title"
+                               href="{% url 'student:material_detail' class_id=class.id %}">Материалы по теме</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/homework.js' %}"></script>
-<script src="{% static 'js/main-header.js' %}"></script>
+    <script src="{% static 'js/homework.js' %}"></script>
+    <script src="{% static 'js/main-header.js' %}"></script>
 {% endblock %}

@@ -419,29 +419,32 @@ def services(request):
 def payment(request):
     groups, current_group = group_filter(request)
     user_payment = get_user_payment(request, current_group)
-    payment_stages = get_payment_stages(request, current_group)
-    if user_payment.by_stages == True:
-        percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
-        context = {
-            'group': current_group, 'groups': groups,
-            'payment_stages': payment_stages, 'payment': user_payment,
-            'percentage': percentage, 'paid_amount': paid_amount,
-            'stages_amount': stages_amount
-        }
+    if user_payment == None:
+        return redirect(reverse('student:account'))
     else:
-        context = {
-            'group': current_group, 'groups': groups,
-            'payment_stages': payment_stages, 'payment': user_payment
-        }
-    picture = request.FILES.get('picture', '')
-    if picture:
-        save_picture(request, payment_stages, picture)
         payment_stages = get_payment_stages(request, current_group)
-        context.update({'payment_stages':payment_stages})
         if user_payment.by_stages == True:
-            alert = get_alert(request, payment_stages)
-            context.update({'alert':alert})
-    return render(request, 'student/payment_stages.html', context)
+            percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
+            context = {
+                'group': current_group, 'groups': groups,
+                'payment_stages': payment_stages, 'payment': user_payment,
+                'percentage': percentage, 'paid_amount': paid_amount,
+                'stages_amount': stages_amount
+            }
+        else:
+            context = {
+                'group': current_group, 'groups': groups,
+                'payment_stages': payment_stages, 'payment': user_payment
+            }
+        picture = request.FILES.get('picture', '')
+        if picture:
+            save_picture(request, payment_stages, picture)
+            payment_stages = get_payment_stages(request, current_group)
+            context.update({'payment_stages':payment_stages})
+            if user_payment.by_stages == True:
+                alert = get_alert(request, payment_stages)
+                context.update({'alert':alert})
+        return render(request, 'student/payment_stages.html', context)
 # ---- ЧАТ ----
 
 

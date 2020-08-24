@@ -41,8 +41,10 @@ def stage_checker(payment_stages):
 
 
 def get_user_payment(request, current_group):
-    user_payment = UserPayment.objects.filter(contract__group__id=current_group.id).get(
-        contract__account__id=request.user.id)
+    try:
+        user_payment = UserPayment.objects.filter(contract__group__id=current_group.id).get(contract__account__id=request.user.id)
+    except:
+        user_payment = None
     return user_payment
 
 
