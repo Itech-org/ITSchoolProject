@@ -136,7 +136,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
-    room_link = models.URLField(null=True, default='#', verbose_name="Ссылка на комнату занятия")
+    room_link = models.URLField(null=True, verbose_name="Ссылка на комнату занятия")
 
 
     def __str__(self):
