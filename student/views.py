@@ -62,14 +62,6 @@ def logout_request(request):
     return redirect("student:login")
 
 
-# class Login_View(LoginView):
-#     template_name = 'student/login.html'
-
-
-class Logout_View(LoginRequiredMixin, LogoutView):
-    template_name = "student/logout.html"
-
-
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def Change_user_info(request):
     if request.method == "POST":
@@ -97,6 +89,18 @@ def main_page_view(request):
     course = [x.course for x in my_groups]
     teachers = [x.teacher for x in my_groups]
     context = {'teachers': teachers, 'groups': my_groups, 'course': course}
+    try:
+        payment_stages = PaymentStage.objects.filter(payment__contract__account__id=my_id, date__lte=datetime.date.today()-datetime.timedelta(days=1))
+        unpaid_stages = []
+        for stage in payment_stages:
+            if not stage.picture:
+                alert = "No check"
+                unpaid_stages.append(stage)
+                context.update({'alert': alert})
+        count = len(unpaid_stages)
+        context.update({'unpaid_stages': unpaid_stages, 'count':count})
+    except:
+        None
     return render(request, 'student/main_page_student.html', context)
 
 
@@ -112,22 +116,6 @@ def account(request):
             unpaid += 1
     context = {'student': student, 'attendance': attendance, 'homework': homework, 'unpaid':unpaid}
     return render(request, "student/students_personal_card.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def my_courses(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id=my_id)
-    courses = group.course.all()
-    context = {'courses': courses}
-    return render(request, "student/my_courses.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def exact_course(request, course_id):
-    course = get_object_or_404(CourseModel, id=course_id)
-    context = {'course': course}
-    return render(request, "student/exact_course.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
@@ -159,18 +147,6 @@ def exact_homework(request, homework_id):
     cls = ClassModel.objects.filter(homework__id__in=hw_id)
     context = {'homework': homework, 'cls': cls}
     return render(request, "student/exact_homework.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def shedule_view(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id=my_id)
-    group_id = group.id
-    shedule = get_object_or_404(SheduleModel, group__id=group_id)
-    shedule_id = shedule.id
-    cls = get_list_or_404(ClassModel, timetable__id=shedule_id)
-    context = {'shedule': shedule, 'class': cls}
-    return render(request, "student/shedule.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
@@ -223,7 +199,7 @@ def class_view(request, class_id):
     file = request.FILES.get('file', '')
     context = {'class': cls, 'tries': tries, 'attempts_left': attempts_left, 'homework': student_homework, 'last_homework': last_homework}
     if request.POST:
-        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls, user=request.user)
+        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls, user=request.user, rating=0)
         if description:
             homework.description = description
         if file:

@@ -50,6 +50,7 @@ body {
   justify-content: space-between;
   margin: auto;
   margin-top: 80px;
+  border-radius: 10px;
 }
 
 .main__personal-student-card-info {
@@ -57,6 +58,7 @@ body {
   height: 620px;
   background: linear-gradient(315deg, #e8f5ff, #f1f3fa);
   box-shadow: inset -1px -1px 5px 1px #aebcec;
+  border-radius: 10px 0 0 10px;
 }
 
 .main__personal-student-card-box {
@@ -158,6 +160,7 @@ circle:nth-child(2n) {
   width: 377px;
   background: linear-gradient(180deg, #90cbf7, #eaefff);
   box-shadow: inset -1px -1px 5px 1px #aebcec;
+  border-radius: 0 10px 10px 0;
 }
 
 .main__personal-student-card-payment-text {

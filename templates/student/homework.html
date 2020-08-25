@@ -1,7 +1,7 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% block title %}
-    <title>Document</title>
+    <title>Домашнее задание</title>
 {% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/main-header.css' %}"/>
@@ -190,6 +190,8 @@
                                     {% if class.room_link %}
                                         <a class="block-student-online-room" href="{{ class.room_link }}">Переход в
                                             комнату онлайн-занятия</a>
+                                    {% else %}
+                                        <p class="block-student-online-room">Ссылка на комнату пока не готова.</p>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -251,7 +253,7 @@
                                 {% endif %}
                                 <p class="home-work__attempts-box-tutor-comment">Комментарий преподавателя</p>
                                 <p class="home-work__attempts-box-comment">
-                                    {{ homework.comment }}
+                                    {{ homework.comment_teacher }}
                                 </p>
                                 {% if homework.file %}
                                     <a download class="home-work__attempts-box-a"

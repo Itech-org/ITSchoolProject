@@ -98,16 +98,22 @@ a {
 .group__student-last-name {
   font-family: Montserrat-Bold;
   color: #102355;
+  width: 150px;
+  word-wrap: break-word;
 }
 
 .group__student-first-name {
   font-family: Montserrat-Medium;
   color: #102355;
+  width: 150px;
+  word-wrap: break-word;
 }
 
 .group__student-patronymic {
   font-family: Montserrat-Medium;
   color: #102355;
+  width: 150px;
+  word-wrap: break-word;
 }
 
 .group__box-for-link {

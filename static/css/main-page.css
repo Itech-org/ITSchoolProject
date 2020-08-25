@@ -48,6 +48,7 @@
     display: flex;
     justify-content: space-around;
     background: linear-gradient(180deg, #e2edfc, #acccf5);
+    padding: 10px 0;
    
     
 }
@@ -101,4 +102,33 @@
 .main-active{
     margin-left: 300px;
     transition: 0.2s;
+}
+
+.alert {
+    width: 90%;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin: 15px;
+    margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+}
+
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
 }

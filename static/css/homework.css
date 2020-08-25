@@ -183,6 +183,7 @@ textarea {
   font-family: Montserrat-LightItalic;
   font-size: 14px;
   color: #114a8e;
+  resize: none;
 }
 
 .block-student-form-input-file {
