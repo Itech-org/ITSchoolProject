@@ -54,8 +54,8 @@ main {
     height: 620px;
     display: flex;
     justify-content: space-between;
-    margin-top: 100px;
-    margin-left: 5%;
+    margin-top: 40px;
+    /*margin-left: 5%;*/
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 

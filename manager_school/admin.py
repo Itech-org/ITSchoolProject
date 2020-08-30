@@ -82,12 +82,12 @@ class RequestConversationInline(admin.StackedInline):
 
 @admin.register(StudyRequest)
 class StudyRequestAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'patronymic', 'enter_date', 'status')
+    list_display = ('enter_date', 'last_name', 'first_name', 'patronymic', 'status')
     search_fields = ('status', 'enter_date', 'last_name', 'first_name',
                      'course__title', 'specialist__first_name', 'specialist__last_name',)
     fields = ('last_name', 'first_name', 'patronymic', 'enter_date', 'communication_type',
               'source', 'course',  'specialist', 'status')
-    list_filter = ['enter_date', 'course', 'status']
+    list_filter = ['enter_date', 'course', 'status', 'specialist']
     inlines = [RequestConversationInline]
     def formfield_for_foreignkey( self,  db_field,  request,  ** kwargs):
         if db_field.name ==  "specialist":

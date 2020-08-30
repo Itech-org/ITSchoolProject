@@ -79,7 +79,7 @@ class UserManagement(models.Model):
 
 class CourseUser(models.Model):  # Курс
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название', blank=True)
-    discription = models.TextField('Описание', blank=True)
+    description = models.TextField('Описание', blank=True)
     price = models.FloatField(verbose_name='Цена', default =0)
     start_date = models.DateField(verbose_name='Начало занятий', null=True)
     finish_date = models.DateField(verbose_name='Конец занятий', null=True)
@@ -146,7 +146,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
-    room_link = models.URLField(null=True, verbose_name="Ссылка на комнату занятия")
+    room_link = models.URLField(null=True, blank=True, verbose_name="Ссылка на комнату занятия")
     message = models.TextField(verbose_name='Сообщение', blank=True)
 
 

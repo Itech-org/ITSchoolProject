@@ -37,5 +37,8 @@ urlpatterns = [
     path('chat/<int:chat_id>', get_chat_with_user, name='messages'),
     path('news/', get_news_list, name='get_news_list'),
     path('api/v1/classes-list/', api_classes_list),
-    path('api/v1/leads-list/', api_leads_list)
+    path('api/v1/leads-list/', api_leads_list),
+    path('api/v1/online-courses-list/', api_online_course_list),
+    path('api/v1/offline-courses-list/', api_offline_course_list),
+    path('api/v1/course-detail/<int:course_id>', api_course_detail),
 ]

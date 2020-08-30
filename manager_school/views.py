@@ -14,8 +14,8 @@ from .filters import StudyRequestFilter
 from .forms import *
 from django.shortcuts import render
 
-from .serializers import ClassModelSerializer, StudyRequestSerializer
-from .services import get_manager_successful_percent, get_manager_data_per_period
+from .serializers import ClassModelSerializer, StudyRequestSerializer, CourseSerializer, CourseDetailSerializer
+from .services import get_manager_successful_lead_percent, get_manager_data_per_period
 
 from .utilities import *
 
@@ -326,8 +326,8 @@ def register_user(request, lead_id):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('manager_school:create_contract_page', lead_id=lead_id)
+            student = form.save()
+            return redirect('manager_school:create_contract_page', lead_id=lead_id, student_id=student.id)
     else:
         lead = get_object_or_404(StudyRequest, id=lead_id)
         try:
@@ -345,7 +345,7 @@ def register_user(request, lead_id):
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
-def create_contract_page(request, lead_id):
+def create_contract_page(request, lead_id, student_id):
     if request.method == "POST":
         contract_form = ContractForm(request.POST)
         if contract_form.is_valid():
@@ -359,7 +359,13 @@ def create_contract_page(request, lead_id):
             group.students.add(student)
             return redirect('manager_school:add_payment_stage', contract_id=contract.id, payment_id=payment.id)
     else:
-        contract_form = ContractForm(initial={'date': datetime.datetime.now(), "lead": lead_id})
+        student = get_object_or_404(AdvUser, id=student_id)
+        contract_form = ContractForm(
+            initial={
+                'date': datetime.datetime.now(),
+                "lead": lead_id,
+                'account': student
+            })
     return render(request, 'manager/contract/contract_create.html', {"contract_form": contract_form})
 
 
@@ -481,17 +487,39 @@ def api_classes_list(request):
     return Response(data.data)
 
 
+@api_view(['GET'])
+def api_online_course_list(request):
+    courses = CourseUser.objects.filter(is_online=True)
+    data = CourseSerializer(courses, many=True)
+    return Response(data.data)
+
+
+@api_view(['GET'])
+def api_offline_course_list(request):
+    courses = CourseUser.objects.filter(is_online=False)
+    data = CourseSerializer(courses, many=True)
+    return Response(data.data)
+
+
+@api_view(['GET'])
+def api_course_detail(request, course_id):
+    course = get_object_or_404(CourseUser, id=course_id)
+    data = CourseDetailSerializer(course)
+    return Response(data.data)
+
+
 # ---------------------profile-----------------------------
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_manager_profile(request):
-    data = get_manager_data_per_period(request.user)
+    period_from = request.GET.get('period_from')
+    period_to = request.GET.get('period_to')
+    manager_data_per_period = get_manager_data_per_period(request.user, period_from=period_from, period_to=period_to)
 
     context = {
-        'successful_leads_percent': get_manager_successful_percent(request.user, model='StudyRequest'),
-        'successful_contracts_percent': get_manager_successful_percent(request.user, model='Contract'),
-        'data': data,
+        'successful_leads_percent': get_manager_successful_lead_percent(request.user),
+        'manager_data_per_period': manager_data_per_period,
     }
     return render(request, 'manager/profile/profile.html', context)
 
