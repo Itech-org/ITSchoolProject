@@ -88,6 +88,7 @@ def main_page_view(request):
     my_groups = GroupModel.objects.filter(students__id=my_id)
     course = [x.course for x in my_groups]
     teachers = [x.teacher for x in my_groups]
+    teachers = set(teachers)
     context = {'teachers': teachers, 'groups': my_groups, 'course': course}
     try:
         payment_stages = PaymentStage.objects.filter(payment__contract__account__id=my_id, date__lte=datetime.date.today()-datetime.timedelta(days=1))
@@ -182,6 +183,8 @@ def api_classes_list(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def class_view(request, class_id):
     cls = ClassModel.objects.get(id=class_id)
+    current_group = GroupModel.objects.get(classes=cls)
+    classes = current_group.classes.filter(date__lte=datetime.date.today())
     student_homework = [homework for homework in cls.homework.filter(user__id=request.user.id)]
     tries = len(student_homework)
     try:
@@ -197,9 +200,16 @@ def class_view(request, class_id):
         last_homework = student_homework[0]
     description = request.POST.get('description', '')
     file = request.FILES.get('file', '')
-    context = {'class': cls, 'tries': tries, 'attempts_left': attempts_left, 'homework': student_homework, 'last_homework': last_homework}
+    context = {'class': cls, 'tries': tries, 'attempts_left': attempts_left, 'homework': student_homework,
+               'last_homework': last_homework}
+    if classes.count() > 1:
+        all_classes = [cls for cls in classes]
+        last_class = all_classes[-1]
+        next_class = current_group.classes.get(position=int(last_class.position + 1))
+        context.update({'next_class': next_class})
     if request.POST:
-        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls, user=request.user, rating=0)
+        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls,
+                                 user=request.user, rating=0)
         if description:
             homework.description = description
         if file:
@@ -232,7 +242,7 @@ def teacher_view(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def teacher_profile(request, teacher_id):
     teacher = get_object_or_404(AdvUser, id=teacher_id)
-    group = get_object_or_404(GroupModel, teacher_id=teacher_id, students__id=request.user.id)
+    groups = GroupModel.objects.filter(teacher_id=teacher_id, students__id=request.user.id)
     return render(request, 'student/teacher_card.html', {'teacher': teacher, 'group': group})
 
 
@@ -345,23 +355,19 @@ def group_profile(request, user_id):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def contact_admin(request):
-    if request.method == "POST":
-        print(request.POST)
-        admin = AdvUser.objects.filter(groups__name="Admin").order_by('-last_login')[0]
-        chats = Chat.objects.filter(members__in=[request.user.id, admin.id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
-        if chats.count() == 0:
-            chat = Chat.objects.create()
-            chat.members.add(request.user)
-            chat.members.add(admin.id)
-        else:
-            chat = chats.first()
-        form = MessageForm(request.POST, request.FILES)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.chat_id = chat.id
-            message.author = request.user
-            message.save()
-        return redirect(reverse('student:messages', kwargs={'chat_id': chat.id}))
+    if request.POST:
+        title = request.POST.get('title', '')
+        description = request.POST.get('description', '')
+        file = request.FILES.get('file', '')
+        requestmodel = ContactAdmin(author = request.user)
+        if title:
+            requestmodel.title = title
+        if description:
+            requestmodel.description = description
+        if file:
+            requestmodel.file = file
+        requestmodel.save()
+        return redirect('student:contact_admin')
     return render(request, 'student/contact_administrator.html')
 
 

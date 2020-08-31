@@ -1,0 +1,131 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf);
+}
+
+@font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-light.ttf);
+}
+
+.main__student-tool{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px ;
+    margin-bottom: 50px;
+    
+}
+
+
+.main__student-tool-box-img{
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+    height: 250px;
+    box-shadow: 1px 3px 5px 2px rgb(199, 214, 233);
+}
+
+.main__student-tool-img{
+    width: 250px;
+    height: 200px;
+    margin: auto;
+}
+
+.main__student-tool-text-link{
+    width: auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main__student-tool-link{
+    font-family: Montserrat-Medium;
+    font-size: 20px;
+    text-decoration: none;
+    color: #114ABE;
+}
+
+.main__teacher{    
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(180deg, #e2edfc, #acccf5);
+    padding: 10px 0;
+}
+
+.main__teacher-name{
+    font-family: Montserrat-Medium;
+    font-size: 25px;
+    color: #13437c;
+    margin: auto;
+}
+
+.main__teacher-course{
+    width: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main__teacher-img{
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+}
+
+.main__teacher-navigation-link{
+    width: auto;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.main__teacher-navigation{
+    color: #114a8e;
+    text-decoration: none;
+    font-family: Montserrat-Light;
+    font-size: 15px;
+}
+
+.main__teacher-navigation_size{
+    font-family: Montserrat-Medium;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #114a8e;
+}
+
+.main{
+    margin-left: 70px;     
+    transition: 0.2s; 
+}
+
+.main-active{
+    margin-left: 300px;
+    transition: 0.2s;
+}
+
+.alert {
+    width: 90%;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin: 15px;
+    margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+}
+
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}

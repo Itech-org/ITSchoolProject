@@ -151,6 +151,7 @@ a{
     background-color: #0E1935;
     float: left;
     top:0;
+    transition: 0.2s;
 }
 
 .main-menu__logo{
@@ -315,3 +316,19 @@ a{
 
 
 /* ////////////////////////////////////// */
+
+
+main {
+  margin-left: 70px;
+  margin-top: 50px;
+  transition: 0.2s;
+}
+
+.main-menu {
+  z-index: 5;
+}
+
+.main-active {
+  margin-left: 300px;
+  transition: 0.2s;
+}

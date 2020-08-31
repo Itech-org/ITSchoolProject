@@ -1,108 +1,165 @@
 @font-face {
-    font-family: Montserrat-Medium; /* Гарнитура шрифта */
-    src: url(../fonts/Montserrat/Montserrat-Medium.ttf);
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf);
 }
 
 @font-face {
-    font-family: Montserrat-Light; /* Гарнитура шрифта */
-    src: url(../fonts/Montserrat/Montserrat-light.ttf);
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-light.ttf);
 }
 
-.main__student-tool{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 100px ;
-    margin-bottom: 50px;
-    
+.main__student-tool {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 100px;
+  margin-bottom: 50px;
 }
 
-
-.main__student-tool-box-img{
-    display: flex;
-    justify-content: space-around;
-    width: 300px;
-    height: 250px;
-    box-shadow: 1px 3px 5px 2px rgb(199, 214, 233);
+.main__student-tool-box-img {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+  height: 250px;
+  box-shadow: 1px 3px 5px 2px rgb(199, 214, 233);
 }
 
-.main__student-tool-img{
-    width: 250px;
-    height: 200px;
-    margin: auto;
+.main__student-tool-img {
+  width: 250px;
+  height: 200px;
+  margin: auto;
 }
 
-.main__student-tool-text-link{
-    width: auto;
-    text-align: center;
-    margin-top: 20px;
+.main__student-tool-text-link {
+  width: auto;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.main__student-tool-link{
-    font-family: Montserrat-Medium;
-    font-size: 20px;
-    text-decoration: none;
-    color: #114ABE;
+.main__student-tool-link {
+  font-family: Montserrat-Medium;
+  font-size: 20px;
+  text-decoration: none;
+  color: #114abe;
 }
 
-.main__teacher{    
+.main__teacher{
     display: flex;
     justify-content: space-around;
     background: linear-gradient(180deg, #e2edfc, #acccf5);
     padding: 10px 0;
-   
-    
 }
 
-.main__teacher-name{
-    font-family: Montserrat-Medium;
-    font-size: 25px;
-    color: #13437c;
-    margin: auto;
+.main__teacher-name {
+  font-family: Montserrat-Medium;
+  font-size: 25px;
+  color: #13437c;
+  margin: auto;
 }
 
-.main__teacher-course{
-    width: auto;
-    margin: 0 auto;
-    text-align: center;
+.main__teacher-course {
+  width: auto;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.main__teacher-img{
-    width: 150px;
-    height: 150px;
-    margin-top: 20px;
+.main__teacher-img {
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
 }
 
-.main__teacher-navigation-link{
-    width: auto;
-    text-align: center;
-    margin: 10px auto;
+.main__teacher-navigation-link {
+  width: auto;
+  text-align: center;
+  margin: 10px auto;
 }
 
-.main__teacher-navigation{
-    color: #114a8e;
-    text-decoration: none;
-    font-family: Montserrat-Light;
-    font-size: 15px;
+.main__teacher-navigation {
+  color: #114a8e;
+  text-decoration: none;
+  font-family: Montserrat-Light;
+  font-size: 15px;
 }
 
-.main__teacher-navigation_size{
-    font-family: Montserrat-Medium;
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
-    color: #114a8e;
+.main__teacher-navigation_size {
+  font-family: Montserrat-Medium;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #114a8e;
 }
 
-.main{
-   
-    margin-left: 70px;     
-    transition: 0.2s; 
+main {
+  margin-left: 70px;
+  margin-top: 50px;
+  transition: 0.2s;
 }
 
-.main-active{
-    margin-left: 300px;
-    transition: 0.2s;
+.main-menu {
+  z-index: 5;
+  transition: 0.2s;
 }
+
+.header-main-active {
+  margin-left: 300px;
+  transition: 0.2s;
+}
+
+.main-header__box-show {
+  margin-right: 360px;
+  transition: 0.2s;
+}
+
+
+.main-header__notifications-show {
+  margin-right: 300px;
+  transition: 0.2s;
+}
+
+
+
+.main-header__personal-area-show {
+  right: 360px;
+  transition: 0.2s;
+}
+
+.main-header__drop-down-notifications {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.main-header__personal-area-options-block_left {
+  justify-content: flex-start;
+  border-bottom: 1px solid black;
+}
+
+.main-header__personal-area-link_margin {
+  margin-left: 10px;
+}
+
+.main-header__notification {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  font-family: Montserrat-Medium;
+  padding: 10px;
+}
+
+.main-header__all-notifications-container {
+  text-align: center;
+}
+
+.main-header__all-notifications {
+  font-family: Montserrat-Medium;
+  font-size: 12px;
+  color: #112c71;
+}
+
 
 .alert {
     width: 90%;

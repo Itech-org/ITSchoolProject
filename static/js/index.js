@@ -4,6 +4,7 @@ window.onload = function () {
 
   document.querySelector(".main-header__open").onclick = function () {
     document.querySelector(".main-header__personal-area").classList.toggle("no-active");
+    document.querySelector(".main-header__drop-down-notifications").classList.add("no-active");
   };
 
   document.querySelector(".main-header__personal-area").onmouseout = function () {
@@ -29,11 +30,13 @@ window.onload = function () {
     document.querySelector(".main-header__box").classList.add("main-header__box-show");
     document.querySelector(".main-header__personal-area").classList.add("main-header__personal-area-show");
 
+    document.querySelector(".main-header__drop-down-notifications").classList.add("main-header__notifications-show");
+
     document.querySelectorAll(".main-menu__item-descriotion").forEach((elem) => elem.classList.remove("no-active"));
     document.querySelectorAll(".main-menu__item").forEach((elem) => elem.classList.add("main-menu__item-show"));
     document.querySelectorAll(".main-menu__item-box").forEach((elem) => elem.classList.add("main-menu__item-box-show"));
 
-    document.querySelector("main").classList.add("main-active");
+    document.querySelector("main").classList.add("header-main-active");
     document.querySelector("header").classList.add("header-main-active");
   };
 
@@ -49,6 +52,8 @@ window.onload = function () {
 
     document.querySelector(".main-menu__item-col").classList.remove("main-menu__item-col-show");
 
+    document.querySelector(".main-header__drop-down-notifications").classList.remove("main-header__notifications-show");
+
     document.querySelector(".main-header__box").classList.remove("main-header__box-show");
     document.querySelector(".main-header__personal-area").classList.remove("main-header__personal-area-show");
 
@@ -56,7 +61,7 @@ window.onload = function () {
     document.querySelectorAll(".main-menu__item").forEach((elem) => elem.classList.remove("main-menu__item-show"));
     document.querySelectorAll(".main-menu__item-box").forEach((elem) => elem.classList.remove("main-menu__item-box-show"));
 
-    document.querySelector("main").classList.remove("main-active");
+    document.querySelector("main").classList.remove("header-main-active");
     document.querySelector("header").classList.remove("header-main-active");
   };
 
@@ -76,6 +81,26 @@ window.onload = function () {
 
   document.querySelector(".main-menu__box-for-subitem").onmouseover = function () {
     document.querySelector(".main-menu__box-for-subitem").classList.remove("no-active");
+  };
+
+  // открыть подпункты уведомлений
+
+  document.querySelector(".main-header__img-notifications").onclick = function () {
+    document.querySelector(".main-header__drop-down-notifications").classList.toggle("no-active");
+    document.querySelector(".main-header__personal-area").classList.add("no-active");
+  };
+
+  document.querySelector(".main-header__drop-down-notifications").onmouseout = function () {
+    document.querySelector(".main-header__drop-down-notifications").classList.add("no-active");
+  };
+
+  document.querySelector(".main-header__drop-down-notifications").onmouseover = function () {
+    document.querySelector(".main-header__drop-down-notifications").classList.remove("no-active");
+  };
+
+  document.querySelector("main").onmouseover = function () {
+    document.querySelector(".main-header__drop-down-notifications").classList.add("no-active");
+    document.querySelector(".main-header__personal-area").classList.add("no-active");
   };
 
   // открыть(скрыть) курс
