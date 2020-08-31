@@ -81,7 +81,7 @@
     <nav class="main-menu">
       <div class="main-menu__logo">
         <div class="main-header__box-for-logo">
-          <a href="#">
+          <a href="{% url 'admin_school:main_page_view' %}">
             <img src="{% static 'images/logo.svg' %}" alt="logo" class="main-menu__logo-img" />
           </a>
           <img src="{% static 'images/hide.svg' %}" alt="зыкрыть меню" class="main-menu__hide-img no-active" />
@@ -94,7 +94,7 @@
 
       <div class="main-menu__box-for-item">
         <div class="main-menu__item">
-          <a href="{% url 'admin_school:main_page_admin' %}" class="main-menu__item-box">
+          <a href="{% url 'admin_school:main_page_view' %}" class="main-menu__item-box">
             <img src="{% static 'images/icon.svg' %}" alt="календарь" class="main-menu__item-img" />
             <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
           </a>
@@ -107,10 +107,7 @@
           </a>
           <div class="main-menu__box-for-subitem no-active">
             <div class="main-menu__subitem">
-              <a href="#" class="main-menu__subitem-link">Домашнее задание</a>
-            </div>
-            <div class="main-menu__subitem">
-              <a href="#" class="main-menu__subitem-link">Группа</a>
+              <a href="{% url 'admin_school:group_list_view' %}" class="main-menu__subitem-link">Группа</a>
             </div>
             <div class="main-menu__subitem">
               <a href="#" class="main-menu__subitem-link">Учебные материалы</a>
@@ -172,7 +169,7 @@
         </div>
 
         <div class="main-menu__item">
-          <a href="{%url 'admin_school:logout_admin'%}" class="main-menu__item-box">
+          <a href="{%url 'admin_school:logout'%}" class="main-menu__item-box">
             <img src="{% static 'images/icon11.svg' %}" alt="календарь" class="main-menu__item-img" />
             <p class="main-menu__item-descriotion no-active">Выйти</p>
           </a>
