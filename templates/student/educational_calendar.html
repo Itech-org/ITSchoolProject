@@ -28,10 +28,6 @@
             </div>
         </div>
     </div>
-<!--    <div class="main-header__box-for-info">-->
-<!--        <p class="main-header__speciality-info-name">{{ group.title }}</p>-->
-<!--        <p class="main-header__speciality-info-group"></p>-->
-<!--    </div>-->
 </div>
 {% endblock %}
 {% block content %}
@@ -45,10 +41,8 @@
                 <p class="main-calendar__lesson-last-name">{{ class.description }}</p>
             </div>
             <div class="main-calendar__teacher-box">
-                <!-- <img src="../img/foto_prepoda.png" alt="teacher" class="main-calendar__teacher-foto" /> -->
                 <p class="main-calendar__teacher">Преподаватель</p>
                 <p class="main-calendar__teacher-name">{{ class.groups.teacher.first_name }} {{ class.groups.teacher.last_name }}</p>
-<!--                <p class="main-calendar__teacher-speciality">{{ group.course.title }}</p>-->
             </div>
             <div class="main-calendar__name-homework-container">
                 <p class="main-calendar__name-homework">Домашнее задание</p>
