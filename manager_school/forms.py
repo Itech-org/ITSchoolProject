@@ -94,10 +94,12 @@ class StudyRequestForm(forms.ModelForm):
     specialist = forms.ModelChoiceField(label='Менеджер', queryset=AdvUser.objects.filter(groups__name='Manager'),
                                         widget=forms.Select(attrs={}))
 
+
+
     class Meta:
         model = StudyRequest
         fields = ('enter_date', 'last_name', 'first_name', 'patronymic', 'communication_type',
-                  'tel_number', 'email', 'course', 'source', 'specialist', 'status')
+                  'tel_number', 'email', 'course', 'source', 'specialist', 'status',)
 
 
 class ContractForm(forms.ModelForm):
