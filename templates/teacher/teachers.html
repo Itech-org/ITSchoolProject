@@ -33,6 +33,7 @@
                     <p class="teacher__teacher-tel no-active">{{t.phone}}</p>
                     <p class="teacher__teacher-email no-active">{{t.email}}</p>
                     <p class="teacher__teacher-viber-telegramm no-active">+375 (25) 923 98 21</p>
+                    <a hidden class="teacher__teacher-message" href="{% url 'teacher:create_dialog' t.id %}"></a>
                 </div>
             </div>
             {% endfor %}
@@ -52,12 +53,14 @@
                     <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
                     <p class="teacher__profile-telegram-number"></p>
                 </div>
-                <p class="teacher__box-for-teacher-link"><a href="#" class="teacher_teacher-card-link">Перейти на профиль преподавателя</a></p>
-                <a href="" class="teacher__profile-link-send-message">
+                <p class="teacher__box-for-teacher-link"><a href="" class="teacher_teacher-card-link">Перейти на
+                        профиль преподавателя</a>
                     <p class="teacher__profile-link-send-message-box">
-                        Отправить сообщение
+                        <a href="" class="teacher__profile-link-send-message">
+                            Отправить сообщение
+                        </a>
                     </p>
-                </a>
+                </p>
             </div>
         </div>
     </div>

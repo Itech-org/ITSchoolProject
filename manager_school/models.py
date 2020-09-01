@@ -145,7 +145,7 @@ class ClassModel(models.Model):  # Занятие
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
     position = models.IntegerField(default=1, null=True, verbose_name="Номер занятия")
-    room_link = models.URLField(null=True, blank=True, verbose_name="Ссылка на комнату занятия")
+    room_link = models.URLField(null=True, verbose_name="Ссылка на комнату занятия", blank=True)
     message = models.TextField(verbose_name='Сообщение', blank=True)
 
 
@@ -164,10 +164,15 @@ class ClassModel(models.Model):  # Занятие
 
 
 class Attendance(models.Model): #Посещение
+    CHOICES = (
+        ('Присутствует', 'Присутствует'),
+        ('Отсутствует', 'Отсутствует'),
+        ('Отсутствует по уважительной причине', 'Отсутствует по уважительной причине'),
+        )
     classes =models.ForeignKey(ClassModel, on_delete=models.CASCADE, related_name='attendances')
     students = models.ForeignKey(AdvUser, on_delete=models.CASCADE, related_name="attendances")
     rating = models.IntegerField('Оценка', null=True, blank=True)
-    attendance = models.BooleanField('Присутствие', default=False)
+    attendance = models.CharField(max_length=300, choices = CHOICES, default='Отсутствует')
 
     class Meta:
         ordering = ['students', 'attendance', 'rating',]
