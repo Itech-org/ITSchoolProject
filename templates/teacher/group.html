@@ -51,7 +51,7 @@
                     <p class="group__student-first-name">{{st.last_name}}</p>
                     <p class="group__student-patronymic">{{st.surname}}</p>
                 </a>
-                <a href="{% url 'teacher:messages' st.id %}" class="group__sent-message-link">
+                <a href="{% url 'teacher:create_dialog' st.id %}" class="group__sent-message-link">
                     <p class="group__box-for-link">Отправить сообщение</p>
                 </a>
             </div>

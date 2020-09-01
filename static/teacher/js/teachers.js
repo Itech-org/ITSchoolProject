@@ -14,6 +14,9 @@
     document.querySelector(".teacher__profile-telegram-number").innerHTML = telegram.innerHTML;
     let img = unit.querySelector(".teachers__foto-teacher").getAttribute("src");
     document.querySelector(".teacher__big-foto-teacher").setAttribute("src", `${img}`);
+    let message = unit.querySelector(".teacher__teacher-message").getAttribute("href");
+    document.querySelector(".teacher__profile-link-send-message").setAttribute("href", `${message}`);
+
   }
 
   defaultFillProfile(document.querySelector(".teachers__unit-teacher"));
@@ -23,4 +26,3 @@
     let unit = this;
     defaultFillProfile(unit);
   }
-
