@@ -1,10 +1,9 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% block title %}
-<title>Contact administrator</title>
+<title>Связаться с администратором</title>
 {% endblock %}
 {% block style %}
-<!--<link rel="stylesheet" href="{% static 'css/contact_administrator.css' %}"/>-->
 <link rel="stylesheet" href="{% static 'css/connection-admin.css' %}"/>
 {% endblock %}
 {% block content %}
@@ -17,13 +16,14 @@
             </p>
             <div class="main-connection__box">
                 <div class="main-connection__box-border">
-                    <input type="textarea" value="" name="message" required placeholder="Введите текст" class="main-connection__textarea"/>
+                    <input type="textarea" value="" name="title" required placeholder="Введите краткое описание" class="main-connection__title"/>
+                    <textarea value="" name="description" required placeholder="Опишите проблему" class="main-connection__description"></textarea>
                 </div>
             </div>
             <div class="main-connection__box-for-input">
                 <button class="main-connection__button-for-file">
                     Прикрепить файл
-                    <input type="file" value="" name="document" class="main-connection__file" multiple/>
+                    <input type="file" value="" name="file" class="main-connection__file" multiple/>
                 </button>
                 <input type="submit" value="Отправить" name="" class="main-connection__submit"/>
             </div>

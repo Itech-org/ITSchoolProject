@@ -62,14 +62,6 @@ def logout_request(request):
     return redirect("student:login")
 
 
-# class Login_View(LoginView):
-#     template_name = 'student/login.html'
-
-
-class Logout_View(LoginRequiredMixin, LogoutView):
-    template_name = "student/logout.html"
-
-
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def Change_user_info(request):
     if request.method == "POST":
@@ -96,7 +88,20 @@ def main_page_view(request):
     my_groups = GroupModel.objects.filter(students__id=my_id)
     course = [x.course for x in my_groups]
     teachers = [x.teacher for x in my_groups]
+    teachers = set(teachers)
     context = {'teachers': teachers, 'groups': my_groups, 'course': course}
+    try:
+        payment_stages = PaymentStage.objects.filter(payment__contract__account__id=my_id, date__lte=datetime.date.today()-datetime.timedelta(days=1))
+        unpaid_stages = []
+        for stage in payment_stages:
+            if not stage.picture:
+                alert = "No check"
+                unpaid_stages.append(stage)
+                context.update({'alert': alert})
+        count = len(unpaid_stages)
+        context.update({'unpaid_stages': unpaid_stages, 'count':count})
+    except:
+        None
     return render(request, 'student/main_page_student.html', context)
 
 
@@ -112,22 +117,6 @@ def account(request):
             unpaid += 1
     context = {'student': student, 'attendance': attendance, 'homework': homework, 'unpaid':unpaid}
     return render(request, "student/students_personal_card.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def my_courses(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id=my_id)
-    courses = group.course.all()
-    context = {'courses': courses}
-    return render(request, "student/my_courses.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def exact_course(request, course_id):
-    course = get_object_or_404(CourseModel, id=course_id)
-    context = {'course': course}
-    return render(request, "student/exact_course.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
@@ -159,18 +148,6 @@ def exact_homework(request, homework_id):
     cls = ClassModel.objects.filter(homework__id__in=hw_id)
     context = {'homework': homework, 'cls': cls}
     return render(request, "student/exact_homework.html", context)
-
-
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
-def shedule_view(request):
-    my_id = request.user.id
-    group = get_object_or_404(GroupModel, students__id=my_id)
-    group_id = group.id
-    shedule = get_object_or_404(SheduleModel, group__id=group_id)
-    shedule_id = shedule.id
-    cls = get_list_or_404(ClassModel, timetable__id=shedule_id)
-    context = {'shedule': shedule, 'class': cls}
-    return render(request, "student/shedule.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
@@ -206,6 +183,8 @@ def api_classes_list(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def class_view(request, class_id):
     cls = ClassModel.objects.get(id=class_id)
+    current_group = GroupModel.objects.get(classes=cls)
+    classes = current_group.classes.filter(date__lte=datetime.date.today())
     student_homework = [homework for homework in cls.homework.filter(user__id=request.user.id)]
     tries = len(student_homework)
     try:
@@ -221,9 +200,16 @@ def class_view(request, class_id):
         last_homework = student_homework[0]
     description = request.POST.get('description', '')
     file = request.FILES.get('file', '')
-    context = {'class': cls, 'tries': tries, 'attempts_left': attempts_left, 'homework': student_homework, 'last_homework': last_homework}
+    context = {'class': cls, 'tries': tries, 'attempts_left': attempts_left, 'homework': student_homework,
+               'last_homework': last_homework}
+    if classes.count() > 1:
+        all_classes = [cls for cls in classes]
+        last_class = all_classes[-1]
+        next_class = current_group.classes.get(position=int(last_class.position + 1))
+        context.update({'next_class': next_class})
     if request.POST:
-        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls, user=request.user)
+        homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls,
+                                 user=request.user, rating=0)
         if description:
             homework.description = description
         if file:
@@ -256,7 +242,7 @@ def teacher_view(request):
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def teacher_profile(request, teacher_id):
     teacher = get_object_or_404(AdvUser, id=teacher_id)
-    group = get_object_or_404(GroupModel, teacher_id=teacher_id, students__id=request.user.id)
+    groups = GroupModel.objects.filter(teacher_id=teacher_id, students__id=request.user.id)
     return render(request, 'student/teacher_card.html', {'teacher': teacher, 'group': group})
 
 
@@ -369,23 +355,19 @@ def group_profile(request, user_id):
 
 @user_passes_test_custom(check_group_and_activation, login_url='/login')
 def contact_admin(request):
-    if request.method == "POST":
-        print(request.POST)
-        admin = AdvUser.objects.filter(groups__name="Admin").order_by('-last_login')[0]
-        chats = Chat.objects.filter(members__in=[request.user.id, admin.id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
-        if chats.count() == 0:
-            chat = Chat.objects.create()
-            chat.members.add(request.user)
-            chat.members.add(admin.id)
-        else:
-            chat = chats.first()
-        form = MessageForm(request.POST, request.FILES)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.chat_id = chat.id
-            message.author = request.user
-            message.save()
-        return redirect(reverse('student:messages', kwargs={'chat_id': chat.id}))
+    if request.POST:
+        title = request.POST.get('title', '')
+        description = request.POST.get('description', '')
+        file = request.FILES.get('file', '')
+        requestmodel = ContactAdmin(author = request.user)
+        if title:
+            requestmodel.title = title
+        if description:
+            requestmodel.description = description
+        if file:
+            requestmodel.file = file
+        requestmodel.save()
+        return redirect('student:contact_admin')
     return render(request, 'student/contact_administrator.html')
 
 
@@ -419,29 +401,32 @@ def services(request):
 def payment(request):
     groups, current_group = group_filter(request)
     user_payment = get_user_payment(request, current_group)
-    payment_stages = get_payment_stages(request, current_group)
-    if user_payment.by_stages == True:
-        percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
-        context = {
-            'group': current_group, 'groups': groups,
-            'payment_stages': payment_stages, 'payment': user_payment,
-            'percentage': percentage, 'paid_amount': paid_amount,
-            'stages_amount': stages_amount
-        }
+    if user_payment == None:
+        return redirect(reverse('student:account'))
     else:
-        context = {
-            'group': current_group, 'groups': groups,
-            'payment_stages': payment_stages, 'payment': user_payment
-        }
-    picture = request.FILES.get('picture', '')
-    if picture:
-        save_picture(request, payment_stages, picture)
         payment_stages = get_payment_stages(request, current_group)
-        context.update({'payment_stages':payment_stages})
         if user_payment.by_stages == True:
-            alert = get_alert(request, payment_stages)
-            context.update({'alert':alert})
-    return render(request, 'student/payment_stages.html', context)
+            percentage, paid_amount, stages_amount = get_paid_percent(payment_stages)
+            context = {
+                'group': current_group, 'groups': groups,
+                'payment_stages': payment_stages, 'payment': user_payment,
+                'percentage': percentage, 'paid_amount': paid_amount,
+                'stages_amount': stages_amount
+            }
+        else:
+            context = {
+                'group': current_group, 'groups': groups,
+                'payment_stages': payment_stages, 'payment': user_payment
+            }
+        picture = request.FILES.get('picture', '')
+        if picture:
+            save_picture(request, payment_stages, picture)
+            payment_stages = get_payment_stages(request, current_group)
+            context.update({'payment_stages':payment_stages})
+            if user_payment.by_stages == True:
+                alert = get_alert(request, payment_stages)
+                context.update({'alert':alert})
+        return render(request, 'student/payment_stages.html', context)
 # ---- ЧАТ ----
 
 

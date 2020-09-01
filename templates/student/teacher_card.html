@@ -32,8 +32,8 @@
             Возможные способы связи:
           </p>
           <div class="main__teacher-card-text_size_bold">
-            <p>Телефон: {{ teacher.phone }}</p>
-            <p>Электронный ящик: {{ teacher.email }}</p>
+              <p>Телефон: <span class="main__teacher-card-text-span">{{ teacher.phone }}</span></p>
+              <p>Электронный ящик: <span class="main__teacher-card-text-span">{{ teacher.email }}</span></p>
           </div>
           <a href="{% url 'student:create_dialog' user_id=teacher.id %}" class="main__teacher-card-link">
             Отправить сообщение

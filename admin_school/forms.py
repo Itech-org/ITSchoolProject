@@ -1,6 +1,7 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.forms import Select
+from django.contrib.auth.forms import AuthenticationForm
 
 from manager_school.models import ClassModel
 from manager_school.models import News
@@ -46,3 +47,8 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = ("title", "description", "rubrick")
         widgets = {"rubrick": Select(attrs={'size': 4})}
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'main__open-student-input', 'placeholder': 'Логин *'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'main__open-student-input', 'placeholder': 'Пароль *'}))

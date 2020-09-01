@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -14,13 +14,43 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect
 from .signals import receiver_function
 from .filters import CostsFilter
+from .forms import *
 
-class Login_View(LoginView):
-    template_name = 'admin/main_page/autorization_page_admin.html'
+
+def login_user(request):
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("admin_school:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('admin_school:main_page_view')
+            else:
+                return redirect("admin_school:login")
+        else:
+            form = LoginForm()
+            return render(request, 'admin/authorization_page.html', {'form': form})
+    else:
+        return redirect('admin_school:main_page_view')
+
+
+def logout_request(request):
+    logout(request)
+    return redirect("admin_school:login")
+
+# class Login_View(LoginView):
+#     template_name = 'admin/main_page/autorization_page_admin.html'
 
 
 class Logout_View(LogoutView):
-    template_name = "admin/logout_admin.html"
+    template_name = "admin/logout.html"
 
 
 def check_group_and_activation(request):
@@ -34,7 +64,7 @@ def check_group_and_activation(request):
         return False
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
+@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/login')
 def main_page_view(request):
     return render(request, template_name='admin/main_page.html')
 
@@ -57,19 +87,20 @@ def student_card(request, id):
     context = {'info': card}
     return render(request, 'admin/card_student.html', context)
 
-
+# Расписание
 def timetable(request):
     timetab = ClassModel.objects.all()
     context = {"timetab": timetab}
     return render(request, "admin/timetable.html", context)
 
-
+# Преподаватели
 def teachers_view(request):
     teachers = AdvUser.objects.filter(groups__name='Teacher')
     context = {"teachers": teachers}
     return render(request, 'admin/teacher_tab.html', context)
 
 
+# изменение расписания
 def revise_timetable(request, pk):
     try:
         rev_timetable = get_object_or_404(ClassModel, pk=pk)
@@ -88,8 +119,9 @@ def revise_timetable(request, pk):
         return HttpResponseNotFound("<h2>not found</h2>")
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
-def costs(request): #Форма для заполнения Расходов
+#Форма для заполнения Расходов
+@user_passes_test_custom(check_group_and_activation, login_url='/login')
+def costs(request):
     if request.method == "POST":
         cost = CostsForm(request.POST)
         if cost.is_valid():
@@ -100,8 +132,8 @@ def costs(request): #Форма для заполнения Расходов
         cost = CostsForm()
     return render(request, "admin/costs.html", {'cost': cost})
 
-
-@user_passes_test_custom(check_group_and_activation, login_url='/admin_school/autorization_page_admin')
+#Расходы
+@user_passes_test_custom(check_group_and_activation, login_url='/login')
 def costs_admin(request): #Отображение расходов в admin_school
     cost_a = Costs.objects.all()
     f = CostsFilter(request.GET, queryset=Costs.objects.all())

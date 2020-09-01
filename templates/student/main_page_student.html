@@ -1,245 +1,95 @@
 {% extends 'student/base_student.html' %}
 {% load static %}
 {% load tags %}
-<!--<!DOCTYPE html>-->
-<!--{% load static %}-->
-<!--<html lang="en">-->
-<!--  <head>-->
-<!--    <meta charset="UTF-8" />-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
 {% block title %}
-<title>Main page</title>
+    <title>ITEC</title>
 {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}"/>
-<link rel="stylesheet" href="{% static 'css/main-page.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main-page.css' %}"/>
 {% endblock %}
-<!--  </head>-->
-<!--  <body>-->
-<!--    <header class="main-header">-->
-<!--      <div class="main-header__box">-->
-<!--        <p class="main-header_box-for-notification">-->
-<!--          <img src="{% static 'img/Group.svg' %}" alt="уведомления" class="main-header__img-notifications" />-->
-<!--          <span class="main-header__col-notification">2</span>-->
-<!--        </p>-->
-<!--        <p class="main-header__name">Алина</p>-->
-<!--        <img src="{% static 'img/Eul_Ehp2xyU.png' %}" alt="фото студента" class="main-header__img-foto" />-->
-<!--        <img src="{% static 'img/Polygon.svg' %}" alt="развернуть" class="main-header__open" />-->
-<!--      </div>-->
-<!--      <div class="main-header__personal-area no-active">-->
-<!--        <div class="main-header__personal-area-options">-->
-<!--          <p class="main-header__personal-area-options-block">-->
-<!--            <a href="#" class="main-header__personal-area-link">Редактировать страницу</a>-->
-<!--            <img src="{% static 'img/Ellipse.svg' %}" alt="point" />-->
-<!--          </p>-->
-<!--          <img src="{% static 'img/Rectangle.svg' %}" alt="подчеркивание" class="main-header__border-bottom" />-->
-<!--        </div>-->
-
-<!--        <div class="main-header__personal-area-options">-->
-<!--          <p class="main-header__personal-area-options-block">-->
-<!--            <a href="#" class="main-header__personal-area-link"><span class="main-header__personal-area-col">2</span> Сообщения</a>-->
-<!--            <img src="{% static 'img/Ellipse.svg' %}" alt="point" />-->
-<!--          </p>-->
-<!--          <img src="{% static 'img/Rectangle.svg' %}" alt="подчеркивание" class="main-header__border-bottom" />-->
-<!--        </div>-->
-
-<!--        <div class="main-header__personal-area-options main-header__personal-area-options_go-out">-->
-<!--          <p class="main-header__personal-area-options-block">-->
-<!--            <a href="#" class="main-header__personal-area-link">Выйти</a>-->
-<!--            <img src="{% static 'img/Ellipse.svg' %}" alt="point" />-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </header>-->
-<!--    <nav class="main-menu">-->
-<!--      <div class="main-menu__logo">-->
-<!--        <div class="main-header__box-for-logo">-->
-<!--          <img src="{% static 'img/logo.svg' %}" alt="logo" class="main-menu__logo-img" />-->
-<!--          <img src="{% static 'img/hide.svg' %}" alt="зыкрыть меню" class="main-menu__hide-img no-active" />-->
-<!--        </div>-->
-<!--        <div class="main-menu__show">-->
-<!--          <img src="{% static 'img/show.svg' %}" alt="открыть меню" class="main-menu__show-img" />-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="main-menu__box-for-item">-->
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Учебный календарь</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item main-menu__item_subiteam">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon19.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Учебный процесс</p>-->
-<!--          </a>-->
-<!--          <div class="main-menu__box-for-subitem no-active">-->
-<!--            <div class="main-menu__subitem">-->
-<!--              <a href="#" class="main-menu__subitem-link">Домашнее задание</a>-->
-<!--            </div>-->
-<!--            <div class="main-menu__subitem">-->
-<!--              <a href="#" class="main-menu__subitem-link">Группа</a>-->
-<!--            </div>-->
-<!--            <div class="main-menu__subitem">-->
-<!--              <a href="#" class="main-menu__subitem-link">Учебные материалы</a>-->
-<!--            </div>-->
-<!--            <div class="main-menu__subitem">-->
-<!--              <a href="#" class="main-menu__subitem-link">Преподаватели</a>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item main-menu__item_position">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon18.svg' %}" alt="чат" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Чат</p>-->
-<!--            <span class="main-menu__item-col">2</span>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon2.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Преподаватель</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon16.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Связаться с администратором</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon15.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Услуги</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon4.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Новости школы</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon13.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Планировщик</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item main-menu__item-margin">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon12.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Изменить личные данные</p>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="main-menu__item">-->
-<!--          <a href="#" class="main-menu__item-box">-->
-<!--            <img src="{% static 'img/icon11.svg' %}" alt="календарь" class="main-menu__item-img" />-->
-<!--            <p class="main-menu__item-descriotion no-active">Выйти</p>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </nav>-->
 {% block content %}
-<main class="main">
-    <div class="main__student-tool">
-        <a href="{% url 'student:calendar' %}" class="main__student-tool-link">
-            <div class="main__student-tool-box">
-                <div class="main__student-tool-box-img">
-                    <img src="{% static 'img/calendar.svg' %}" alt="календарь ученика" class="main__student-tool-img"/>
+    <main class="main">
+        <div class="main__student-tool">
+            <a href="{% url 'student:calendar' %}" class="main__student-tool-link">
+                <div class="main__student-tool-box">
+                    <div class="main__student-tool-box-img">
+                        <img src="{% static 'img/calendar.svg' %}" alt="календарь ученика"
+                             class="main__student-tool-img"/>
+                    </div>
+                    <p class="main__student-tool-text-link">
+                        Учебный календарь
+                    </p>
                 </div>
-                <p class="main__student-tool-text-link">
-                    Учебный календарь
-                </p>
-            </div>
-        </a>
-        <a href="{% url 'student:process' %}" class="main__student-tool-link">
-            <div class="main__student-toll-box">
-                <div class="main__student-tool-box-img">
-                    <img src="{% static 'img/process2.jpg' %}" alt="учебный процесс" class="main__student-tool-img"/>
-                </div>
-                <p class="main__student-tool-text-link">
-                    Учебный процесс
-                </p>
-            </div>
-        </a>
-        <a href="{% url 'student:chats' %}" class="main__student-tool-link">
-            <div class="main__student-tool-box">
-                <div class="main__student-tool-box-img">
-                    <img src="{% static 'img/chat.svg' %}" alt="чат" class="main__student-tool-img"/>
-                </div>
-                <p class="main__student-tool-text-link">
-                    ЧАТ
-                </p>
-            </div>
-        </a>
-    </div>
-    <div class="main__teacher">
-        <p class="main__teacher-name">
-            Преподаватели:
-        </p>
-        {% for teacher in teachers %}
-        <div class="main__teacher-course">
-            <a href="{% url 'student:teacher_profile' teacher_id=teacher.id %}" class="main__teacher-navigation">
-                {% if teacher.img_user %}
-                    <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="main__teacher-img"/>
-                {% else %}
-                    <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-img"/>
-                {% endif %}
-                <p class="main__teacher-navigation-link">
-                    {{ teacher.first_name }} {{ teacher.last_name }}
-                </p>
             </a>
-            <p class="main__teacher-navigation-link">
-                <a href="#" class="main__teacher-navigation_size">
-                    {% get_teacher_courses teacher request.user as courses %}
-                        {% for course in courses %}
-                            {{ course.title }}
-                        {% endfor %}
-                </a>
-            </p>
+            <a href="{% url 'student:process' %}" class="main__student-tool-link">
+                <div class="main__student-toll-box">
+                    <div class="main__student-tool-box-img">
+                        <img src="{% static 'img/process2.jpg' %}" alt="учебный процесс"
+                             class="main__student-tool-img"/>
+                    </div>
+                    <p class="main__student-tool-text-link">
+                        Учебный процесс
+                    </p>
+                </div>
+            </a>
+            <a href="{% url 'student:chats' %}" class="main__student-tool-link">
+                <div class="main__student-tool-box">
+                    <div class="main__student-tool-box-img">
+                        <img src="{% static 'img/chat.svg' %}" alt="чат" class="main__student-tool-img"/>
+                    </div>
+                    <p class="main__student-tool-text-link">
+                        ЧАТ
+                    </p>
+                </div>
+            </a>
         </div>
-        {% endfor %}
-        <!--        <div class="main__teacher-course">-->
-        <!--          <img src="{% static 'img/foto_prepoda.png' %}" alt="фото преподавателя" class="main__teacher-img" />-->
-        <!--          <p class="main__teacher-navigation-link">-->
-        <!--            <a href="#" class="main__teacher-navigation">-->
-        <!--              Алина Грищенко-->
-        <!--            </a>-->
-        <!--          </p>-->
-        <!--          <p class="main__teacher-navigation-link">-->
-        <!--            <a href="#" class="main__teacher-navigation_size">-->
-        <!--              Back-End-->
-        <!--            </a>-->
-        <!--          </p>-->
-        <!--        </div>-->
-        <!--        <div class="main__teacher-course">-->
-        <!--          <img src="{% static 'img/foto_prepoda.png' %}" alt="фото преподавателя" class="main__teacher-img" />-->
-        <!--          <p class="main__teacher-navigation-link">-->
-        <!--            <a href="#" class="main__teacher-navigation">-->
-        <!--              Алина Грищенко-->
-        <!--            </a>-->
-        <!--          </p>-->
-        <!--          <p class="main__teacher-navigation-link">-->
-        <!--            <a href="#" class="main__teacher-navigation_size">-->
-        <!--              Тестировщик-->
-        <!--            </a>-->
-        <!--          </p>-->
-        <!--        </div>-->
-    </div>
-</main>
+        <div class="main__teacher">
+            <p class="main__teacher-name">
+                Преподаватели:
+            </p>
+            {% for teacher in teachers %}
+                <div class="main__teacher-course">
+                    <a href="{% url 'student:teacher_profile' teacher_id=teacher.id %}"
+                       class="main__teacher-navigation">
+                        {% if teacher.img_user %}
+                            <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="main__teacher-img"/>
+                        {% else %}
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;"
+                                 alt="фото преподавателя" class="main__teacher-img"/>
+                        {% endif %}
+                        <p class="main__teacher-navigation-link">
+                            {{ teacher.first_name }} {{ teacher.last_name }}
+                        </p>
+                    </a>
+                    <p class="main__teacher-navigation-link">
+                        <a href="#" class="main__teacher-navigation_size">
+                            {% get_teacher_courses teacher request.user as courses %}
+                            {% for course in courses %}
+                                {{ course.title }}
+                            {% endfor %}
+                        </a>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        {% if alert == 'No check' %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Просрочена оплата за
+                {% if count > 1 %}
+                    {% for stage in unpaid_stages %}
+                        {{ stage.date }},
+                    {% endfor %}
+                {% else %}
+                    {% for stage in unpaid_stages %}
+                        {{ stage.date }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </main>
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
-<!--  </body>-->
-<!--</html>-->

@@ -1,1 +1,234 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="main-page.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="main-header__box">
+        <div class="main-header_box-for-notification">
+          <img src="../img/Group.svg" alt="уведомления" class="main-header__img-notifications" />
+          <span class="main-header__col-notification">2</span>
+        </div>
+        <p class="main-header__name">Алина</p>
+        <img src="../img/Eul_Ehp2xyU.png" alt="фото студента" class="main-header__img-foto" />
+        <img src="../img/Polygon.svg" alt="развернуть" class="main-header__open" />
+
+        <!-- ////////////////////// -->
+
+        <div class="main-header__drop-down-notifications no-active">
+          <div class="main-header__notification">
+            <img src="../img/Ellipse.svg" alt="point" />
+            <p class="main-header__personal-area-link main-header__personal-area-link_margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, eligendi blanditiis.</p>
+          </div>
+
+          <div class="main-header__notification">
+            <img src="../img/Ellipse.svg" alt="point" />
+            <p class="main-header__personal-area-link main-header__personal-area-link_margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, eligendi blanditiis.</p>
+          </div>
+
+          <div class="main-header__notification">
+            <img src="../img/Ellipse.svg" alt="point" />
+            <p class="main-header__personal-area-link main-header__personal-area-link_margin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, eligendi blanditiis.</p>
+          </div>
+          <p class="main-header__all-notifications-container">
+            <a href="" class="main-header__all-notifications">Показать все уведомления</a>
+          </p>
+        </div>
+
+        <!-- //////////////////////// -->
+      </div>
+      <div class="main-header__personal-area no-active">
+        <div class="main-header__personal-area-options">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link">Редактировать страницу</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />
+        </div>
+
+        <div class="main-header__personal-area-options">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link"><span class="main-header__personal-area-col">2</span> Сообщения</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />
+        </div>
+
+        <div class="main-header__personal-area-options main-header__personal-area-options_go-out">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link">Выйти</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+        </div>
+      </div>
+    </header>
+    <nav class="main-menu">
+      <div class="main-menu__logo">
+        <div class="main-header__box-for-logo">
+          <a href="">
+            <img src="../img/logo.svg" alt="logo" class="main-menu__logo-img" />
+          </a>
+          <img src="../img/hide.svg" alt="зыкрыть меню" class="main-menu__hide-img no-active" />
+        </div>
+        <div class="main-menu__show">
+          <img src="../img/show.svg" alt="открыть меню" class="main-menu__show-img" />
+        </div>
+      </div>
+
+      <div class="main-menu__box-for-item">
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item main-menu__item_subiteam">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon19.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Учебный процесс</p>
+          </a>
+          <div class="main-menu__box-for-subitem no-active">
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Домашнее задание</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Группа</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Учебные материалы</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Преподаватели</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-menu__item main-menu__item_position">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon18.svg" alt="чат" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Чат</p>
+            <span class="main-menu__item-col">2</span>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon2.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Преподаватель</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon16.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Связаться с администратором</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon15.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Услуги</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon4.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Новости школы</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon13.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Планировщик</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item main-menu__item-margin">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon12.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Изменить личные данные</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon11.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Выйти</p>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div>
+        <div class="main__student-tool">
+          <div class="main__student-tool-box">
+            <div class="main__student-tool-box-img">
+              <img src="../img/calendar.svg" alt="календарь ученика" class="main__student-tool-img" />
+            </div>
+            <p class="main__student-tool-text-link">
+              <a href="#" class="main__student-tool-link"> Учебный календарь </a>
+            </p>
+          </div>
+          <div class="main__student-toll-box">
+            <div class="main__student-tool-box-img">
+              <img src="../img/process2.jpg" alt="учебный процесс" class="main__student-tool-img" />
+            </div>
+            <p class="main__student-tool-text-link">
+              <a href="#" class="main__student-tool-link"> Учебный процесс </a>
+            </p>
+          </div>
+          <div class="main__student-tool-box">
+            <div class="main__student-tool-box-img">
+              <img src="../img/chat.svg" alt="чат" class="main__student-tool-img" />
+            </div>
+            <p class="main__student-tool-text-link">
+              <a href="#" class="main__student-tool-link"> ЧАТ </a>
+            </p>
+          </div>
+        </div>
+        <div class="main__teacher">
+          <p class="main__teacher-name">Преподаватель:</p>
+          <div class="main__teacher-course">
+            <img src="../img/foto_prepoda.png" alt="фото преподавателя" class="main__teacher-img" />
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation"> Алина Грищенко </a>
+            </p>
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation_size"> Front-End </a>
+            </p>
+          </div>
+          <div class="main__teacher-course">
+            <img src="../img/foto_prepoda.png" alt="фото преподавателя" class="main__teacher-img" />
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation"> Алина Грищенко </a>
+            </p>
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation_size"> Back-End </a>
+            </p>
+          </div>
+          <div class="main__teacher-course">
+            <img src="../img/foto_prepoda.png" alt="фото преподавателя" class="main__teacher-img" />
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation"> Алина Грищенко </a>
+            </p>
+            <p class="main__teacher-navigation-link">
+              <a href="#" class="main__teacher-navigation_size"> Тестировщик </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+</html>
