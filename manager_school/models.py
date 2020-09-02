@@ -180,12 +180,12 @@ class Attendance(models.Model): #Посещение
         verbose_name_plural = 'Посещения'
 
 
-class Notification(models.Model): #уведомление
+class Notification(models.Model): #уведомление для группы
     sender = models.ForeignKey(ClassModel, on_delete=models.CASCADE, null=True, related_name='sender_notification',
                                verbose_name='Отправитель')
     recipient = models.ForeignKey(GroupModel, on_delete=models.CASCADE, verbose_name='Получатель')
     message = models.TextField(verbose_name='Сообщение')
-    recieved_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата получения')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата получения')
 
     def __str__(self):
         return self.message
@@ -193,6 +193,19 @@ class Notification(models.Model): #уведомление
     class Meta:
         verbose_name = 'Уведомление о изменении '
         verbose_name_plural = 'Уведомления о изменениях'
+
+
+class PersonalNotification(models.Model): #персональные уведомления
+    recipient = models.ForeignKey(AdvUser, verbose_name='Получатель', on_delete=models.CASCADE)
+    message = models.TextField(max_length=512, verbose_name='Текст уведомления')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Время получения')
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        verbose_name = 'Персональное уведомление'
+        verbose_name_plural = 'Персональные уведомления'
 
 
 class Classroom(models.Model): #Аудитория

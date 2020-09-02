@@ -4,49 +4,55 @@
     <title>Страница преподавателя</title>
 {% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/teacher_card.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/teacher_card.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/teachercard.css' %}">
 {% endblock %}
 {% block header %}
-      <div class="main-header__page-information-change-specialty">
+    <div class="main-header__page-information-change-specialty">
         <p class="main-header__page-information">Страница преподавателя</p>
-      </div>
+    </div>
 {% endblock %}
 {% block content %}
-      <main>
-      <div class="main__teacher-card">
-        <div class="main__teacher-card-box">
-          <p class="main__teacher-card-text">
-            {{ teacher.first_name }} {{ teacher.surname }}
-          </p>
-          <p class="main__teacher-card-text-bold">
-            {{ teacher.last_name}}
-          </p>
-          <p class="main__teacher-card-text">
-            Курс
-            <span class="main__teacher-card-text-bold">
-              {{ group.course.title }}
-            </span>
-          </p>
-          <p class="main__teacher-card-text main__teacher-card-text_margin">
-            Возможные способы связи:
-          </p>
-          <div class="main__teacher-card-text_size_bold">
-              <p>Телефон: <span class="main__teacher-card-text-span">{{ teacher.phone }}</span></p>
-              <p>Электронный ящик: <span class="main__teacher-card-text-span">{{ teacher.email }}</span></p>
-          </div>
-          <a href="{% url 'student:create_dialog' user_id=teacher.id %}" class="main__teacher-card-link">
-            Отправить сообщение
-          </a>
+    <main>
+        <div class="main__teacher-card">
+            <div class="main__teacher-card-box">
+                <p class="main__teacher-card-text">
+                    {{ teacher.first_name }} {{ teacher.surname }}
+                </p>
+                <p class="main__teacher-card-text-bold">
+                    {{ teacher.last_name }}
+                </p>
+                <p class="main__teacher-card-text">
+                    {% if groups.count > 1 %}
+                        Курсы
+                    {% else %}
+                        Курс
+                    {% endif %}
+                    {% for group in groups %}
+                        <span class="main__teacher-card-text-bold">{{ group.course.title }} </span>
+                    {% endfor %}
+                </p>
+                <p class="main__teacher-card-text main__teacher-card-text_margin">
+                    Возможные способы связи:
+                </p>
+                <div class="main__teacher-card-text_size_bold">
+                    <p>Телефон: <span class="main__teacher-card-text-span">{{ teacher.phone }}</span></p>
+                    <p>Электронный ящик: <span class="main__teacher-card-text-span">{{ teacher.email }}</span></p>
+                </div>
+                <a href="{% url 'student:create_dialog' user_id=teacher.id %}" class="main__teacher-card-link">
+                    Отправить сообщение
+                </a>
+            </div>
+            <div class="main__teacher-card-box-img">
+                {% if teacher.img_user %}
+                    <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя"
+                         class="main__teacher-card-img"/>
+                {% else %}
+                    <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя"
+                         class="main__teacher-card-img"/>
+                {% endif %}
+            </div>
         </div>
-        <div class="main__teacher-card-box-img">
-            {% if teacher.img_user %}
-            <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
-            {% else %}
-            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="main__teacher-card-img"/>
-            {% endif %}
-        </div>
-      </div>
     </main>
 {% endblock %}
 {% block script %}

@@ -117,21 +117,11 @@ main {
 }
 
 
-
 .main-header__personal-area-show {
   right: 360px;
   transition: 0.2s;
 }
 
-.main-header__drop-down-notifications {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  width: 300px;
-  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
-  padding-left: 20px;
-  padding-bottom: 20px;
-}
 
 .main-header__personal-area-options-block_left {
   justify-content: flex-start;
@@ -141,6 +131,19 @@ main {
 .main-header__personal-area-link_margin {
   margin-left: 10px;
 }
+
+
+.main-header__drop-down-notifications {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  padding-left: 20px;
+  padding-bottom: 20px;
+    margin-right: 0;
+}
+
 
 .main-header__notification {
   display: flex;

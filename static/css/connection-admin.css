@@ -180,3 +180,14 @@
   font-family: Montserrat-SemiBold;
   color: #114a8e;
 }
+
+.main-header__drop-down-notifications {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  padding-left: 20px;
+  padding-bottom: 20px;
+    margin-right: 0;
+}

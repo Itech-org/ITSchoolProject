@@ -139,4 +139,5 @@ admin.site.register(Message)
 admin.site.register(UserManagement)
 admin.site.register(RubruckNews)
 admin.site.register(ContactAdmin)
+admin.site.register(PersonalNotification)
 

@@ -75,6 +75,38 @@ a{
     position: relative;
 }
 
+
+.main-header__drop-down-notifications {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  padding-left: 20px;
+  padding-bottom: 20px;
+    margin-right: 70px;
+}
+
+
+.main-header__notification {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  font-family: Montserrat-Medium;
+  padding: 10px;
+}
+
+.main-header__all-notifications-container {
+  text-align: center;
+}
+
+.main-header__all-notifications {
+  font-family: Montserrat-Medium;
+  font-size: 12px;
+  color: #112c71;
+}
+
+
 .main-header__col-notification{
     position: absolute;
     top:-10px;
