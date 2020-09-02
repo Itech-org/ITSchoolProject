@@ -243,7 +243,7 @@ def teacher_view(request):
 def teacher_profile(request, teacher_id):
     teacher = get_object_or_404(AdvUser, id=teacher_id)
     groups = GroupModel.objects.filter(teacher_id=teacher_id, students__id=request.user.id)
-    return render(request, 'student/teacher_card.html', {'teacher': teacher, 'group': group})
+    return render(request, 'student/teacher_card.html', {'teacher': teacher, 'groups': groups})
 
 
 # ---- ВЫВОД МАТЕРИАЛОВ ----
