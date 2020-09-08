@@ -1,7 +1,8 @@
+import datetime
 import urllib
 
 from django import template
-from ..models import Attendance, CourseUser
+from ..models import Attendance, CourseUser, ClassModel
 
 register = template.Library()
 
@@ -54,3 +55,20 @@ def get_teacher_courses(teacher, student=None):
     else:
         courses = CourseUser.objects.filter(groups__in=teacher.groups_teacher.all())
     return set(courses)
+
+
+@register.simple_tag
+def get_room_at_current_day(room, date, interval):
+    """Возвращаем занятие текущего дня заданной аудитории и времени"""
+    class_data = ClassModel.objects.filter(
+        classroom=room,
+        date=date,
+        start_time__gte=interval.time_from,
+        end_time__lte=interval.time_to
+    )
+    return class_data
+
+
+@register.simple_tag
+def check_current_date(date):
+    return date == datetime.date.today()

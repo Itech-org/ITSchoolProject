@@ -3,24 +3,28 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load bootstrap4 %}
+{% load tags %}
 
 {% block title %}
-<p class="main-header__page-information">Создание расписания группы</p>
+<p class="main-header__page-information">Расписание группы</p>
 {% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/group-list-manager-journal.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/students-home-work-manger.css' %}"/>
 <link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="form-wrapper">
-        <div class="form-container">
+    <div class="form-wrapper" style="align-items: start; flex-direction: row; flex-wrap: nowrap;">
+        <div class="form-container"
+             style="width: 540px; margin-top: 10px; margin-bottom: 0px; margin-right: 20px; margin-left: 20px;">
             <h3>Расписание группы</h3>
             <form method="post">
                 {% csrf_token %}
-                <div class="form-content">
+                <div class="form-content" style="width: 500px;">
                     <div class="input-wrapper">
                         <p>Дата начала и окончания курсов</p>
                         <p>{{ course.start_date|date:"d.m.Y" }} - {{ course.finish_date|date:"d.m.Y" }}</p>
@@ -31,37 +35,37 @@
                     <div class="input-wrapper">
                         <p>Понедельник:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="0"></p>
+                                  value="0"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Вторник:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="1"></p>
+                                  value="1"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Среда:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="2"></p>
+                                  value="2"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Четверг:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="3"></p>
+                                  value="3"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Пятница:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="4"></p>
+                                  value="4"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Суббота:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="5"></p>
+                                  value="5"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Воскресенье:</p>
                         <p><input name="classes_days" type="checkbox"
-                                      value="6"></p>
+                                  value="6"></p>
                     </div>
                     <div class="input-wrapper">
                         <p>Выберите время</p>
@@ -91,6 +95,74 @@
                     <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
                 </div>
             </form>
+        </div>
+        <div class="thead__wrapper-main" style="margin-top: 10px; margin-left: 0px; max-width: 59%;">
+            <table>
+                <thead>
+                <tr>
+                    <td class="thead__td-color thead__td-color_light"
+                        style="background: linear-gradient(180deg, #2f4aa7 0%, #6481e4 100%)">Аудитории</td>
+                </tr>
+                </thead>
+                {% for room in rooms %}
+                <tr>
+                    <td style="padding: 0px;">
+                        <div class="td__color_dark" style="min-height: 150px; padding: 25px;">
+                            <div>{{ room.title }}</div>
+                            <div style="font-size: 14px;">Мест: {{ room.max_places_count }}</div>
+                        </div>
+                    </td>
+                </tr>
+                {% for interval in room.time_intervals.all %}
+                {% if forloop.first %}
+                {% else %}
+                <tr>
+                    <td style="padding: 0px;">
+                        <div class="td__color_dark" style="min-height: 150px; padding: 25px;"></div>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </table>
+            <div class="thead__wrapper">
+                {% for date in date_set %}
+                <table>
+                    <thead>
+                    <tr>
+                        <td class="thead__td-color thead__td-color_light"
+                            style="min-width: 160px; background: linear-gradient(180deg, #2f4aa7 0%, #6481e4 100%)">
+                            {{ date|date:'D d.m.Y' }}
+                        </td>
+                    </tr>
+                    {% for room in rooms %}
+                    {% for interval in room.time_intervals.all %}
+                    {% get_room_at_current_day room date interval as classes %}
+                    <tr>
+                        <td class="td__color_dark" style="padding: 0px;">
+                            <div class="link__color-light"
+                                 style="min-height: 150px;font-size: 14px;color: black!important;{% if classes %}background: white;{% endif %}">
+                                <div style="border-bottom: 1px solid #CED6F2">{{ interval.time_from }} - {{ interval.time_to }}
+                                </div>
+                                <div style="{% if is_current_date %}border:10px solid black;{% endif %}">
+                                    {% for class in classes %}
+                                    <a href="{% url 'manager_school:get_group_detail' slug=class.groups.slug %}">
+                                        {{ class.groups.title|truncatechars:10 }} {{ class.theme|truncatechars:10 }}
+                                    </a><br>
+                                    Занятие № {{ class.position }}<br>
+                                    Время: {{ class.start_time }} - {{ class.end_time }}
+                                    Места: {{ class.groups.students.count }} из {{ room.max_places_count }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                    </thead>
+                </table>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </main>

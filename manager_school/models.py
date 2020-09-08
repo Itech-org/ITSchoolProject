@@ -193,6 +193,7 @@ class Notification(models.Model): #уведомление
 
 class Classroom(models.Model): #Аудитория
     title = models.CharField('Аудитория', max_length=50)
+    max_places_count = models.IntegerField(null=True, blank=True, verbose_name="Количество мест в аудитории")
 
     def __str__(self):
         return self.title
@@ -202,12 +203,27 @@ class Classroom(models.Model): #Аудитория
         verbose_name_plural = 'Аудитории'
 
 
+class RoomTimeInterval(models.Model):
+    time_from = models.TimeField(verbose_name="Начало промежутка")
+    time_to = models.TimeField(verbose_name="Окончание промежутка")
+    is_free = models.BooleanField(default=True, verbose_name="Занят?")
+    room = models.ForeignKey(Classroom, on_delete=models.CASCADE, verbose_name="Аудитория", related_name="time_intervals")
+
+    def __str__(self):
+        return f"{self.room} + {self.time_from} + {self.time_from}"
+
+    class Meta:
+        ordering = ['time_from']
+        verbose_name = 'Временной промежуток занятости аудитории'
+        verbose_name_plural = 'Временные промежутки занятости аудитории'
+
+
 class HomeworkModel(models.Model):  # Дз Студента
     CHOICES = (
         ('Проверено', 'Проверено'),
         ('Не проверено', 'Не проверено'),
         ('Не сдано', 'Не сдано'),
-        )
+    )
 
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название', blank=True)
     file = models.FileField(upload_to='file/student/', verbose_name='Файл с ДЗ', blank=True)
@@ -295,7 +311,6 @@ class News(models.Model):
     title = models.CharField('Заголовок', max_length=150, blank=True)
     description = models.TextField('Тело', blank = True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    img = models.ImageField('Изображение', upload_to='news/', blank=True)
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
     picture = models.ImageField(upload_to='images/news/', null=True, blank=True)
@@ -414,13 +429,15 @@ class ChatManager(models.Manager):
 
 class Chat(models.Model):
     """Модель чата"""
-
     DIALOG = 'D'
     CHAT = 'C'
     CHAT_TYPE_CHOICES = (
         (DIALOG, 'Dialog'),
         (CHAT, 'Chat')
     )
+
+    chat_title = models.CharField(max_length=100, null=True, blank=True, verbose_name="Название чата")
+    group = models.ForeignKey(GroupModel, on_delete=models.SET_NULL, null=True, blank=True)
 
     type = models.CharField(
         'Тип',
@@ -436,6 +453,16 @@ class Chat(models.Model):
     def get_absolute_url(self):
         return reverse('manager_school:messages', args=[self.pk])
 
+    def set_chat_title(self, title=''):
+        if self.type == "C":
+            if title:
+                self.chat_title = title
+            elif self.group:
+                self.chat_title = self.group.title
+            elif self.members.exists():
+                self.chat_title = ", ".join(self.members.all())[:20]
+            self.save()
+
     class Meta:
         verbose_name = 'Чат'
         verbose_name_plural = 'Чаты'
@@ -443,7 +470,6 @@ class Chat(models.Model):
 
 class Message(models.Model):
     """Модель сообщения в чате"""
-
     chat = models.ForeignKey(Chat, verbose_name="Чат", on_delete=models.CASCADE)
     author = models.ForeignKey(AdvUser, verbose_name="Пользователь", on_delete=models.CASCADE)
     message = RichTextUploadingField(null=True, blank=True, config_name='message_config')

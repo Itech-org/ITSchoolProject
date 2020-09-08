@@ -1,5 +1,8 @@
 import datetime
-from .models import Contract, AdvUser
+
+from django.shortcuts import get_object_or_404
+
+from .models import Contract, AdvUser, Classroom, ClassModel
 
 
 def get_manager_leads(user):
@@ -99,3 +102,43 @@ def get_manager_data_per_period(user, period_from=None, period_to=None):
         }
     ]
     return data
+
+
+def get_planning_rooms():
+    rooms = Classroom.objects.all()
+    date_set = []
+    for i in range(60, 0, -1):
+        date = datetime.date.today() - datetime.timedelta(days=i)
+        date_set.append(date)
+    for i in range(60):
+        date = datetime.date.today() + datetime.timedelta(days=i)
+        date_set.append(date)
+    context = {
+        'rooms': rooms,
+        'date_set': date_set,
+    }
+    return context
+
+
+def create_group_classes(request, count_days, group):
+    if 'classes_days' in request.POST and 'class_room' in request.POST:
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        days_list = [int(day) for day in request.POST.getlist('classes_days')]
+        position = 1
+        class_room = get_object_or_404(Classroom, title=request.POST["class_room"])
+        for day in range(count_days.days + 1):
+            dt = group.course.start_date + datetime.timedelta(day)
+            if dt.weekday() in days_list:
+                ClassModel.objects.create(
+                    position=position,
+                    theme=f'Тема-{position}',
+                    groups=group,
+                    classroom=class_room,
+                    date=dt,
+                    start_time=start_time,
+                    end_time=end_time
+                )
+                position += 1
+        return True
+    return False
