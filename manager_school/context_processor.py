@@ -1,4 +1,4 @@
-from .models import Notification
+from .models import Notification, PersonalNotification
 
 def get_unread_chats_count(request):
     if request.user.is_authenticated:
@@ -10,11 +10,17 @@ def get_unread_chats_count(request):
 def get_notification_student(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='Student'):
-                notifications = Notification.objects.filter(recipient__students=request.user)
-                print(notifications)
-                if notifications:
-                    notifications.order_by('-recieved_date')
-                    return {'notifications':notifications}
+                notifications = []
+                group_notifications = Notification.objects.filter(recipient__students=request.user)
+                personal_notifications = PersonalNotification.objects.filter(recipient=request.user)
+                if group_notifications:
+                    for elem in group_notifications:
+                        notifications.append(elem)
+                if personal_notifications:
+                    for elem in personal_notifications:
+                        notifications.append(elem)
+                notifications = sorted(notifications, key=lambda object: object.date, reverse=True)
+                return {'notifications': notifications}
         else:
             return {}
     else:

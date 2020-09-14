@@ -190,7 +190,7 @@ a {
 }
 
 
-.teacher_teacher-card-link {
+.teacher_teacher-card-link, .teacher__profile-link-send-message {
   font-family: Montserrat-Medium;
   font-size: 14px;
   color: #114a8e;
@@ -200,5 +200,4 @@ a {
 
 .teacher__box-for-teacher-link{
   margin-top: 20px;
->>>>>>> 93baf9b9d9a731416ca06e8f2e9ac400fb61ac46
 }

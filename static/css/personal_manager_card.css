@@ -123,6 +123,18 @@ body {
   margin-bottom: 10px;
 }
 
+.submit {
+  width: 120px;
+  height: 25px;
+  background: #0c216b;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+}
+
 .circle {
   display: block;
   float: left;

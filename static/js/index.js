@@ -117,5 +117,14 @@ window.onload = function () {
     document.querySelector(".main-header__list-speciality").onmouseover = function () {
       document.querySelector(".main-header__list-speciality").classList.remove("no-active");
     };
+
+    document.querySelectorAll(".main-header__wrapp-for-speciality-link").forEach((elem) => elem.addEventListener("click", changeCourse));
+    function changeCourse() {
+      let value = this.getAttribute("data-value");
+      document.querySelector(".main-header__change-course").value = value;
+      let form = document.querySelector(".main-header__form-change-course");
+
+      form.submit();
+    }
   }
 };

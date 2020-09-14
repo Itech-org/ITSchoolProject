@@ -16,8 +16,11 @@ def group_filter(request):
 def save_picture(request, payment_stages, picture):
     paid_stages, unpaid_stages, stage_wo_check = stage_checker(payment_stages)
     stage = PaymentStage.objects.get(id=request.POST.get('id'))
-    first_stage_wo_check = stage_wo_check[0]
-    first_unpaid_stage = unpaid_stages[0]
+    try:
+        first_stage_wo_check = stage_wo_check[0]
+        first_unpaid_stage = unpaid_stages[0]
+    except:
+        return None
     if stage.id == first_unpaid_stage.id:
         if stage.id == first_stage_wo_check.id:
             stage.picture = picture
@@ -68,8 +71,11 @@ def get_paid_percent(payment_stages):
 def get_alert(request, payment_stages):
     stage = PaymentStage.objects.get(id=request.POST.get('id'))
     paid_stages, unpaid_stages, stage_wo_check = stage_checker(payment_stages)
-    first_unpaid_stage = unpaid_stages[0]
-    first_stage_wo_check = stage_wo_check[0]
+    try:
+        first_unpaid_stage = unpaid_stages[0]
+        first_stage_wo_check = stage_wo_check[0]
+    except:
+        return None
     if stage.id == first_stage_wo_check.id:
         if stage.id != first_unpaid_stage.id:
             alert = 'Wait for manager'

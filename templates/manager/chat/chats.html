@@ -32,12 +32,15 @@
                 </p>
                 {% endif %}
                 {% for chat in chats %}
-                {% if chat.message_set.count != 0 %}
                 {% with last_message=chat.message_set.last %}
                 {% get_companion user chat as companion %}
                 <p class="main__chat-with-who-name m-0 d-flex justify-content-between pl-2 pr-2">
                     <a href="{{ chat.get_absolute_url }}" class="main__chat-with-who-link">
+                        {% if chat.chat_title %}
+                        {{ chat.chat_title }}
+                        {% else %}
                         {{ companion.first_name }}
+                        {% endif %}
                     </a>
                     {% if companion == last_message.author %}
                     {% if not last_message.is_readed %}
@@ -46,7 +49,6 @@
                     {% endif %}
                 </p>
                 {% endwith %}
-                {% endif %}
                 {% endfor %}
             </div>
             <div class="main__chat-box-open">
