@@ -16,7 +16,7 @@ from django.shortcuts import render
 
 from .serializers import ClassModelSerializer, StudyRequestSerializer, CourseSerializer, CourseDetailSerializer
 from .services import get_manager_successful_lead_percent, get_manager_data_per_period, get_planning_rooms, \
-    create_group_classes
+    create_group_classes, get_year_and_month
 
 from .utilities import *
 
@@ -99,8 +99,15 @@ def create_group_classes_page(request, slug):
     course = group.course
     count_days = course.finish_date - course.start_date
     class_rooms = Classroom.objects.all()
-    context = get_planning_rooms()
-    context.update({"course": course, "group": group, "class_rooms": class_rooms})
+    year, month = get_year_and_month(request)
+    context = get_planning_rooms(year, month)
+    context.update({
+        "course": course,
+        "group": group,
+        "class_rooms": class_rooms,
+        'current_month': month,
+        'current_year': year,
+    })
     if request.method == "POST":
         if create_group_classes(request, count_days, group):
             return redirect("manager_school:get_group_detail", slug=slug)
@@ -134,10 +141,14 @@ def update_class_date_and_time(request, class_id):
                       context={'class': class_data, 'class_rooms': class_rooms})
 
 
-
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_planning_rooms_page(request):
-    context = get_planning_rooms()
+    year, month = get_year_and_month(request)
+    context = get_planning_rooms(year, month)
+    context.update({
+        'current_month': month,
+        'current_year': year,
+    })
     return render(
         request, "manager/group/planning_rooms_page.html",
         context=context
@@ -559,9 +570,7 @@ def change_user_info(request):
     if request.method == "POST":
         phone = request.POST.get('phone', '')
         email = request.POST.get('email', '')
-        print(request.FILES)
         img_user = request.FILES.get('img_user', '')
-        print(img_user)
         user = request.user
         if phone:
             user.phone = phone

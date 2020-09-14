@@ -107,7 +107,7 @@
             </p>
             <div class="main__personal-student-card-payment-status">
 
-                <a href="{% url 'manager_school:get_leads' %}" class="main__personal-student-card-payment-link">
+                <a href="{% url 'manager_school:get_leads' %}?specialist={{ user.pk }}" class="main__personal-student-card-payment-link">
                     Лиды
                 </a>
                 <a href="{% url 'manager_school:get_contracts' %}" class="main__personal-student-card-payment-link">

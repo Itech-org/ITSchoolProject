@@ -149,7 +149,6 @@ class ClassModel(models.Model):  # Занятие
     room_link = models.URLField(null=True, blank=True, verbose_name="Ссылка на комнату занятия")
     message = models.TextField(verbose_name='Сообщение', blank=True)
 
-
     def __str__(self):
         return self.theme
 

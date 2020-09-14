@@ -1,4 +1,5 @@
 import datetime
+import time
 
 from django.shortcuts import get_object_or_404
 
@@ -75,44 +76,85 @@ def get_manager_data_per_period(user, period_from=None, period_to=None):
         ]
     else:
         data = [
-        {
-            'period': 'За всё время',
-            'leads': leads,
-            'successful_contracts': successful_contracts,
-        },
-        {
-            'period': 'За год',
-            'leads': leads.filter(enter_date__year=int(datetime.datetime.now().year)),
-            'successful_contracts': successful_contracts.filter(date__year=int(datetime.datetime.now().year)),
-        },
-        {
-            'period': 'За месяц',
-            'leads': leads.filter(enter_date__month=int(datetime.datetime.now().month)),
-            'successful_contracts': successful_contracts.filter(date__month=int(datetime.datetime.now().month)),
-        },
-        {
-            'period': 'Прошедшие 7 дней',
-            'leads': leads.filter(enter_date__gt=datetime.datetime.now() - datetime.timedelta(days=7)),
-            'successful_contracts': successful_contracts.filter(date__gt=datetime.datetime.now() - datetime.timedelta(days=7)),
-        },
-        {
-            'period': 'Сегодня',
-            'leads': leads.filter(enter_date__day=int(datetime.datetime.now().day)),
-            'successful_contracts': successful_contracts.filter(date__day=int(datetime.datetime.now().day)),
-        }
-    ]
+            {
+                'period': 'За всё время',
+                'leads': leads,
+                'successful_contracts': successful_contracts,
+            },
+            {
+                'period': 'За год',
+                'leads': leads.filter(enter_date__year=int(datetime.datetime.now().year)),
+                'successful_contracts': successful_contracts.filter(date__year=int(datetime.datetime.now().year)),
+            },
+            {
+                'period': 'За месяц',
+                'leads': leads.filter(enter_date__month=int(datetime.datetime.now().month)),
+                'successful_contracts': successful_contracts.filter(date__month=int(datetime.datetime.now().month)),
+            },
+            {
+                'period': 'Прошедшие 7 дней',
+                'leads': leads.filter(enter_date__gt=datetime.datetime.now() - datetime.timedelta(days=7)),
+                'successful_contracts': successful_contracts.filter(
+                    date__gt=datetime.datetime.now() - datetime.timedelta(days=7)),
+            },
+            {
+                'period': 'Сегодня',
+                'leads': leads.filter(enter_date__day=int(datetime.datetime.now().day)),
+                'successful_contracts': successful_contracts.filter(date__day=int(datetime.datetime.now().day)),
+            }
+        ]
     return data
 
 
-def get_planning_rooms():
-    rooms = Classroom.objects.all()
+def get_year_and_month(request):
+    year = request.GET.get('year')
+    month = request.GET.get('month')
+    return year, month
+
+
+def get_planning_rooms(year=None, month=None):
+    import calendar
+
     date_set = []
-    for i in range(60, 0, -1):
-        date = datetime.date.today() - datetime.timedelta(days=i)
-        date_set.append(date)
-    for i in range(60):
-        date = datetime.date.today() + datetime.timedelta(days=i)
-        date_set.append(date)
+    rooms = Classroom.objects.all()
+    try:
+        month = int(month)
+    except:
+        pass
+    try:
+        year = int(year)
+    except:
+        pass
+
+    if year and month:
+        day = calendar.monthrange(
+            int(year),
+            int(month)
+        )[1]
+        first_month_day = datetime.date.today().replace(year=year, month=month, day=1)
+    elif year:
+        day = calendar.monthrange(
+            int(year),
+            datetime.datetime.now().month
+        )[1]
+        first_month_day = datetime.date.today().replace(year=year, day=1)
+    elif month:
+        day = calendar.monthrange(
+            datetime.datetime.now().year,
+            int(month)
+        )[1]
+        first_month_day = datetime.date.today().replace(month=month, day=1)
+    else:
+        day = calendar.monthrange(
+            datetime.datetime.now().year,
+            datetime.datetime.now().month
+        )[1]
+        first_month_day = datetime.date.today().replace(day=1)
+
+    for i in range(day):
+        date_set.append(first_month_day)
+        first_month_day += datetime.timedelta(days=1)
+
     context = {
         'rooms': rooms,
         'date_set': date_set,

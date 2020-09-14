@@ -13,6 +13,20 @@
 
 {% block title %}
 <p class="main-header__page-information">Планирование</p>
+<form method="get">
+    <div class="main-header__change-speciality" style="">
+        <div class="main-header__box-for-change-speciality">
+            <select name="year" class="main-header__button-change-speciality" id="year-select"></select>
+        </div>
+        <div class="main-header__box-for-change-speciality">
+            <select name="month" class="main-header__button-change-speciality" id="month-select"></select>
+        </div>
+        <div class="main-header__box-for-change-speciality">
+            <button class="main-header__button-change-speciality">Поиск</button>
+        </div>
+    </div>
+</form>
+<div class="main-header__list-speciality"></div>
 {% endblock %}
 
 {% block content %}
@@ -64,7 +78,9 @@
                              style="min-height: 150px;font-size: 14px;color: black!important;
                              {% if classes %}background: white;{% endif %}
                              {% if is_current_date %}border: 4px solid #0e1935;{% endif %}">
-                            <div style="border-bottom: 1px solid #CED6F2">{{ interval.time_from }} - {{ interval.time_to }}</div>
+                            <div style="border-bottom: 1px solid #CED6F2">{{ interval.time_from }} -
+                                {{ interval.time_to }}
+                            </div>
                             <div>
                                 {% for class in classes %}
                                 <a href="{% url 'manager_school:get_group_detail' slug=class.groups.slug %}">
@@ -94,5 +110,50 @@
 
 
 {% block scripts %}
-<script src="{% static 'js/main-header-manager.js' %}"></script>
+<script>
+    var date = new Date();
+    var currentMonth = {% if current_month %}{{ current_month }}{% else %}date.getMonth() + 1{% endif %};
+    var currentYear = {% if current_month %}{{ current_year }}{% else %}date.getFullYear(){% endif %};
+
+    var months = {
+        1: 'Январь',
+        2: 'Февраль',
+        3: 'Март',
+        4: 'Апрель',
+        5: 'Май',
+        6: 'Июнь',
+        7: 'Июль',
+        8: 'Август',
+        9: 'Сентябрь',
+        10: 'Октябрь',
+        11: 'Ноябрь',
+        12: 'Декабрь',
+    };
+
+    const yearSelect = document.getElementById('year-select');
+    let yearInner = '';
+
+    for (let i = currentYear + 1; i >= 2000; i--) {
+        if (i === currentYear){
+            yearInner += `<option selected>${i}</option>`;
+        }
+        else{
+            yearInner += `<option>${i}</option>`;
+        }
+    }
+    yearSelect.innerHTML = yearInner;
+
+    const monthSelect = document.getElementById('month-select');
+    let monthInner = '';
+
+    for (key in months) {
+        if (Number.parseInt(key) === currentMonth){
+            monthInner += `<option selected value="${key}">${months[key]}</option>`;
+        }
+        else{
+            monthInner += `<option value="${key}">${months[key]}</option>`;
+        }
+    };
+    monthSelect.innerHTML = monthInner;
+</script>
 {% endblock %}
