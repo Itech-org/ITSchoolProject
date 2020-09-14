@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import Logout_View
-from .views import Login_View
+# from .views import Logout_View
+# from .views import Login_View
 from .views import main_page_view
 from .views import group_list_view
 from .views import student_card
@@ -15,6 +15,8 @@ from .views import new_view
 from .views import delete_new
 from .views import costs
 from .views import costs_admin
+from .views import login_user
+from .views import logout_request
 
 app_name = 'admin_school'
 
@@ -33,8 +35,10 @@ urlpatterns = [
     path('revise_timetable/<int:pk>/', revise_timetable, name='revise_timetable'),
     path('card_student/<id>/', student_card, name='student_card'),
     path('group_list/', group_list_view, name='group_list_view' ),
-    path("logout_admin/", Logout_View.as_view(),name='logout_admin'),
-    path("autorization_page_admin/",Login_View.as_view(),name="autorization_page_admin"),
-    path('', main_page_view, name='main_page_admin'),
+    # path("logout_admin/", logout_request,name='logout_admin'),
+    # path("autorization_page_admin/", login_user,name="autorization_page_admin"),
+    path("logout/", logout_request, name='logout'),
+    path("login/", login_user, name="login"),
+    path('', main_page_view, name='main_page_view'),
 
 ]

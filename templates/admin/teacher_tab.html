@@ -26,9 +26,11 @@
           <p class="teachers__name-list">Список преподавателей</p>
           {% for teacher in teachers %}
           <div class="teachers__unit-teacher">
-
-            <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
-
+            {% if teacher.img_user%}
+              <img src="{{ teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
+            {% else %}
+              <p> нет фото</p>
+            {% endif %}
             <div class="teachers__teacher-info">
               {% for groups_teacher in teacher.groups_teacher.all %}<p class="teacher__teacher-specialty"> Группа: {{ groups_teacher }}</p>{% endfor %}
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/authorization_page_admin.css' %}">
+</head>
+<body>
+    <main>
+        <div class="main__open-student">
+            <form method="post" action="">
+                {% csrf_token %}
+                <h1 class="main__open-student-text">
+                    Вход в личный кабинет
+                </h1>
+                <div class="main__open-student-box-input">
+                    <input type="text" name="username" class="main__open-student-input" placeholder="Логин">
+                </div>
+                <div class="main__open-student-box-input">
+                    <input type="password" name="password" class="main__open-student-input" placeholder="Пароль">
+                </div>
+                <div class="main__open-student-box-button">
+                    <div class="squaredThree">
+                        <input type="checkbox" value="None" id="squaredThree" name="remember_me">
+                        <label for="squaredThree">Запомнить меня</label>
+                    </div>
+                    <!-- <p class="main__open-student-text main__open-student-text_size">
+                        Запомнить меня
+                    </p> -->
+                   <div class="main__open-student-box">
+                       <input type="submit" class="main__open-student-button" value="Войти">
+                        
+                       
+                   </div> 
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+
+

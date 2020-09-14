@@ -7,7 +7,7 @@
     {% block title %}
     {% endblock %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/main-page.css' %}"/>
+{#    <link rel="stylesheet" href="{% static 'css/main-page.css' %}"/>#}
     {% block style %}
     {% endblock %}
 </head>
@@ -25,10 +25,22 @@
             {% if request.user.img_user %}
                 <img src="{{ request.user.img_user.url }}" alt="фото студента" class="main-header__img-foto"/>
             {% else %}
-                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента" class="main-header__img-foto"/>
+                <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента"
+                     class="main-header__img-foto"/>
             {% endif %}
         </a>
         <img src="{% static 'img/Polygon.svg' %}" alt="развернуть" class="main-header__open"/>
+        <div class="main-header__drop-down-notifications no-active">
+            {% for notification in notifications|slice:":5" %}
+                <div class="main-header__notification">
+                    <img src="{% static 'img/Ellipse.svg' %}" alt="point"/>
+                    <p class="main-header__personal-area-link main-header__personal-area-link_margin">{{ notification.message }}</p>
+                </div>
+            {% endfor %}
+            <p class="main-header__all-notifications-container">
+                <a href="" class="main-header__all-notifications">Показать все уведомления</a>
+            </p>
+        </div>
     </div>
     <div class="main-header__personal-area no-active">
         <div class="main-header__personal-area-options">
@@ -45,7 +57,7 @@
                 <a href="{% url 'student:chats' %}" class="main-header__personal-area-link">
                   <span class="main-header__personal-area-col">
                     {% if unreaded_dialogs_counter != 0 %}
-                    {{ unreaded_dialogs_counter }}
+                        {{ unreaded_dialogs_counter }}
                     {% endif %}
                   </span>
                     Сообщения</a>
@@ -78,10 +90,10 @@
     <div class="main-menu__box-for-item">
         <div class="main-menu__item">
             <!--      {% for x in request.user.groupmodel_set.all|slice:":1" %}-->
-            <a href="{% url 'student:calendar' %}" class="main-menu__item-box">
+                <a href="{% url 'student:calendar' %}" class="main-menu__item-box">
                 <!--      {% endfor %}-->
-                <img src="{% static 'img/icon.svg' %}" alt="календарь" class="main-menu__item-img"/>
-                <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
+            <img src="{% static 'img/icon.svg' %}" alt="календарь" class="main-menu__item-img"/>
+            <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
             </a>
         </div>
 
@@ -112,7 +124,7 @@
                 <p class="main-menu__item-descriotion no-active">Чат</p>
                 <span class="main-menu__item-col">
                     {% if unreaded_dialogs_counter != 0 %}
-                    {{ unreaded_dialogs_counter }}
+                        {{ unreaded_dialogs_counter }}
                     {% endif %}
                 </span>
             </a>
@@ -146,12 +158,12 @@
             </a>
         </div>
 
-        <div class="main-menu__item">
-            <a href="#" class="main-menu__item-box">
-                <img src="{% static 'img/icon13.svg' %}" alt="календарь" class="main-menu__item-img"/>
-                <p class="main-menu__item-descriotion no-active">Планировщик</p>
-            </a>
-        </div>
+        {#        <div class="main-menu__item">#}
+        {#            <a href="#" class="main-menu__item-box">#}
+        {#                <img src="{% static 'img/icon13.svg' %}" alt="календарь" class="main-menu__item-img"/>#}
+        {#                <p class="main-menu__item-descriotion no-active">Планировщик</p>#}
+        {#            </a>#}
+        {#        </div>#}
 
         <div class="main-menu__item main-menu__item-margin">
             <a href="{% url 'student:change_data' %}" class="main-menu__item-box">
@@ -172,8 +184,7 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
-
+<script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

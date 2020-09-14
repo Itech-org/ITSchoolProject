@@ -183,6 +183,7 @@ textarea {
   font-family: Montserrat-LightItalic;
   font-size: 14px;
   color: #114a8e;
+  resize: none;
 }
 
 .block-student-form-input-file {
@@ -200,6 +201,24 @@ textarea {
   margin: 20px 0px;
   box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 25%);
 }
+
+
+.block-student-online-room {
+  position: relative;
+  min-width: 200px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #7890e4;
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+  color: #0c335c;
+  border: none;
+  margin: 20px 0px;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 25%);
+}
+
 
 .block-student-form-button-input-file {
   position: absolute;

@@ -2,10 +2,11 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
-from django.db.models import Q
+from django.db.models import Q, Count
 from .serializers import ClassModelSerializer
 from django.urls import reverse_lazy
 import datetime
+
 from django.utils.text import slugify
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
@@ -196,17 +197,17 @@ def profile(request): #страница профиля учителя
 
 
 def profile_edit(request): #редактирование профиля
+    user = request.user
     if request.method == "POST":
+        user.img_user = request.user.img_user
         phone = request.POST.get('phone', '')
         email = request.POST.get('email', '')
-        img_user = request.FILES['img_user']
-        user = request.user
+        if request.POST.get('img_user', ''):
+            img_user = request.FILES['img_user']
         if phone:
             user.phone = phone
         if email:
             user.email = email
-        if img_user:
-            user.img_user = img_user
         user.save()
         return redirect('teacher:profile')
     return render(request, 'teacher/change_personal_data.html')
@@ -254,7 +255,8 @@ def group_detail(request): #вкладка группы
 
 def student_detail(request, student_id): #детализация ученика
     student = get_object_or_404(AdvUser, id=student_id)
-    return render(request, 'teacher/student_detail.html', {'student':student})
+    attendance = Attendance.objects.filter(students__id=student.id)
+    return render(request, 'teacher/students_personal_card.html', {'student': student, 'attendance': attendance})
 
 
 # ------------------------------ МАТЕРИАЛЫ ---------------------------------
@@ -302,11 +304,22 @@ def video_detail(request, slug_v): #станица видео
 
 
 def materials_on_theme(request): #материалы по темам
-    return render(request, 'teacher/materials_on_topics.html')
+    classes = []
+    group = request.GET.get('group', '')
+    if group:
+        classes = ClassModel.objects.filter(groups=group)
+    else:
+        groups = GroupModel.objects.filter(teacher__id=request.user.id)
+        for g in groups:
+            classes += g.classes.all()
+    date_now = datetime.datetime.now()
+    print(classes)
+    return render(request, 'teacher/materials_on_topics.html', {'classes':classes, 'date_now':date_now})
 
 
-def material_detail(request): #страница материала
-    return render(request, 'teacher/material_detail.html')
+def material_detail(request, class_id): #страница материала
+    class_data = get_object_or_404(ClassModel, id=class_id)
+    return render(request, 'teacher/selected-lesson.html', {'class':class_data})
 
 
 # ---------------------------- ВИДЕО ЗАНЯТИЙ ----------------------------------

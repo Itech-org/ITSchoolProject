@@ -4,20 +4,30 @@
 {% load crispy_forms_tags %}
 {% load bootstrap4 %}
 {% load tags %}
-
-{% block style %}
-{#<link rel="stylesheet" href="{% static 'css/main-header.css' %}">#}
-<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% block title %}
+    <title>
+        {% if unreaded_dialogs_counter != 0 %}
+            {{ unreaded_dialogs_counter }} непрочитанных сообщений
+        {% else %}
+            Чаты
+        {% endif %}
+    </title>
 {% endblock %}
 
-{% block title %}
-<p class="main-header__page-information"><a href="{% url 'student:chats' %}">Чаты</a></p>
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/main-header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+{% endblock %}
+
+{% block header %}
+    <p class="main-header__page-information"><a href="{% url 'student:chats' %}">Чаты</a></p>
 {% endblock %}
 
 {% block content %}
+
 <main>
     <div class="main-chat">
-        <div class="main__chat">
+        <div class="main__chat" style="margin-top: 60px">
             <div class="main__chat-box-name">
                 <div class="main__chat-box">
                     <p class="main__chat-name-text">
@@ -64,6 +74,28 @@
                         </p>
                     </div>
                     {% endblock %}
+                    {% for chat in chats %}
+                        {% if chat.message_set.count != 0 %}
+                            {% with last_message=chat.message_set.last %}
+                                {% get_companion user chat as companion %}
+                                <p class="main__chat-with-who-name m-0 d-flex justify-content-between pl-2 pr-2">
+                                    <a href="{% url 'student:messages' chat_id=chat.id %}"
+                                       class="main__chat-with-who-link">
+                                        {% if companion %}
+                                            {{ companion.last_name }} {{ companion.first_name }}
+                                        {% else %}
+                                            Saved Messages
+                                        {% endif %}
+                                    </a>
+                                    {% if companion == last_message.author %}
+                                        {% if not last_message.is_readed %}
+                                            <span>{% get_unread_message_count user chat %} {{ last_message.message|truncatechars_html:"50"|safe|striptags }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </p>
+                            {% endwith %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -72,11 +104,10 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript">
-  var block = document.getElementById("messages__container");
-  block.scrollTop = block.scrollHeight;
-
-</script>
-<script src="{% static 'js/main-header-manager.js' %}"></script>
-<script src="{% static 'js/chat.js' %}"></script>
+    <script type="text/javascript">
+        var block = document.getElementById("messages__container");
+        block.scrollTop = block.scrollHeight;
+    </script>
+    <script src="{% static 'js/main-header-manager.js' %}"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
 {% endblock %}

@@ -19,14 +19,28 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #3a6192;
+}
+
 .main__teacher-card {
   display: flex;
-  justify-content: space-between;
-  width: 700px;
+  justify-content: space-around;
+  width: 750px;
   background-color: #f1f4fc;
   margin: auto;
   margin-top: 100px;
+  align-items: center;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #E8F5FF, #F1F3FA);
+  box-shadow: inset -3px -3px 10px 5px #AEBCEC;
 }
+
+
+.main__teacher-card-box {
+  margin-left: 15px;
+}
+
 
 .main__teacher-card-text {
   font-family: Montserrat-Regular;
@@ -34,6 +48,12 @@
   color: #114a8e;
   margin-top: 45px;
 }
+
+
+.main__teacher-card-text-span {
+  font-family: Montserrat-Regular;
+}
+
 
 .main__teacher-card-text.main__teacher-card-text_margin {
   margin-bottom: 15px;
@@ -60,7 +80,7 @@
 .main__teacher-card-link {
   font-family: Montserrat-Bold;
   font-size: 16px;
-  margin-top: 52px;
+  margin-top: 40px;
   display: block;
   color: white;
   text-decoration: none;
@@ -69,10 +89,12 @@
   width: 300px;
   height: 40px;
   background-color: #617cd8;
+  margin-bottom: 20px;
 }
 .main__teacher-card-box-img {
   text-align: end;
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
 }
 

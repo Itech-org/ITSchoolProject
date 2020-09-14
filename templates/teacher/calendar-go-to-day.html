@@ -17,7 +17,7 @@
 <main class="calendar-go-to-day">
     <form action="" method="post">
         <!-- общий флекс-контейнер -->
-        {% csrf_token %}
+
         <div class="calendar-go-to-day__calendar-for-all-box">
             <!-- контейнер для контента слева -->
 
@@ -45,7 +45,8 @@
                 </div>
 
                 <!-- контейнер для домашнего задания + кнопка "архив"-->
-
+                <form action="" method="post">
+                    {% csrf_token %}
                 <div class="left-content-container__homework-box">
                     <div class="homework-box__homework-headline-box">
                         <p class="homework-headline-box__headline">Домашнее задание</p>
@@ -53,13 +54,18 @@
                     <div class="homework-box__comment-and-add-file-area">
                         <input class="homework-box__comment-text" type="text" name="title" value="" placeholder="Заголовок">
                         <textarea name='description' class="homework-box__comment-area" placeholder="Описание"></textarea>
-                        <input class="homework-box__comment-text" type="url" name="url" value="" placeholder="Ссылка">
+                        <input class="homework-box__comment-text" type="url" name="url" placeholder="Ссылка">
+                        <input class="homework-box__comment-text" type="url" name="url" placeholder="Ссылка на онлайн-трансляцию">
                         <div class="main__personal-box-for-input-file">
                             Добавить файл
                             <input type="file" name='file' multiple class="main__personal-button-input-file" />
                         </div>
                     </div>
                 </div>
+                <div class="right-content-container__btn_container" style="justify-content: center;">
+                    <button type="submit" class="btn_container__save_btn">Создать ДЗ</button>
+                </div>
+                </form>
             </div>
 
             <!-- скрытый контейнер для выбора тем (большой, центр страницы, вызов по клику на номер занятия и название темы (topic-container__lesson-number)) -->
@@ -167,10 +173,13 @@
                             <div class="select">
                                 <p class="select__change">Выбрать статус</p>
                                 <div class="select__option-container no-active">
+                                    {% if st.attendance %}
+                                    <p class="select__option">{{st.attendance}}</p>
+                                    {% endif %}
                                     <input type="text" hidden data-value=False class="select_input" name="status-{{st.id}}" />
-                                    <p data-value=True class="select__option">Присутствует</p>
-                                    <p data-value=False class="select__option">Отсутствует</p>
-                                    <!-- <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p> -->
+                                    <p data-value="Присутствует" class="select__option">Присутствует</p>
+                                    <p data-value="Отсутствует" class="select__option">Отсутствует</p>
+                                    <p data-value="Отсутствует по уважительной причине" class="select__option">Отсутствует по уважительной причине</p>
                                 </div>
                             </div>
 
@@ -178,6 +187,7 @@
                                 <p class="select__change">Оценка</p>
                                 <div class="select__option-container no-active">
                                     <input type="text" hidden class="select_input" name="rating-{{st.id}}" value="0" />
+                                    <p data-value="0" class="select__option">0</p>
                                     <p data-value="1" class="select__option">1</p>
                                     <p data-value="2" class="select__option">2</p>
                                     <p data-value="3" class="select__option">3</p>

@@ -39,7 +39,9 @@
         <div class="main__it-news">
             {% for news in news %}
                 <div class="main__it-news-box">
+                    {% if news.img %}
                     <img src="{{ news.img.url }}" style="object-fit: cover;" alt="новость" class="main__it-news-img">
+                    {% endif %}
                     <p class="main__it-news-text">
                         <a href="{% url 'student:news_detail' news_id=news.id %}" class="main__it-news-link">
                             {{ news.title }}

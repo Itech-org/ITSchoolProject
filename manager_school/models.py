@@ -87,7 +87,6 @@ class CourseUser(models.Model):  # Курс
     amount = models.CharField(max_length=50, db_index=True, verbose_name='Количество занятий')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
     is_online = models.BooleanField(default=False, verbose_name="Онлайн?")
-
     def __str__(self):
         return f"{self.title}"
 
@@ -164,10 +163,15 @@ class ClassModel(models.Model):  # Занятие
 
 
 class Attendance(models.Model): #Посещение
+    CHOICES = (
+        ('Присутствует', 'Присутствует'),
+        ('Отсутствует', 'Отсутствует'),
+        ('Отсутствует по уважительной причине', 'Отсутствует по уважительной причине'),
+        )
     classes =models.ForeignKey(ClassModel, on_delete=models.CASCADE, related_name='attendances')
     students = models.ForeignKey(AdvUser, on_delete=models.CASCADE, related_name="attendances")
     rating = models.IntegerField('Оценка', null=True, blank=True)
-    attendance = models.BooleanField('Присутствие', default=False)
+    attendance = models.CharField(max_length=300, choices = CHOICES, default='Отсутствует')
 
     class Meta:
         ordering = ['students', 'attendance', 'rating',]
@@ -175,12 +179,12 @@ class Attendance(models.Model): #Посещение
         verbose_name_plural = 'Посещения'
 
 
-class Notification(models.Model): #уведомление
+class Notification(models.Model): #уведомление для группы
     sender = models.ForeignKey(ClassModel, on_delete=models.CASCADE, null=True, related_name='sender_notification',
                                verbose_name='Отправитель')
     recipient = models.ForeignKey(GroupModel, on_delete=models.CASCADE, verbose_name='Получатель')
     message = models.TextField(verbose_name='Сообщение')
-    recieved_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата получения')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата получения')
 
     def __str__(self):
         return self.message
@@ -188,6 +192,19 @@ class Notification(models.Model): #уведомление
     class Meta:
         verbose_name = 'Уведомление о изменении '
         verbose_name_plural = 'Уведомления о изменениях'
+
+
+class PersonalNotification(models.Model): #персональные уведомления
+    recipient = models.ForeignKey(AdvUser, verbose_name='Получатель', on_delete=models.CASCADE)
+    message = models.TextField(max_length=512, verbose_name='Текст уведомления')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Время получения')
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        verbose_name = 'Персональное уведомление'
+        verbose_name_plural = 'Персональные уведомления'
 
 
 class Classroom(models.Model): #Аудитория
@@ -226,7 +243,7 @@ class HomeworkModel(models.Model):  # Дз Студента
 
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название', blank=True)
     file = models.FileField(upload_to='file/student/', verbose_name='Файл с ДЗ', blank=True)
-    description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
+    description = models.TextField(max_length=512, verbose_name='Описание ДЗ', blank=True)
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', blank=True, null=True, default=None)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homework', null=True, default=None)
     user = models.ForeignKey(AdvUser, verbose_name='Студент', on_delete=models.CASCADE, related_name='homework_st')
@@ -246,7 +263,7 @@ class HomeworkModel(models.Model):  # Дз Студента
 class HomeworkTeacherModel(models.Model): # Дз Препода
     title = models.CharField(max_length=150, db_index=True, verbose_name='Название')
     file = models.FileField(upload_to='file/teacher/', verbose_name='Файл с ДЗ', blank=True)
-    description = models.TextField(max_length=700, verbose_name='Описание ДЗ', blank=True)
+    description = models.TextField(max_length=512, verbose_name='Описание ДЗ', blank=True)
     url = models.URLField(max_length=100, verbose_name='Ссылка дз', null=True, blank=True)
     class_field = models.ForeignKey(ClassModel, verbose_name='Занятие', on_delete=models.CASCADE, related_name='homeworkteacher')
     attempts = models.IntegerField(verbose_name='Количество попыток', default=3)
@@ -501,3 +518,26 @@ class Costs(models.Model): # Расходы
         verbose_name_plural = 'Расходы'
         ordering = ['-date']
 
+
+class ContactAdmin(models.Model):
+    CHOICES = (
+        ('Completed', 'Completed'),
+        ('In progress', 'In progress'),
+        ('Waiting', 'Waiting'),
+    )
+    title = models.CharField(max_length=150, verbose_name='Краткое описание')
+    description = models.TextField(max_length=512, verbose_name='Описание проблемы')
+    response = models.TextField(max_length=512, verbose_name='Ответ администратора', blank=True)
+    file = models.FileField(upload_to='file/contact_admin/', verbose_name='Файл', blank=True)
+    status = models.CharField(max_length=20, choices=CHOICES, verbose_name="Статус заявки", default='Waiting')
+    date = models.DateTimeField(verbose_name='Дата поступления заявки', auto_now_add=True)
+    author = models.ForeignKey(AdvUser, verbose_name='Автор заявки', on_delete=models.CASCADE, related_name='author')
+    admin = models.ForeignKey(AdvUser, verbose_name='Ответственный за выполнение', on_delete=models.PROTECT, related_name='admin', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.title} | {self.author.first_name} {self.author.last_name}"
+
+    class Meta:
+        verbose_name = 'Заявка администратору'
+        verbose_name_plural = 'Заявки администратору'
+        ordering = ['status', 'date']

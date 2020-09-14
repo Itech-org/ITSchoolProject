@@ -7,12 +7,6 @@
 {% block nav %}
 <div class="main-header__page-information-change-specialty">
     <p class="main-header__page-information">Выбранное занятие</p>
-    <div class="main-header__change-speciality">
-        <div class="main-header__box-for-info">
-            <p class="main-header__speciality-info-name">Тестировщик</p>
-            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
-        </div>
-    </div>
 </div>
 {% endblock %}
 
@@ -23,9 +17,9 @@
 
         <div class="selected-lesson__lesson-container">
             <div class="lesson-container__info-container">
-                <p class="lesson-container__lesson-number">Занятие <strong>1</strong></p>
-                <p class="lesson-container__topic-title">"Название темы"</p>
-                <p class="lesson-container__lesson-date">10 августа 2020</p>
+                <p class="lesson-container__lesson-number">{{class.groups.title}}</p>
+                <p class="lesson-container__topic-title">{{class.theme}}</p>
+                <p class="lesson-container__lesson-date">{{class.date}}</p>
             </div>
         </div>
 

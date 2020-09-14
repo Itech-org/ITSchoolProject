@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main-header.css" />
+    <link rel="stylesheet" href="calendar-go-to-day.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="main-header__page-information-change-specialty">
+        <p class="main-header__page-information">Календарь</p>
+        <!-- <div class="main-header__change-speciality">
+          <div class="main-header__box-for-change-speciality">
+            <p class="main-header__button-change-speciality">Выбрать курс...</p>
+            <div class="main-header__list-speciality no-active">
+              <form action="" method="get" class="main-header__form-change-course">
+                <input type="text" name="course" hidden class="main-header__change-course" />
+                <p class="main-header__wrapp-for-speciality-link" data-value="1">
+                  Frontend-разработчик
+                </p>
+                <p class="main-header__wrapp-for-speciality-link" data-value="2">
+                  Backend-разработчик
+                </p>
+                <p class="main-header__wrapp-for-speciality-link" data-value="3">
+                  Тестировщик
+                </p>
+              </form>
+            </div>
+          </div>
+          <div class="main-header__box-for-info">
+            <p class="main-header__speciality-info-name">Тестировщик</p>
+            <p class="main-header__speciality-info-group">(группа <span>2</span>)</p>
+          </div>
+        </div> -->
+      </div>
+      <div class="main-header__box">
+        <p class="main-header_box-for-notification">
+          <img src="../img/Group.svg" alt="уведомления" class="main-header__img-notifications" />
+          <span class="main-header__col-notification">2</span>
+        </p>
+        <p class="main-header__name">Алина</p>
+        <img src="../img/Eul_Ehp2xyU.png" alt="фото студента" class="main-header__img-foto" />
+        <img src="../img/Polygon.svg" alt="развернуть" class="main-header__open" />
+      </div>
+      <div class="main-header__personal-area no-active">
+        <div class="main-header__personal-area-options">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link">Редактировать страницу</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />
+        </div>
+
+        <div class="main-header__personal-area-options">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link"><span class="main-header__personal-area-col">2</span> Сообщения</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+          <img src="../img/Rectangle.svg" alt="подчеркивание" class="main-header__border-bottom" />
+        </div>
+
+        <div class="main-header__personal-area-options main-header__personal-area-options_go-out">
+          <p class="main-header__personal-area-options-block">
+            <a href="#" class="main-header__personal-area-link">Выйти</a>
+            <img src="../img/Ellipse.svg" alt="point" />
+          </p>
+        </div>
+      </div>
+    </header>
+    <nav class="main-menu">
+      <div class="main-menu__logo">
+        <div class="main-header__box-for-logo">
+          <a href="#">
+            <img src="../img/logo.svg" alt="logo" class="main-menu__logo-img" />
+          </a>
+          <img src="../img/hide.svg" alt="зыкрыть меню" class="main-menu__hide-img no-active" />
+        </div>
+
+        <div class="main-menu__show">
+          <img src="../img/show.svg" alt="открыть меню" class="main-menu__show-img" />
+        </div>
+      </div>
+
+      <div class="main-menu__box-for-item">
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Учебный календарь</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item main-menu__item_subiteam">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon19.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Учебный процесс</p>
+          </a>
+          <div class="main-menu__box-for-subitem no-active">
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Домашнее задание</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Группа</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Учебные материалы</a>
+            </div>
+            <div class="main-menu__subitem">
+              <a href="#" class="main-menu__subitem-link">Преподаватели</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-menu__item main-menu__item_position">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon18.svg" alt="чат" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Чат</p>
+            <span class="main-menu__item-col">2</span>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon2.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Преподаватель</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon16.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Связаться с администратором</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon15.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Услуги</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon4.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Новости школы</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon13.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Планировщик</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item main-menu__item-margin">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon12.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Изменить личные данные</p>
+          </a>
+        </div>
+
+        <div class="main-menu__item">
+          <a href="#" class="main-menu__item-box">
+            <img src="../img/icon11.svg" alt="календарь" class="main-menu__item-img" />
+            <p class="main-menu__item-descriotion no-active">Выйти</p>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main class="calendar-go-to-day">
+      <!-- общий флекс-контейнер -->
+
+      <div class="calendar-go-to-day__calendar-for-all-box">
+        <!-- контейнер для контента слева -->
+        <form action="" class="calendar-go-to-day__form1">
+          <div class="calendar-go-to-day__left-content-container">
+            <!-- контейнер выбора темы и описания занятия -->
+
+            <div class="left-content-container__topic-container">
+              <p class="topic-container__lesson-number">Занятие 1. Тема 1 - Название темы название темы название темы.</p>
+
+              <div class="select selectTheme">
+                <p class="select__change select__change-theme">Выбрать другую тему...</p>
+                <div class="select__option-container no-active">
+                  <input type="text" hidden class="select_input" name="theme" />
+                  <p data-value="present" class="select__option select__option-theme">Тема 1</p>
+                  <p data-value="absent" class="select__option select__option-theme">Тема 2</p>
+                  <p data-value="seriousReason" class="select__option select__option-theme">Тема 3</p>
+                </div>
+              </div>
+
+              <p class="topic-container__about-lesson-info">Описание занятия описание занятия описание занятия описание описание занятия. Описание занятия</p>
+            </div>
+
+            <!-- контейнер для домашнего задания + кнопка "архив"-->
+
+            <div class="left-content-container__homework-box">
+              <div class="homework-box__homework-headline-box">
+                <p class="homework-headline-box__headline">Домашнее задание</p>
+              </div>
+              <div class="homework-box__comment-and-add-file-area">
+                <textarea class="homework-box__comment-area" placeholder="Комментарий к домашнему заданию..."></textarea>
+                <div class="main__personal-box-for-input-file">
+                  Добавить файл
+                  <input type="file" multiple class="main__personal-button-input-file" />
+                </div>
+              </div>
+            </div>
+
+            <button class="btn_container__save_btn btn_container__save_btn_margin">Сохранить</button>
+          </div>
+        </form>
+
+        <!-- скрытый контейнер для выбора тем (большой, центр страницы, вызов по клику на номер занятия и название темы (topic-container__lesson-number)) -->
+
+        <!-- скрытый контейнер для окна архива (большой, центр страницы, вызов по клику на кнопку "архив") -->
+
+        <!-- <div class="calendar-go-to-day__archive-container no-active">
+          <div class="archive-container">
+            <p class="archive-container__headline">Архив</p>
+            <div class="archive-container__line"></div>
+            <div class="archive-container__archive-item-box">
+              <p class="archive-container__archive-item">Что-то, что можно выбрать из архива</p>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- контейнер для причины изменения в планировании и чек-боксов -->
+        <form action="" class="calendar-go-to-day__form">
+          <div class="calendar-go-to-day__middle-content-container">
+            <!-- контейнер для причины изменения в планировании + линия -->
+            <p class="calendar-go-to-day__reason-change">Причина изменения в планировании занятий</p>
+            <textarea class="middle-content-container__reason-for-change-container"> </textarea>
+
+            <div class="middle-content-container__border-line"></div>
+
+            <div class="middle-content-container__button-show-archive">
+              <p class="left-content-container__archive-of-school-btn">Архив школы</p>
+            </div>
+
+            <!-- контейнер для чек-боксов -->
+
+            <div class="middle-content-container__check-boxes-container no-active">
+              <!-- названия чек-боксов -->
+
+              <div class="check-boxes-container__headline-container">
+                <p class="check-box-icon__but-close-container"><img src="../img/hotpn.png" alt="закрыть" class="check-box-icon__but-close" /></p>
+                <div class="check-box-icon__head">
+                  <p class="headline-container__headline">Литература</p>
+                  <p class="headline-container__headline">Видеоматериалы</p>
+                </div>
+              </div>
+
+              <!-- чек-бокс - литературы -->
+
+              <div class="check-boxes-container__literature-check-box check-box-style">
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="1" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="2" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="3" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="4" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="5" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+              </div>
+
+              <!-- чек-бокс - видео -->
+
+              <div class="check-boxes-container__video-check-box check-box-style">
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="1" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="2" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="3" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="4" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="5" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="5" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+
+                <label class="check-box__check-box-item">
+                  <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="6" />
+                  <span class="check-box-icon__new_icon"></span>
+                  <p>Книга такая-то</p>
+                  <p>Тема такая-то</p>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Контейнер для даты и списка группы и выбора оценки и статуса студентов -->
+
+          <div class="calendar-go-to-day__right-content-container">
+            <!-- Контейнер для названия группы, времени, даты  -->
+
+            <div class="right-content-container__info-box">
+              <p class="right-content-container__course-headline">Frontend</p>
+              <p class="right-content-container__group-headline">Группа</p>
+              <p class="right-content-container__time">18:30</p>
+              <p class="right-content-container__date">08.10.2020</p>
+            </div>
+
+            <!-- Контейнер списка группы выбора оценки и статуса студентов-->
+
+            <div class="right-content-container__group-list-container">
+              <p class="headline-box__headline">Список группы</p>
+
+              <!-- Контейнер списка группы -->
+
+              <div class="group-list-container__list-of-group">
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status1" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating1" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status2" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating2" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status3" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating3" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status4" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating4" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status5" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating5" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status6" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating6" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status6" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating6" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-list-container__student">
+                  <div class="group-list-container__box-for-name-and-foto">
+                    <img src="../img/Ellipse 8.svg" alt="avatar" class="list-of-group__student-avatar" />
+                    <div class="box-for-name">
+                      <p class="name-box__last-name">Кусенков</p>
+                      <p class="name-box__student-name">Игорь Александрович</p>
+                    </div>
+                  </div>
+                  <div class="select">
+                    <p class="select__change">Выбрать статус</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="status6" />
+                      <p data-value="present" class="select__option">Присутствует</p>
+                      <p data-value="absent" class="select__option">Отсутствует</p>
+                      <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p>
+                    </div>
+                  </div>
+
+                  <div class="select selectRaiting">
+                    <p class="select__change">Оценка</p>
+                    <div class="select__option-container no-active">
+                      <input type="text" hidden class="select_input" name="rating6" />
+                      <p data-value="1" class="select__option">1</p>
+                      <p data-value="2" class="select__option">2</p>
+                      <p data-value="3" class="select__option">3</p>
+                      <p data-value="4" class="select__option">4</p>
+                      <p data-value="5" class="select__option">5</p>
+                      <p data-value="6" class="select__option">6</p>
+                      <p data-value="7" class="select__option">7</p>
+                      <p data-value="8" class="select__option">8</p>
+                      <p data-value="9" class="select__option">9</p>
+                      <p data-value="10" class="select__option">10</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- контейнер для кнопки "Сохранить" -->
+              <div class="right-content-container__btn_container">
+                <button class="btn_container__save_btn">Сохранить</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script src="calendar-go-to-day.js"></script>
+    <script src="main-header.js"></script>
+  </body>
+</html>
