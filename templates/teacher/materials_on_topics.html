@@ -37,7 +37,7 @@
         {% for cl in classes %}
         <div class="main__material-topic-text">
             <p class="main__material-topik-text main__material-topik-text_width">
-                {{cl.groups.title}}
+                 Занятие {{cl.position}}
             </p>
             <a href="{% url 'teacher:material_detail' cl.id %}" class="main__material-topic-link">
                 {{cl.theme}}

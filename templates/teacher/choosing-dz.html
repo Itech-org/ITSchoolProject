@@ -56,7 +56,9 @@
         <div class="content__tutor-reply">
             <div class="content__tutor-replay-student-work">
                 <p class="content__tutor-replay-student-work-text">{{homework.description}}</p>
+                {% if homework.file %}
                 <a href="{{homework.file.url}}" class="content__tutor-replay-student-work-file" download>Файл к ДЗ</a>
+                {% endif %}
             </div>
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
