@@ -1,0 +1,50 @@
+{% extends 'director/base_director.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/timetable.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/group-list.css' %}"/>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>ФИО студента</th>
+                    <th>Менеджер</th>
+                    <th>Номер договора</th>
+                    <th>Дата заключения</th>
+                    <th>Курс</th>
+                    <th>Группа</th>
+                    <th>Сумма оплаты</th>
+                    <th>Этапы</th>
+                </tr>
+                {% for contract in contracts %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ contract.account }}</td>
+                        <td>{{ contract.lead.specialist }}</td>
+                        <td>{{ contract.number }}</td>
+                        <td>{{ contract.date }}</td>
+                        <td>{{ contract.course }}</td>
+                        <td>{{ contract.group }}</td>
+                        <td>{{ contract.price }}</td>
+                        <td>
+                            {% if contract.payment.by_stages %}
+                                <select>
+                                    {% for stage in contract.payment.paymentstage_set.all %}
+                                    <option>{{ payments|get_item:contract.id|get_item:stage.id|get_item:'price' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'date' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'conf' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'picture' }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                {% for stage in contract.payment.paymentstage_set.all %}
+                                {{ payments|get_item:contract.id|get_item:stage.id|get_item:'price' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'date' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'conf' }}|{{ payments|get_item:contract.id|get_item:stage.id|get_item:'picture' }}
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
+{% endblock %}

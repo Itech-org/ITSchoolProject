@@ -1,0 +1,31 @@
+{% extends 'director/base_director.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/timetable.css' %}"/>
+{% endblock %}
+{% block content %}
+    <main>
+    <div class="table">
+        <table>
+            <tr>
+                <th colspan="5">Расписание занятий</th>
+            </tr>
+            <tr>
+                <td>Дата</td>
+                <td>Кабинет</td>
+                <td>Группа</td>
+                <td>Преподаватель</td>
+            </tr>
+            {% for class in classes %}
+                <tr>
+                    <td>{{ class.date }}</td>
+                    <td>{{ class.classroom }}</td>
+                    <td>{{ class.groups }}</td>
+                    <td>{{ class.groups.teacher }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </main>
+{% endblock %}
+

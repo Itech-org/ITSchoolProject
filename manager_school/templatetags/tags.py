@@ -2,8 +2,9 @@ import urllib
 
 from django import template
 from ..models import Attendance, CourseUser
+from django.template.defaulttags import register
 
-register = template.Library()
+# register = template.Library()
 
 
 @register.simple_tag(name="get_performance")
@@ -54,3 +55,7 @@ def get_teacher_courses(teacher, student=None):
     else:
         courses = CourseUser.objects.filter(groups__in=teacher.groups_teacher.all())
     return set(courses)
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

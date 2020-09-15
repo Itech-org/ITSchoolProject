@@ -1,0 +1,40 @@
+.table {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+table {
+    font-family: 'Exo 2', sans-serif;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    background: #E1E3E0;
+    border-radius: 20px;
+    margin: 5px;
+    overflow: hidden;
+}
+
+th {
+    font-size: 22px;
+    font-weight: 300;
+    padding: 12px 10px;
+    border-bottom: 2px solid #F56433;
+    color: #F56433;
+}
+
+tbody tr:nth-child(2) {
+    border-bottom: 2px solid #F56433;
+}
+
+td {
+    width: 150px;
+    padding: 10px;
+    color: #767676;
+}
+
+td:first-child {
+    width: 50px;
+}

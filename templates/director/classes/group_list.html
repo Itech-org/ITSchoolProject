@@ -1,0 +1,42 @@
+{% extends 'director/base_director.html' %}
+{% load tags %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/timetable.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/group-list.css' %}"/>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="table">
+            {% for group in groups %}
+                {% if group.students.all %}
+                <table>
+                    <tr>
+                        <th colspan="5">Список группы {{ group.title }}</th>
+                    </tr>
+                    <tr>
+                        <td>№</td>
+                        <td>ФИО студента</td>
+                        <td>Успеваемость</td>
+                        <td>Посещаемость</td>
+                    </tr>
+                    {% for student in group.students.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ student.last_name }}.{{ student.first_name|slice:":1" }}.{{ student.surname|slice:":1" }}</td>
+                            {% get_performance student group.id as perf %}
+                            <td><div class="progressbar"><span style="width:{{ perf }}%"></span></div></td>
+                            <td><div class="progressbar"><span style="width: {{ student.get_attendance }}%"></span></div></td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td style="border-top: 2px solid #F56433" colspan="3">Общая успеваемость группы</td>
+                        <td style="border-top: 2px solid #F56433; color:#f56433; font-size:21px">{{ group.get_academic_performance }}</td>
+                    </tr>
+                </table>
+                {% else %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

@@ -205,8 +205,12 @@ def class_view(request, class_id):
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
-        next_class = current_group.classes.get(position=int(last_class.position + 1))
-        context.update({'next_class': next_class})
+        context.update({'last_class':last_class})
+        try:
+            next_class = current_group.classes.get(position=int(last_class.position + 1))
+            context.update({'next_class': next_class})
+        except:
+            pass
     if request.POST:
         homework = HomeworkModel(title='Домашнее задание ' + str(request.user.first_name), class_field=cls,
                                  user=request.user, rating=0)
@@ -316,8 +320,11 @@ def video_themes(request):
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
-        next_class = current_group.classes.get(position=int(last_class.position + 1))
-        all_classes.append(next_class)
+        try:
+            next_class = current_group.classes.get(position=int(last_class.position + 1))
+            all_classes.append(next_class)
+        except:
+            next_class = None
     else:
         all_classes = classes
     context = {'groups': groups, 'group': current_group, 'classes': all_classes}

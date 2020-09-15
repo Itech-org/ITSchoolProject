@@ -27,8 +27,10 @@
                                 <div class="block-info__home-work-title">Домашнее задание: {{ homework.title }}</div>
                                 <div class="block-info__home-work-text">
                                     {{ homework.description }}
-                                    <a download class="block-student-form-input-file"
-                                       href="{{ homework.file.url }}">Файл</a>
+                                    {% if homework.file %}
+                                        <a download class="block-student-form-input-file"
+                                           href="{{ homework.file.url }}">Файл</a>
+                                    {% endif %}
                                     {% if class.groups.course.is_online %}
                                         {% if class.room_link %}
                                             <a class="block-student-online-room" href="{{ class.room_link }}">Переход в

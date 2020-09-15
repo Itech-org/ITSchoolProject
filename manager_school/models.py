@@ -25,11 +25,11 @@ class AdvUser(AbstractUser): # Студенты
             academic_performance = 0
             if group_id == '':
                 attendances = self.attendances.all()
-                attendances_true = self.attendances.filter(attendance=True)
+                attendances_true = self.attendances.filter(attendance='Присутствует')
                 homework = self.homework_st.filter(status='Проверено')
             else:
                 attendances = self.attendances.filter(classes__groups__id=group_id)
-                attendances_true = self.attendances.filter(attendance=True, classes__groups__id=group_id)
+                attendances_true = self.attendances.filter(attendance='Присутствует', classes__groups__id=group_id)
                 homework = self.homework_st.filter(status='Проверено', class_field__groups__id=group_id)
             if attendances_true:
                 for attendance in attendances_true:
@@ -42,7 +42,7 @@ class AdvUser(AbstractUser): # Студенты
             except ZeroDivisionError:
                 return 0
         return 0
-
+# !!! ВЕРНУТЬ ФЛОАТ В ВЫВОД ЗНАЧЕНИЯ (ПОМЕНЯТЬ ДВОЙНОЙ СЛЭШ НА ОДИНАРНЫЙ)
     def get_attendance(self, group_id=''):
         if self.groups.filter(name="Student").exists():
             current_day = datetime.date.today()
@@ -54,10 +54,10 @@ class AdvUser(AbstractUser): # Студенты
                 classes = ClassModel.objects.filter(
                     groups__students__id=self.id, groups__id=group_id, date__gt=current_day)
             try:
-                attendance = len(attendances.filter(attendance=True)) / len(classes) * 100
+                attendance = len(attendances.filter(attendance='Присутствует')) / len(classes) * 100
             except ZeroDivisionError:
                 attendance = 0
-            return attendance
+            return int(attendance)# Вот тут инт убрать
         return 0
 
     def __str__(self):
@@ -172,7 +172,7 @@ class Attendance(models.Model): #Посещение
     classes =models.ForeignKey(ClassModel, on_delete=models.CASCADE, related_name='attendances')
     students = models.ForeignKey(AdvUser, on_delete=models.CASCADE, related_name="attendances")
     rating = models.IntegerField('Оценка', null=True, blank=True)
-    attendance = models.CharField(max_length=300, choices = CHOICES, default='Отсутствует')
+    attendance = models.CharField(max_length=300, choices=CHOICES, default='Отсутствует')
 
     class Meta:
         ordering = ['students', 'attendance', 'rating',]
@@ -491,6 +491,34 @@ class Costs(models.Model): # Расходы
         verbose_name = 'Расход'
         verbose_name_plural = 'Расходы'
         ordering = ['-date']
+
+
+class ExpenceGroup(models.Model): # Группа расходов
+    name = models.CharField(max_length=125, verbose_name='Название группы расходов')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Группа расходов'
+        verbose_name_plural = 'Группы расходов'
+
+
+class Expences(models.Model): # Затраты
+    group = models.ForeignKey(ExpenceGroup, on_delete=models.CASCADE, verbose_name='Группа расходов', related_name='Expence')
+    date = models.DateField(verbose_name='Дата')
+    description = models.TextField(verbose_name='Описание затрат', blank=True)
+    file = models.FileField(verbose_name='Чек/Фото', upload_to='images/expences/', blank=True)
+    price = models.FloatField(verbose_name='Сумма')
+
+    def __str__(self):
+        return f"{self.group} | {self.date}"
+
+    class Meta:
+        verbose_name_plural = 'Затраты'
+        verbose_name = 'Затраты'
+        ordering = ['group', '-date']
+
 
 
 class ContactAdmin(models.Model):

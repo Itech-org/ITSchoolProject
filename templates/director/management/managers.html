@@ -1,0 +1,99 @@
+{% extends 'director/base_director.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/timetable.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/group-list.css' %}"/>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="table">
+            <table>
+                <tr>
+                    <th></th>
+                    {% for manager in managers %}
+                        <th>{{ manager.last_name }} {{ manager.first_name|slice:":1" }}.{{ manager.surname|slice:":1" }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td colspan="{{ colspan }}">Заявки</td>
+                </tr>
+                <tr>
+                    <td>Всего заявок</td>
+                    {% for manager in managers %}
+                        <td>{{ requests|get_item:manager.id|get_item:'requests_count' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Успешные</td>
+                    {% for manager in managers %}
+                        <td>{{ requests|get_item:manager.id|get_item:'requests_ready' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>В процессе</td>
+                    {% for manager in managers %}
+                        <td>{{ requests|get_item:manager.id|get_item:'requests_ip' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Отклоненные заявки</td>
+                    {% for manager in managers %}
+                        <td>{{ requests|get_item:manager.id|get_item:'requests_denied' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td colspan="{{ colspan }}" style="border-top:2px solid #F56433; border-bottom:2px solid #F56433;">
+                        Звонки
+                    </td>
+                </tr>
+                <tr>
+                    <td>Всего звонков</td>
+                    {% for manager in managers %}
+                        <td>{{ conversations|get_item:manager.id|get_item:'count' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Успешные</td>
+                    {% for manager in managers %}
+                        <td>{{ conversations|get_item:manager.id|get_item:'ready' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>В процессе</td>
+                    {% for manager in managers %}
+                        <td>{{ conversations|get_item:manager.id|get_item:'call_back' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Отклоненные звонки</td>
+                    {% for manager in managers %}
+                        <td>{{ conversations|get_item:manager.id|get_item:'denied' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td colspan="{{ colspan }}" style="border-top:2px solid #F56433; border-bottom:2px solid #F56433;">
+                        Контракты
+                    </td>
+                </tr>
+                <tr>
+                    <td>Всего контрактов</td>
+                    {% for manager in managers %}
+                        <td>{{ contracts|get_item:manager.id|get_item:'count' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Подписаны</td>
+                    {% for manager in managers %}
+                        <td>{{ contracts|get_item:manager.id|get_item:'subscribed' }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>В процессе</td>
+                    {% for manager in managers %}
+                        <td>{{ contracts|get_item:manager.id|get_item:'in_progress' }}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </main>
+{% endblock %}

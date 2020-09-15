@@ -183,17 +183,7 @@
         <div class="material__container">
           {% for video in video %}
           <div class="material__container-video">
-            <!-- заготовка по будущее видео -->
-<!--            <video controls class="material__container-video">-->
-<!--              <source src="{{ video.url }}" type="video/mp4">-->
-<!--              <source src="{{ video.url }}" type="video/ogg">-->
-<!--              <source src="{{ video.url }}" type="video/webm">-->
-<!--            </video>-->
-            <iframe width="480" height="380" src="{{ video.url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!--  пока просто картинка -->
-              <!-- <div class="material__container-video">
-                <img src="../img/Rectangle 15.svg" alt="">
-              </div> -->
+            <iframe src="https://player.vimeo.com/video/457716131" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
               <div class="material__container-videotitle">{{ video.title }}</div>
           </div>
           {% endfor %}

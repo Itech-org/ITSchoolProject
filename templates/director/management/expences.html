@@ -1,0 +1,42 @@
+{% extends 'director/base_director.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/timetable.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/group-list.css' %}"/>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Группа расходов</th>
+                <th>Сумма</th>
+                <th>Описание</th>
+                <th>Файл</th>
+            </tr>
+            {% for expence in expences %}
+            <tr>
+                <td>{{ expence.date }}</td>
+                <td>{{ expence.group }}</td>
+                <td>{{ expence.price }}</td>
+                <td>{{ expence.description }}</td>
+                <td>{{ expence.file }}</td>
+            </tr>
+            {% endfor %}
+        <tr>
+            <td colspan="4">Всего потрачено</td>
+            <td>{{ spent }}</td>
+        </tr>
+        <tr>
+            <td colspan="4">Общая выручка</td>
+            <td>{{ proceeds }}</td>
+        </tr>
+        <tr>
+            <td colspan="4">Прибыль</td>
+            <td>{{ profit }}</td>
+        </tr>
+        </table>
+    </div>
+</main>
+{% endblock %}
