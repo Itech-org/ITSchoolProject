@@ -13,7 +13,7 @@ urlpatterns = [
     path('', main_page_view, name='main_page'),
     path('groups/', get_groups, name='get_groups'),
     path('group/create/', add_group, name='add_group'),
-    path('group/<str:slug>/add-classes', create_group_classes, name='create_group_classes'),
+    path('group/<str:slug>/add-classes', create_group_classes_page, name='create_group_classes'),
     path('group/<str:slug>/detail/', get_group_detail, name='get_group_detail'),
     path('group/<str:slug>/journal/', get_group_journal, name='get_group_journal'),
     path('group/<int:group_id>/student/<int:student_id>/card/', get_student_card, name='get_student_card'),
@@ -34,9 +34,16 @@ urlpatterns = [
     path('payment-stage/<int:payment_stage_id>/', confirm_payment_stage, name='confirm_payment_stage'),
     path('chats/', get_chats, name='chats'),
     path('chat/create/<int:user_id>/', start_chat_with_user, name='create_dialog'),
+    path('chat/create-group-chat/<str:slug>/', start_group_chat, name='create_group_chat'),
     path('chat/<int:chat_id>', get_chat_with_user, name='messages'),
+    path('planning/', get_planning_rooms_page, name='planning_rooms_page'),
+    path('planning/class/<int:class_id>/update/', update_class_date_and_time, name='update_class_date_and_time'),
     path('news/', get_news_list, name='get_news_list'),
     path('api/v1/classes-list/', api_classes_list),
     path('api/v1/leads-list/', api_leads_list),
-    path('api/v1/news/', news_list)
+    path('api/v1/news/', news_list),
+    path('api/v1/online-courses-list/', api_online_course_list),
+    path('api/v1/offline-courses-list/', api_offline_course_list),
+    path('api/v1/course-detail/<int:course_id>', api_course_detail),
+
 ]

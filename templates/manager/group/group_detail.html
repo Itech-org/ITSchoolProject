@@ -19,9 +19,17 @@
 <main class="group">
     <div class="group__container">
         <div class="d-flex flex-column">
-            <a href="{% url 'manager_school:get_group_journal' slug=group.slug %}" class="group__sent-message-link">
-                <p class="group__box-for-link ml-0 mb-5">Журнал посещяемости</p>
-            </a>
+            <div style="display: flex; justify-content: space-between;">
+                <a href="{% url 'manager_school:get_group_journal' slug=group.slug %}" class="group__sent-message-link">
+                    <p class="group__box-for-link">Журнал посещяемости</p>
+                </a>
+                {% if not group_chat %}
+                <a href="{% url 'manager_school:create_group_chat' slug=group.slug %}"
+                   class="group__sent-message-link">
+                    <p class="group__box-for-link">Создать чат группы</p>
+                </a>
+                {% endif %}
+            </div>
             <div class="group__list-students">
                 <p class="group__name-list">Список учеников</p>
                 {% for student in group.students.all %}

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Count
-from django.http import HttpResponseRedirect, QueryDict, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -15,8 +15,14 @@ from .filters import StudyRequestFilter
 from .forms import *
 from django.shortcuts import render
 
+<<<<<<< HEAD
 from .serializers import ClassModelSerializer, StudyRequestSerializer, NewsSerializer
 from .services import get_manager_successful_percent, get_manager_data_per_period
+=======
+from .serializers import ClassModelSerializer, StudyRequestSerializer, CourseSerializer, CourseDetailSerializer
+from .services import get_manager_successful_lead_percent, get_manager_data_per_period, get_planning_rooms, \
+    create_group_classes, get_year_and_month
+>>>>>>> 884b074e40af47b5a5ef45a76d27dfbd5f4c18fc
 
 from .utilities import *
 
@@ -94,53 +100,73 @@ def add_group(request):
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
-def create_group_classes(request, slug):
+def create_group_classes_page(request, slug):
     group = get_object_or_404(GroupModel, slug=slug)
     course = group.course
     count_days = course.finish_date - course.start_date
     class_rooms = Classroom.objects.all()
+    year, month = get_year_and_month(request)
+    context = get_planning_rooms(year, month)
+    context.update({
+        "course": course,
+        "group": group,
+        "class_rooms": class_rooms,
+        'current_month': month,
+        'current_year': year,
+    })
     if request.method == "POST":
-        if 'classes_days' in request.POST and 'class_room' in request.POST:
-            start_time = request.POST.get('start_time')
-            end_time = request.POST.get('end_time')
-            days_list = [int(day) for day in request.POST.getlist('classes_days')]
-            position = 1
-            class_room = get_object_or_404(Classroom, title=request.POST["class_room"])
-            for day in range(count_days.days + 1):
-                dt = course.start_date + datetime.timedelta(day)
-                if dt.weekday() in days_list:
-                    ClassModel.objects.create(
-                        position=position,
-                        theme=f'Тема-{position}',
-                        groups=group,
-                        classroom=class_room,
-                        date=dt,
-                        start_time=start_time,
-                        end_time=end_time
-                    )
-                    position += 1
+        if create_group_classes(request, count_days, group):
             return redirect("manager_school:get_group_detail", slug=slug)
     else:
         pass
-    return render(request, "manager/class/create_group_classes.html", {"course": course, "group": group, "class_rooms": class_rooms})
+    return render(request, "manager/class/create_group_classes.html", context=context)
 
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def update_class_date_and_time(request, class_id):
+    class_data = get_object_or_404(ClassModel, id=class_id)
+    class_rooms = Classroom.objects.all()
+    if request.method == "POST":
+        date = request.POST.get('date')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        class_room_title = request.POST.get('classroom')
+
+        class_data.date = date
+
+        class_data.start_time = start_time
+        class_data.end_time = end_time
+
+        class_data.classroom = get_object_or_404(Classroom, title=class_room_title)
+
+        class_data.save()
+
+        return redirect('manager_school:planning_rooms_page')
+    else:
+        return render(request, "manager/class/update_class_date_and_time.html",
+                      context={'class': class_data, 'class_rooms': class_rooms})
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def get_planning_rooms_page(request):
+    year, month = get_year_and_month(request)
+    context = get_planning_rooms(year, month)
+    context.update({
+        'current_month': month,
+        'current_year': year,
+    })
+    return render(
+        request, "manager/group/planning_rooms_page.html",
+        context=context
+    )
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_group_detail(request, slug):
     group = get_object_or_404(GroupModel, slug=slug)
-    try:
-        next_lesson = ClassModel.objects.filter(groups__slug=slug, date__gt=datetime.datetime.now())[0]
-    except IndexError:
-        next_lesson = []
-    try:
-        prev_lesson = ClassModel.objects.filter(
-            groups__slug=slug, date__lt=datetime.datetime.now()
-        ).order_by('-date')[0]
-    except IndexError:
-        prev_lesson = []
+    group_chat = Chat.objects.filter(group=group).first()
     return render(request, "manager/group/group_detail.html", {
-        "group": group, "next_lesson": next_lesson, "prev_lesson": prev_lesson})
+        "group": group, 'group_chat': group_chat})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -327,8 +353,8 @@ def register_user(request, lead_id):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('manager_school:create_contract_page', lead_id=lead_id)
+            student = form.save()
+            return redirect('manager_school:create_contract_page', lead_id=lead_id, student_id=student.id)
     else:
         lead = get_object_or_404(StudyRequest, id=lead_id)
         try:
@@ -342,11 +368,11 @@ def register_user(request, lead_id):
         except Exception as e:
             print(e)
             form = []
-    return render(request, 'manager/other/student_registrtion.html', {'form': form})
+    return render(request, 'manager/other/student_registration.html', {'form': form})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
-def create_contract_page(request, lead_id):
+def create_contract_page(request, lead_id, student_id):
     if request.method == "POST":
         contract_form = ContractForm(request.POST)
         if contract_form.is_valid():
@@ -360,7 +386,13 @@ def create_contract_page(request, lead_id):
             group.students.add(student)
             return redirect('manager_school:add_payment_stage', contract_id=contract.id, payment_id=payment.id)
     else:
-        contract_form = ContractForm(initial={'date': datetime.datetime.now(), "lead": lead_id})
+        student = get_object_or_404(AdvUser, id=student_id)
+        contract_form = ContractForm(
+            initial={
+                'date': datetime.datetime.now(),
+                "lead": lead_id,
+                'account': student
+            })
     return render(request, 'manager/contract/contract_create.html', {"contract_form": contract_form})
 
 
@@ -453,12 +485,32 @@ def get_chat_with_user(request, chat_id):
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def start_group_chat(request, slug):
+    title = request.POST.get('chat_title', '')
+    group = get_object_or_404(GroupModel, slug=slug)
+
+    chats = Chat.objects.filter(group=group)
+    if chats.exists():
+        pass
+    else:
+        chat = Chat.objects.create()
+        chat.type = "C"
+        chat.members.add(*[user for user in group.students.all()])
+        chat.members.add(group.teacher)
+        chat.group = group
+        chat.set_chat_title(title)
+    return redirect(reverse('manager_school:get_group_detail', kwargs={'slug': slug}))
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def start_chat_with_user(request, user_id):
     chats = Chat.objects.filter(members__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
     if chats.count() == 0:
         chat = Chat.objects.create()
         chat.members.add(request.user)
         chat.members.add(user_id)
+        companion = get_object_or_404(AdvUser, id=user_id)
+        chat.chat_title = f"{companion.first_name} {companion.last_name}"
     else:
         chat = chats.first()
     return redirect(reverse('manager_school:messages', kwargs={'chat_id': chat.id}))
@@ -482,17 +534,39 @@ def api_classes_list(request):
     return Response(data.data)
 
 
+@api_view(['GET'])
+def api_online_course_list(request):
+    courses = CourseUser.objects.filter(is_online=True)
+    data = CourseSerializer(courses, many=True)
+    return Response(data.data)
+
+
+@api_view(['GET'])
+def api_offline_course_list(request):
+    courses = CourseUser.objects.filter(is_online=False)
+    data = CourseSerializer(courses, many=True)
+    return Response(data.data)
+
+
+@api_view(['GET'])
+def api_course_detail(request, course_id):
+    course = get_object_or_404(CourseUser, id=course_id)
+    data = CourseDetailSerializer(course)
+    return Response(data.data)
+
+
 # ---------------------profile-----------------------------
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
 def get_manager_profile(request):
-    data = get_manager_data_per_period(request.user)
+    period_from = request.GET.get('period_from')
+    period_to = request.GET.get('period_to')
+    manager_data_per_period = get_manager_data_per_period(request.user, period_from=period_from, period_to=period_to)
 
     context = {
-        'successful_leads_percent': get_manager_successful_percent(request.user, model='StudyRequest'),
-        'successful_contracts_percent': get_manager_successful_percent(request.user, model='Contract'),
-        'data': data,
+        'successful_leads_percent': get_manager_successful_lead_percent(request.user),
+        'manager_data_per_period': manager_data_per_period,
     }
     return render(request, 'manager/profile/profile.html', context)
 
@@ -502,9 +576,7 @@ def change_user_info(request):
     if request.method == "POST":
         phone = request.POST.get('phone', '')
         email = request.POST.get('email', '')
-        print(request.FILES)
         img_user = request.FILES.get('img_user', '')
-        print(img_user)
         user = request.user
         if phone:
             user.phone = phone
@@ -525,6 +597,7 @@ def get_news_list(request):
     return render(request, 'manager/other/news_list.html', {
         'news': News.objects.all()
     })
+<<<<<<< HEAD
 
 
 @csrf_exempt
@@ -533,3 +606,5 @@ def news_list(request):
         news = News.objects.all()
         serializer = NewsSerializer(news, many=True)
         return JsonResponse(serializer.data, safe=False)
+=======
+>>>>>>> 884b074e40af47b5a5ef45a76d27dfbd5f4c18fc

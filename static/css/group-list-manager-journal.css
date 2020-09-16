@@ -58,7 +58,7 @@
   .thead__wrapper-main{
     display: flex;
     margin-left: 50px;
-    margin-top: 80px;
+    margin-top: 60px;
   }
   
 table {
@@ -69,12 +69,14 @@ border-collapse: collapse;
 text-align: center;
 } 
 
+
 th {
     border: 1px solid #CED6F2;
 }
 
 td {
     border: 1px solid #CED6F2;
+    border-top: 4px solid #CED6F2;
     padding: 10px 20px;
     font-family: Montserrat-Regular;
     font-style: normal;

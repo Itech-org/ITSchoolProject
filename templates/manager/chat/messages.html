@@ -6,7 +6,12 @@
 
 {% block messages %}
 <p class="main__chat-open-text m-0">
+    {% if chat.group %}
+    <p>{{ chat.chat_name }}</p>
+    <p>{{ chat.members.count }}</p>
+    {% else %}
     {% get_companion user chat as companion %}{{ companion.last_name }} {{ companion.first_name }}
+    {% endif %}
 </p>
 <div id="messages__container" class="main__chat-message-seen-area">
     {% for message in chat.message_set.all %}

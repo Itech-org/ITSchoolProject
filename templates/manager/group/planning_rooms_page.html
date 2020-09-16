@@ -1,0 +1,159 @@
+{% extends 'manager/base_manager.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load tags %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/group-list-manager-journal.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/students-home-work-manger.css' %}"/>
+{% endblock %}
+
+{% block title %}
+<p class="main-header__page-information">Планирование</p>
+<form method="get">
+    <div class="main-header__change-speciality" style="">
+        <div class="main-header__box-for-change-speciality">
+            <select name="year" class="main-header__button-change-speciality" id="year-select"></select>
+        </div>
+        <div class="main-header__box-for-change-speciality">
+            <select name="month" class="main-header__button-change-speciality" id="month-select"></select>
+        </div>
+        <div class="main-header__box-for-change-speciality">
+            <button class="main-header__button-change-speciality">Поиск</button>
+        </div>
+    </div>
+</form>
+<div class="main-header__list-speciality"></div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="thead__wrapper-main">
+        <table>
+            <thead>
+            <tr>
+                <td class="thead__td-color thead__td-color_light">Аудитории</td>
+            </tr>
+            </thead>
+            {% for room in rooms %}
+            <tr>
+                <td style="padding: 0px;">
+                    <div class="td__color_dark" style="min-height: 150px; padding: 25px;">
+                        <div>{{ room.title }}</div>
+                        <div style="font-size: 14px;">Мест: {{ room.max_places_count }}</div>
+                    </div>
+                </td>
+            </tr>
+            {% for interval in room.time_intervals.all %}
+            {% if forloop.first %}
+            {% else %}
+            <tr>
+                <td style="padding: 0px;">
+                    <div class="td__color_dark" style="min-height: 150px; padding: 25px;"></div>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </table>
+        <div class="thead__wrapper">
+            {% for date in date_set %}
+            {% check_current_date date as is_current_date %}
+            <table>
+                <thead>
+                <tr>
+                    <td class="thead__td-color thead__td-color_light" style="min-width: 160px;">
+                        {{ date|date:'D d.m.Y' }}
+                    </td>
+                </tr>
+                {% for room in rooms %}
+                {% for interval in room.time_intervals.all %}
+                {% get_room_at_current_day room date interval as classes %}
+                <tr>
+                    <td class="td__color_dark" style="padding: 0px;">
+                        <div class="link__color-light"
+                             style="min-height: 150px;font-size: 14px;color: black!important;
+                             {% if classes %}background: white;{% endif %}
+                             {% if is_current_date %}border: 4px solid #0e1935;{% endif %}">
+                            <div style="border-bottom: 1px solid #CED6F2">{{ interval.time_from }} -
+                                {{ interval.time_to }}
+                            </div>
+                            <div>
+                                {% for class in classes %}
+                                <a href="{% url 'manager_school:get_group_detail' slug=class.groups.slug %}">
+                                    {{ class.groups.title|truncatechars:10 }} {{ class.theme|truncatechars:10 }}
+                                </a><br>
+                                Занятие № {{ class.position }}
+                                <a href="{% url 'manager_school:update_class_date_and_time' class_id=class.id %}">
+                                    Перенести
+                                </a><br>
+                                Время: {{ class.start_time }} - {{ class.end_time }}
+                                Места: {{ class.groups.students.count }} из {{ room.max_places_count }}
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+                </thead>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    var date = new Date();
+    var currentMonth = {% if current_month %}{{ current_month }}{% else %}date.getMonth() + 1{% endif %};
+    var currentYear = {% if current_month %}{{ current_year }}{% else %}date.getFullYear(){% endif %};
+
+    var months = {
+        1: 'Январь',
+        2: 'Февраль',
+        3: 'Март',
+        4: 'Апрель',
+        5: 'Май',
+        6: 'Июнь',
+        7: 'Июль',
+        8: 'Август',
+        9: 'Сентябрь',
+        10: 'Октябрь',
+        11: 'Ноябрь',
+        12: 'Декабрь',
+    };
+
+    const yearSelect = document.getElementById('year-select');
+    let yearInner = '';
+
+    for (let i = currentYear + 1; i >= 2000; i--) {
+        if (i === currentYear){
+            yearInner += `<option selected>${i}</option>`;
+        }
+        else{
+            yearInner += `<option>${i}</option>`;
+        }
+    }
+    yearSelect.innerHTML = yearInner;
+
+    const monthSelect = document.getElementById('month-select');
+    let monthInner = '';
+
+    for (key in months) {
+        if (Number.parseInt(key) === currentMonth){
+            monthInner += `<option selected value="${key}">${months[key]}</option>`;
+        }
+        else{
+            monthInner += `<option value="${key}">${months[key]}</option>`;
+        }
+    };
+    monthSelect.innerHTML = monthInner;
+</script>
+{% endblock %}

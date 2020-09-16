@@ -89,6 +89,31 @@
   margin: 0;
 }
 
+
+.main-connection__title {
+  width: 100%;
+  padding-left: 10px;
+  height: 50px;
+  font-family: Montserrat-SemiBold;
+  font-size: 14px;
+  border: none;
+}
+
+
+.main-connection__description {
+  width: 100%;
+  height: 82%;
+  font-family: Montserrat-SemiBold;
+  font-size: 14px;
+  border: none;
+  resize: none;
+  padding-left: 10px;
+  padding-top: 20px;
+  border-top: 10px solid rgba(231, 238, 243);
+}
+
+
+
 .main-connection__box {
   border: 10px solid rgb(139, 157, 217, 29%);
   width: 775px;
@@ -154,4 +179,15 @@
   margin-left: 40px;
   font-family: Montserrat-SemiBold;
   color: #114a8e;
+}
+
+.main-header__drop-down-notifications {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  padding-left: 20px;
+  padding-bottom: 20px;
+    margin-right: 0;
 }

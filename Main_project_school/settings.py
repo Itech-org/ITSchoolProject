@@ -84,6 +84,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'teacher.context_processors.get_groups',
                 'manager_school.context_processor.get_unread_chats_count',
+                'manager_school.context_processor.get_notification_student',
             ],
         },
     },

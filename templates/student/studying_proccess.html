@@ -31,8 +31,8 @@
             </p>
         </div>
         </a>
-        {% for x in request.user.groupmodel_set.all|slice:":1" %}
-        <a href="{% url 'student:group_view' group_id=x.id  %}" class="main__student-process-link">
+        {% for x in request.user.groupmodel_set.all %}
+        <a href="{% url 'student:group_view'  %}" class="main__student-process-link">
         {% endfor %}
         <div class="main__student-process-box">
             <img src="{% static 'img/group1.svg' %}" alt="Группа" class="main__student-process-img"/>
