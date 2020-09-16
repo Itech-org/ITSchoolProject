@@ -1,0 +1,46 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %} Расходы {% endblock %}
+{%block header%} Расходы {% endblock %}
+
+{% block content %}
+
+
+<main>
+      <div class="thead__wrapper">
+        <table>
+          <thead>
+            <tr>
+              <td class="thead__td-color thead__td-color_light">Дата</td>
+              <td class="thead__td-color thead__td-color_light">Поломки</td>
+              <td class="thead__td-color thead__td-color_dark">Канцелярия</td>
+              <td class="thead__td-color thead__td-color_light">Бакалея (кофе, чай, печенье)</td>
+              <td class="thead__td-color thead__td-color_dark">Бытовая химия</td>
+              <td class="thead__td-color thead__td-color_light">Было потрачено</td>
+            </tr>
+          </thead>
+            {% for obj in filter.qs %}
+          <tr>
+            <td>{{ obj.date }}</td>
+            <td class="td__color_dark">{{ obj.breakdown }}</td>
+            <td class="td__color_dark">{{ obj.chancery }}</td>
+            <td class="td__color_dark">{{ obj.grocery }}</td>
+            <td class="td__color_dark">{{ obj.house_chemicals }}</td>
+            <td class="td__color_dark">{{ obj.total }}</td>
+          </tr>
+            {% endfor %}
+
+        </table>
+      </div>
+    </main>
+    <div class="costs__link">
+        <a href="{% url 'admin_school:costs' %}">Добавить расходы</a>
+    </div>
+
+<form method="get" class="post-form-filter">
+        {{ filter.form.as_p }}
+        <button type="submit" class="save default">Отправить</button>
+</form>
+
+
+{% endblock %}

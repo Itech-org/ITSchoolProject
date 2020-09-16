@@ -129,6 +129,8 @@
 
 .calendar__day-task-container {
   width: 100%;
+  max-height: 440px;
+  overflow-y: scroll;
 }
 
 .calendar__day-task {
@@ -176,4 +178,9 @@
 
 .today {
   background-color: rgb(225, 222, 245);
+}
+
+::-webkit-scrollbar { /* chrome based */
+    width: 0px;  /* ширина scrollbar'a */
+    background: transparent;  /* опционально */
 }

@@ -1,0 +1,441 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+.no-active {
+  display: none;
+}
+
+/* header */
+.main-header {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #c3dbf9;
+  top: 0;
+  margin-left: 70px;
+  transition: 0.2s;
+}
+
+.main-header__name {
+  font-family: Montserrat-Medium;
+  color: #203b82;
+}
+
+/* о странице */
+.main-header__page-information-change-specialty {
+  display: flex;
+  height: 100%;
+}
+
+.main-header__change-speciality {
+  display: flex;
+  align-items: center;
+  background-color: #81beeb;
+  width: 360px;
+  justify-content: space-around;
+  justify-content: center;
+}
+
+.main-header__box-for-info {
+  display: flex;
+}
+
+.main-header__button-change-speciality {
+  width: 130px;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: Montserrat-LightItalic;
+  color: #12437d;
+}
+
+.main-header__page-information {
+  height: 100%;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat-Bold;
+  color: #517cae;
+}
+
+.main-header__speciality-info-group {
+  margin-left: 10px;
+  color: #12437d;
+  font-size: 14px;
+}
+
+.main-header__speciality-info-name {
+  font-family: Montserrat-Bold;
+  color: #12437d;
+  font-size: 13px;
+}
+
+.main-header__box-for-change-speciality {
+  position: relative;
+  height: 30px;
+}
+
+.main-header__list-speciality {
+  position: absolute;
+  top: 30px;
+  width: 230px;
+  background-color: #e5f1ff;
+}
+
+.main-header__speciality-link {
+  width: 100%;
+  color: #12437d;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.main-header__button-change-speciality:hover {
+  cursor: pointer;
+}
+
+.main-header__wrapp-for-speciality-link:hover {
+  background-color: #b1d7fa;
+}
+
+.main-header__decoration-box {
+  width: 200px;
+  margin: 15px auto;
+}
+
+.main-header__wrapp-for-speciality-link {
+  width: 100%;
+  padding-left: 20px;
+}
+
+/* ...... */
+
+.main-header__box {
+  width: 180px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 110px;
+}
+
+.main-header_box-for-notification {
+  display: flex;
+  position: relative;
+}
+
+.main-header__col-notification {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: red;
+  font-family: Aclonica-Regular;
+}
+
+.main-header__img-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.main-header__personal-area {
+  position: absolute;
+  top: 50px;
+  right: 110px;
+  width: 200px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: linear-gradient(to bottom, #c3dbf9, #79a6cf);
+  transition: 0.2s;
+}
+
+.main-header__personal-area-options-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+  margin-bottom: -10px;
+  font-family: Montserrat-Medium;
+}
+
+.main-header__personal-area-link {
+  margin-right: 10px;
+  color: #112c71;
+  font-size: 12px;
+}
+
+.main-header__border-bottom {
+  width: 100%;
+  margin: auto;
+}
+
+.main-header__personal-area-link span {
+  color: red;
+  font-size: 16px;
+  font-weight: 900;
+  font-family: Aclonica-Regular;
+}
+
+.main-header__personal-area-col {
+  margin-right: 5px;
+}
+
+.main-header__personal-area-options_go-out {
+  margin-bottom: 20px;
+}
+
+/* nav */
+
+.main-menu {
+  position: fixed;
+  height: 100vh;
+  width: 70px;
+  background-color: #0e1935;
+  float: left;
+  top: 0;
+  transition: 0.2s;
+}
+
+.main-menu__logo {
+  width: 100%;
+}
+
+.main-header__box-for-logo {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-menu__logo-img {
+  width: 70px;
+  height: 30px;
+}
+
+.main-menu__show {
+  text-align: end;
+}
+
+.main-menu__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.main-menu__item_subiteam {
+  position: relative;
+}
+
+.main-menu__subitem {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  /* border-bottom: 1px solid #4B63A3; */
+}
+
+.main-menu__box-for-subitem {
+  position: absolute;
+  width: 180px;
+  right: -180px;
+  top: 0;
+  background-color: #0e1935;
+}
+
+.main-menu__subitem-link {
+  color: white;
+  font-family: Montserrat-Regular;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.main-menu__item-img {
+  width: 20px;
+  height: 20px;
+}
+
+.main-menu__item-col {
+  color: red;
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  font-weight: 900;
+  font-family: Aclonica-Regular;
+  font-size: 14px;
+}
+
+.main-menu__item_position {
+  position: relative;
+}
+
+.main-menu__item-margin {
+  margin-top: 60px;
+}
+
+.main-menu__item-descriotion {
+  color: white;
+  margin-left: 10px;
+  /* border-bottom: 1px solid #4B63A3; */
+  width: 100%;
+  font-family: Montserrat-SemiBold;
+  font-size: 13px;
+}
+
+.main-menu__item:hover {
+  background-image: url(../img/fon.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main-menu__item-show:hover {
+  background-image: url(../img/fon1.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main-menu__subitem:hover {
+  background-image: url(../img/fon1.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* равзвернутое меню */
+
+.main-menu-show {
+  width: 300px;
+  transition: 0.2s;
+}
+
+.main-menu__logo-img-show {
+  width: 140px;
+  height: 55px;
+}
+
+.main-header__box-for-logo-show {
+  height: 120px;
+  position: relative;
+}
+
+.main-menu__hide-img-show {
+  height: 100%;
+  position: absolute;
+  right: -5px;
+}
+
+.main-menu__item-box-show {
+  width: 250px;
+  margin: auto;
+  display: flex;
+  height: 25px;
+}
+
+.main-menu__item-show {
+  justify-content: flex-start;
+}
+
+.main-menu__item-col-show {
+  top: 3px;
+  left: 85px;
+  right: 0px;
+}
+
+.main-header__box-show {
+  margin-right: 360px;
+}
+
+.main-header__personal-area-show {
+  right: 360px;
+  transition: 0.2s;
+}
+
+main {
+  margin-left: 70px;
+  margin-top: 50px;
+  transition: 0.2s;
+}
+
+.main-menu {
+  z-index: 5;
+}
+
+.header-main-active {
+  margin-left: 300px;
+  transition: 0.2s;
+}
+
+.main-header__wrapp-for-speciality-link {
+  width: 100%;
+  padding-left: 20px;
+  width: 100%;
+  color: #12437d;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.main-header__wrapp-for-speciality-link:hover {
+  background-color: #b1d7fa;
+  cursor: pointer;
+}
+.main-header__speciality-info-name{
+  margin-left: 20px;
+}

@@ -1,0 +1,332 @@
+@font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-Thin; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Thin.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-Black; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+body {
+    background-color: #3A6192;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main__another-student-card {
+    width: 90%;
+    min-height: 160px;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-left: 5%;
+}
+
+.main__another-student-card-info {
+    width: 85%;
+    min-height: 160px;
+    padding: 2%;
+    /*margin: 0 auto;*/
+    background: linear-gradient(180deg, #E8F5FF, #F1F3FA);
+    box-shadow: inset -3px -3px 10px 5px #AEBCEC;
+    border-radius: 10px 0 0 10px;
+}
+
+.main__another-student-card-box {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main__another-student-card-img {
+    width: 250px;
+    height: 300px;
+}
+
+.main__another-student-card-data-text {
+    font-family: Montserrat-Regular;
+    font-size: 24px;
+    color: #071959;
+}
+
+.main__another-student-card-data-text_weigth {
+    font-family: Montserrat-SemiBold;
+    margin-bottom: 50px;
+    font-size: 27px;
+}
+
+.main__another-student-card-data-text_size {
+    font-family: Montserrat-Light;
+    font-size: 16px;
+    color: #071959;
+}
+
+.main__another-student-card_weight {
+    font-family: Montserrat-Thin;
+}
+
+.main__personal-student-card-perfomance-text {
+    font-family: Montserrat-Regular;
+    font-size: 15px;
+    color: #0056B0;
+    margin-bottom: 10px;
+}
+
+.main__personal-student-card-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 377px;
+    background: linear-gradient(180deg, #90CBF7, #EAEFFF);
+    box-shadow: inset -1px -1px 5px 1px #AEBCEC;
+}
+
+.main__personal-student-card-payment-text {
+    font-family: Montserrat-Black;
+    font-size: 21px;
+    color: #0C335C;
+    margin-bottom: 40px;
+}
+
+.main__personal-student-card-payment-text-status {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.main__personal-student-card-payment-text_border {
+    font-family: Montserrat-SemiBold;
+    font-size: 15px;
+    width: 121px;
+    height: 30px;
+    background-color: #4160CA;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+.main__personal-student-card-payment-link {
+    font-family: Montserrat-SemiBold;
+    font-size: 15px;
+    text-decoration: none;
+    color: #0C335C;
+}
+
+.main__personal-student-card-payment-status {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.main__personal-another-student-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-family: Montserrat-Regular;
+    text-align: center;
+    line-height: 40px;
+}
+
+.main__personal-another-student-message {
+    width: 210px;
+    height: 40px;
+    background-color: #647ed8;
+    margin: 20px auto;
+}
+
+.main__personal-student-card-perfomance {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 250px;
+}
+
+.main-header__wrapp-for-speciality-link {
+    width: 100%;
+    padding-left: 20px;
+    width: 100%;
+    color: #12437d;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.main-header__wrapp-for-speciality-link:hover {
+    background-color: #b1d7fa;
+    cursor: pointer;
+}
+
+
+.main__payment-stages_table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+    cursor: default;
+}
+
+.main__payment-stages_header, .main__payment-stages__column:first-child {
+    font-family: Montserrat-SemiBold;
+    background: #81beeb;
+    color: #0c335c;
+    padding: 10px 20px;
+}
+
+.main__payment-stages_header, .main__payment-stages__column {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+
+.main__payment-stages_header:first-child, .main__payment-stages__column:first-child {
+    text-align: left;
+}
+
+.main__payment-stages_header:first-child {
+    border-top-left-radius: 10px;
+}
+
+.main__payment-stages_header:last-child {
+    border-top-right-radius: 10px;
+    border-right: none;
+}
+
+.main__payment-stages__column {
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+    padding: 10px 10px;
+    min-width: 150px;
+    background: #c3dbf9;
+    color: #0c335c;
+}
+
+.main__payment-stages__row:last-child .main__payment-stages__column:first-child {
+    border-radius: 0 0 0 10px;
+}
+
+.main__payment-stages__row:last-child .main__payment-stages__column:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+.main__payment-stages__row .main__payment-stages__column:last-child {
+    border-right: none;
+}
+
+.main__another-student-card-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 377px;
+    background: linear-gradient(180deg, #90cbf7, #eaefff);
+    box-shadow: inset -1px -1px 5px 1px #aebcec;
+    border-radius: 0 10px 10px 0;
+}
+
+.main__another-student-card-payment-text {
+    font-family: Montserrat-Black;
+    font-size: 21px;
+    color: #0c335c;
+    margin-bottom: 40px;
+}
+
+.main__payment-stages__label {
+    cursor: pointer;
+}
+
+.circle {
+    display: block;
+    float: left;
+}
+
+circle {
+    fill: rgba(0, 0, 0, 0);
+    stroke: #eee;
+    stroke-width: 15;
+    stroke-dasharray: 408px 408px;
+}
+
+circle:nth-child(2n) {
+    fill: rgba(0, 0, 0, 0);
+    stroke: #097cad;
+    stroke-width: 15;
+}
+
+/* The alert message box */
+.alert {
+    width: 90%;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin: 15px;
+    margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+}
+
+.success {
+    width: 90%;
+    padding: 20px;
+    background-color: rgba(7,206,5,0.94);
+    color: white;
+    margin: 15px;
+    margin-left: 5%;
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}

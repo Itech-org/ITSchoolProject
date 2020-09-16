@@ -1,0 +1,31 @@
+{% extends 'manager/base_manager.html' %}
+{% load static %}
+
+{% block title %}
+<p class="main-header__page-information">Новости</p>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/itnews.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="main__container">
+        <div class="main__it-news">
+            {% for new in news %}
+            <div class="main__it-news-box">
+                {% if new.picture %}
+                <img src="{{ new.picture.url }}" alt="новость" class="main__it-news-img"/>
+                {% endif %}
+                <p class="main__it-news-text">
+                    <a href="#" class="main__it-news-link">
+                        {{ new.title|truncatewords:'3' }}
+                    </a>
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

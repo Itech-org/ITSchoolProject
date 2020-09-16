@@ -23,47 +23,51 @@
 <form method="get" class="main-header__form-change-course">
     <div class="main-header__change-speciality">
         <div class="main-header__box-for-change-speciality">
-            <p class="main-header__button-change-speciality m-0">Курс...</p>
-            <div class="main-header__list-speciality no-active">
-                <input type="text" name="course" hidden class="main-header__change-course"/>
-                <p class="main-header__wrapp-for-speciality-link m-0" data-value="">
-                    Все
-                </p>
-                {% for course in courses %}
-                <p class="main-header__wrapp-for-speciality-link m-0" data-value="{{ course.id }}">
-                    {{ course.title }}
-                </p>
-                {% endfor %}
+            <div style="display: flex; height: 100%">
+                {{ leads.form.enter_date }}
             </div>
+            <!--            <p class="main-header__button-change-speciality m-0">Дата...</p>-->
+            <!--            <div class="main-header__list-speciality no-active">-->
+            <!--                <input type="text" name="course" hidden class="main-header__change-course"/>-->
+            <!--                <p class="main-header__wrapp-for-speciality-link m-0" data-value="">-->
+            <!--                    Все-->
+            <!--                </p>-->
+            <!--                {% for course in courses %}-->
+            <!--                <p class="main-header__wrapp-for-speciality-link m-0" data-value="{{ course.id }}">-->
+            <!--                    {{ course.title }}-->
+            <!--                </p>-->
+            <!--                {% endfor %}-->
+            <!--            </div>-->
+        </div>
+        <div class="main-header__box-for-change-speciality">
+            {{ leads.form.specialist }}
+            <!--            <p class="main-header__button-change-speciality m-0">Курс...</p>-->
+            <!--            <div class="main-header__list-speciality no-active">-->
+            <!--                <input type="text" name="course" hidden class="main-header__change-course"/>-->
+            <!--                <p class="main-header__wrapp-for-speciality-link m-0" data-value="">-->
+            <!--                    Все-->
+            <!--                </p>-->
+            <!--                {% for course in courses %}-->
+            <!--                <p class="main-header__wrapp-for-speciality-link m-0" data-value="{{ course.id }}">-->
+            <!--                    {{ course.title }}-->
+            <!--                </p>-->
+            <!--                {% endfor %}-->
+            <!--            </div>-->
         </div>
         <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
-            <p class=" main-header__button-change-status m-0">Преподаватель...</p>
-            <div class="main-header__list-speciality main-header__list-status no-active">
-                <input type="text" name="teacher" hidden class="main-header__change-status"/>
-                <p class="main-header__wrapp-for-status-link m-0" data-value-status="">
-                    Все
-                </p>
-                {% for teacher in teachers %}
-                <p class="main-header__wrapp-for-status-link m-0" data-value-status="{{ teacher.id }}">
-                    {{ teacher.last_name }} {{ teacher.first_name }}
-                </p>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="main-header__box-for-change-speciality main-header__box-for-change-status">
-            <p class=" main-header__button-change-status m-0">Куратор...</p>
-            <div class="main-header__list-manager no-active">
-                <input type="text" hidden class="main-header__change-status"/>
-                <p class="main-header__wrapp-for-status-link m-0" data-value-status="complite">
-                    Статус 1
-                </p>
-                <p class="main-header__wrapp-for-status-link m-0" data-value-status="not verified">
-                    Статус 2
-                </p>
-                <p class="main-header__wrapp-for-status-link m-0" data-value-status="wrong">
-                    Статус 3
-                </p>
-            </div>
+            {{ leads.form.status }}
+            <!--            <p class=" main-header__button-change-status m-0">Специалист...</p>-->
+            <!--            <div class="main-header__list-speciality main-header__list-status no-active">-->
+            <!--                <input type="text" name="teacher" hidden class="main-header__change-status"/>-->
+            <!--                <p class="main-header__wrapp-for-status-link m-0" data-value-status="">-->
+            <!--                    Все-->
+            <!--                </p>-->
+            <!--                {% for teacher in teachers %}-->
+            <!--                <p class="main-header__wrapp-for-status-link m-0" data-value-status="{{ teacher.id }}">-->
+            <!--                    {{ teacher.last_name }} {{ teacher.first_name }}-->
+            <!--                </p>-->
+            <!--                {% endfor %}-->
+            <!--            </div>-->
         </div>
         <div>
             <button class="students-home-work__but-filter">Фильтровать</button>
@@ -111,7 +115,7 @@
                     <a class="btn btn-success"
                        href="{% url 'manager_school:get_contract_detail' contract_id=lead.contract.id %}">Просмотреть</a>
                     {% elif lead.status == 'Ready' %}
-                    <a class="btn btn-warning" href="{% url 'manager_school:get_choice' lead_id=lead.id %}">Создать</a>
+                    <a class="btn btn-warning" href="{% url 'manager_school:registration_page' lead_id=lead.id %}">Создать</a>
                     {% else %}
                     {% endif %}
                 </td>
@@ -123,5 +127,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/main-header-manager.js' %}"></script>
+<!--<script src="{% static 'js/main-header-manager.js' %}"></script>-->
 {% endblock %}

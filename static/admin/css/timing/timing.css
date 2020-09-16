@@ -1,0 +1,163 @@
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Black; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-light; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLight; /* Гарнитура шрифта */
+  src: url(../../fonts/Montserrat/Montserrat-ExtraLight.ttf); /* Путь к файлу со шрифтом */
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.main__schedule {
+  width: 700px;
+  height: 400px;
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  background-color: #9ab7dc;
+  padding: 10px;
+  position: relative;
+}
+
+.main__schedule-container {
+  /* height: 320px; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.main__schedule-img_flex-end {
+  width: 100px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.main__schedule-img_flex-start {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+}
+
+.main__schedule-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.main__schedule-data-time {
+  display: flex;
+  /* justify-content: space-around; */
+  flex-wrap: wrap;
+  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main__schedule-box-textarea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main__schedule-data-text {
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+  color: #0f2162;
+  text-align: center;
+  /* margin: 10px 20px; */
+}
+
+.main__schedule-input {
+  background-color: #f3f5fb;
+  border: none;
+  /* width: 130px; */
+  padding: 5px 20px;
+  height: 30px;
+  font-family: Montserrat-Light;
+  font-size: 16px;
+  color: #44507a;
+  
+}
+
+.main__schedule-button {
+  width: 120px;
+  height: 30px;
+  margin: 10px auto;
+  border: none;
+  background-color: #0c216b;
+  color: #ffffff;
+  font-family: Montserrat-Medium;
+  border-radius: 5%;
+}
+
+.main__schedule-textarea {
+  border: none;
+  outline: none;
+  font-family: Montserrat-Light;
+  font-size: 16px;
+  color: #0c216b;
+  width: 600px;
+  height: 200px;
+  margin-top: 20px;
+  padding: 20px;
+  font-family: Montserrat-light;
+  font-size: 18px;
+}
+
+.main__schedule-data {
+  text-align: start;
+  display: flex;
+  align-items: center;
+}
+
+.main__schedule-input {
+  margin-left: 20px;
+}
+

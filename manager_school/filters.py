@@ -12,9 +12,14 @@ class StudyRequestFilter(django_filters.FilterSet):
         ('In Progress', 'In Progress'),
         ('Denial', 'Denial'),
     )
-    enter_date = DateTimeFromToRangeFilter(widget=RangeWidget(attrs={'class': 'form-control mb-2', 'placeholder': 'dd.mm.yyyy'}))
-    specialist = django_filters.ChoiceFilter(choices=SPECIALIST_CHOICES, widget=widgets.Select(attrs = {'class': 'form-control mb-2', 'placeholder': 'Специалист'}))
-    status = django_filters.ChoiceFilter(choices=STATUS_CHOICES, widget=widgets.Select(attrs = {'class': 'form-control mb-2', 'placeholder': 'Статус'}))
+    enter_date = DateTimeFromToRangeFilter(widget=RangeWidget(attrs={'type': 'date',
+                                                                     'class': 'main-header__button-change-speciality'}))
+    specialist = django_filters.ChoiceFilter(
+        choices=SPECIALIST_CHOICES, widget=widgets.Select(attrs = {'class': 'main-header__button-change-speciality',
+                                                                   'placeholder': 'Специалист'}))
+    status = django_filters.ChoiceFilter(
+        choices=STATUS_CHOICES, widget=widgets.Select(attrs = {'class': 'main-header__button-change-speciality',
+                                                               'placeholder': 'Статус'}))
     class Meta:
         model = StudyRequest
         fields = ['enter_date', 'specialist', "status"]

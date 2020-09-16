@@ -82,7 +82,6 @@ a {
 .main-header__change-speciality {
   display: flex;
   align-items: center;
-  background-color: #81beeb;
   width: 260px;
   justify-content: space-around;
 }

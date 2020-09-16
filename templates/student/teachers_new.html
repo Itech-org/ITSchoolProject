@@ -4,62 +4,69 @@
     <title>Преподаватели</title>
 {% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/teachers.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/teachers-main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/teachers.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/teachers-main.css' %}"/>
 {% endblock %}
 {% block header %}
-      <div class="main-header__page-information-change-specialty">
+    <div class="main-header__page-information-change-specialty">
         <p class="main-header__page-information">Учебный календарь</p>
-      </div>
+    </div>
 {% endblock %}
 {% block content %}
     <main class="teachers">
-      <div class="teachers__main-container">
-        <div class="teachers__list-teachers">
-          <p class="teachers__name-list">Список преподавателей</p>
-          {% for group in groups %}
-          <div class="teachers__unit-teacher">
-            {% if group.teacher.img_user %}
-              <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя" class="teachers__foto-teacher" />
-            {% else %}
-              <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя" class="teachers__foto-teacher"/>
-            {% endif %}
-            <div class="teachers__teacher-info">
-              <p class="teacher__teacher-specialty">{{ group.course.title }}</p>
-              <p class="teacher__teacher-name">{{ group.teacher.first_name }} {{ group.teacher.last_name }} {{ group.teacher.surname }}</p>
-              <p class="teacher__teacher-tel no-active">{{ group.teacher.phone }}</p>
-              <p class="teacher__teacher-email no-active">{{ group.teacher.email }}</p>
-              <p class="teacher__teacher-viber-telegramm no-active">80434329</p>
-              <a hidden class="teacher__teacher-url" href="{% url 'student:teacher_profile' teacher_id=group.teacher.id %}"></a>
+        <div class="teachers__main-container">
+            <div class="teachers__list-teachers">
+                <p class="teachers__name-list">Список преподавателей</p>
+                {% for group in groups %}
+                    <div class="teachers__unit-teacher">
+                        {% if group.teacher.img_user %}
+                            <img src="{{ group.teacher.img_user.url }}" alt="фото преподавателя"
+                                 class="teachers__foto-teacher"/>
+                        {% else %}
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;"
+                                 alt="фото преподавателя" class="teachers__foto-teacher"/>
+                        {% endif %}
+                        <div class="teachers__teacher-info">
+                            <p class="teacher__teacher-specialty">{{ group.course.title }}</p>
+                            <p class="teacher__teacher-name">{{ group.teacher.first_name }} {{ group.teacher.last_name }} {{ group.teacher.surname }}</p>
+                            <p class="teacher__teacher-tel no-active">{{ group.teacher.phone }}</p>
+                            <p class="teacher__teacher-email no-active">{{ group.teacher.email }}</p>
+                            <p class="teacher__teacher-viber-telegramm no-active">80434329</p>
+                            <a hidden class="teacher__teacher-url"
+                               href="{% url 'student:teacher_profile' teacher_id=group.teacher.id %}"></a>
+                            <a hidden class="teacher__teacher-message"
+                               href="{% url 'student:create_dialog' user_id=group.teacher.id %}"></a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
-          {% endfor %}
+            <div class="teacher__profiles">
+                <div class="teacher__profile-teacher">
+                    <img src="" alt="фото преподавателя" class="teacher__big-foto-teacher"/>
+                    <p class="teacher__profile-name"></p>
+                    <p class="teacher__profile-specialty"></p>
+                    <p class="teacher__profile-tel"></p>
+                    <div class="teacher__profile-email-box">
+                        <p class="teacher__email">E-mail:</p>
+                        <p class="teacher__name-email"></p>
+                    </div>
+                    <div class="teacher__profile-telegram-viber-box">
+                        <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
+                        <p class="teacher__profile-telegram-number"></p>
+                    </div>
+                    <p class="teacher__box-for-teacher-link"><a href="" class="teacher_teacher-card-link">Перейти на
+                        профиль преподавателя</a>
+                    <p class="teacher__profile-link-send-message-box">
+                        <a href="" class="teacher__profile-link-send-message">
+                            Отправить сообщение
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="teacher__profiles">
-          <div class="teacher__profile-teacher">
-            <img src="" alt="фото преподавателя" class="teacher__big-foto-teacher" />
-            <p class="teacher__profile-name"></p>
-            <p class="teacher__profile-specialty"></p>
-            <p class="teacher__profile-tel"></p>
-            <div class="teacher__profile-email-box">
-              <p class="teacher__email">E-mail:</p>
-              <p class="teacher__name-email"></p>
-            </div>
-            <div class="teacher__profile-telegram-viber-box">
-              <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
-              <p class="teacher__profile-telegram-number"></p>
-            </div>
-              <p class="teacher__box-for-teacher-link"><a href="" class="teacher_teacher-card-link">Перейти на профиль преподавателя</a>
-            <a href="#" class="teacher__profile-link-send-message">
-              <p class="teacher__profile-link-send-message-box">
-                Отправить сообщение
-              </p>
-            </a>
-          </div>
-        </div>
-      </div>
     </main>
 {% endblock %}
 {% block script %}
+    <script src="{% static 'js/main-header.js' %}"></script>
     <script src="{% static 'js/teachers.js' %}"></script>
 {% endblock %}

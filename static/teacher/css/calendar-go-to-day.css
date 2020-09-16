@@ -1,0 +1,847 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+* {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Aclonica-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Black; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+
+/*общий флекс-контейнер*/
+
+.calendar-go-to-day__calendar-for-all-box {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*контейнер для контента слева*/
+
+.calendar-go-to-day__left-content-container {
+  width: 400px;
+  margin-top: 50px;
+}
+
+/* контейнер выбора темы и описания занятия */
+
+.left-content-container__topic-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-container__lesson-number {
+  font-family: Montserrat-SemiBold;
+  font-size: 20px;
+  color: #0f2883;
+  cursor: pointer;
+}
+
+.topic-container__choose-other-topic-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 218px;
+  height: 27px;
+  background: linear-gradient(180deg, #9eafed 0%, #cdd5f1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  margin-top: 15px;
+  font-family: Montserrat-Light;
+  font-size: 14px;
+  color: #0b1f66;
+  cursor: pointer;
+}
+
+.topic-container__about-lesson-info {
+  font-family: Montserrat-Regular;
+  font-size: 19px;
+  color: #051a63;
+  margin-top: 50px;
+}
+
+/* скрытый контейнер для выбора тем (вызов по кнопке "Выбрать другую тему") */
+
+.topic-container__dropdown-box {
+  position: absolute;
+  width: 218px;
+  height: 152px;
+  top: 203px;
+}
+
+.topic-container__topic-list {
+  width: 218px;
+  height: 152px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.topic-container__topic-headline-box {
+  width: 218px;
+  height: 49px;
+  background: linear-gradient(180deg, #9eafed 0%, #cdd5f1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat-Regular;
+  font-size: 14px;
+  color: #0f2883;
+  cursor: pointer;
+}
+
+/* контейнер для домашнего задания + кнопка "архив" */
+
+.left-content-container__homework-box {
+  background: linear-gradient(180deg, #e2e7f9 0%, #eef3ff 100%);
+  box-shadow: inset 0px 28px 4px rgba(62, 95, 211, 0.25);
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.homework-box__homework-headline-box {
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homework-headline-box__headline {
+  font-family: Montserrat-SemiBold;
+  font-size: 12px;
+  color: #152c7d;
+}
+
+.homework-box__comment-and-add-file-area {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.homework-box__comment-area {
+  width: 90%;
+  height: 112px;
+  display: block;
+  resize: none;
+  outline: none;
+  border: none;
+  padding: 8px 10px;
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  color: #243676;
+}
+
+.homework-box__comment-text {
+  width: 90%;
+  height: 20px;
+  display: block;
+  resize: none;
+  outline: none;
+  border: none;
+  padding: 8px 10px;
+  margin: 8px 10px;
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  color: #243676;
+}
+
+.homework-box__comment-area:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.homework-box__add-file-area-btn {
+  width: 125px;
+  height: 25px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background: #9da7dd;
+  font-family: Montserrat-SemiBold;
+  font-size: 11px;
+  color: #041932;
+  cursor: pointer;
+}
+
+.left-content-container__archive-of-school-btn {
+  width: 250px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #acbbef 0%, #4060b4 100%);
+  font-family: Montserrat-SemiBold;
+  font-size: 24px;
+  color: #f8f9fd;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/*скрытый контейнер для выбора тем (большой, центр страницы, вызов по клику на номер занятия и название темы (topic-container__lesson-number))*/
+
+.calendar-go-to-day__choose-topic-container {
+  position: absolute;
+  width: 674px;
+  height: 677px;
+  margin-left: 603px;
+  top: 108px;
+}
+
+.choose-topic-container {
+  width: 674px;
+  height: 677px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #e9f2fa 0%, #a1b5d1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 29px 9px 44px 43px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(#728be5, #858ed8);
+  -moz-border-image: -moz-linear-gradient(#728be5, #858ed8);
+  -webkit-border-image: -webkit-linear-gradient(#728be5, #858ed8);
+  border-image-slice: 1;
+}
+
+.choose-topic-container__topic-headline {
+  width: 596px;
+  font-family: Montserrat-Medium;
+  font-size: 18px;
+  color: #04144b;
+  cursor: pointer;
+}
+
+.choose-topic-container__border-line {
+  width: 622px;
+  height: 1px;
+  background: linear-gradient(90deg, #5da2e1 0%, rgba(133, 142, 216, 0.854084) 18.13%, rgba(196, 196, 196, 0) 79.1%);
+  border-radius: 16px;
+}
+
+/*скрытый контейнер для окна архива (большой, центр страницы, вызов по клику на кнопку "архив")*/
+
+.calendar-go-to-day__archive-container {
+  position: absolute;
+  width: 742px;
+  height: 742px;
+  margin-left: 603px;
+  top: 108px;
+}
+
+.archive-container {
+  width: 742px;
+  height: 742px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #e5effb 0%, #d0dce9 100%);
+  box-shadow: 0px 7px 19px rgba(11, 20, 94, 0.25);
+  border: 3px solid transparent;
+  border-image: linear-gradient(#728be5, #858ed8);
+  -moz-border-image: -moz-linear-gradient(#728be5, #858ed8);
+  -webkit-border-image: -webkit-linear-gradient(#728be5, #858ed8);
+  border-image-slice: 1;
+}
+
+.archive-container__headline {
+  font-family: Montserrat-Bold;
+  font-size: 18px;
+  color: #0f1f57;
+  margin-top: 9px;
+}
+
+.archive-container__line {
+  width: 736px;
+  height: 2px;
+  background: radial-gradient(50% 50% at 50% 50%, #2972c7 0%, rgba(196, 196, 196, 0) 100%);
+  margin-top: 2px;
+}
+
+.archive-container__archive-item-box {
+  width: 742px;
+  display: flex;
+  margin-top: 26px;
+}
+
+.archive-container__archive-item {
+  font-family: Montserrat-Medium;
+  font-size: 14px;
+  color: #0f1f57;
+  margin-left: 46px;
+}
+
+.main__personal-box-for-input-file {
+  position: relative;
+  width: 130px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9da7dd;
+  font-family: Montserrat-SemiBold;
+  font-size: 15px;
+  color: #0c335c;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  z-index: 8;
+  border-radius: 5px;
+  font-size: 11px;
+}
+
+.main__personal-box-for-input-file:hover {
+  cursor: pointer;
+}
+
+.main__personal-button-input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 0;
+}
+
+/* контейнер для причины изменения в планировании и чек-боксов */
+
+.calendar-go-to-day__middle-content-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+}
+
+/* контейнер для причины изменения в планировании + линия */
+
+.middle-content-container__reason-for-change-container {
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(180deg, rgba(223, 225, 251, 0.58) 0%, rgba(182, 195, 238, 0.58) 100%);
+  box-shadow: inset 0px 3px 3px rgba(66, 102, 157, 0.25);
+  border: none;
+  outline: none;
+  font-family: Montserrat-Medium;
+  color: #546192;
+  resize: none;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.reason-for-change-container__reason-headline {
+  font-family: Montserrat-Medium;
+  font-size: 14px;
+  color: #546192;
+  width: 319px;
+  margin: 7px 11px;
+}
+
+.middle-content-container__border-line {
+  width: 341px;
+  height: 1px;
+  display: flex;
+  background: radial-gradient(50% 50% at 50% 50%, #7999eb 0%, rgba(196, 196, 196, 0) 100%);
+  margin-left: 30px;
+  margin-top: 6px;
+}
+
+/* контейнер для чек-боксов */
+
+.middle-content-container__check-boxes-container {
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+/* названия чек-боксов */
+
+.check-boxes-container__headline-container {
+  width: 400px;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: linear-gradient(180deg, #9eafed 0%, #cdd5f1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 10px;
+  position: relative;
+}
+
+.check-box-icon__head {
+  display: flex;
+  width: 100%;
+}
+
+.check-box-icon__but-close-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.headline-container__headline {
+  font-family: Montserrat-Regular;
+  font-size: 16px;
+  color: #0b1f66;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*чек-боксы (литература и ведео)*/
+
+.check-box-style {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(180deg, rgba(223, 225, 251, 0.58) 0%, rgba(182, 195, 238, 0.58) 100%);
+  box-shadow: inset 0px 3px 3px rgba(66, 102, 157, 0.25);
+  overflow: auto;
+  height: 380px;
+}
+
+.check-box-item__check-box-icon {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.check-box-icon__new_icon {
+  position: absolute;
+  left: 20px;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  background-color: inherit;
+}
+
+.check-box__check-box-item {
+  padding-left: 64px;
+  font-family: Montserrat-Regular;
+  font-size: 15px;
+  color: #102355;
+  cursor: pointer;
+  position: relative;
+  margin-top: 15px;
+}
+
+.check-box__check-box-item:last-child {
+  margin-bottom: 15px;
+}
+
+.check-box-item__check-box-icon:checked + .check-box-icon__new_icon {
+  background-image: url(../img/ellipse3.svg);
+}
+
+.video-check-box__check-box-item {
+  padding-left: 64px;
+  font-family: Montserrat-Regular;
+  font-size: 15px;
+  color: #102355;
+  cursor: pointer;
+}
+
+/* Контейнер для даты и списка группы и выбора оценки и статуса студентов */
+
+.calendar-go-to-day__right-content-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 420px;
+}
+
+/* Контейнер для названия группы, времени, даты */
+
+.right-content-container__info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-content-container__course-headline {
+  font-family: Montserrat-Medium;
+  font-size: 23px;
+  color: #4b63a3;
+}
+
+.right-content-container__group-headline {
+  font-family: Montserrat-Regular;
+  font-size: 17px;
+  color: #4b63a3;
+}
+
+.right-content-container__time {
+  font-family: Montserrat-SemiBold;
+  font-size: 23px;
+  color: #4b63a3;
+  margin-top: 20px;
+}
+
+.right-content-container__date {
+  font-family: Montserrat-Black;
+  font-size: 23px;
+  color: #4b63a3;
+}
+
+/* Контейнер для заголовока "Список группы" */
+
+.right-content-container__headline-box {
+  width: 436px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.headline-box__headline {
+  font-family: Montserrat-Bold;
+  font-size: 20px;
+  color: #0b2a79;
+  text-align: center;
+}
+
+/* Контейнер списка группы выбора оценки и статуса студентов */
+
+.right-content-container__group-list-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Контейнер для аватаров студентов */
+
+.list-of-group__avatar-box {
+  width: 54px;
+  height: 432px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.list-of-group__student-avatar {
+  width: 41px;
+  height: 41px;
+}
+
+.name-box__student-name {
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  color: #102355;
+  margin-left: 10px;
+}
+
+.name-box__last-name {
+  font-family: Montserrat-SemiBold;
+  font-size: 13px;
+  color: #102355;
+  margin-left: 10px;
+}
+/* Контейнер ФИО студентов */
+
+.list-of-group__name-box {
+  height: 432px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* контейнер для выбора оценки студента */
+
+.group-list-container__students-point-container {
+  width: 48px;
+  height: 432px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* выбора оценки студента (видимый блок) */
+
+.students-point-container__select-header {
+  width: 48px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #485e96;
+  cursor: pointer;
+}
+
+.select-header__current-point-value {
+  font-family: Montserrat-Regular;
+  font-size: 12px;
+  color: #e3e8f9;
+}
+
+/* выбора оценки студента (скрытый блок, вызов по клику на видимый блок) */
+
+.students-point-container__select-body {
+  width: 48px;
+  height: 92px;
+  background: linear-gradient(180deg, #c5d1f1 0%, #edf1fa 100%);
+  box-shadow: inset 0px 2px 4px rgba(30, 90, 180, 0.25);
+  position: absolute;
+}
+
+.select-body__select-point {
+  font-family: Montserrat-Regular;
+  font-size: 11px;
+  color: #081b60;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1px;
+  cursor: pointer;
+}
+
+/* контейнер для выбора статуса студента */
+
+.group-list-container__selected-status-container {
+  width: 169px;
+  height: 432px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* выбор статуса студента (видимый блок (текущее значение)) */
+
+.selected_status_container__select-header {
+  width: 169px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  background-color: #485e96;
+  cursor: pointer;
+}
+
+.select-header__current-value {
+  font-family: Montserrat-Regular;
+  font-size: 12px;
+  color: #e3e8f9;
+  margin-left: 13px;
+}
+
+/* выбор статуса студента (скрытый блок, вызов по клику на видимый блок) */
+
+.selected_status_container__select-body {
+  width: 169px;
+  height: 92px;
+  background: linear-gradient(180deg, #c5d1f1 0%, #edf1fa 100%);
+  box-shadow: inset 0px 2px 4px rgba(30, 90, 180, 0.25);
+  position: absolute;
+}
+
+.select-body__select-item {
+  width: 151px;
+  font-family: Montserrat-Regular;
+  font-size: 11px;
+  color: #081b60;
+  cursor: pointer;
+  margin: 9px;
+}
+
+/* контейнер для кнопки "Сохранить" */
+
+.right-content-container__btn_container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn_container__save_btn {
+  width: 170px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: Montserrat-SemiBold;
+  font-size: 18px;
+  color: #f8f9fd;
+  background: linear-gradient(180deg, #acbbef 0%, #4060b4 100%);
+  border: none;
+}
+
+.group-list-container__student {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.group-list-container__box-for-name-and-foto {
+  display: flex;
+  align-items: center;
+}
+
+.group-list-container__list-of-group {
+  height: 408px;
+  overflow: auto;
+}
+
+.select__change {
+  background-color: #485e96;
+  padding: 5px 5px 5px 10px;
+  color: white;
+  font-family: Montserrat-Regular;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.select {
+  width: 111px;
+  position: relative;
+}
+
+.select__change:hover {
+  cursor: pointer;
+}
+
+.select__option-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 100%;
+  width: 100%;
+}
+
+.select__option-container {
+  background: linear-gradient(#c5d1f1, #edf1fa);
+}
+
+.select__option:hover {
+  cursor: pointer;
+  background: linear-gradient(#f9fbff, #caddf9);
+}
+
+.select__option {
+  padding: 5px 5px 5px 10px;
+  font-family: Montserrat-Regular;
+  font-size: 12px;
+  font-weight: 600;
+  color: #081b60;
+}
+
+.selectRaiting {
+  width: 70px;
+}
+
+.selectTheme {
+  width: auto;
+  margin-top: 20px;
+}
+
+.select__change-theme {
+  font-family: Montserrat-LightItalic;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(#9eafed, #cdd5f1);
+  color: #0b1f66;
+}
+
+.select__option-theme {
+  padding: 10px 10px 10px 20px;
+  font-family: Montserrat-LightItalic;
+  font-size: 14px;
+}
+
+.middle-content-container__button-show-archive {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.middle-content-container__reason-for-change-container-active {
+  height: 100px;
+  padding: 10px;
+}
+
+.check-box-icon__but-close {
+  width: 20px;
+  height: 20px;
+}
+
+.check-box-icon__but-close:hover {
+  cursor: pointer;
+}
+
+.calendar-go-to-day__reason-change {
+  font-family: Montserrat-SemiBold;
+  font-size: 15px;
+  color: #051a63;
+}
+
+.no-active {
+  display: none;
+}

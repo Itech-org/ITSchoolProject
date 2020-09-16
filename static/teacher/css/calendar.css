@@ -1,0 +1,179 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: Montserrat-Bold; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Light; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Black; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Black.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Regular; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+  font-family: Montserrat-Medium; /* Гарнитура шрифта */
+  src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+/* календарь */
+
+.calendar {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.calendar__wrapp {
+  width: 1200px;
+}
+
+.calendar__switch {
+  height: 60px;
+  width: 100%;
+  background: linear-gradient(#30a3c9, #034684);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar__wrapp-button-arrow-left {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #004c92;
+  justify-content: center;
+}
+
+.calendar__wrapp-button-arrow-right {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #004c92;
+  justify-content: center;
+}
+
+.calendar__name-date {
+  color: white;
+  font-family: Montserrat-Bold;
+  font-size: 20px;
+}
+
+.calendar__days-of-week {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  height: 40px;
+  align-items: center;
+  background-color: #30a3c9;
+}
+
+.calendar__name-day {
+  color: white;
+  font-family: Montserrat-Light;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar__day-number {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.calendar__day {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 100%;
+  border: 1px solid #7499bc;
+  /* min-height: 80px; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-family: Montserrat-Black;
+  font-size: 40px;
+  color: #004c92;
+  height: 30%;
+}
+
+.calendar__day {
+  background-color: #f3f6fc;
+  border-color: #7499bc;
+}
+
+.calendar__day-task:hover {
+  background: linear-gradient(to bottom, #c1d3ff, #5e9ae0);
+}
+
+.calendar__day_output {
+  background-color: #cddbf6;
+}
+
+.calendar__day-task-container {
+  width: 100%;
+}
+
+.calendar__day-task {
+  font-size: 16px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding: 10px 0;
+  border-top: 1px solid #7499bc;
+}
+
+.calendar__day-task p {
+  margin-top: 5px;
+}
+
+.calendar__day_number {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}
+
+.calendar__day-task-number {
+  font-family: Montserrat-Regular;
+  font-size: 14px;
+  font-weight: 900;
+  color: #4b63a3;
+}
+
+.calendar__day-task-first-name {
+  font-weight: 900;
+  font-family: Montserrat-Bold;
+  font-size: 13px;
+}
+
+.calendar__day-task-last-name {
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+}
+
+.calendar__day-task-time {
+  font-family: Montserrat-Black;
+}
+
+.today {
+  background-color: rgb(225, 222, 245);
+}

@@ -129,6 +129,10 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d.%m.%Y %H:%M',
 }
 
+DATE_INPUT_FORMATS = ('%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y', '%b %d %Y',
+'%b %d, %Y', '%d %b %Y', '%d %b, %Y', '%B %d %Y',
+'%B %d, %Y', '%d %B %Y', '%d %B, %Y', '%d.%m.%Y')
+
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -138,6 +142,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SESSION_COOKIE_AGE = 604800
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

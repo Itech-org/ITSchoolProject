@@ -2,7 +2,7 @@ from functools import wraps
 from urllib.parse import urlparse
 import random
 
-from .models import *
+# from .models import Contract
 
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
 from django.shortcuts import resolve_url, get_object_or_404
@@ -10,11 +10,17 @@ from Main_project_school import settings
 from django.template.loader import render_to_string
 from django.core.signing import Signer
 from Main_project_school.settings import ALLOWED_HOSTS
+from django.template.defaultfilters import slugify as django_slugify
 
 
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
+alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
+            'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+            'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ы': 'i', 'э': 'e', 'ю': 'yu',
+            'я': 'ya'}
 
+
+def slugify(s):
+    return django_slugify(''.join(alphabet.get(w, w) for w in s.lower()))
 
 signer = Signer()
 
@@ -43,7 +49,9 @@ def user_passes_test_custom(test_func, login_url=None, redirect_field_name=REDIR
             from django.contrib.auth.views import redirect_to_login
             return redirect_to_login(
                 path, resolved_login_url, redirect_field_name)
+
         return _wrapped_view
+
     return decorator
 
 
@@ -51,11 +59,11 @@ def send_password(user, password):
     if ALLOWED_HOSTS:
         host = 'http://' + ALLOWED_HOSTS[0]
     else:
-        host='http://localhost:8000'
+        host = 'http://localhost:8000'
     context = {
-        'user' : user,
-        'host' : host,
-        'sign' : signer.sign(user.username),
+        'user': user,
+        'host': host,
+        'sign': signer.sign(user.username),
         'password': password
     }
     subject = render_to_string('email/activation_letter_subject.txt', context)
@@ -72,30 +80,4 @@ def check_group_and_activation(request):
             return False
     else:
         return False
-
-
-def get_manager_leads(user):
-    return user.studyrequest_set.all()
-
-
-def get_manager_successful_leads(user):
-    return user.studyrequest_set.filter(status='Ready')
-
-
-def get_manager_contracts(user):
-    successful_leads = user.studyrequest_set.filter(status='Ready')
-    return Contract.objects.filter(lead__in=successful_leads)
-
-
-def get_manager_successful_contracts(user):
-    successful_leads = user.studyrequest_set.filter(status='Ready')
-    return Contract.objects.filter(lead__in=successful_leads, is_subscribed=True)
-
-
-def get_manager_successful_percent(successful_count, count):
-    if successful_count == 0 or count == 0:
-        percent = 0
-    else:
-        percent = round(successful_count/count, 2) * 100
-    return percent
 

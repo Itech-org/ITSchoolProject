@@ -16,6 +16,15 @@
         <div>Тема: {{ class.theme }}</div>
         <div>Дата: {{ class.date }}</div>
         <div>{{ class.date }}</div>
+        <div>
+            {% if course.is_online %}
+            {% if class.room_link %}
+            <a href="{{ class.room_link }}">Комната группы</a>
+            {% else %}
+            Комната занятия еще недоступна
+            {% endif%}
+            {% endif%}
+        </div>
     </div>
     <div class="accordion" id="accordionExample">
         <div class="card">

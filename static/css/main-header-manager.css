@@ -80,7 +80,7 @@ a {
 .main-header__change-speciality {
   display: flex;
   align-items: center;
-  width: 570px;
+  /*width: 300px;*/
   justify-content: space-around;
   height: 100%;
 }
@@ -97,6 +97,8 @@ a {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  border: none;
+  padding-left: 5px;
   font-size: 15px;
   font-family: Montserrat-LightItalic;
   color: #12437d;
@@ -104,7 +106,7 @@ a {
 
 .main-header__page-information {
   height: 100%;
-  width: 300px;
+  min-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,6 +129,7 @@ a {
 .main-header__box-for-change-speciality {
   position: relative;
   height: 30px;
+  margin-right: 5px;
 }
 
 .main-header__list-speciality {

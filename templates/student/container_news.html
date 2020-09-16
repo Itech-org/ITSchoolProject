@@ -1,0 +1,43 @@
+{% extends 'student/base_student.html' %}
+{% load static %}
+{% block title %}
+    <title>Document</title>
+{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static "css/main-header.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/container_news.css" %}">
+{% endblock %}
+{% block content %}
+    <main>
+      <div class="main__open-news">
+        <div class="main__open-news-container">
+          <h1>
+          {{ news.title }}
+          </h1>
+          <p class="main__open-news-text">
+            <img src="{{ news.img.url }}" width="320" height="160" style="object-fit: cover;" alt="" class="main__open-news-img">
+            {{ news.description }}
+          </p>
+          <div id="share">
+            <div class="like">Понравилось? Поделитесь с друзьями!</div>
+          <div class="social" data-url="<?php echo 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>" data-title="Стильные кнопки поделится в соц сетях без использования сторонних сервисов">		
+            
+              <a class="push facebook" data-id="fb"><i class="fa fa-facebook"></i> Facebook</a>
+              <a class="push vkontakte" data-id="vk"><i class="fa fa-vk"></i> Вконтакте</a>
+                   <a class="push ok" data-id="ok"><i class="fa fa-odnoklassniki"></i> OK</a>		
+              <a class="push twitter" data-id="tw"><i class="fa fa-twitter"></i> Twitter</a>
+              <a class="push google" data-id="gp"><i class="fa fa-google-plus"></i> Google+</a>
+              <a class="push pinterest" data-id="pin"><i class="fa fa-pinterest"></i> Pinterest </a>
+              <a class="push viber" data-id="viber"><i class="fa fa-phone"></i> Viber </a>
+            </div>
+          </div>
+          <p class="main__open-news-text main__open-news-text_size">
+              {{ created }}
+          </p>
+        </div>
+      </div>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/main-header.js' %}"></script>
+{% endblock %}

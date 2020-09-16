@@ -1,0 +1,37 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/literature_literature.css'%}" />
+{% endblock %}
+
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Литература</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="literature__wrapper">
+        <div class="literature__container">
+            <div class="literature__image-box">
+                {% if literature.img %}
+                <img src="{{ literature.img.url }}" alt="картинка учебника" class="literature__image" />
+                {% else %}
+                <img src="{% static 'img/Rectangle 26.svg'%}" alt="картинка учебника" class="literature__image" />
+                {% endif %}
+                <a href="{{literature.file.url}}" download="" class="literature__download-link">Скачать</a>
+            </div>
+            <div class="literature__description-container">
+                <h1 class="literature__name">{{literature.title}}</h1>
+                <p class="literature__description">
+                    {{literature.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'teacher/js/main-header.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'teacher/index.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'teacher/css/main-header.css'%}" />
+<link rel="stylesheet" href="{% static 'teacher/css/calendar-go-to-day.css'%}" />
+{% endblock %}
+
+{% block nav %}
+<div class="main-header__page-information-change-specialty">
+    <p class="main-header__page-information">Календарь</p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<main class="calendar-go-to-day">
+    <form action="" method="post">
+        <!-- общий флекс-контейнер -->
+        {% csrf_token %}
+        <div class="calendar-go-to-day__calendar-for-all-box">
+            <!-- контейнер для контента слева -->
+
+            <div class="calendar-go-to-day__left-content-container">
+                <!-- контейнер выбора темы и описания занятия -->
+
+                <div class="left-content-container__topic-container">
+                    <p class="topic-container__lesson-number">
+                        Занятие {{class.position}}. Тема - {{class.theme}}.
+                    </p>
+
+                    <div class="select selectTheme">
+                        <p class="select__change select__change-theme">Выбрать другую тему...</p>
+                        <div class="select__option-container no-active">
+                            <input type="text" hidden class="select_input" name="theme" />
+                            {% for cl in class.groups.classes.all %}
+                            <p data-value="{{cl.theme}}" class="select__option select__option-theme">{{cl.theme}}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <p class="topic-container__about-lesson-info">
+                        {{class.description}}
+                    </p>
+                </div>
+
+                <!-- контейнер для домашнего задания + кнопка "архив"-->
+
+                <div class="left-content-container__homework-box">
+                    <div class="homework-box__homework-headline-box">
+                        <p class="homework-headline-box__headline">Домашнее задание</p>
+                    </div>
+                    <div class="homework-box__comment-and-add-file-area">
+                        <input class="homework-box__comment-text" type="text" name="title" value="" placeholder="Заголовок">
+                        <textarea name='description' class="homework-box__comment-area" placeholder="Описание"></textarea>
+                        <input class="homework-box__comment-text" type="url" name="url" value="" placeholder="Ссылка">
+                        <div class="main__personal-box-for-input-file">
+                            Добавить файл
+                            <input type="file" name='file' multiple class="main__personal-button-input-file" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- скрытый контейнер для выбора тем (большой, центр страницы, вызов по клику на номер занятия и название темы (topic-container__lesson-number)) -->
+
+            <!-- скрытый контейнер для окна архива (большой, центр страницы, вызов по клику на кнопку "архив") -->
+
+            <div class="calendar-go-to-day__archive-container no-active">
+                <div class="archive-container">
+                    <p class="archive-container__headline">Архив</p>
+                    <div class="archive-container__line"></div>
+                    <div class="archive-container__archive-item-box">
+                        <p class="archive-container__archive-item">Что-то, что можно выбрать из архива</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- контейнер для причины изменения в планировании и чек-боксов -->
+
+            <div class="calendar-go-to-day__middle-content-container">
+                <!-- контейнер для причины изменения в планировании + линия -->
+                <p class="calendar-go-to-day__reason-change">Причина изменения в планировании занятий</p>
+                <textarea class="middle-content-container__reason-for-change-container"> </textarea>
+
+                <div class="middle-content-container__border-line"></div>
+
+                <div class="middle-content-container__button-show-archive">
+                    <p class="left-content-container__archive-of-school-btn">Архив школы</p>
+                </div>
+
+                <!-- контейнер для чек-боксов -->
+
+                <div class="middle-content-container__check-boxes-container no-active">
+                    <!-- названия чек-боксов -->
+
+                    <div class="check-boxes-container__headline-container">
+                        <p class="check-box-icon__but-close-container"><img src="{% static 'teacher/img/hotpn.png'%}" alt="закрыть" class="check-box-icon__but-close" /></p>
+                        <div class="check-box-icon__head">
+                            <p class="headline-container__headline">Литература</p>
+                            <p class="headline-container__headline">Видеоматериалы</p>
+                        </div>
+                    </div>
+
+                    <!-- чек-бокс - литературы -->
+
+                    <div class="check-boxes-container__literature-check-box check-box-style">
+                        {% for l in literature %}
+                        <label class="check-box__check-box-item">
+                            <input type="checkbox" class="check-box-item__check-box-icon" name="literature" value="{{l.id}}" />
+                            <span class="check-box-icon__new_icon"></span>
+                            <p>{{l.title}}</p>
+                            <!-- <p>Тема такая-то</p> -->
+                        </label>
+                        {% endfor %}
+                    </div>
+
+                    <!-- чек-бокс - видео -->
+
+                    <div class="check-boxes-container__video-check-box check-box-style">
+                        {% for v in video %}
+                        <label class="check-box__check-box-item">
+                            <input type="checkbox" class="check-box-item__check-box-icon" name="video" value="{{v.id}}" />
+                            <span class="check-box-icon__new_icon"></span>
+                            <p>{{v.title}}</p>
+                            <!-- <p>Тема такая-то</p> -->
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контейнер для даты и списка группы и выбора оценки и статуса студентов -->
+
+            <div class="calendar-go-to-day__right-content-container">
+                <!-- Контейнер для названия группы, времени, даты  -->
+
+                <div class="right-content-container__info-box">
+                    <p class="right-content-container__course-headline">{{class.groups.course.title}}</p>
+                    <p class="right-content-container__group-headline">{{class.groups.title}}</p>
+                    <p class="right-content-container__time">{{class.start_time}}</p>
+                    <p class="right-content-container__date">{{class.date}}</p>
+                </div>
+
+                <!-- Контейнер списка группы выбора оценки и статуса студентов-->
+
+                <div class="right-content-container__group-list-container">
+                    <p class="headline-box__headline">Список группы</p>
+
+                    <!-- Контейнер списка группы -->
+
+                    <div class="group-list-container__list-of-group">
+
+                        {% for st in class.groups.students.all %}
+                        <div class="group-list-container__student">
+                            <div class="group-list-container__box-for-name-and-foto">
+                                {% if st.img_user %}
+                                <img src="{{st.img_user.url}}" alt="фото студента" class="list-of-group__student-avatar">
+                                {% else %}
+                                <img src="{% static 'teacher/img/no-avatar.png' %}" alt="фото студента" class="list-of-group__student-avatar">
+                                {% endif %}
+                                <div class="box-for-name">
+                                    <p class="name-box__last-name">{{st.last_name}}</p>
+                                    <p class="name-box__student-name">{{st.first_name}} {{st.surname}}</p>
+                                </div>
+                            </div>
+                            <div class="select">
+                                <p class="select__change">Выбрать статус</p>
+                                <div class="select__option-container no-active">
+                                    <input type="text" hidden data-value=False class="select_input" name="status-{{st.id}}" />
+                                    <p data-value=True class="select__option">Присутствует</p>
+                                    <p data-value=False class="select__option">Отсутствует</p>
+                                    <!-- <p data-value="seriousReason" class="select__option">Отсутствует по уважительной причине</p> -->
+                                </div>
+                            </div>
+
+                            <div class="select selectRaiting">
+                                <p class="select__change">Оценка</p>
+                                <div class="select__option-container no-active">
+                                    <input type="text" hidden class="select_input" name="rating-{{st.id}}" value="0" />
+                                    <p data-value="1" class="select__option">1</p>
+                                    <p data-value="2" class="select__option">2</p>
+                                    <p data-value="3" class="select__option">3</p>
+                                    <p data-value="4" class="select__option">4</p>
+                                    <p data-value="5" class="select__option">5</p>
+                                    <p data-value="6" class="select__option">6</p>
+                                    <p data-value="7" class="select__option">7</p>
+                                    <p data-value="8" class="select__option">8</p>
+                                    <p data-value="9" class="select__option">9</p>
+                                    <p data-value="10" class="select__option">10</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- контейнер для кнопки "Сохранить" -->
+                    <div class="right-content-container__btn_container">
+                        <button type="submit" class="btn_container__save_btn">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+<script src="{% static 'teacher/js/calendar-go-to-day.js'%}"></script>
+<script src="{% static 'teacher/js/main-header.js'%}"></script>
+{% endblock %}

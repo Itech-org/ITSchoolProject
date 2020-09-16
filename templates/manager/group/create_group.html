@@ -8,18 +8,39 @@
 <p class="main-header__page-information">Создание группы</p>
 {% endblock %}
 
-{% block content %}<main>
-    <div class="p-3">
-<form method="post" action="{% url 'manager_school:add_group' %}">
-    {% csrf_token %}
-    <div class="d-flex flex-column">
-        {% for field in group_form %}
-        <div class="d-flex">
-            {{ field }}
-            <div class="p-1 text-secondary">{{ field.label }}</div>
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="form-wrapper">
+        <div class="form-container">
+            <h3>Договор</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-content">
+                    <div class="input-wrapper">
+                        <p>Курс:</p>
+                        {{ group_form.course }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Куратор:</p>
+                        {{ group_form.manager }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Преподаватель:</p>
+                        {{ group_form.teacher }}
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Название группы:</p>
+                        {{ group_form.title }}
+                    </div>
+                    <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
+                </div>
+            </form>
         </div>
-        {% endfor %}
     </div>
-    <button class="btn btn-primary mb-3" type="submit">Сохранить</button>
-</form></div></main>
+</main>
 {% endblock %}

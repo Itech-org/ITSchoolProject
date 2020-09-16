@@ -1,0 +1,37 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block title %} Расходы {% endblock %}
+{%block header%} Добавление расходов {% endblock %}
+{% block content %}
+<main>
+      <div class="thead__wrapper">
+        <table>
+          <thead>
+            <tr>
+              <td class="thead__td-color thead__td-color_light">Дата</td>
+              <td class="thead__td-color thead__td-color_light">Поломки</td>
+              <td class="thead__td-color thead__td-color_dark">Канцелярия</td>
+              <td class="thead__td-color thead__td-color_light">Бакалея (кофе, чай, печенье)</td>
+              <td class="thead__td-color thead__td-color_dark">Бытовая химия</td>
+              <td class="thead__td-color thead__td-color_light">Было потрачено</td>
+              <td class="thead__td-color thead__td-color_light"> </td>
+            </tr>
+          </thead>
+        <form method="POST" class="post-form">{% csrf_token %}
+          <tr>
+            <td>{{ cost.date }}</td>
+            <td class="td__color_dark">{{ cost.breakdown }}</td>
+            <td class="td__color_dark">{{ cost.chancery }}</td>
+            <td class="td__color_dark">{{ cost.grocery }}</td>
+            <td class="td__color_dark">{{ cost.house_chemicals }}</td>
+            <td class="td__color_dark">{{ cost.total}}</td>
+              <td><button type="submit" class="costs__link">Отправить</button></td>
+          </tr>
+        </form>
+        </table>
+      </div>
+    </main>
+    <div class="costs__link">
+        <a href="{% url 'admin_school:costs_admin' %}">Вернуться к расходам</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  @font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Aclonica-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  .no-active {
+    display: none;
+  }
+
+  .main-header__videolessonbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 558px;
+  }
+
+  .main-header__videolesson {
+    height: 558px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .main-header__videolesson-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 239px;
+    height: 92px;
+  }
+
+
+
+  .main-header__videolesson-name_p1 {
+    font-family: Montserrat-Regular;
+    font-size: 18px;
+    color: #124178;
+  }
+
+  .main-header__videolesson-name_p2 {
+    font-family: Montserrat-Mixed;
+    font-size: 23px;
+    color: #124178;
+  }
+
+  .main-header__videolesson-name_p3 {
+    font-family: Montserrat-Light;
+    font-size: 14px;
+    color: #124178;
+  }

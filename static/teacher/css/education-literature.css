@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  @font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Aclonica-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  /* filtr */
+  .filtr__container{
+  margin: 100px 0px 50px 150px;
+
+  }
+  .filtr__search{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #EAEEFA;
+    width: 436px;
+    height: 28px;
+  }
+  .filtr__search-input{
+    font-family: 'Montserrat-Light';
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+    color: #0B3567;
+    background-color: #EAEEFA;
+    border: none;
+    padding-left: 10px;
+    outline: none;
+  }
+  .filtr__search-button{
+    width: 30px;
+    height: 100%;
+    border: none;
+    background: url(../img/loupe.svg) no-repeat center;
+    background-size: cover;
+    border: none;
+  }
+
+
+
+  /* materials */
+  .material__container{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1071px;
+      max-height: 708px;
+      margin: 0 auto;
+
+  }
+  .material__container-literature{
+      display: flex;
+      justify-content: space-around;
+      width: 40%;
+      height: 170px;
+
+  }
+  .material__container-download{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .material__container-link{
+      color: #042348;
+      font-family: Montserrat-SemiBold;
+      font-size: 13px;
+
+  }
+  .material__container-link a{
+    margin: 10px 0px;
+  }
+  .material__container-description{
+      display: flex;
+      flex-direction: column;
+      align-content: space-between;
+
+
+  }
+  .material__description-title{
+      color: #0B3567;
+      font-family: Montserrat-Regular;
+      font-size: 17px;
+      text-align: center;
+      margin: 0px 0px 15px 0px;
+
+  }
+
+  .material__description-text{
+      max-width: 270px;
+      font-family: Montserrat-Light;
+      font-size: 13px;
+      white-space: inherit; /* Запрещаем перенос строк */
+      overflow: hidden; /* Обрезаем все, что не помещается в область */
+      text-overflow: ellipsis; /* Добавляем многоточие */
+  }
+
+  main {
+    margin-left: 70px;
+    margin-top: 50px;
+    transition: 0.2s;
+
+  }
+
+  .main-menu{
+    z-index: 5;
+  }
+
+
+  /* изменение в шапке документа: переименовала классы, чтобы расставить все в линию */
+  .main-header__page-information-change-specialty-literature{
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    font-family: Montserrat-Regular;
+    align-items: center;
+    font-size: 16px;
+    color: #124178;
+    justify-content: space-around;
+  }
+  .main-header__page-information-literature{
+    padding-right: 50px;
+  }

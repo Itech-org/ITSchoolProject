@@ -1,0 +1,16 @@
+.hover-effect1 {
+    text-decoration: none;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.3s ease;
+}
+.hover-effect1:hover {
+    text-decoration: none;
+    color: black;
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow:0 0 10px #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.3s ease;
+}
