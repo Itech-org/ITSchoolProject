@@ -7,10 +7,14 @@
 {% block messages %}
 <p class="main__chat-open-text m-0">
     {% get_companion user chat as companion %}
+    {% if chat.type == 'C' %}
+    {{ chat.chat_title }} <i style="font-size: 10px;">{{ chat.members.count }} участников</i>
+    {% else %}
     {% if companion %}
     {{ companion.last_name }} {{ companion.first_name }}
     {% else %}
     Saved Messages
+    {% endif %}
     {% endif %}
 </p>
 <div id="messages__container" class="main__chat-message-seen-area">

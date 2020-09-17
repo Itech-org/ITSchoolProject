@@ -56,7 +56,9 @@
                     <p class="teacher__teacher-tel no-active">{{ teacher.phone }}</p>
                     <p class="teacher__teacher-link no-active">
                         <a class="teacher__teacher-url"
-                            href="{% url 'manager_school:get_teacher_card' teacher_id=teacher.id %}" hidden></a>
+                           href="{% url 'manager_school:get_teacher_card' teacher_id=teacher.id %}" hidden></a>
+                        <a class="teacher__teacher-message"
+                           href="{% url 'manager_school:create_dialog' user_id=teacher.id %}" hidden></a>
                     </p>
                     <p class="teacher__teacher-email no-active">{{ teacher.email }}</p>
                     <p class="teacher__teacher-viber-telegramm no-active">{{ teacher.phone }}</p>
@@ -79,8 +81,16 @@
                     <p class="teacher__profile-telegram-name">Telegram/Viber:</p>
                     <p class="teacher__profile-telegram-number"></p>
                 </div>
-                <p class="teacher__box-for-teacher-link"><a href="#" class="teacher_teacher-card-link">Перейти на
-                    профиль преподавателя</a></p>
+                <p class="teacher__box-for-teacher-link">
+                    <a href="#" class="teacher_teacher-card-link">Перейти на
+                    профиль преподавателя
+                    </a>
+                </p>
+                <p class="teacher__box-for-teacher-link">
+                    <a href="#" class="teacher__profile-link-send-message">
+                        Написать преподавателю
+                    </a>
+                </p>
             </div>
         </div>
     </div>

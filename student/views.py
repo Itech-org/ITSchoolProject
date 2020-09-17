@@ -133,8 +133,11 @@ def homework_view(request):
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
-        next_class = current_group.classes.get(position=int(last_class.position + 1))
-        all_classes.append(next_class)
+        try:
+            next_class = current_group.classes.get(position=int(last_class.position + 1))
+            all_classes.append(next_class)
+        except:
+            pass
     else:
         all_classes = classes
     context = {'groups': groups, 'group': current_group, 'classes': all_classes}
@@ -272,11 +275,15 @@ def material_themes(request):
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
-        next_class = current_group.classes.get(position=int(last_class.position + 1))
-        all_classes.append(next_class)
+        context = {'last_class': last_class}
+        try:
+            next_class = current_group.classes.get(position=int(last_class.position + 1))
+            all_classes.append(next_class)
+        except:
+            pass
     else:
         all_classes = classes
-    context = {'groups': groups, 'group': current_group, 'classes': all_classes}
+    context.update({'groups': groups, 'group': current_group, 'classes': all_classes})
     return render(request, 'student/materials_on_topics.html', context)
 
 
@@ -320,6 +327,7 @@ def video_themes(request):
     if classes.count() > 1:
         all_classes = [cls for cls in classes]
         last_class = all_classes[-1]
+        context = {'last_class':last_class}
         try:
             next_class = current_group.classes.get(position=int(last_class.position + 1))
             all_classes.append(next_class)
@@ -327,7 +335,7 @@ def video_themes(request):
             next_class = None
     else:
         all_classes = classes
-    context = {'groups': groups, 'group': current_group, 'classes': all_classes}
+    context.update({'groups': groups, 'group': current_group, 'classes': all_classes, 'last_class':last_class})
     return render(request, 'student/video_on_topics.html', context)
 
 

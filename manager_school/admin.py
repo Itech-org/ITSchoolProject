@@ -2,12 +2,14 @@ from django import forms
 from django.contrib import admin
 from .models import *
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
+
+
 # Register your models here.
 
 @admin.register(AdvUser)
 class AdminViewAdvUser(admin.ModelAdmin):
     list_display = ('username', 'first_name', 'last_name', 'email', 'date_joined', 'phone',)
-    search_fields = ('groups', )
+    search_fields = ('groups',)
     list_filter = ('groups',)
 
 
@@ -45,35 +47,35 @@ class AdminViewClassModel(admin.ModelAdmin):
     inlines = [AttendanceInline]
 
 
-@admin.register(Classroom)
-class AdminViewClassroom(admin.ModelAdmin):
-    list_display = ('title',)
-
 @admin.register(HomeworkModel)
 class AdminViewHomeworkModel(admin.ModelAdmin):
-    list_display = ('title', )
+    list_display = ('title',)
     # prepopulated_fields = {'slug': ('title',)}
+
 
 @admin.register(HomeworkTeacherModel)
 class AdminViewHomeworkTeacherModel(admin.ModelAdmin):
-    list_display = ('title', )
+    list_display = ('title',)
     prepopulated_fields = {'slug': ('title',)}
+
 
 @admin.register(MaterialText)
 class AdminViewMaterialsText(admin.ModelAdmin):
-    list_display = ('title', 'description', )
+    list_display = ('title', 'description',)
     prepopulated_fields = {'slug': ('title',)}
+
 
 @admin.register(MaterialVideo)
 class AdminViewMaterialsVideo(admin.ModelAdmin):
-    list_display = ('title', 'description', )
+    list_display = ('title', 'description',)
     prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(News)
 class AdminNews(admin.ModelAdmin):
-    list_display = ('title', 'created' )
+    list_display = ('title', 'created')
     prepopulated_fields = {'slug': ('title',)}
+
 
 class RequestConversationInline(admin.StackedInline):
     model = RequestConversation
@@ -82,17 +84,18 @@ class RequestConversationInline(admin.StackedInline):
 
 @admin.register(StudyRequest)
 class StudyRequestAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'patronymic', 'enter_date', 'status')
+    list_display = ('enter_date', 'last_name', 'first_name', 'patronymic', 'status')
     search_fields = ('status', 'enter_date', 'last_name', 'first_name',
                      'course__title', 'specialist__first_name', 'specialist__last_name',)
     fields = ('last_name', 'first_name', 'patronymic', 'enter_date', 'communication_type',
-              'source', 'course',  'specialist', 'status')
-    list_filter = ['enter_date', 'course', 'status']
+              'source', 'course', 'specialist', 'status')
+    list_filter = ['enter_date', 'course', 'status', 'specialist']
     inlines = [RequestConversationInline]
-    def formfield_for_foreignkey( self,  db_field,  request,  ** kwargs):
-        if db_field.name ==  "specialist":
-            kwargs["queryset"]  =  AdvUser.objects.filter(groups__name="Manager")
-        return super().formfield_for_foreignkey( db_field,  request,  **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "specialist":
+            kwargs["queryset"] = AdvUser.objects.filter(groups__name="Manager")
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class PaymentStageInline(NestedStackedInline):
@@ -114,7 +117,7 @@ class UserPaymentInline(NestedStackedInline):
 class AdminViewClassModel(NestedModelAdmin):
     list_display = ('number', 'date', 'course')
     list_filter = ['date', 'course', 'group']
-    inlines = [UserPaymentInline,]
+    inlines = [UserPaymentInline, ]
 
 
 @admin.register(PaymentStage)
@@ -126,15 +129,30 @@ class PaymentStageAdmin(admin.ModelAdmin):
 class NotificationAdmin(admin.ModelAdmin):
     list_display = ('message',)
 
+
 @admin.register(Costs)
 class AdminCosts(admin.ModelAdmin):
-
     date_hierarchy = 'date'
-    list_display = ('date', 'breakdown', 'chancery', 'grocery', 'house_chemicals','total')
+    list_display = ('date', 'breakdown', 'chancery', 'grocery', 'house_chemicals', 'total')
     list_filter = ['date', 'total']
 
 
-admin.site.register(Chat)
+@admin.register(Chat)
+class ChatModel(NestedModelAdmin):
+    list_display = ('chat_title', 'type')
+
+
+class RoomTimeIntervalInline(admin.StackedInline):
+    model = RoomTimeInterval
+    extra = 0
+
+
+@admin.register(Classroom)
+class AdminViewClassroom(admin.ModelAdmin):
+    list_display = ('title',)
+    inlines = [RoomTimeIntervalInline]
+
+
 admin.site.register(Message)
 admin.site.register(UserManagement)
 admin.site.register(RubruckNews)

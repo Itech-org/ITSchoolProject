@@ -14,7 +14,7 @@
 {% endblock %}
 {% block content %}
     <main>
-        {% if class.position <= next_class.position %}
+        {% if class.position <= next_class.position or class.position <= last_class.position %}
             <div class="content__wrapper">
                 <div class="student-info__container">
                     <div class="block-info">
