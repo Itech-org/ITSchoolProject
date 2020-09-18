@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework import viewsets, permissions
 
 from .filters import StudyRequestFilter
 from .forms import *
@@ -17,6 +18,7 @@ from django.shortcuts import render
 from .serializers import ClassModelSerializer, StudyRequestSerializer, CourseSerializer, CourseDetailSerializer
 from .services import get_manager_successful_lead_percent, get_manager_data_per_period, get_planning_rooms, \
     create_group_classes, get_year_and_month
+
 
 from .utilities import *
 
@@ -125,15 +127,28 @@ def update_class_date_and_time(request, class_id):
         start_time = request.POST.get('start_time')
         end_time = request.POST.get('end_time')
         class_room_title = request.POST.get('classroom')
+        message = request.POST.get('message')
+        classroom = get_object_or_404(Classroom, title=class_room_title)
+        time_interval = RoomTimeInterval.objects.get(room=classroom, time_from__lte=start_time, time_to__gte=end_time)
+        if time_interval.classtime.filter(date=date).exclude(id=class_id):
+            free_intervals = []
+            for room in class_rooms:
+                for interval in room.time_intervals.all():
+                    if not interval.classtime.filter(date=date):
+                        free_intervals.append(interval)
 
-        class_data.date = date
-
-        class_data.start_time = start_time
-        class_data.end_time = end_time
-
-        class_data.classroom = get_object_or_404(Classroom, title=class_room_title)
-
-        class_data.save()
+            alert = f'Невозможно перенести занятие. Аудитория занята в этот временной промежуток.'
+            return render(request, "manager/class/update_class_date_and_time.html",
+                          context={'class': class_data, 'class_rooms': class_rooms, 'alert':alert,
+                                   'free_intervals':free_intervals})
+        else:
+            class_data.classroom = classroom
+            class_data.date = date
+            class_data.start_time = start_time
+            class_data.end_time = end_time
+            class_data.time_interval = time_interval
+            class_data.message = message
+            class_data.save()
 
         return redirect('manager_school:planning_rooms_page')
     else:
@@ -525,6 +540,7 @@ def api_classes_list(request):
         except TypeError:
             classes = ClassModel.objects.all()
     data = ClassModelSerializer(classes, many=True)
+    print(data)
     return Response(data.data)
 
 
@@ -591,3 +607,11 @@ def get_news_list(request):
     return render(request, 'manager/other/news_list.html', {
         'news': News.objects.all()
     })
+
+
+@csrf_exempt
+def news_list(request):
+    if request.method == "GET":
+        news = News.objects.all()
+        serializer = NewsSerializer(news, many=True)
+        return JsonResponse(serializer.data, safe=False)

@@ -1,22 +1,32 @@
-from .models import ClassModel, StudyRequest, CourseUser, AdvUser
+from .models import ClassModel, StudyRequest, CourseUser, AdvUser, News
 from rest_framework import serializers
 
 
 class ClassModelSerializer(serializers.HyperlinkedModelSerializer):
     date = serializers.SerializerMethodField()
+    groups = serializers.SerializerMethodField()
 
     def get_date(self, obj):
         return f"{obj.date.strftime('%d.%m.%Y')} {obj.start_time.strftime('%H:%M')}-{obj.end_time.strftime('%H:%M')}"
 
+    def get_groups(self, obj):
+        return obj.groups.title
+
     class Meta:
         model = ClassModel
-        fields = ['id', 'date', 'theme', 'position']
+        fields = ['id', 'date', 'theme', 'position', 'groups']
 
 
 class StudyRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudyRequest
         fields = ['id', 'first_name', 'enter_date', 'email', 'tel_number', 'course']
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = ['id', 'title', 'description', 'img', 'created']
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -42,3 +52,4 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseUser
         fields = ('id', 'title', 'description', 'price', 'start_date', 'finish_date', 'img', 'amount', 'is_online', 'teachers')
+

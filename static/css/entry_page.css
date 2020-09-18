@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  @font-face {
+    font-family: Montserrat-Medium; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Aclonica-Regular; /* Гарнитура шрифта */
+    src: url(../fonts/Aclonica/Aclonica-Regular.ttf); /* Путь к файлу со шрифтом */
+  }
+
+  @font-face {
+    font-family: Montserrat-LightItalic; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-LightItalic.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Bold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-Light; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-Light.ttf); /* Путь к файлу со шрифтом */
+  }
+  
+  @font-face {
+    font-family: Montserrat-SemiBold; /* Гарнитура шрифта */
+    src: url(../fonts/Montserrat/Montserrat-SemiBold.ttf); /* Путь к файлу со шрифтом */
+  }
+  body{
+    background: linear-gradient(to right, #3D4C82, #6B4C9F);
+  }
+  .main__open-student{
+    width: 100%;
+    /* height: 900px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: linear-gradient(to right, #3D4C82, #6B4C9F); */
+    padding: 100px 0px;
+  }
+
+  .main__open-student-text{
+
+    font-family: Montserrat-Medium;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 80px;
+  }
+
+  .main__open-student-box-input{
+    width: 100%;
+    /* height: 100%; */
+    display: flex;
+    justify-content: center;
+  }
+
+  .main__open-student-input{
+    width: 320px;
+    height: 50px;
+    border: none;
+    margin-bottom: 19px;
+    background: linear-gradient(to top, #161F40, #101E53);
+    box-shadow: 0 5px 0 #373857;
+    color: #ffffff;
+    padding-left: 10px;
+    font-family: Montserrat-Light;
+    font-size: 18px;
+  }
+
+  .main__open-student-box-button{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+  }
+
+  .main__open-student-text_size{
+      font-size: 15px;
+  }
+
+  .main__open-student-box{
+          width: 100%;
+          display: flex;
+          height: 30px;
+  }
+
+  .main__open-student-button{
+    display: inline-block;
+        width: 80%;
+    margin: 5px;
+    min-width: 150px;
+    height: 100%;
+    background: linear-gradient(174.52deg, #5755B0 4.38%, #007BC0 70.32%);
+    border-radius: 4px;
+    color: #ffffff;
+    border: none;
+    font-family: Montserrat-SemiBold;
+    font-size: 15px;
+    text-align: center;
+    line-height: 30px;
+  }
+  
+  #squaredThree{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }
+
+  .squaredThree label {
+  font-size: 15px;
+  line-height: 18px;
+  font-family: Montserrat-SemiBold;
+  color: #FFFFFF;
+  text-align: center;
+  margin-left: 10px;
+  }
+
+
+  .main__open-student-box-img {
+    display: flex;
+    justify-content: center;
+  }

@@ -12,6 +12,9 @@
         <div class="main__open-student">
             <form method="post" action="">
                 {% csrf_token %}
+                <div class="main__open-student-box-img">
+                    <img src="{%  static 'img/open_img.svg' %}" alt="" class="main__open-student-img">
+                </div>
                 <h1 class="main__open-student-text">
                     Вход в личный кабинет
                 </h1>

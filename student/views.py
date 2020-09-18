@@ -62,7 +62,7 @@ def logout_request(request):
     return redirect("student:login")
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def Change_user_info(request):
     if request.method == "POST":
         phone = request.POST.get('phone', '')
@@ -82,7 +82,7 @@ def Change_user_info(request):
 
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def main_page_view(request):
     my_id = request.user.id
     my_groups = GroupModel.objects.filter(students__id=my_id)
@@ -119,7 +119,7 @@ def account(request):
     return render(request, "student/students_personal_card.html", context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def homework_view(request):
     group = request.GET.get('group', '')
     groups = request.user.groupmodel_set.all()
@@ -144,7 +144,7 @@ def homework_view(request):
     return render(request, 'student/homework_on_topics.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def exact_homework(request, homework_id):
     homework = HomeworkModel.objects.filter(id=homework_id)
     hw_id = [x.id for x in homework]
@@ -153,7 +153,7 @@ def exact_homework(request, homework_id):
     return render(request, "student/exact_homework.html", context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def calendar(request):
     group = request.GET.get('group', '')
     groups = request.user.groupmodel_set.all()
@@ -183,7 +183,7 @@ def api_classes_list(request):
     return Response(data.data)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def class_view(request, class_id):
     cls = ClassModel.objects.get(id=class_id)
     current_group = GroupModel.objects.get(classes=cls)
@@ -229,7 +229,7 @@ def class_view(request, class_id):
 # ---- ВКЛАДКА УЧЕБНОГО ПРОЦЕССА ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def process(request):
     return render(request, 'student/studying_proccess.html')
 
@@ -237,7 +237,7 @@ def process(request):
 # ---- ПРЕПОДАВАТЕЛИ ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def teacher_view(request):
     my_id = request.user.id
     my_groups = GroupModel.objects.filter(students__id=my_id)
@@ -246,7 +246,7 @@ def teacher_view(request):
     return render(request, 'student/teachers_new.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def teacher_profile(request, teacher_id):
     teacher = get_object_or_404(AdvUser, id=teacher_id)
     groups = GroupModel.objects.filter(teacher_id=teacher_id, students__id=request.user.id)
@@ -256,12 +256,12 @@ def teacher_profile(request, teacher_id):
 # ---- ВЫВОД МАТЕРИАЛОВ ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def materials_view(request):
     return render(request, 'student/studying_materials.html')
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def material_themes(request):
     group = request.GET.get('group', '')
     groups = request.user.groupmodel_set.all()
@@ -287,7 +287,7 @@ def material_themes(request):
     return render(request, 'student/materials_on_topics.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def material_detail(request, class_id):
     cls = ClassModel.objects.get(id=class_id)
     materials = cls.materialtext_set.all()
@@ -296,7 +296,7 @@ def material_detail(request, class_id):
     return render(request, 'student/selected-lesson.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def liter_view(request):
     materials = MaterialText.objects.all()
     context = {'materials': materials}
@@ -306,13 +306,13 @@ def liter_view(request):
 # ---- ВЫВОД ВИДЕОМАТЕРИАЛОВ ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def video_materials(request):
     video = MaterialVideo.objects.all()
     return render(request, 'student/video-material.html', {'video': video})
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def video_themes(request):
     group = request.GET.get('group', '')
     groups = request.user.groupmodel_set.all()
@@ -339,7 +339,7 @@ def video_themes(request):
     return render(request, 'student/video_on_topics.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def video_detail(request, class_id):
     cls = ClassModel.objects.get(id=class_id)
     video_materials = MaterialVideo.objects.filter(class_field__id=class_id)
@@ -350,7 +350,7 @@ def video_detail(request, class_id):
 # ---- ВЫВОД ГРУППЫ ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def group_view(request):
     groups, current_group = group_filter(request)
     students = AdvUser.objects.filter(groupmodel__id=current_group.id)
@@ -359,7 +359,7 @@ def group_view(request):
     return render(request, 'student/group.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def group_profile(request, user_id):
     student = get_object_or_404(AdvUser, id=user_id)
     attendance = Attendance.objects.filter(students__id=user_id)
@@ -368,7 +368,7 @@ def group_profile(request, user_id):
     return render(request, 'student/card_of_another_student.html', context)
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def contact_admin(request):
     if request.POST:
         title = request.POST.get('title', '')
@@ -386,7 +386,7 @@ def contact_admin(request):
     return render(request, 'student/contact_administrator.html')
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def itnews(request):
     rubrick = request.GET.get('rubrick', '')
     rubricks = RubruckNews.objects.all()
@@ -407,12 +407,12 @@ def news_detail(request, news_id):
     return render(request, 'student/container_news.html', {'news':news, 'created':created})
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def services(request):
     return render(request, 'student/services_page.html')
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def payment(request):
     groups, current_group = group_filter(request)
     user_payment = get_user_payment(request, current_group)
@@ -445,13 +445,13 @@ def payment(request):
 # ---- ЧАТ ----
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def get_chats(request):
     chats = Chat.objects.filter(members__in=[request.user.id])
     return render(request, 'student/chat/chats.html', {'user_profile': request.user, 'chats': chats})
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def get_chat_with_user(request, chat_id):
     if request.method == "POST":
         form = MessageForm(request.POST, request.FILES)
@@ -475,7 +475,7 @@ def get_chat_with_user(request, chat_id):
         return render(request,'student/chat/messages.html',{'user_profile': request.user,'chat': chat,'chats': chats,'form': MessageForm()})
 
 
-@user_passes_test_custom(check_group_and_activation, login_url='/login')
+@user_passes_test_custom(check_group_and_activation, login_url='/student/login')
 def start_chat_with_user(request, user_id):
     chats = Chat.objects.filter(members__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
     if chats.count() == 0:

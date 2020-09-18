@@ -6,69 +6,82 @@
 
 
 {% block title %}
-<p class="main-header__page-information">Перенос занятия</p>
+    <p class="main-header__page-information">Перенос занятия</p>
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
-<link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main-header-manager.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/contract-deal.css' %}"/>
 {% endblock %}
 
 {% block content %}
-<main>
-    <div class="form-wrapper">
-        <div class="form-container">
-            <h3>Перенос занятия</h3>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-content">
-                    <div class="input-wrapper">
-                        <p>Группа:</p>
-                        <p>{{ class.groups.title }}</p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Тема занятия</p>
-                        <p>{{ class.theme }}</p>
-                    </div>
-<!--                    <div class="input-wrapper">-->
-<!--                        <p>Дата</p>-->
-<!--                        <p></p>-->
-<!--                    </div>-->
-                    <div class="input-wrapper">
-                        <p>Выберите дату:</p>
-                        <p><input required name="date" type="date" value="{{ class.date|date:'Y-m-d' }}"></p>
-                    </div>
-<!--                    <div class="input-wrapper">-->
-<!--                        <p>Время</p>-->
-<!--                        <p></p>-->
-<!--                    </div>-->
-                    <div class="input-wrapper">
-                        <p>Выберите время начала:</p>
-                        <p><input required name="start_time" type="time" value="{{ class.start_time }}"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Выберите время окончания:</p>
-                        <p><input required name="end_time" type="time" value="{{ class.end_time }}"></p>
-                    </div>
-<!--                    <div class="input-wrapper">-->
-<!--                        <p>Выберите аудиторию</p>-->
-<!--                        <p></p>-->
-<!--                    </div>-->
-                    <div class="input-wrapper">
-                        <p>Аудитория:</p>
-                        <p>
-                            <select name="classroom" required>
-                                <option selected>{{ class.classroom }}</option>
-                                {% for class_room in class_rooms %}
-                                <option>{{ class_room.title }}</option>
+    <main>
+        <div class="form-wrapper">
+            <div class="form-container">
+                <h3>Перенос занятия</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-content">
+                        <div class="input-wrapper">
+                            <p>Группа:</p>
+                            <p>{{ class.groups.title }}</p>
+                        </div>
+                        <div class="input-wrapper">
+                            <p>Тема занятия</p>
+                            <p>{{ class.theme }}</p>
+                        </div>
+                        <!--                    <div class="input-wrapper">-->
+                        <!--                        <p>Дата</p>-->
+                        <!--                        <p></p>-->
+                        <!--                    </div>-->
+                        <div class="input-wrapper">
+                            <p>Выберите дату:</p>
+                            <p><input required name="date" type="date" value="{{ class.date|date:'Y-m-d' }}"></p>
+                        </div>
+                        <!--                    <div class="input-wrapper">-->
+                        <!--                        <p>Время</p>-->
+                        <!--                        <p></p>-->
+                        <!--                    </div>-->
+                        <div class="input-wrapper">
+                            <p>Выберите время начала:</p>
+                            <p><input required name="start_time" type="time" value="{{ class.start_time }}"></p>
+                        </div>
+                        <div class="input-wrapper">
+                            <p>Выберите время окончания:</p>
+                            <p><input required name="end_time" type="time" value="{{ class.end_time }}"></p>
+                        </div>
+                        <!--                    <div class="input-wrapper">-->
+                        <!--                        <p>Выберите аудиторию</p>-->
+                        <!--                        <p></p>-->
+                        <!--                    </div>-->
+                        <div class="input-wrapper">
+                            <p>Аудитория:</p>
+                            <p>
+                                <select name="classroom" required>
+                                    <option selected>{{ class.classroom }}</option>
+                                    {% for class_room in class_rooms %}
+                                        <option>{{ class_room.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+                        </div>
+                        <div class="input-wrapper">
+                            <p>Укажите причину переноса:</p>
+                            <p><input required name="message" type="text"></p>
+                        </div>
+                        <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
+                        <div class="alert" style="margin: 5px; margin-bottom: 0;">
+                            {{ alert }}
+                            {% if free_intervals %}
+                                Свободные аудитории на эту дату:<br/>
+                                {% for int in free_intervals %}
+                                    {{ int.room }} с {{ int.time_from }} до {{ int.time_to }}<br/>
                                 {% endfor %}
-                            </select>
-                        </p>
+                            {% endif %}
+                        </div>
                     </div>
-                    <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends "admin/main_page/main_page_admin.html"%}
+{% block title %} Добавление рубрики{% endblock %}
+
+{% block content%}
+<form action="" method="post">
+    {%csrf_token%}
+    <p>Новое название рубрики: {{form.title}}</p>
+    <button>Сохранить изменения</button>
+</form>
+ <form action="{% url 'admin_school:delete_rubrick' change_rubricks.id %}" method="post">
+            {% csrf_token %}
+     <input type="submit" value="удалить запись" onmouseover="this.value='удалить'" onmouseout="this.value='наведите что бы удалить запись'">
+ </form>
+{% endblock%}

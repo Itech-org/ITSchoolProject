@@ -16,9 +16,9 @@ def gen_slug(s):
 
 
 class AdvUser(AbstractUser): # Студенты
-    surname = models.CharField(max_length=30 ,db_index=True, verbose_name="Отчество", blank=True)
+    surname = models.CharField(max_length=30, db_index=True, verbose_name="Отчество", blank=True)
     img_user = models.ImageField('Аватар', upload_to='images/user/', blank=True)
-    phone = models.CharField(max_length=30 , verbose_name="Номер телефона", blank=True)
+    phone = models.CharField(max_length=30, verbose_name="Номер телефона", blank=True)
 
     def get_academic_performance(self, group_id=''):
         if self.groups.filter(name="Student").exists():
@@ -141,6 +141,8 @@ class ClassModel(models.Model):  # Занятие
     date = models.DateField(null=True, verbose_name='Дата проведения занятия')
     start_time = models.TimeField(null=True, verbose_name='Время начала занятия')
     end_time = models.TimeField(null=True, verbose_name='Время окончания занятия')
+    time_interval = models.ForeignKey('RoomTimeInterval', on_delete=models.PROTECT, default=None, null=True,
+                                      related_name='classtime')
     theme = models.CharField(max_length=250, verbose_name='Тема', blank=True)
     file = models.FileField(upload_to='file/video_course/', verbose_name='Файл с видео', blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, blank=True)
@@ -163,6 +165,8 @@ class ClassModel(models.Model):  # Занятие
 
 
 class Attendance(models.Model): #Посещение
+
+    classes = models.ForeignKey(ClassModel, on_delete=models.CASCADE, related_name='attendances')
     CHOICES = (
         ('Присутствует', 'Присутствует'),
         ('Отсутствует', 'Отсутствует'),
@@ -219,17 +223,16 @@ class Classroom(models.Model): #Аудитория
         verbose_name_plural = 'Аудитории'
 
 
-class RoomTimeInterval(models.Model):
+class RoomTimeInterval(models.Model): # Интервал работы аудитории
     time_from = models.TimeField(verbose_name="Начало промежутка")
     time_to = models.TimeField(verbose_name="Окончание промежутка")
-    is_free = models.BooleanField(default=True, verbose_name="Занят?")
     room = models.ForeignKey(Classroom, on_delete=models.CASCADE, verbose_name="Аудитория", related_name="time_intervals")
 
     def __str__(self):
-        return f"{self.room} + {self.time_from} + {self.time_from}"
+        return f"{self.room} | {self.time_from} - {self.time_to}"
 
     class Meta:
-        ordering = ['time_from']
+        ordering = ['room', 'time_from']
         verbose_name = 'Временной промежуток занятости аудитории'
         verbose_name_plural = 'Временные промежутки занятости аудитории'
 
@@ -325,11 +328,10 @@ class RubruckNews(models.Model):
 class News(models.Model):
     img = models.ImageField('Изображение', upload_to='images/itnews', blank=True)
     title = models.CharField('Заголовок', max_length=150, blank=True)
-    description = models.TextField('Тело', blank = True)
+    description = models.TextField('Тело', blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
-    rubrick = models.ForeignKey(RubruckNews, on_delete=models.CASCADE, null=True, default=None)
-    picture = models.ImageField(upload_to='images/news/', null=True, blank=True)
+    rubrick = models.ForeignKey(RubruckNews, on_delete=models.SET_NULL, null=True, default=None)
 
     def __str__(self):
         return f" {self.title}"

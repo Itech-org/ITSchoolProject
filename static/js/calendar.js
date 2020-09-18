@@ -118,37 +118,6 @@ function today() {
 
 today();
 
-// парсинг данных
-
-//let tasks = [
-//  {
-//    id: 1,
-//    date: "22.07.2020 18:00",
-//    theme: "hello world",
-//  },
-//  {
-//    id: 2,
-//    date: "27.07.2020 09:11",
-//    theme: "tema 1",
-//  },
-//  {
-//    id: 5,
-//    date: "27.07.2020 09:11",
-//    theme: "tema 1",
-//  },
-//  {
-//    id: 3,
-//    date: "25.07.2020 09:11",
-//    theme: "tema 2",
-//  },
-//  {
-//    id: 4,
-//    date: "28.07.2020 09:12",
-//    theme: "tema 3",
-//  },
-//];
-
-
 
 function fillingContent(tasks) {
   let taskContainers = document.querySelectorAll(".calendar__day-task-container");
@@ -167,9 +136,11 @@ function fillingContent(tasks) {
       if (card.getAttribute("data-date") == date[0]) {
         let container = card.querySelector(".calendar__day-task-container");
         let cardTask = createCard();
+        let groupName = cardTask.querySelector(".calendar__day-task-first-name");
+        groupName.innerHTML = `${task.groups}`;
         let taskNumber = cardTask.querySelector(".calendar__day-task-number");
         taskNumber.innerHTML = `Занятие №${task.position}`;
-        let theme = cardTask.querySelector(".calendar__day-task-first-name");
+        let theme = cardTask.querySelector(".calendar__day-task-last-name");
         theme.innerHTML = `${task.theme}`;
         let time = cardTask.querySelector(".calendar__day-task-time");
         time.innerHTML = `${date[1]}`;
@@ -217,6 +188,7 @@ async function request() {
       var strGET = window.location.search;
       let response = await fetch("http://127.0.0.1:8000/manager-school/api/v1/classes-list/" + strGET);
       let text = await response.json();
+      console.log(text);
       await fillingContent(text);
     }
 request();
