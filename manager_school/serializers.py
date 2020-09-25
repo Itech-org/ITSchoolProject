@@ -45,7 +45,6 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     teachers = serializers.SerializerMethodField()
 
     def get_teachers(self, obj):
-        print(obj)
         teachers = AdvUser.objects.filter(groups__name="Teacher", groups_teacher__in=obj.groups.all())
         return CourseTeachersSerializer(set(teachers), many=True).data
 

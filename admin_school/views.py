@@ -1,5 +1,5 @@
 from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator
@@ -40,14 +40,10 @@ def login_user(request):
         return redirect('admin_school:main_page_view')
 
 
+@login_required
 def logout_request(request):
     logout(request)
-    return redirect("admin_school:login")
-
-
-
-class Logout_View(LogoutView):
-    template_name = "admin/logout.html"
+    return redirect("entry_page")
 
 
 def check_group_and_activation(request):

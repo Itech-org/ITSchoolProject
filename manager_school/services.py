@@ -3,7 +3,7 @@ import time
 
 from django.shortcuts import get_object_or_404
 
-from .models import Contract, AdvUser, Classroom, ClassModel
+from .models import Contract, AdvUser, Classroom, ClassModel, RoomTimeInterval
 
 
 def get_manager_leads(user):
@@ -163,24 +163,74 @@ def get_planning_rooms(year=None, month=None):
 
 
 def create_group_classes(request, count_days, group):
-    if 'classes_days' in request.POST and 'class_room' in request.POST:
-        start_time = request.POST.get('start_time')
-        end_time = request.POST.get('end_time')
+    if 'classes_days' in request.POST:
         days_list = [int(day) for day in request.POST.getlist('classes_days')]
+        classes = ClassModel.objects.all()
         position = 1
-        class_room = get_object_or_404(Classroom, title=request.POST["class_room"])
+        week_dict = {
+            0: 'понедельник',
+            1: 'вторник',
+            2: 'среду',
+            3: 'четверг',
+            4: 'пятницу',
+            5: 'субботу',
+            6: 'воскресенье'
+        }
         for day in range(count_days.days + 1):
             dt = group.course.start_date + datetime.timedelta(day)
             if dt.weekday() in days_list:
-                ClassModel.objects.create(
-                    position=position,
-                    theme=f'Тема-{position}',
-                    groups=group,
-                    classroom=class_room,
-                    date=dt,
-                    start_time=start_time,
-                    end_time=end_time
-                )
-                position += 1
-        return True
-    return False
+                reserved_list = []
+                get_request = 'class_room_' + str(dt.weekday())
+                time_interval_list = request.POST.get(get_request).split('|')
+                time_interval = get_object_or_404(RoomTimeInterval,
+                                                  room__title=time_interval_list[0],
+                                                  time_from=time_interval_list[1],
+                                                  time_to=time_interval_list[2]
+                                                  )
+                for cls in classes:
+                    if cls.date == dt and cls.time_interval == time_interval:
+                        reserved_list.append(cls.groups.title)
+                if not reserved_list:
+                    ClassModel.objects.create(
+                        position=position,
+                        theme=f'Тема-{position}',
+                        groups=group,
+                        classroom=time_interval.room,
+                        time_interval=time_interval,
+                        date=dt,
+                        start_time=time_interval.time_from,
+                        end_time=time_interval.time_to)
+                    position += 1
+                else:
+                    alert = f"Невозможно задать расписание из-за конфликта с занятием группы {reserved_list[0]} в {week_dict.get(int(dt.weekday()))} {dt.strftime('%d.%m.%Y')}"
+                    return alert
+        alert = None
+        return alert
+    alert = False
+    return alert
+
+
+def get_time_intervals(request, count_days, group):
+    classes = ClassModel.objects.all()
+    time_intervals = RoomTimeInterval.objects.all()
+    free_intervals_dict = {}
+    counter = 0
+    for day in range(count_days.days + 1):
+        free_intervals_list = []
+        reserved_intervals = []
+        dt = group.course.start_date + datetime.timedelta(day)
+        for cls in classes:
+            if cls.date == dt:
+                reserved_intervals.append(cls.time_interval)
+        for interval in time_intervals:
+            if interval not in reserved_intervals:
+                if interval.room.max_places_count > group.students.all().count():
+                    free_intervals_list.append(interval)
+        if counter > 7:
+            list = free_intervals_dict.get(dt.weekday())
+            if len(list) > len(free_intervals_list):
+                free_intervals_dict.update({dt.weekday(): free_intervals_list})
+        else:
+            free_intervals_dict.update({dt.weekday(): free_intervals_list})
+        counter += 1
+    return free_intervals_dict

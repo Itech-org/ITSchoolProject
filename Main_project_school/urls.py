@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from .views import entry_page_view
 
 urlpatterns = [
-    path('', entry_page_view),
+    path('', entry_page_view, name='entry_page'),
     path('student/', include('student.urls')),
     path('teacher/', include('teacher.urls')),
     path('manager-school/', include('manager_school.urls')),

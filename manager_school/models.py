@@ -87,6 +87,7 @@ class CourseUser(models.Model):  # Курс
     amount = models.CharField(max_length=50, db_index=True, verbose_name='Количество занятий')
     slug = models.SlugField(max_length=100, db_index=True, default=None)
     is_online = models.BooleanField(default=False, verbose_name="Онлайн?")
+
     def __str__(self):
         return f"{self.title}"
 
@@ -105,6 +106,14 @@ class GroupModel(models.Model):     # Группа
     course = models.ForeignKey(CourseUser, verbose_name='Курс', on_delete=models.CASCADE, related_name='groups', default=None, null=True)
     title = models.CharField('Название', max_length=100, blank=True)
     slug = models.SlugField(max_length=100, db_index=True, default=None, null=True)
+
+
+    def course_postponation(self, number):
+        classes = self.classes.all()
+        for cls in classes:
+            cls.date += datetime.timedelta(weeks=int(number))
+            cls.save()
+
 
     def get_academic_performance(self):
         attendances = Attendance.objects.filter(classes__groups__id=self.id)
@@ -343,9 +352,9 @@ class News(models.Model):
 
 class StudyRequest(models.Model):
     CHOICES = (
-        ('Ready', 'Ready'),
-        ('In Progress', 'In Progress'),
-        ('Denial', 'Denial'),
+        ('Ready', 'Готов к договору'),
+        ('In Progress', 'В процессе'),
+        ('Denial', 'Отказ'),
     )
     enter_date = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name="Дата входа", blank=True)
     first_name = models.CharField(max_length=128, verbose_name="Имя", blank=True)
@@ -370,9 +379,9 @@ class StudyRequest(models.Model):
 
 class RequestConversation(models.Model):
     CHOICES = (
-        ('Ready', 'Ready'),
-        ('Сall back', 'Сall back'),
-        ('Denial', 'Denial'),
+        ('Ready', 'Готово'),
+        ('Сall back', 'Перезвонить'),
+        ('Denial', 'Отказ'),
     )
     request = models.ForeignKey(StudyRequest, on_delete=models.CASCADE, verbose_name="Заявка")
     date = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name="Дата разговора", null=True, blank=True)

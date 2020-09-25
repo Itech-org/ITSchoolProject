@@ -86,7 +86,7 @@ h3 {
 }
 .input-wrapper input,
 select, textarea {
-  width: 50%;
+  width: 70%;
   font-family: Montserrat-Regular;
   color: #114a8e;
   font-size: 16px;
@@ -99,7 +99,7 @@ input::placeholder {
 
 .input-wrapper {
   display: flex;
-  width: 100%;
+  width: 85%;
   justify-content: center;
   margin-top: 10px;
 }

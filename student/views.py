@@ -1,10 +1,12 @@
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from manager_school.utilities import user_passes_test_custom
 from django.shortcuts import get_object_or_404, get_list_or_404
 from manager_school.models import *
@@ -57,9 +59,10 @@ def login_user(request):
         return redirect('student:main_page_view')
 
 
+@login_required
 def logout_request(request):
     logout(request)
-    return redirect("student:login")
+    return redirect("entry_page")
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/student/login')
@@ -80,6 +83,23 @@ def Change_user_info(request):
     return render(request, 'student/change_personal_data.html')
 
 
+def a_change_password(request):
+    u = User.objects.get(username=request.user)
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            old_password = request.POST.get("old_password")
+            new_pass = request.POST.get("new_password")
+            new_pass_rep = request.POST.get("new_password_repeat")
+            if check_password(old_password,u.password):
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('bad')
+    else:
+            form = ChangePasswordForm()
+
+    return render(request, 'login/change_password.html',
+              {'form': form, 'user': u})
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/student/login')
@@ -179,6 +199,7 @@ def api_classes_list(request):
             classes = ClassModel.objects.filter(groups__id=group_id)
         except ValueError:
             classes = ClassModel.objects.filter(groups__students__id=request.user.id)
+
     data = ClassModelSerializer(classes, many=True)
     return Response(data.data)
 
