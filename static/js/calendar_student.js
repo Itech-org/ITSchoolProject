@@ -176,7 +176,7 @@ function fillingContent(tasks) {
         time.innerHTML = `${date[1]}`;
         container.append(cardTask);
         let link = cardTask;
-        link.setAttribute("href", "http://127.0.0.1:8000/class/" + task.id.toString() + "/detail/");
+        link.setAttribute("href", "http://127.0.0.1:8000/student/class/" + task.id.toString() + "/detail/");
       }
     }
   }
@@ -188,7 +188,7 @@ function fillingContent(tasks) {
 
 function createCard() {
   let cardLink = ce("a", undefined, "calendar__card-link");
-  cardLink.setAttribute("href", "http://127.0.0.1:8000/class/");
+  cardLink.setAttribute("href", "http://127.0.0.1:8000/student/class/");
   let div = ce("div", undefined, "calendar__day-task");
   let number = ce("p", undefined, "calendar__day-task-number");
   let firstName = ce("p", undefined, "calendar__day-task-first-name");
@@ -216,7 +216,7 @@ function ce(name, text, className, event, fn) {
 
 async function request() {
       var strGET = window.location.search;
-      let response = await fetch("http://127.0.0.1:8000/api/v1/classes-list/" + strGET);
+      let response = await fetch("http://127.0.0.1:8000/student/api/v1/classes-list/" + strGET);
       let text = await response.json();
       await fillingContent(text);
     }

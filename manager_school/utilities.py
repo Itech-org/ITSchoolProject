@@ -82,3 +82,19 @@ def check_group_and_activation(request):
     else:
         return False
 
+
+def apply_group_settings(request, group):
+    title = request.POST.get('title', '')
+    teacher = AvdUser.objects.get(first_name=request.POST.get('teacher', ''))
+    manager = request.POST.get('manager', '')
+    postponed = request.POST.get('postponed', '')
+    if title != group.title:
+        group.title = title
+    if teacher != group.teacher:
+        group.teacher = teacher
+    if manager != group.manager:
+        group.manager = manager
+    if postponed:
+        group.course_postponation(postponed)
+    group.save()
+    return True

@@ -52,9 +52,9 @@ class RegistrationForm(forms.ModelForm):
 
 class RequestConversationForm(forms.ModelForm):
     CHOICES = (
-        ('Ready', 'Ready'),
-        ('Сall back', 'Сall back'),
-        ('Denial', 'Denial'),
+        ('Ready', 'Готово'),
+        ('Сall back', 'Перезвонить'),
+        ('Denial', 'Отказ'),
     )
     date = forms.DateTimeField(required=False, label='Дата',
                                widget=forms.DateTimeInput(attrs={"type": "date"}))
@@ -70,9 +70,9 @@ class RequestConversationForm(forms.ModelForm):
 
 class StudyRequestForm(forms.ModelForm):
     STATUS_CHOICES = (
-        ('Ready', 'Ready'),
-        ('In Progress', 'In Progress'),
-        ('Denial', 'Denial'),
+        ('Ready', 'Готов'),
+        ('In Progress', 'В процессе'),
+        ('Denial', 'Отказ'),
     )
 
     enter_date = forms.DateTimeField(label='Дата', widget=forms.DateTimeInput(attrs={"type": "date"}))

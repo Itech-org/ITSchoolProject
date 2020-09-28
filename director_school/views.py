@@ -36,7 +36,7 @@ def login_user(request):
 @login_required
 def logout_request(request):
     logout(request)
-    return redirect("director_school:login")
+    return redirect("entry_page")
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/director-school/login')

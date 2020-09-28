@@ -8,9 +8,9 @@ from django.forms import widgets
 class StudyRequestFilter(django_filters.FilterSet):
     SPECIALIST_CHOICES = [(m.id, m.last_name + m.first_name) for m in AdvUser.objects.filter(groups__name='Manager')]
     STATUS_CHOICES = (
-        ('Ready', 'Ready'),
-        ('In Progress', 'In Progress'),
-        ('Denial', 'Denial'),
+        ('Ready', 'Готов к договору'),
+        ('In Progress', 'В процессе'),
+        ('Denial', 'Отказ'),
     )
     enter_date = DateTimeFromToRangeFilter(widget=RangeWidget(attrs={'type': 'date',
                                                                      'class': 'main-header__button-change-speciality'}))

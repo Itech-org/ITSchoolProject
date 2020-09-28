@@ -34,5 +34,5 @@ urlpatterns = [
     path('chats/', get_chats, name='chats'),
     path('chat/create/<int:user_id>/', start_chat_with_user, name='create_dialog'),
     path('chat/<int:chat_id>', get_chat_with_user, name='messages'),
-    path('api/v1/classes-list/', api_classes_list)
+    path('api/v1/classes-list/', api_classes_list),
 ]

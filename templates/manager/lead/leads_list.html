@@ -98,7 +98,7 @@
             <tr>
                 <td class="td__color_dark">{% if lead.status == '' %}<a class="btn btn-danger"
                                                                         href="{% url 'manager_school:confirm_lead' lead_id=lead.id %}">Обработать</a>
-                    {% else %}{{ lead.status }}{% endif %}
+                    {% else %}{{ lead.get_status_display }}{% endif %}
                 </td>
                 <td class="td__color_dark">{{ lead.id }}</td>
                 <td class="td__color_dark">{{ lead.enter_date }}</td>

@@ -3,7 +3,7 @@ import time
 
 from django.shortcuts import get_object_or_404
 
-from .models import Contract, AdvUser, Classroom, ClassModel
+from .models import Contract, AdvUser, Classroom, ClassModel, RoomTimeInterval
 
 
 def get_manager_leads(user):
@@ -164,23 +164,26 @@ def get_planning_rooms(year=None, month=None):
 
 def create_group_classes(request, count_days, group):
     if 'classes_days' in request.POST and 'class_room' in request.POST:
-        start_time = request.POST.get('start_time')
-        end_time = request.POST.get('end_time')
+        time_interval = get_object_or_404(RoomTimeInterval, room=request.POST.get('class_room')[:3])
         days_list = [int(day) for day in request.POST.getlist('classes_days')]
+        classes = ClassModel.objects.all()
         position = 1
-        class_room = get_object_or_404(Classroom, title=request.POST["class_room"])
         for day in range(count_days.days + 1):
             dt = group.course.start_date + datetime.timedelta(day)
             if dt.weekday() in days_list:
+                print(dt.weekday())
+                for cls in classes:
+                    if cls.time_interval == time_interval:
+                        pass
                 ClassModel.objects.create(
                     position=position,
                     theme=f'Тема-{position}',
                     groups=group,
-                    classroom=class_room,
+                    classroom=time_interval.room,
+                    time_interval=time_interval,
                     date=dt,
-                    start_time=start_time,
-                    end_time=end_time
-                )
+                    start_time=time_interval.time_from,
+                    end_time=time_interval.time_to)
                 position += 1
         return True
     return False

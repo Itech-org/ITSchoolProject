@@ -50,7 +50,7 @@ def login_user(request):
 @login_required
 def logout_request(request):
     logout(request)
-    return redirect("manager_school:login")
+    return redirect("entry_page")
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -85,14 +85,23 @@ def get_groups(request):
 def add_group(request):
     if request.method == "POST":
         group_form = GroupModelForm(request.POST)
+        context = {'group_form': group_form}
         if group_form.is_valid():
-            group = group_form.save()
-            return redirect('manager_school:create_group_classes', slug=group.slug)
+            groups = GroupModel.objects.all()
+            group_list = []
+            for gp in groups:
+                if gp.title == request.POST.get('title'):
+                    group_list.append(gp.title)
+            if group_list:
+                alert = f'Группа с именем {request.POST.get("title")} уже существует'
+                context.update({'alert':alert})
+            else:
+                group = group_form.save()
+                return redirect('manager_school:create_group_classes', slug=group.slug)
     else:
         group_form = GroupModelForm(initial={"manager": request.user})
-    return render(request, "manager/group/create_group.html", {
-        "group_form": group_form,
-    })
+        context = {'group_form':group_form}
+    return render(request, "manager/group/create_group.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -101,6 +110,7 @@ def create_group_classes_page(request, slug):
     course = group.course
     count_days = course.finish_date - course.start_date
     class_rooms = Classroom.objects.all()
+    time_intervals = RoomTimeInterval.objects.all()
     year, month = get_year_and_month(request)
     context = get_planning_rooms(year, month)
     context.update({
@@ -109,6 +119,7 @@ def create_group_classes_page(request, slug):
         "class_rooms": class_rooms,
         'current_month': month,
         'current_year': year,
+        'time_intervals':time_intervals,
     })
     if request.method == "POST":
         if create_group_classes(request, count_days, group):
@@ -176,6 +187,18 @@ def get_group_detail(request, slug):
     group_chat = Chat.objects.filter(group=group).first()
     return render(request, "manager/group/group_detail.html", {
         "group": group, 'group_chat': group_chat})
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def group_settings(request, slug):
+    group = get_object_or_404(GroupModel, slug=slug)
+    teachers = AdvUser.objects.filter(groups__name="Teacher")
+    managers = AdvUser.objects.filter(groups__name="Manager")
+    context = {'group':group, 'teachers':teachers, 'managers':managers}
+    if request.method == "POST":
+        if apply_group_settings(request, group):
+            return render(request, "manager/group/group_settings.html", context)
+    return render(request, "manager/group/group_settings.html", context)
 
 
 @user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
@@ -363,7 +386,7 @@ def register_user(request, lead_id):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             student = form.save()
-            return redirect('manager_school:create_contract_page', lead_id=lead_id) # student_id=student.id
+            return redirect('manager_school:create_contract_page', lead_id=lead_id, student_id=student.id)
     else:
         lead = get_object_or_404(StudyRequest, id=lead_id)
         try:
@@ -377,6 +400,18 @@ def register_user(request, lead_id):
         except Exception as e:
             print(e)
             form = []
+    return render(request, 'manager/other/student_registration.html', {'form': form})
+
+
+@user_passes_test_custom(check_group_and_activation, login_url='/manager-school/login')
+def register_user_unique(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('manager_school:main_page')
+    else:
+        form = RegistrationForm
     return render(request, 'manager/other/student_registration.html', {'form': form})
 
 
@@ -540,7 +575,6 @@ def api_classes_list(request):
         except TypeError:
             classes = ClassModel.objects.all()
     data = ClassModelSerializer(classes, many=True)
-    print(data)
     return Response(data.data)
 
 

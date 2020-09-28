@@ -21,7 +21,10 @@
         <div class="d-flex flex-column">
             <div style="display: flex; justify-content: space-between;">
                 <a href="{% url 'manager_school:get_group_journal' slug=group.slug %}" class="group__sent-message-link">
-                    <p class="group__box-for-link">Журнал посещяемости</p>
+                    <p class="group__box-for-link">Журнал посещаемости</p>
+                </a>
+                <a href="{% url 'manager_school:group_settings' slug=group.slug %}" class="group__sent-message-link">
+                    <p class="group__box-for-link">Настройки группы</p>
                 </a>
                 {% if not group_chat %}
                 <a href="{% url 'manager_school:create_group_chat' slug=group.slug %}"

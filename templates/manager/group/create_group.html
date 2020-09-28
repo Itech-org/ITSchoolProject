@@ -17,7 +17,7 @@
 <main>
     <div class="form-wrapper">
         <div class="form-container">
-            <h3>Договор</h3>
+            <h3>Создание группы</h3>
             <form method="post">
                 {% csrf_token %}
                 <div class="form-content">
@@ -38,6 +38,7 @@
                         {{ group_form.title }}
                     </div>
                     <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
+                    {{ alert }}
                 </div>
             </form>
         </div>

@@ -48,63 +48,112 @@
                     </div>
                     <div class="input-wrapper">
                         <p>Понедельник:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="0"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Вторник:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="1"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Среда:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="2"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Четверг:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="3"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Пятница:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="4"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Суббота:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="5"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Воскресенье:</p>
-                        <p><input name="classes_days" type="checkbox"
-                                  value="6"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Выберите время</p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Начало:</p>
-                        <p><input name="start_time" type="time" value="19:00"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Окончание:</p>
-                        <p><input name="end_time" type="time" value="22:00"></p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Выберите аудиторию</p>
-                    </div>
-                    <div class="input-wrapper">
-                        <p>Аудитория:</p>
+                        <p><input name="classes_days" type="checkbox" value="0"></p>
                         <p>
                             <select name="class_room">
-                                {% for class_room in class_rooms %}
-                                <option selected>{{ class_room.title }}</option>
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                    <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
                     </div>
+                    <div class="input-wrapper">
+                        <p>Вторник:</p>
+                        <p><input name="classes_days" type="checkbox" value="1"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Среда:</p>
+                        <p><input name="classes_days" type="checkbox" value="2"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Четверг:</p>
+                        <p><input name="classes_days" type="checkbox" value="3"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Пятница:</p>
+                        <p><input name="classes_days" type="checkbox" value="4"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Суббота:</p>
+                        <p><input name="classes_days" type="checkbox" value="5"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+                    <div class="input-wrapper">
+                        <p>Воскресенье:</p>
+                        <p><input name="classes_days" type="checkbox" value="6"></p>
+                        <p>
+                            <select name="class_room">
+                                <option selected>--</option>
+                                {% for interval in time_intervals %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    </div>
+{#                    <div class="input-wrapper">#}
+{#                        <p>Выберите время</p>#}
+{#                    </div>#}
+{#                    <div class="input-wrapper">#}
+{#                        <p>Начало:</p>#}
+{#                        <p><input name="start_time" type="time" value="19:00"></p>#}
+{#                    </div>#}
+{#                    <div class="input-wrapper">#}
+{#                        <p>Окончание:</p>#}
+{#                        <p><input name="end_time" type="time" value="22:00"></p>#}
+{#                    </div>#}
+{#                    <div class="input-wrapper">#}
+{#                        <p>Выберите аудиторию</p>#}
+{#                    </div>#}
+{#                    <div class="input-wrapper">#}
+{#                        <p>Аудитория:</p>#}
+{#                        <p>#}
+{#                            <select name="class_room">#}
+{#                                {% for interval in time_intervals %}#}
+{#                                <option selected>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+{#                        </p>#}
+{#                    </div>#}
 
                     <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
                 </div>
@@ -229,4 +278,5 @@
     };
     monthSelect.innerHTML = monthInner;
 </script>
+    <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.db.models import Q, Count
 from .serializers import ClassModelSerializer
@@ -21,25 +21,33 @@ from rest_framework.response import Response
 
 # Create your views here.
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            if not user.is_active:
-                return redirect("teacher:login")
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            remember_me = request.POST.get('remember_me')
+            user = authenticate(username=username, password=password)
+            if user:
+                if not user.is_active:
+                    return redirect("teacher:login")
+                else:
+                    login(request, user)
+                    if not remember_me:
+                        request.session.set_expiry(0)
+                    return redirect('teacher:index')
             else:
-                login(request, user)
-                return redirect('teacher:index')
+                return redirect("teacher:login")
         else:
-            return redirect("teacher:login")
+            form = LoginForm()
+            return render(request, 'teacher/login.html', {'form': form})
     else:
-        form = LoginForm()
-        return render(request, 'teacher/login.html', {'form': form})
+        return redirect('teacher:index')
 
 
-class Logout_View(LoginRequiredMixin, LogoutView): #выход
-    template_name = "teacher/logout.html"
+@login_required
+def logout_request(request):
+    logout(request)
+    return redirect("entry_page")
 
 
 def check_group_and_activation(request): #авторизация
