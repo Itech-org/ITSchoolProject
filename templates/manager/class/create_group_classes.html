@@ -50,10 +50,10 @@
                         <p>Понедельник:</p>
                         <p><input name="classes_days" type="checkbox" value="0"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                    <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_0">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:0 %}
+                                    <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -62,10 +62,10 @@
                         <p>Вторник:</p>
                         <p><input name="classes_days" type="checkbox" value="1"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_1">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:1 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -74,10 +74,10 @@
                         <p>Среда:</p>
                         <p><input name="classes_days" type="checkbox" value="2"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_2">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:2 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -86,10 +86,10 @@
                         <p>Четверг:</p>
                         <p><input name="classes_days" type="checkbox" value="3"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_3">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:3 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -98,10 +98,10 @@
                         <p>Пятница:</p>
                         <p><input name="classes_days" type="checkbox" value="4"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_4">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:4 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -110,10 +110,10 @@
                         <p>Суббота:</p>
                         <p><input name="classes_days" type="checkbox" value="5"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_5">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:5 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
@@ -122,40 +122,16 @@
                         <p>Воскресенье:</p>
                         <p><input name="classes_days" type="checkbox" value="6"></p>
                         <p>
-                            <select name="class_room">
-                                <option selected>--</option>
-                                {% for interval in time_intervals %}
-                                <option>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>
+                            <select name="class_room_6">
+                                <option>--</option>
+                                {% for interval in time_intervals|get_item:6 %}
+                                <option>{{ interval.room }}|{{ interval.time_from }}|{{ interval.time_to }}</option>
                                 {% endfor %}
                             </select>
                         </p>
                     </div>
-{#                    <div class="input-wrapper">#}
-{#                        <p>Выберите время</p>#}
-{#                    </div>#}
-{#                    <div class="input-wrapper">#}
-{#                        <p>Начало:</p>#}
-{#                        <p><input name="start_time" type="time" value="19:00"></p>#}
-{#                    </div>#}
-{#                    <div class="input-wrapper">#}
-{#                        <p>Окончание:</p>#}
-{#                        <p><input name="end_time" type="time" value="22:00"></p>#}
-{#                    </div>#}
-{#                    <div class="input-wrapper">#}
-{#                        <p>Выберите аудиторию</p>#}
-{#                    </div>#}
-{#                    <div class="input-wrapper">#}
-{#                        <p>Аудитория:</p>#}
-{#                        <p>#}
-{#                            <select name="class_room">#}
-{#                                {% for interval in time_intervals %}#}
-{#                                <option selected>{{ interval.room }}|{{ interval.time_from }}-{{ interval.time_to }}</option>#}
-{#                                {% endfor %}#}
-{#                            </select>#}
-{#                        </p>#}
-{#                    </div>#}
-
                     <input class="submit" style="margin-top: 20px" type="submit" value="Сохранить"/>
+                {{ alert }}
                 </div>
             </form>
         </div>

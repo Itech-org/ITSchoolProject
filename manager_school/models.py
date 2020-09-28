@@ -111,7 +111,7 @@ class GroupModel(models.Model):     # Группа
     def course_postponation(self, number):
         classes = self.classes.all()
         for cls in classes:
-            cls.date += datetime.timedelta(weeks=number)
+            cls.date += datetime.timedelta(weeks=int(number))
             cls.save()
 
 

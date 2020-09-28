@@ -6,82 +6,91 @@
 {% load tags %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/group.css' %}">
-<link rel="stylesheet" href="{% static 'css/main-group.css' %}">
+    <link rel="stylesheet" href="{% static 'css/group.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main-group.css' %}">
 {% endblock %}
 
 {% block title %}
-<p class="main-header__page-information">Группа {{ group.title }}</p>
+    <p class="main-header__page-information">Группа {{ group.title }}</p>
 {% endblock %}
 
 {% block content %}
-
-<main class="group">
-    <div class="group__container">
-        <div class="d-flex flex-column">
-            <div style="display: flex; justify-content: space-between;">
-                <a href="{% url 'manager_school:get_group_journal' slug=group.slug %}" class="group__sent-message-link">
-                    <p class="group__box-for-link">Журнал посещаемости</p>
-                </a>
-                <a href="{% url 'manager_school:group_settings' slug=group.slug %}" class="group__sent-message-link">
-                    <p class="group__box-for-link">Настройки группы</p>
-                </a>
-                {% if not group_chat %}
-                <a href="{% url 'manager_school:create_group_chat' slug=group.slug %}"
-                   class="group__sent-message-link">
-                    <p class="group__box-for-link">Создать чат группы</p>
-                </a>
-                {% endif %}
-            </div>
-            <div class="group__list-students">
-                <p class="group__name-list">Список учеников</p>
-                {% for student in group.students.all %}
-                <div class="group__student-box">
-                    <p class="group__box-for-foto-student">
-                        {% if student.img_user %}
-                        <img src="{{ student.img_user.url }}" style="object-fit: cover;" alt="фото студента"
-                             class="group__student-foto"/>
-                        {% else %}
-                        <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото студента"
-                             class="group__student-foto"/>
-                        {% endif %}
-                        <span class="group__check-online"></span>
-                    </p>
-                    <p class="group__student-last-name">{{ student.last_name }}</p>
-                    <p class="group__student-first-name">{{ student.first_name }}</p>
-                    <p class="group__student-patronymic">{{ student.surname }}</p>
-                    <a href="{% url 'manager_school:get_student_card' group_id=group.id student_id=student.id %}"
+    <main class="group">
+        <div class="group__container">
+            <div class="d-flex flex-column">
+                <div style="display: flex; justify-content: space-between; width: 69%; flex-wrap: wrap;">
+                    <a href="{% url 'manager_school:get_group_journal' slug=group.slug %}"
                        class="group__sent-message-link">
-                        <p class="group__box-for-link">Профиль</p>
+                        <p class="group__box-for-link">Журнал посещаемости</p>
                     </a>
+                    <a href="{% url 'manager_school:group_settings' slug=group.slug %}"
+                       class="group__sent-message-link">
+                        <p class="group__box-for-link">Настройки группы</p>
+                    </a>
+                    {% if not group_chat %}
+                        <a href="{% url 'manager_school:create_group_chat' slug=group.slug %}"
+                           class="group__sent-message-link">
+                            <p class="group__box-for-link">Создать чат группы</p>
+                        </a>
+                    {% endif %}
+                    {% if not group.classes.all %}
+                        <a href="{% url 'manager_school:create_group_classes' slug=group.slug %}"
+                           class="group__sent-message-link">
+                            <p class="group__box-for-link">Установить расписание</p>
+                        </a>
+                    {% endif %}
                 </div>
-                {% endfor %}
+                <div class="group__list-students">
+                    <p class="group__name-list">Список учеников</p>
+                    {% for student in group.students.all %}
+                        <div class="group__student-box">
+                            <p class="group__box-for-foto-student">
+                                {% if student.img_user %}
+                                    <img src="{{ student.img_user.url }}" style="object-fit: cover;" alt="фото студента"
+                                         class="group__student-foto"/>
+                                {% else %}
+                                    <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;"
+                                         alt="фото студента"
+                                         class="group__student-foto"/>
+                                {% endif %}
+                                <span class="group__check-online"></span>
+                            </p>
+                            <p class="group__student-last-name">{{ student.last_name }}</p>
+                            <p class="group__student-first-name">{{ student.first_name }}</p>
+                            <p class="group__student-patronymic">{{ student.surname }}</p>
+                            <a href="{% url 'manager_school:get_student_card' group_id=group.id student_id=student.id %}"
+                               class="group__sent-message-link">
+                                <p class="group__box-for-link">Профиль</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-        {% if group.teacher %}
-        {% with teacher=group.teacher %}
-        <div class="group__box-for-teacher">
-            <p class="group__teacher">Преподаватель</p>
-            {% if teacher.img_user %}
-            <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя"
-                 class="group__teacher-foto"/>
-            {% else %}
-            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;" alt="фото преподавателя"
-                 class="group__teacher-foto"/>
+            {% if group.teacher %}
+                {% with teacher=group.teacher %}
+                    <div class="group__box-for-teacher">
+                        <p class="group__teacher">Преподаватель</p>
+                        {% if teacher.img_user %}
+                            <img src="{{ teacher.img_user.url }}" style="object-fit: cover;" alt="фото преподавателя"
+                                 class="group__teacher-foto"/>
+                        {% else %}
+                            <img src="{% static 'images/no-photo.png' %}" style="object-fit: cover;"
+                                 alt="фото преподавателя"
+                                 class="group__teacher-foto"/>
+                        {% endif %}
+                        <a href="{% url 'manager_school:get_teacher_card' teacher_id=teacher.id %}">
+                            <p class="group__first-name-and-patronymic">{{ teacher.first_name }} {{ teacher.surname }}</p>
+                            <p class="group__last-name">{{ teacher.last_name }}</p>
+                        </a>
+                    </div>
+                {% endwith %}
             {% endif %}
-            <a href="{% url 'manager_school:get_teacher_card' teacher_id=teacher.id %}">
-                <p class="group__first-name-and-patronymic">{{ teacher.first_name }} {{ teacher.surname }}</p>
-                <p class="group__last-name">{{ teacher.last_name }}</p>
-            </a>
         </div>
-        {% endwith %}
-        {% endif %}
-    </div>
-</main>
+    </main>
 
 {% endblock %}
 
 
 {% block scripts %}
-<script src="{% static 'js/main-header.js' %}"></script>
+    <script src="{% static 'js/main-header.js' %}"></script>
 {% endblock %}

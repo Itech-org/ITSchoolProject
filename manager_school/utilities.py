@@ -12,7 +12,6 @@ from django.core.signing import Signer
 from Main_project_school.settings import ALLOWED_HOSTS
 from django.template.defaultfilters import slugify as django_slugify
 
-
 alphabet = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
     'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',

@@ -17,7 +17,7 @@ from django.shortcuts import render
 
 from .serializers import ClassModelSerializer, StudyRequestSerializer, CourseSerializer, CourseDetailSerializer
 from .services import get_manager_successful_lead_percent, get_manager_data_per_period, get_planning_rooms, \
-    create_group_classes, get_year_and_month
+    create_group_classes, get_year_and_month, get_time_intervals
 
 
 from .utilities import *
@@ -110,7 +110,7 @@ def create_group_classes_page(request, slug):
     course = group.course
     count_days = course.finish_date - course.start_date
     class_rooms = Classroom.objects.all()
-    time_intervals = RoomTimeInterval.objects.all()
+    time_intervals = get_time_intervals(request, count_days, group)
     year, month = get_year_and_month(request)
     context = get_planning_rooms(year, month)
     context.update({
@@ -122,10 +122,14 @@ def create_group_classes_page(request, slug):
         'time_intervals':time_intervals,
     })
     if request.method == "POST":
-        if create_group_classes(request, count_days, group):
+        alert = create_group_classes(request, count_days, group)
+        if alert == None:
             return redirect("manager_school:get_group_detail", slug=slug)
-    else:
-        pass
+        elif alert == False:
+            return render(request, "manager/class/create_group_classes.html", context=context)
+        else:
+            context.update({'alert':alert})
+            return render(request, "manager/class/create_group_classes.html", context=context)
     return render(request, "manager/class/create_group_classes.html", context=context)
 
 
@@ -147,7 +151,6 @@ def update_class_date_and_time(request, class_id):
                 for interval in room.time_intervals.all():
                     if not interval.classtime.filter(date=date):
                         free_intervals.append(interval)
-
             alert = f'Невозможно перенести занятие. Аудитория занята в этот временной промежуток.'
             return render(request, "manager/class/update_class_date_and_time.html",
                           context={'class': class_data, 'class_rooms': class_rooms, 'alert':alert,
@@ -196,7 +199,27 @@ def group_settings(request, slug):
     managers = AdvUser.objects.filter(groups__name="Manager")
     context = {'group':group, 'teachers':teachers, 'managers':managers}
     if request.method == "POST":
-        if apply_group_settings(request, group):
+        if request.POST.get('delete') == 'on':
+            group.delete()
+            return redirect('manager_school:get_groups')
+        else:
+            title = request.POST.get('title', '')
+            teacher_POST = request.POST.get('teacher', '').split(' ')
+            teacher = AdvUser.objects.get(groups__name='Teacher', first_name=teacher_POST[0], last_name=teacher_POST[1])
+            manager_POST = request.POST.get('manager', '').split(' ')
+            manager = AdvUser.objects.get(groups__name='Manager', first_name=manager_POST[0], last_name=manager_POST[1])
+            postponed = request.POST.get('postponed', '')
+            if title != group.title:
+                group.title = title
+            if teacher != group.teacher:
+                group.teacher = teacher
+            if manager != group.manager:
+                group.manager = manager
+            if postponed:
+                group.course_postponation(postponed)
+            group.save()
+            alert = 'Изменения сохранены'
+            context.update({'alert':alert})
             return render(request, "manager/group/group_settings.html", context)
     return render(request, "manager/group/group_settings.html", context)
 
@@ -205,7 +228,6 @@ def group_settings(request, slug):
 def get_group_journal(request, slug):
     group = get_object_or_404(GroupModel, slug=slug)
     classes = group.classes.all().filter(date__lt=datetime.date.today() + datetime.timedelta(days=7))
-
     return render(request, "manager/group/group_journal.html", {
         "group": group, "classes": classes})
 
