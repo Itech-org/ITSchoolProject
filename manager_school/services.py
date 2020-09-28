@@ -181,29 +181,33 @@ def create_group_classes(request, count_days, group):
             if dt.weekday() in days_list:
                 reserved_list = []
                 get_request = 'class_room_' + str(dt.weekday())
-                time_interval_list = request.POST.get(get_request).split('|')
-                time_interval = get_object_or_404(RoomTimeInterval,
-                                                  room__title=time_interval_list[0],
-                                                  time_from=time_interval_list[1],
-                                                  time_to=time_interval_list[2]
-                                                  )
-                for cls in classes:
-                    if cls.date == dt and cls.time_interval == time_interval:
-                        reserved_list.append(cls.groups.title)
-                if not reserved_list:
-                    ClassModel.objects.create(
-                        position=position,
-                        theme=f'Тема-{position}',
-                        groups=group,
-                        classroom=time_interval.room,
-                        time_interval=time_interval,
-                        date=dt,
-                        start_time=time_interval.time_from,
-                        end_time=time_interval.time_to)
-                    position += 1
-                else:
-                    alert = f"Невозможно задать расписание из-за конфликта с занятием группы {reserved_list[0]} в {week_dict.get(int(dt.weekday()))} {dt.strftime('%d.%m.%Y')}"
+                if request.POST.get(get_request) == '--':
+                    alert = 'Не выбран временной интервал и аудитория'
                     return alert
+                else:
+                    time_interval_list = request.POST.get(get_request).split('|')
+                    time_interval = get_object_or_404(RoomTimeInterval,
+                                                      room__title=time_interval_list[0],
+                                                      time_from=time_interval_list[1],
+                                                      time_to=time_interval_list[2]
+                                                      )
+                    for cls in classes:
+                        if cls.date == dt and cls.time_interval == time_interval:
+                            reserved_list.append(cls.groups.title)
+                    if not reserved_list:
+                        ClassModel.objects.create(
+                            position=position,
+                            theme=f'Тема-{position}',
+                            groups=group,
+                            classroom=time_interval.room,
+                            time_interval=time_interval,
+                            date=dt,
+                            start_time=time_interval.time_from,
+                            end_time=time_interval.time_to)
+                        position += 1
+                    else:
+                        alert = f"Невозможно задать расписание из-за конфликта с занятием группы {reserved_list[0]} в {week_dict.get(int(dt.weekday()))} {dt.strftime('%d.%m.%Y')}"
+                        return alert
         alert = None
         return alert
     alert = False
